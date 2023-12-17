@@ -12,7 +12,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -34,26 +37,25 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ClownfishEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ClownfishEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ClownfishEntity.class, EntityDataSerializers.INT);
 
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.INT);
+    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     public ClownfishEntity(EntityType<? extends AbstractSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
+
     public static <T extends Mob> boolean canSpawn(EntityType<ClownfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
+
     public static String getVariantName(int variant) {
         return switch (variant) {
             case 1 -> "clownfish_1";
@@ -146,30 +148,11 @@ public class ClownfishEntity extends AbstractSchoolingFish implements GeoEntity,
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-              if(variantChange <= 0.12F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.24F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.36F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.72F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.84F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
+        if (spawnDataIn == null) {
+            this.setVariant(getRandom().nextInt(8));
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-
-    public MobType getMobType() {
-        return MobType.WATER;
     }
 
     public static AttributeSupplier setAttributes() {

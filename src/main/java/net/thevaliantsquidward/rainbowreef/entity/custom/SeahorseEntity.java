@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -42,12 +41,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class SeahorseEntity extends AbstractFish implements GeoEntity, Bucketable {
-
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.INT);
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.INT);
+    public SeahorseEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -145,39 +146,16 @@ public class SeahorseEntity extends AbstractFish implements GeoEntity, Bucketabl
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.10F){
-            this.setVariant(9);
-        }else if(variantChange <= 0.20F){
-            this.setVariant(8);
-        }else if(variantChange <= 0.30F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.40F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.70F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.80F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.90F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
+        if (spawnDataIn == null) {
+            setVariant(getRandom().nextInt(10));
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     public MobType getMobType() {
         return MobType.WATER;
     }
-
-    public SeahorseEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
-
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()

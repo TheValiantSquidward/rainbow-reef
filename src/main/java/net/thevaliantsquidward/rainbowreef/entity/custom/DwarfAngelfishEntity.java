@@ -41,12 +41,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DwarfAngelfishEntity extends AbstractFish implements GeoEntity, Bucketable {
-
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(DwarfAngelfishEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DwarfAngelfishEntity.class, EntityDataSerializers.INT);
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(DwarfAngelfishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DwarfAngelfishEntity.class, EntityDataSerializers.INT);
+    public DwarfAngelfishEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -137,31 +139,13 @@ public class DwarfAngelfishEntity extends AbstractFish implements GeoEntity, Buc
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
 
-        if(variantChange <= 0.20F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.40F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.80F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
+        if (spawnDataIn == null) {
+            this.setVariant(getRandom().nextInt(5));
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
-
-
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    public DwarfAngelfishEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
-
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()

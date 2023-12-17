@@ -2,8 +2,6 @@ package net.thevaliantsquidward.rainbowreef;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -15,7 +13,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
-import net.thevaliantsquidward.rainbowreef.entity.client.*;
+import net.thevaliantsquidward.rainbowreef.entity.client.renders.*;
 import net.thevaliantsquidward.rainbowreef.item.ModCreativeModeTabs;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import org.slf4j.Logger;
@@ -65,25 +63,25 @@ public class RainbowReef
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             EntityRenderers.register
-                    (ModEntities.TANG.get(), TangRenderer:: new);
+                    (ModEntities.TANG.get(), TangRenderer::new);
             EntityRenderers.register
-                    (ModEntities.GOBY.get(), GobyRenderer:: new);
+                    (ModEntities.GOBY.get(), GobyRenderer::new);
             EntityRenderers.register
-                    (ModEntities.BOXFISH.get(), BoxfishRenderer:: new);
+                    (ModEntities.BOXFISH.get(), BoxfishRenderer::new);
             EntityRenderers.register
-                    (ModEntities.SMALL_SHARK.get(), SmallSharkRenderer:: new);
+                    (ModEntities.SMALL_SHARK.get(), SmallSharkRenderer::new);
             EntityRenderers.register
-                    (ModEntities.CLOWNFISH.get(), ClownfishRenderer:: new);
+                    (ModEntities.CLOWNFISH.get(), ClownfishRenderer::new);
             EntityRenderers.register
-                    (ModEntities.BUTTERFISH.get(), ButterfishRenderer:: new);
+                    (ModEntities.BUTTERFISH.get(), ButterfishRenderer::new);
             EntityRenderers.register
-                    (ModEntities.SEAHORSE.get(), SeahorseRenderer:: new);
+                    (ModEntities.SEAHORSE.get(), SeahorseRenderer::new);
             EntityRenderers.register
-                    (ModEntities.DWARFANGEL.get(), DwarfAngelfishRenderer:: new);
+                    (ModEntities.DWARFANGEL.get(), DwarfAngelfishRenderer::new);
             EntityRenderers.register
                     (ModEntities.PARROTFISH.get(), ParrotfishRenderer:: new);
             EntityRenderers.register
-                    (ModEntities.HOGFISH.get(), HogfishRenderer:: new);
+                    (ModEntities.HOGFISH.get(), HogfishRenderer::new);
         }
     }
 }

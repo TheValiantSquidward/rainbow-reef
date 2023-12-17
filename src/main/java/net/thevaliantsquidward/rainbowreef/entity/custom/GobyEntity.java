@@ -43,12 +43,14 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class GobyEntity extends AbstractFish implements GeoEntity, Bucketable {
-
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.INT);
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.INT);
+    public GobyEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -140,31 +142,12 @@ public class GobyEntity extends AbstractFish implements GeoEntity, Bucketable {
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.16F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.32F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.64F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.80F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
+        if (spawnDataIn == null) {
+            setVariant(getRandom().nextInt(6));
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
-
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    public GobyEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
-
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()

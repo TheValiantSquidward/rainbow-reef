@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.client;
+package net.thevaliantsquidward.rainbowreef.entity.client.models;
 
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;

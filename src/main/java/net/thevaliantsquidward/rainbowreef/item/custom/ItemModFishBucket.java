@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.item.custom;
 
-
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -28,7 +27,7 @@ public class ItemModFishBucket extends MobBucketItem {
 
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        EntityType fishType = getFishType();
+        EntityType<?> fishType = getFishType();
         if (fishType == ModEntities.GOBY.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {

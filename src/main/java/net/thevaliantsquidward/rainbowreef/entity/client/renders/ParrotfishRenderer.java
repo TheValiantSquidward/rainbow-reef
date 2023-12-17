@@ -1,11 +1,11 @@
-package net.thevaliantsquidward.rainbowreef.entity.client;
+package net.thevaliantsquidward.rainbowreef.entity.client.renders;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.entity.client.models.ParrotfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.custom.ParrotfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.custom.SmallSharkEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
