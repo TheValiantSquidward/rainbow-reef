@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -33,27 +34,30 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.core.animation.*;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketable {
+public class BassletEntity extends AbstractFish implements GeoEntity, Bucketable {
+
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(BassletEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(BassletEntity.class, EntityDataSerializers.INT);
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "pajama";
-            case 2 -> "horned";
-            case 3 -> "nurse";
-            default -> "epaulette";
+            case 1 -> "brazilian";
+            case 2 -> "accessor";
+            case 3 -> "blackcap";
+            case 4 -> "candy";
+            case 5 -> "gold";
+            case 6 -> "gilded";
+            default -> "fairy";
         };
     }
 
@@ -64,10 +68,10 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
         this.entityData.define(FROM_BUCKET, false);
     }
 
-    @Override
+   @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ModItems.SHARK_BUCKET.get());
+        ItemStack stack = new ItemStack(ModItems.BASSLET_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -127,9 +131,7 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
-    public static <T extends Mob> boolean canSpawn(EntityType<SmallSharkEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
+
     @Override
     @Nonnull
     public SoundEvent getPickupSound() {
@@ -139,11 +141,17 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.25F){
+        if(variantChange <= 0.00001){
+            this.setVariant(6);
+        }else if(variantChange <= 0.0001){
+            this.setVariant(5);
+        }else if(variantChange <= 0.20F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.40F){
             this.setVariant(3);
-        }else if(variantChange <= 0.50F){
+        }else if(variantChange <= 0.60F){
             this.setVariant(2);
-        }else if(variantChange <= 0.75F){
+        }else if(variantChange <= 0.80F){
             this.setVariant(1);
         }else{
             this.setVariant(0);
@@ -151,20 +159,19 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-
     public MobType getMobType() {
         return MobType.WATER;
     }
 
-    public SmallSharkEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
+    public BassletEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 7D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.MAX_HEALTH, 4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.5D)
                 .build();
     }
 
@@ -201,10 +208,12 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.move", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.basslet.swim", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
-
+    public static <T extends Mob> boolean canSpawn(EntityType<BassletEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;

@@ -2,7 +2,7 @@
   "parent": "minecraft:husbandry/tactical_fishing",
   "display": {
     "icon": {
-      "item": "rainbowreef:hogfish_bucket",
+      "item": "rainbowreef:allbucket",
       "nbt": "{BucketVariantTag:1}"
     },
     "title": {

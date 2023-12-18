@@ -1,6 +1,26 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "rainbowreef:item/smallshark_bucket"
-  }
+    "layer0": "rainbowreef:item/epaulette"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "variant": 1
+      },
+      "model": "rainbowreef:item/horned"
+    },
+    {
+      "predicate": {
+        "variant": 2
+      },
+      "model": "rainbowreef:item/nurse"
+    },
+    {
+      "predicate": {
+        "variant": 3
+      },
+      "model": "rainbowreef:item/pajama"
+    }
+  ]
 }

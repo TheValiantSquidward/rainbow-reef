@@ -20,6 +20,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                     .displayItems((pParameters, pOutput) -> {
 
                         //order:
+                        //basslet
                         //boxfish
                         //butterfish
                         //clownfish
@@ -27,10 +28,12 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         //goby
                         //hogfish
                         //parrotfish
+                        //pipefish
                         //seahorse
                         //small shork
                         //tang
 
+                        pOutput.accept(ModItems.RAW_BASSLET.get());
                         pOutput.accept(ModItems.RAW_BOXFISH.get());
                         pOutput.accept(ModItems.RAW_BUTTERFISH.get());
                         pOutput.accept(ModItems.RAW_CLOWNFISH.get());
@@ -38,10 +41,12 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.RAW_GOBY.get());
                         pOutput.accept(ModItems.RAW_HOGFISH.get());
                         pOutput.accept(ModItems.RAW_PARROTFISH.get());
+                        pOutput.accept(ModItems.RAW_PIPEFISH.get());
                         pOutput.accept(ModItems.RAW_SEAHORSE.get());
                         pOutput.accept(ModItems.RAW_TANG.get());
 
 
+                        pOutput.accept(ModItems.BASSLET_BUCKET.get());
                         pOutput.accept(ModItems.BOXFISH_BUCKET.get());
                         pOutput.accept(ModItems.BUTTERFISH_BUCKET.get());
                         pOutput.accept(ModItems.CLOWNFISH_BUCKET.get());
@@ -55,6 +60,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.SPOTTED_EAGLE_RAY_BUCKET.get());
 
 
+                        pOutput.accept(ModItems.BASSLET_SPAWN_EGG.get());
                         pOutput.accept(ModItems.BOXFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.BUTTERFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.CLOWNFISH_SPAWN_EGG.get());
@@ -66,9 +72,13 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.TANG_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SMALL_SHARK_SPAWN_EGG.get());
 
+                        pOutput.accept(ModItems.BASSLET_COOKIE.get());
                         pOutput.accept(ModItems.BOXFISH_BREAD.get());
+                        pOutput.accept(ModItems.BUTTERED_BUTTERFLYFISH_TOAST.get());
                         pOutput.accept(ModItems.CLOWNFISH_CUPCAKE.get());
+                        pOutput.accept(ModItems.DWARF_ANGELFISH_TARTS.get());
                         pOutput.accept(ModItems.GOBY_GUMMY.get());
+                        pOutput.accept(ModItems.PARROTFISH_PUNCH.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
                     })

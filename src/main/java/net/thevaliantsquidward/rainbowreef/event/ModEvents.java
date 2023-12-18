@@ -28,6 +28,7 @@ public class ModEvents {
             SpawnPlacements.register(ModEntities.DWARFANGEL.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, DwarfAngelfishEntity::canSpawn);
             SpawnPlacements.register(ModEntities.PARROTFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, ParrotfishEntity::canSpawn);
             SpawnPlacements.register(ModEntities.HOGFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, HogfishEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.BASSLET.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR, BassletEntity::canSpawn);
         });
 
     }
@@ -43,6 +44,7 @@ public class ModEvents {
         event.put(ModEntities.DWARFANGEL.get(), DwarfAngelfishEntity.setAttributes());
         event.put(ModEntities.PARROTFISH.get(), ParrotfishEntity.setAttributes());
         event.put(ModEntities.HOGFISH.get(), HogfishEntity.setAttributes());
+        event.put(ModEntities.BASSLET.get(), BassletEntity.setAttributes());
     }
 
 }
