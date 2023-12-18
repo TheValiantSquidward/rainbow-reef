@@ -64,6 +64,7 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
             case 8 -> "messy";
             case 9 -> "distorted";
             case 10 -> "pearly";
+            case 11 -> "black";
             default -> "bluehippo";
         };
     }
@@ -90,6 +91,7 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
+
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundnbt = bucket.getOrCreateTag();
         compoundnbt.putInt("BucketVariantTag", this.getVariant());
@@ -149,10 +151,12 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
         if(variantChange <= 0.00001){
+            this.setVariant(11);
+        }else if(variantChange <= 0.00002){
             this.setVariant(10);
-        } if(variantChange <= 0.0002){
+        } if(variantChange <= 0.0003){
             this.setVariant(9);
-        }else if(variantChange <= 0.0003){
+        }else if(variantChange <= 0.0004){
             this.setVariant(8);
         }else if(variantChange <= 0.12F){
             this.setVariant(7);
@@ -173,6 +177,7 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
+
 
 
     public MobType getMobType() {

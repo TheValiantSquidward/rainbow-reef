@@ -24,6 +24,8 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
 
     private static final ResourceLocation TEXTURE_PEARLY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pearly.png");
 
+    private static final ResourceLocation TEXTURE_BLACK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/blacktang.png");
+
     public TangRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new TangModel());
     }
@@ -44,6 +46,7 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
             case 8 -> TEXTURE_MESSY;
             case 9 -> TEXTURE_DISTORTED;
             case 10 -> TEXTURE_PEARLY;
+            case 11 -> TEXTURE_BLACK;
             default -> TEXTURE_BLUE;
         };
     }

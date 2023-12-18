@@ -9,7 +9,7 @@
   "item.rainbowreef.smallshark_bucket" : "Bucket of Small Shark",
   "item.rainbowreef.boxfish_bucket" : "Bucket of Boxfish",
   "item.rainbowreef.seahorse_bucket" : "Bucket of Seahorse",
-  "item.rainbowreef.spotted_eagle_ray_bucket" : "Bucket of Spotted Eagle Ray",
+  "item.rainbowreef.spotted_eagle_ray_bucket" : "Bucket of Ray",
   "item.rainbowreef.parrotfish_bucket" : "Bucket of Parrotfish",
   "item.rainbowreef.hogfish_bucket" : "Bucket of Hogfish",
 
@@ -64,6 +64,7 @@
   "entity.rainbowreef.tang.variant_messy": "Messy",
   "entity.rainbowreef.tang.variant_distorted": "Distorted",
   "entity.rainbowreef.tang.variant_pearly": "Pearly",
+  "entity.rainbowreef.tang.variant_black": "Black",
 
   "entity.rainbowreef.clownfish.variant_clownfish_1": "Mustard",
   "entity.rainbowreef.clownfish.variant_clownfish_2": "Yellow",
@@ -128,7 +129,6 @@
   "advancements.husbandry.collect_all.title" : "The Rainbow Connection",
   "advancements.husbandry.collect_all.description" : "Collect Every Single Fish Variant",
 
-
   "advancements.husbandry.collect_goby.title" : "Goby Awesome? I Sure Hope You Do!",
   "advancements.husbandry.collect_goby.description" : "Collect all Goby Variants",
 
@@ -153,7 +153,7 @@
   "advancements.husbandry.collect_tang.title" : "A Whole Pallette of Fish",
   "advancements.husbandry.collect_tang.description" : "Collect all Tang Variants",
 
-  "advancements.husbandry.collect_shark.title" : "Friends, Not Food",
+  "advancements.husbandry.collect_shark.title" : "Cartilage Convention",
   "advancements.husbandry.collect_shark.description" : "Collect all Small Shark Variants",
 
   "advancements.husbandry.collect_boxfish.title" : "A Neat Little Package",
