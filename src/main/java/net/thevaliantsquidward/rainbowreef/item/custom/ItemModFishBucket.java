@@ -80,6 +80,15 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
+        if (fishType == ModEntities.PIPEFISH.get()) {
+            CompoundTag compoundnbt = stack.getTag();
+            if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
+                int i = compoundnbt.getInt("BucketVariantTag");
+                String s = "entity.rainbowreef.pipefish.variant_" + PipefishEntity.getVariantName(i);
+                tooltip.add((Component.translatable(s)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            }
+        }
+
         if (fishType == ModEntities.DWARFANGEL.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {

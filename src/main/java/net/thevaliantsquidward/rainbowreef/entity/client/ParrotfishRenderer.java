@@ -18,6 +18,7 @@ public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
 
     public ParrotfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ParrotfishModel());
+        this.addRenderLayer(new ParrotfishEepyLayer(this));
     }
 
     protected void scale(ParrotfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

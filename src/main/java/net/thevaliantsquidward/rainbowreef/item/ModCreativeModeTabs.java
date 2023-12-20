@@ -54,6 +54,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.GOBY_BUCKET.get());
                         pOutput.accept(ModItems.HOGFISH_BUCKET.get());
                         pOutput.accept(ModItems.PARROTFISH_BUCKET.get());
+                        pOutput.accept(ModItems.PIPEFISH_BUCKET.get());
                         pOutput.accept(ModItems.SEAHORSE_BUCKET.get());
                         pOutput.accept(ModItems.TANG_BUCKET.get());
                         pOutput.accept(ModItems.SHARK_BUCKET.get());
@@ -68,6 +69,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.GOBY_SPAWN_EGG.get());
                         pOutput.accept(ModItems.HOGFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.PARROTFISH_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.PIPEFISH_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.RAY_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SEAHORSE_SPAWN_EGG.get());
                         pOutput.accept(ModItems.TANG_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SMALL_SHARK_SPAWN_EGG.get());
@@ -78,7 +81,9 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.CLOWNFISH_CUPCAKE.get());
                         pOutput.accept(ModItems.DWARF_ANGELFISH_TARTS.get());
                         pOutput.accept(ModItems.GOBY_GUMMY.get());
+                        pOutput.accept(ModItems.HOGFISH_BACON.get());
                         pOutput.accept(ModItems.PARROTFISH_PUNCH.get());
+                        pOutput.accept(ModItems.PIPEFISH_SUSHI.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
                     })

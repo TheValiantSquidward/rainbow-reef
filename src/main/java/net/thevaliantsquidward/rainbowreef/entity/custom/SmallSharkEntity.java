@@ -102,8 +102,8 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
         return this.entityData.get(VARIANT);
     }
 
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
+    private void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {

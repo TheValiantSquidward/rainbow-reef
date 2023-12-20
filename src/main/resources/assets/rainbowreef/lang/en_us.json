@@ -13,6 +13,8 @@
   "item.rainbowreef.parrotfish_bucket" : "Bucket of Parrotfish",
   "item.rainbowreef.hogfish_bucket" : "Bucket of Hogfish",
   "item.rainbowreef.basslet_bucket" : "Bucket of Basslet",
+  "item.rainbowreef.pipefish_bucket" : "Bucket of Pipefish",
+
 
   "item.rainbowreef.raw_goby" : "Raw Goby",
   "item.rainbowreef.raw_tang" : "Raw Tang",
@@ -35,6 +37,8 @@
   "item.rainbowreef.dwarf_angelfish_tarts" : "Angel Tart",
   "item.rainbowreef.basslet_cookie" : "Basslet Cookie",
   "item.rainbowreef.buttered_butterflyfish" : "Buttered Butterflyfish Toast",
+  "item.rainbowreef.hogfish_bacon" : "Hogfish Bacon",
+  "item.rainbowreef.pipefish_sushi" : "Pipefish Sushi",
 
   "item.rainbowreef.goby_spawn_egg" : "Goby Spawn Egg",
   "item.rainbowreef.tang_spawn_egg" : "Tang Spawn Egg",
@@ -47,6 +51,8 @@
   "item.rainbowreef.parrotfish_spawn_egg" : "Parrotfish Spawn Egg",
   "item.rainbowreef.hogfish_spawn_egg" : "Hogfish Spawn Egg",
   "item.rainbowreef.basslet_spawn_egg" : "Basslet Spawn Egg",
+  "item.rainbowreef.ray_spawn_egg" : "Ray Spawn Egg",
+  "item.rainbowreef.pipefish_spawn_egg" : "Pipefish Spawn Egg",
 
   "entity.rainbowreef.goby.variant_mandarin": "Mandarin",
   "entity.rainbowreef.goby.variant_purplefire": "Purple Fire",
@@ -61,7 +67,7 @@
   "entity.rainbowreef.basslet.variant_candy": "Candy",
   "entity.rainbowreef.basslet.variant_blackcap": "Blackcap",
   "entity.rainbowreef.basslet.variant_gold": "Gold",
-  "entity.rainbowreef.basslet.variant_gilded": "Gilded",
+  "entity.rainbowreef.basslet.variant_gilded": "Platinum",
 
   "entity.rainbowreef.hogfish.variant_cuban": "Cuban",
   "entity.rainbowreef.hogfish.variant_spanish": "Spanish",
@@ -132,6 +138,13 @@
   "entity.rainbowreef.butterflyfish.variant_spotfin": "Spotfin",
   "entity.rainbowreef.butterflyfish.variant_copperbanded": "Copperband",
 
+  "entity.rainbowreef.pipefish.variant_green": "Green",
+  "entity.rainbowreef.pipefish.variant_janns": "Janns",
+  "entity.rainbowreef.pipefish.variant_multibanded": "Multibanded",
+  "entity.rainbowreef.pipefish.variant_orangestriped": "Orangestriped",
+  "entity.rainbowreef.pipefish.variant_bluestriped": "Bluestriped",
+  "entity.rainbowreef.pipefish.variant_pink": "Pink",
+
   "entity.rainbowreef.goby" : "Goby",
   "entity.rainbowreef.tang" : "Tang",
   "entity.rainbowreef.boxfish" : "Boxfish",
@@ -143,6 +156,7 @@
   "entity.rainbowreef.parrotfish" : "Parrotfish",
   "entity.rainbowreef.hogfish" : "Hogfish",
   "entity.rainbowreef.basslet" : "Basslet",
+  "entity.rainbowreef.pipefish" : "Pipefish",
 
 
   "advancements.husbandry.collect_all.title" : "The Rainbow Connection",
@@ -154,8 +168,15 @@
   "advancements.husbandry.collect_hogfish.title" : "Hog Wild",
   "advancements.husbandry.collect_hogfish.description" : "Collect all Hogfish Variants",
 
+  "advancements.husbandry.collect_ray.title" : "Let's Name the Species",
+  "advancements.husbandry.collect_ray.description" : "Collect a Ray",
+
   "advancements.husbandry.collect_parrotfish.title" : "Polly Wants a Cracker",
   "advancements.husbandry.collect_parrotfish.description" : "Collect all Parrotfish Variants",
+
+  "advancements.husbandry.collect_basslet.title" : "True Royalty",
+  "advancements.husbandry.collect_basslet.description" : "Collect all Basslet Variants",
+
 
   "advancements.husbandry.collect_dwarf_angelfish.title" : "Biblically Accurate Angelfish",
   "advancements.husbandry.collect_dwarf_angelfish.description" : "Collect all Dwarf Angelfish Variants",
@@ -176,5 +197,8 @@
   "advancements.husbandry.collect_shark.description" : "Collect all Small Shark Variants",
 
   "advancements.husbandry.collect_boxfish.title" : "A Neat Little Package",
-  "advancements.husbandry.collect_boxfish.description" : "Collect all Boxfish Variants"
+  "advancements.husbandry.collect_boxfish.description" : "Collect all Boxfish Variants",
+
+  "advancements.husbandry.collect_pipefish.title" : "Professional Plumber",
+  "advancements.husbandry.collect_pipefish.description" : "Collect all Pipefish Variants"
 }

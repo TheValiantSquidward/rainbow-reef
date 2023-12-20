@@ -20,14 +20,15 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.AbstractFish;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.goal.RandomSleepyLookaroundGoal;
-import net.thevaliantsquidward.rainbowreef.goal.RandomSleepySwimGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -40,21 +41,22 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
+public class PipefishEntity extends AbstractFish implements GeoEntity, Bucketable {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ParrotfishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ParrotfishEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PipefishEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PipefishEntity.class, EntityDataSerializers.INT);
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "humphead";
-            case 2 -> "rainbow";
-            case 3 -> "midnight";
-            case 4 -> "stoplight";
-            default -> "blue";
+            case 1 -> "janns";
+            case 2 -> "multibanded";
+            case 3 -> "orangestriped";
+            case 4 -> "bluestriped";
+            case 5 -> "pink";
+            default -> "green";
         };
     }
 
@@ -68,7 +70,7 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
    @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ModItems.PARROTFISH_BUCKET.get());
+        ItemStack stack = new ItemStack(ModItems.PIPEFISH_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -92,7 +94,9 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
             this.setVariant(compound.getInt("BucketVariantTag"));
         }
     }
-
+    public static <T extends Mob> boolean canSpawn(EntityType<PipefishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
     @Override
     @Nonnull
     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -138,11 +142,13 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.20F) {
+        if(variantChange <= 0.16F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.32F){
             this.setVariant(4);
-        } else if(variantChange <= 0.40F) {
+        }else if(variantChange <= 0.48F){
             this.setVariant(3);
-        } else if(variantChange <= 0.60F){
+        }else if(variantChange <= 0.64F){
             this.setVariant(2);
         }else if(variantChange <= 0.80F){
             this.setVariant(1);
@@ -156,7 +162,7 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
         return MobType.WATER;
     }
 
-    public ParrotfishEntity(EntityType<? extends AbstractSchoolingFish> pEntityType, Level pLevel) {
+    public PipefishEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -164,15 +170,16 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.5D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new RandomSleepyLookaroundGoal(this));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(2, new RandomSleepySwimGoal(this, 0.8D, 1));
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1));
     }
 
 
@@ -200,12 +207,10 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.parrotfish.swim", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.pipefish.swim", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
-    public static <T extends Mob> boolean canSpawn(EntityType<ParrotfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
+
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;

@@ -6,19 +6,19 @@
   "overrides": [
     {
       "predicate": {
-        "variant": 1
+        "rainbowreef:variant": 0
       },
       "model": "rainbowreef:item/horned"
     },
     {
       "predicate": {
-        "variant": 2
+        "rainbowreef:variant": 1
       },
       "model": "rainbowreef:item/nurse"
     },
     {
       "predicate": {
-        "variant": 3
+        "rainbowreef:variant": 2
       },
       "model": "rainbowreef:item/pajama"
     }

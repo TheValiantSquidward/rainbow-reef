@@ -1,0 +1,12 @@
+{
+  "type" :"forge:add_spawns",
+  "biomes" : [
+    "minecraft:mangrove_swamp"
+  ],
+  "spawners" : {
+    "type" : "rainbowreef:goby",
+    "weight" : 10,
+    "minCount" : 1,
+    "maxCount" : 3
+  }
+}

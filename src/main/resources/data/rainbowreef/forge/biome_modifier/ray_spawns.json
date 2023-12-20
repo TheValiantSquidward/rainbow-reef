@@ -1,12 +1,11 @@
 {
   "type" :"forge:add_spawns",
   "biomes" : [
-    "minecraft:mangrove_swamp",
     "minecraft:lukewarm_ocean"
   ],
   "spawners" : {
-   "type" : "rainbowreef:seahorse",
-    "weight" : 5,
+    "type" : "rainbowreef:ray",
+    "weight" : 1,
     "minCount" : 1,
     "maxCount" : 1
   }

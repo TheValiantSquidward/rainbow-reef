@@ -75,11 +75,23 @@ public class ModEntities {
                             .sized(0.5f, 0.5f)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "basslet").toString()));
 
+    public static final RegistryObject<EntityType<PipefishEntity>> PIPEFISH =
+            ENTITY_TYPES.register("pipefish",
+                    () -> EntityType.Builder.of(PipefishEntity::new, MobCategory.WATER_AMBIENT)
+                            .sized(0.5f, 0.5f)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "pipefish").toString()));
+
     public static final RegistryObject<EntityType<ParrotfishEntity>> PARROTFISH =
             ENTITY_TYPES.register("parrotfish",
                     () -> EntityType.Builder.of(ParrotfishEntity::new, MobCategory.WATER_AMBIENT)
                             .sized(0.6f, 0.6f)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "parrotfish").toString()));
+
+    public static final RegistryObject<EntityType<RayEntity>> RAY =
+            ENTITY_TYPES.register("ray",
+                    () -> EntityType.Builder.of(RayEntity::new, MobCategory.WATER_AMBIENT)
+                            .sized(1f, 0.6f)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "ray").toString()));
 
 
 
