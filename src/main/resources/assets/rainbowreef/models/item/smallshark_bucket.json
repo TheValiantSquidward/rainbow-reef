@@ -8,7 +8,7 @@
       "predicate": {
         "rainbowreef:variant": 0
       },
-      "model": "rainbowreef:item/horned"
+      "model": "rainbowreef:item/smallshark_bucket"
     },
     {
       "predicate": {
@@ -21,6 +21,12 @@
         "rainbowreef:variant": 2
       },
       "model": "rainbowreef:item/pajama"
+    },
+    {
+      "predicate": {
+        "rainbowreef:variant": 3
+      },
+      "model": "rainbowreef:item/horned"
     }
   ]
 }
