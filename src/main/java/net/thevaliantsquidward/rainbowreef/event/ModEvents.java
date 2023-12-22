@@ -17,7 +17,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 
-@Mod.EventBusSubscriber(modid = RainbowReef.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = RainbowReef.MOD_ID, bus = Bus.MOD)
 public final class ModEvents {
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent e) {
@@ -39,6 +39,7 @@ public final class ModEvents {
             SpawnPlacements.register(ModEntities.HOGFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, HogfishEntity::canSpawn);
             SpawnPlacements.register(ModEntities.BASSLET.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR, BassletEntity::canSpawn);
             SpawnPlacements.register(ModEntities.PIPEFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR, PipefishEntity::canSpawn);
+            SpawnPlacements.register(ModEntities.RAY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR, RayEntity::canSpawn);
 
         });
 

@@ -141,9 +141,9 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         if (dataTag == null) {
-            setVariant(random.nextInt(3));
+            setVariant(random.nextInt(4));
         } else {
-            if (dataTag.contains("Variant", 3)){
+            if (dataTag.contains("Variant", 4)){
                 this.setVariant(dataTag.getInt("Variant"));
             }
         }

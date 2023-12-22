@@ -116,7 +116,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> RAW_PARROTFISH = ITEMS.register("raw_parrotfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
-    public static final RegistryObject<Item> PARROTFISH_BUCKET = ITEMS.register("aero_mono_bucket", () -> new ItemModFishBucket(ModEntities.PARROTFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<Item> PARROTFISH_BUCKET = ITEMS.register("parrotfish_bucket", () -> new ItemModFishBucket(ModEntities.PARROTFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
 
     public static final RegistryObject<Item> SPOTTED_EAGLE_RAY_BUCKET = ITEMS.register("spotted_eagle_ray_bucket", () -> new ItemModFishBucket(ModEntities.RAY, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
