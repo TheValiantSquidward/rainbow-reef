@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ItemModFishBucket extends MobBucketItem {
-    public ItemModFishBucket(Supplier<? extends EntityType<?>> fishTypeIn, Fluid fluid, Item.Properties builder) {
-        super(fishTypeIn, () -> fluid, () -> SoundEvents.BUCKET_EMPTY_FISH, builder.stacksTo(1));
+    public ItemModFishBucket(Supplier<? extends EntityType<?>> entityType, Supplier<? extends Fluid> fluid, Item item, boolean hasTooltip, Properties builder) {
+        super(entityType, fluid, () -> SoundEvents.BUCKET_EMPTY_FISH, builder);
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -74,27 +74,27 @@ public class ModItems {
     public static final RegistryObject<Item> HOGFISH_SPAWN_EGG = ITEMS.register("hogfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.HOGFISH, 0xca2418, 0xf3bc15, new Item.Properties()));
 
-    public static final RegistryObject<Item> GOBY_BUCKET = ITEMS.register("goby_bucket", () -> new ItemModFishBucket(ModEntities.GOBY, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> GOBY_BUCKET = ITEMS.register("goby_bucket", () -> new ItemModFishBucket(ModEntities.GOBY, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> PIPEFISH_BUCKET = ITEMS.register("pipefish_bucket", () -> new ItemModFishBucket(ModEntities.PIPEFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> PIPEFISH_BUCKET = ITEMS.register("pipefish_bucket", () -> new ItemModFishBucket(ModEntities.PIPEFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> DWARF_ANGELFISH_BUCKET = ITEMS.register("dwarf_angelfish_bucket", () -> new ItemModFishBucket(ModEntities.DWARFANGEL, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> DWARF_ANGELFISH_BUCKET = ITEMS.register("dwarf_angelfish_bucket", () -> new ItemModFishBucket(ModEntities.DWARFANGEL, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> TANG_BUCKET = ITEMS.register("tang_bucket", () -> new ItemModFishBucket(ModEntities.TANG, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> TANG_BUCKET = ITEMS.register("tang_bucket", () -> new ItemModFishBucket(ModEntities.TANG, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> BASSLET_BUCKET = ITEMS.register("basslet_bucket", () -> new ItemModFishBucket(ModEntities.BASSLET, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> BASSLET_BUCKET = ITEMS.register("basslet_bucket", () -> new ItemModFishBucket(ModEntities.BASSLET, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> CLOWNFISH_BUCKET = ITEMS.register("clownfish_bucket", () -> new ItemModFishBucket(ModEntities.CLOWNFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> CLOWNFISH_BUCKET = ITEMS.register("clownfish_bucket", () -> new ItemModFishBucket(ModEntities.CLOWNFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> BOXFISH_BUCKET = ITEMS.register("boxfish_bucket", () -> new ItemModFishBucket(ModEntities.BOXFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> BOXFISH_BUCKET = ITEMS.register("boxfish_bucket", () -> new ItemModFishBucket(ModEntities.BOXFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> BUTTERFISH_BUCKET = ITEMS.register("butterflyfish_bucket", () -> new ItemModFishBucket(ModEntities.BUTTERFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> BUTTERFISH_BUCKET = ITEMS.register("butterflyfish_bucket", () -> new ItemModFishBucket(ModEntities.BUTTERFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> SHARK_BUCKET = ITEMS.register("smallshark_bucket", () -> new ItemModFishBucket(ModEntities.SMALL_SHARK, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> SHARK_BUCKET = ITEMS.register("smallshark_bucket", () -> new ItemModFishBucket(ModEntities.SMALL_SHARK, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> SEAHORSE_BUCKET = ITEMS.register("seahorse_bucket", () -> new ItemModFishBucket(ModEntities.SEAHORSE, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> SEAHORSE_BUCKET = ITEMS.register("seahorse_bucket", () -> new ItemModFishBucket(ModEntities.SEAHORSE, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> HOGFISH_BUCKET = ITEMS.register("hogfish_bucket", () -> new ItemModFishBucket(ModEntities.HOGFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> HOGFISH_BUCKET = ITEMS.register("hogfish_bucket", () -> new ItemModFishBucket(ModEntities.HOGFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> RAW_GOBY = ITEMS.register("raw_goby", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
@@ -116,9 +116,10 @@ public class ModItems {
 
     public static final RegistryObject<Item> RAW_PARROTFISH = ITEMS.register("raw_parrotfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
-    public static final RegistryObject<Item> PARROTFISH_BUCKET = ITEMS.register("parrotfish_bucket", () -> new ItemModFishBucket(ModEntities.PARROTFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> PARROTFISH_BUCKET = ITEMS.register("aero_mono_bucket", () -> new ItemModFishBucket(ModEntities.PARROTFISH, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> SPOTTED_EAGLE_RAY_BUCKET = ITEMS.register("spotted_eagle_ray_bucket", () -> new ItemModFishBucket(ModEntities.RAY, Fluids.WATER, new Item.Properties()));
+
+    public static final RegistryObject<Item> SPOTTED_EAGLE_RAY_BUCKET = ITEMS.register("spotted_eagle_ray_bucket", () -> new ItemModFishBucket(ModEntities.RAY, () -> Fluids.WATER, Items.BUCKET, false, new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> RAW_DWARF_ANGELFISH = ITEMS.register("raw_dwarf_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 

@@ -1,8 +1,11 @@
 package net.thevaliantsquidward.rainbowreef.event;
 
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
@@ -12,9 +15,15 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.thevaliantsquidward.rainbowreef.item.ModItems;
 
 @Mod.EventBusSubscriber(modid = RainbowReef.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEvents {
+public final class ModEvents {
+    @SubscribeEvent
+    public static void clientSetup(FMLClientSetupEvent e) {
+        ItemProperties.register(ModItems.SHARK_BUCKET.get(), new ResourceLocation(RainbowReef.MOD_ID, "variant"), (stack, world, player, i) -> stack.hasTag() ? stack.getOrCreateTag().getInt("Variant") : 0);
+    }
+
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
@@ -50,5 +59,8 @@ public class ModEvents {
         event.put(ModEntities.PIPEFISH.get(), PipefishEntity.setAttributes());
         event.put(ModEntities.RAY.get(), RayEntity.setAttributes());
     }
+
+
+
 
 }
