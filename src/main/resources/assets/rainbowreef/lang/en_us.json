@@ -54,6 +54,11 @@
   "item.rainbowreef.ray_spawn_egg" : "Ray Spawn Egg",
   "item.rainbowreef.pipefish_spawn_egg" : "Pipefish Spawn Egg",
 
+  "block.rainbowreef.coralstone" : "Coralstone",
+  "block.rainbowreef.coralstone_bricks" : "Coralstone Bricks",
+  "block.rainbowreef.polished_coralstone" : "Polished Coralstone",
+  "block.rainbowreef.chiseled_coralstone" : "Chiseled Coralstone",
+
   "entity.rainbowreef.goby.variant_mandarin": "Mandarin",
   "entity.rainbowreef.goby.variant_purplefire": "Purple Fire",
   "entity.rainbowreef.goby.variant_fire": "Fire",

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "rainbowreef:coralstone",
+    "rainbowreef:coralstone_bricks",
+    "rainbowreef:polished_coralstone",
+    "rainbowreef:chiseled_coralstone"
+  ]
+}

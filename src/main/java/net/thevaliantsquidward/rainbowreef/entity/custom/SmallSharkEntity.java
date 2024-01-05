@@ -15,6 +15,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
@@ -47,6 +49,12 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.INT);
+
+    public SmallSharkEntity(EntityType<? extends AbstractFish> entityType, Level level) {
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -155,9 +163,7 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
         return MobType.WATER;
     }
 
-    public SmallSharkEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
+
 
 
     public static AttributeSupplier setAttributes() {
@@ -201,11 +207,11 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
         if (geoAnimatableAnimationState.isMoving()) {
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.animation", Animation.LoopType.LOOP));
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.move", Animation.LoopType.LOOP));
             return PlayState.CONTINUE;
         }
         else
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.animation2", Animation.LoopType.LOOP));
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.move", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

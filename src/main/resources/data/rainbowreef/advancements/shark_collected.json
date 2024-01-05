@@ -21,10 +21,12 @@
   },
   "criteria": {
     "1": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:smallshark_bucket"], "nbt": "{BucketVariantTag:0}" } ] } },
-    "2": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:smallshark_bucket"], "nbt": "{BucketVariantTag:1}" } ] } }
- },
+    "2": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:smallshark_bucket"], "nbt": "{BucketVariantTag:1}" } ] } },
+    "3": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:smallshark_bucket"], "nbt": "{BucketVariantTag:2}" } ] } },
+    "4": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:smallshark_bucket"], "nbt": "{BucketVariantTag:3}" } ] } }
+  },
   "requirements": [
-    ["1"], ["2"]
+    ["1"], ["2"], ["3"], ["4"]
   ],
   "sends_telemetry_event": true
 }

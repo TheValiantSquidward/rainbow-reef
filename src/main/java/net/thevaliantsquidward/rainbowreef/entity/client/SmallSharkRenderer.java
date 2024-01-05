@@ -1,10 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.entity.custom.SmallSharkEntity;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class SmallSharkRenderer extends GeoEntityRenderer<SmallSharkEntity> {

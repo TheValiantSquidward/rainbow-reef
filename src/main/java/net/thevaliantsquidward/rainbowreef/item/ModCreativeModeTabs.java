@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.block.ModBlocks;
 
 public class ModCreativeModeTabs {
 public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
@@ -86,6 +87,11 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.PIPEFISH_SUSHI.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
+
+                        pOutput.accept(ModBlocks.CORALSTONE.get());
+                        pOutput.accept(ModBlocks.CORALSTONE_BRICKS.get());
+                        pOutput.accept(ModBlocks.POLISHED_CORALSTONE.get());
+                        pOutput.accept(ModBlocks.CHISELED_CORALSTONE.get());
                     })
                     .build());
 
