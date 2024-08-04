@@ -207,7 +207,7 @@ public class PipefishEntity extends AbstractFish implements GeoEntity, Bucketabl
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.pipefish.swim", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

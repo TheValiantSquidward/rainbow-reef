@@ -21,32 +21,41 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                     .displayItems((pParameters, pOutput) -> {
 
                         //order:
+                        //angelfish
+                        //arrow crab
                         //basslet
                         //boxfish
                         //butterfish
                         //clownfish
+                        //crab
                         //dwarf angelfish
                         //goby
                         //hogfish
+                        //jellyfish
+                        //moorish idol
                         //parrotfish
                         //pipefish
                         //seahorse
-                        //small shork
+                        //small shark
                         //tang
 
+                        pOutput.accept(ModItems.RAW_ANGELFISH.get());
                         pOutput.accept(ModItems.RAW_BASSLET.get());
                         pOutput.accept(ModItems.RAW_BOXFISH.get());
                         pOutput.accept(ModItems.RAW_BUTTERFISH.get());
                         pOutput.accept(ModItems.RAW_CLOWNFISH.get());
+                        pOutput.accept(ModItems.RAW_CRAB_MEAT.get());
                         pOutput.accept(ModItems.RAW_DWARF_ANGELFISH.get());
                         pOutput.accept(ModItems.RAW_GOBY.get());
                         pOutput.accept(ModItems.RAW_HOGFISH.get());
+                        pOutput.accept(ModItems.GLOB_OF_JELLY.get());
+                        pOutput.accept(ModItems.RAW_MOORISH_IDOL.get());
                         pOutput.accept(ModItems.RAW_PARROTFISH.get());
                         pOutput.accept(ModItems.RAW_PIPEFISH.get());
                         pOutput.accept(ModItems.RAW_SEAHORSE.get());
                         pOutput.accept(ModItems.RAW_TANG.get());
 
-
+                        pOutput.accept(ModItems.ANGELFISH_BUCKET.get());
                         pOutput.accept(ModItems.BASSLET_BUCKET.get());
                         pOutput.accept(ModItems.BOXFISH_BUCKET.get());
                         pOutput.accept(ModItems.BUTTERFISH_BUCKET.get());
@@ -54,6 +63,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.DWARF_ANGELFISH_BUCKET.get());
                         pOutput.accept(ModItems.GOBY_BUCKET.get());
                         pOutput.accept(ModItems.HOGFISH_BUCKET.get());
+                        pOutput.accept(ModItems.JELLYFISH_BUCKET.get());
+                        pOutput.accept(ModItems.MOORISH_IDOL_BUCKET.get());
                         pOutput.accept(ModItems.PARROTFISH_BUCKET.get());
                         pOutput.accept(ModItems.PIPEFISH_BUCKET.get());
                         pOutput.accept(ModItems.SEAHORSE_BUCKET.get());
@@ -62,19 +73,25 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.SPOTTED_EAGLE_RAY_BUCKET.get());
 
 
+                        pOutput.accept(ModItems.ANGELFISH_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.ARROW_CRAB_SPAWN_EGG.get());
                         pOutput.accept(ModItems.BASSLET_SPAWN_EGG.get());
                         pOutput.accept(ModItems.BOXFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.BUTTERFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.CLOWNFISH_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.CRAB_SPAWN_EGG.get());
                         pOutput.accept(ModItems.DWARF_ANGEL_SPAWN_EGG.get());
                         pOutput.accept(ModItems.GOBY_SPAWN_EGG.get());
                         pOutput.accept(ModItems.HOGFISH_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.JELLYFISH_SPAWN_EGG.get());
+                        pOutput.accept(ModItems.MOORISH_IDOL_SPAWN_EGG.get());
                         pOutput.accept(ModItems.PARROTFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.PIPEFISH_SPAWN_EGG.get());
                         pOutput.accept(ModItems.RAY_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SEAHORSE_SPAWN_EGG.get());
                         pOutput.accept(ModItems.TANG_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SMALL_SHARK_SPAWN_EGG.get());
+
 
                         pOutput.accept(ModItems.BASSLET_COOKIE.get());
                         pOutput.accept(ModItems.BOXFISH_BREAD.get());
@@ -85,6 +102,10 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.HOGFISH_BACON.get());
                         pOutput.accept(ModItems.COOKED_HOGFISH_BACON.get());
                         pOutput.accept(ModItems.ULTRA_BACON_SANDWICH.get());
+                        pOutput.accept(ModItems.JELLYFISH_JELLY.get());
+                        pOutput.accept(ModItems.JELLY_SANDWICH.get());
+                        pOutput.accept(ModItems.JELLY_TART.get());
+                        pOutput.accept(ModItems.IDOL_COOKIE.get());
                         pOutput.accept(ModItems.PARROTFISH_PUNCH.get());
                         pOutput.accept(ModItems.PIPEFISH_SUSHI.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
@@ -108,11 +129,9 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.BLUE_PUFFER_LANTERN.get());
                         pOutput.accept(ModBlocks.GREEN_PUFFER_LANTERN.get());
                         pOutput.accept(ModBlocks.ORANGE_PUFFER_LANTERN.get());
-                        pOutput.accept(ModBlocks.MUD_BURROW.get());
-                        pOutput.accept(ModBlocks.SAND_BURROW.get());
-                        pOutput.accept(ModBlocks.STONE_BURROW.get());
                         pOutput.accept(ModBlocks.SHELF_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_SHELF_CORAL.get());
+                        pOutput.accept(ModBlocks.JELLY_BLOCK.get());
 
                     })
                     .build());

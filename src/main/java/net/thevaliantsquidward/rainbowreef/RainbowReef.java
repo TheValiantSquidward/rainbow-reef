@@ -19,6 +19,7 @@ import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.entity.client.*;
 import net.thevaliantsquidward.rainbowreef.item.ModCreativeModeTabs;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
+import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
 import org.slf4j.Logger;
 
 
@@ -39,6 +40,8 @@ public class RainbowReef
         ModEntities.register(modEventBus);
 
         ModItems.register(modEventBus);
+
+        ModSounds.register(modEventBus);
 
         ModBlocks.BLOCKS.register(modEventBus);
 
@@ -101,6 +104,8 @@ public class RainbowReef
                     (ModEntities.ANGELFISH.get(), AngelfishRenderer:: new);
             EntityRenderers.register
                     (ModEntities.ARROW_CRAB.get(), ArrowCrabRenderer:: new);
+            EntityRenderers.register
+                    (ModEntities.JELLYFISH.get(), JellyfishRenderer:: new);
         }
     }
 }

@@ -47,9 +47,7 @@ public class ParrotfishPunchItem extends HoneyBottleItem {
         return super.finishUsingItem(stack, level, livingEntity);
     }
 
-    private void applyRandomEffect(LivingEntity entity, Level level) {
 
-    }
     public int getUseDuration(ItemStack stack) {
         return 80;
     }

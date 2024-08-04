@@ -65,7 +65,7 @@ public class MoorishIdolEntity extends AbstractFish implements GeoEntity, Bucket
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ModItems.GOBY_BUCKET.get());
+        ItemStack stack = new ItemStack(ModItems.MOORISH_IDOL_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -192,14 +192,18 @@ public class MoorishIdolEntity extends AbstractFish implements GeoEntity, Bucket
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.goby.move", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
     public static <T extends Mob> boolean canSpawn(EntityType<MoorishIdolEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
+
+
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
     }
+
+
 }

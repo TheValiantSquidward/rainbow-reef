@@ -19,8 +19,9 @@ public class MoorishIdolModel extends GeoModel<MoorishIdolEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(MoorishIdolEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "animations/tangfish.animation.json");
+        return new ResourceLocation(RainbowReef.MOD_ID, "animations/moorish_idol.animation.json");
     }
+
 
 
 }

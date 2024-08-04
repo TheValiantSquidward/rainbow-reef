@@ -20,6 +20,12 @@ public class ModEntities {
                             .sized(0.5f, 0.5f)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "goby").toString()));
 
+    public static final RegistryObject<EntityType<JellyfishEntity>> JELLYFISH =
+            ENTITY_TYPES.register("jellyfish",
+                    () -> EntityType.Builder.of(JellyfishEntity::new, MobCategory.WATER_AMBIENT)
+                            .sized(0.9f, 0.9f)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "jellyfish").toString()));
+
     public static final RegistryObject<EntityType<MoorishIdolEntity>> MOORISH_IDOL =
             ENTITY_TYPES.register("moorish_idol",
                     () -> EntityType.Builder.of(MoorishIdolEntity::new, MobCategory.WATER_AMBIENT)

@@ -209,7 +209,7 @@ public class ButterfishEntity extends AbstractSchoolingFish implements GeoEntity
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.butterflyfish.move", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

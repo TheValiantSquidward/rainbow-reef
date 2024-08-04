@@ -55,6 +55,7 @@ public class AngelfishEntity extends AbstractFish implements GeoEntity, Bucketab
             case 3 -> "bluering";
             case 4 -> "yellowband";
             case 5 -> "rockbeauty";
+            case 6 -> "bluequeen";
             default -> "emperor";
         };
     }
@@ -69,7 +70,7 @@ public class AngelfishEntity extends AbstractFish implements GeoEntity, Bucketab
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ModItems.DWARF_ANGELFISH_BUCKET.get());
+        ItemStack stack = new ItemStack(ModItems.ANGELFISH_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -206,7 +207,7 @@ public class AngelfishEntity extends AbstractFish implements GeoEntity, Bucketab
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.dwarf_angelfish.e", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
     public static <T extends Mob> boolean canSpawn(EntityType<AngelfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {

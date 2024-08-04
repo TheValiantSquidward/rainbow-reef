@@ -18,6 +18,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.item.custom.CleansingSnackItem;
 import net.thevaliantsquidward.rainbowreef.item.custom.ItemModFishBucket;
+import net.thevaliantsquidward.rainbowreef.item.custom.JellyBottleItem;
 import net.thevaliantsquidward.rainbowreef.item.custom.ParrotfishPunchItem;
 
 public class ModItems {
@@ -74,7 +75,25 @@ public class ModItems {
     public static final RegistryObject<Item> HOGFISH_SPAWN_EGG = ITEMS.register("hogfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntities.HOGFISH, 0xca2418, 0xf3bc15, new Item.Properties()));
 
+    public static final RegistryObject<Item> ANGELFISH_SPAWN_EGG = ITEMS.register("angelfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.ANGELFISH, 0x2e4284, 0xcfc24b, new Item.Properties()));
+
+    public static final RegistryObject<Item> CRAB_SPAWN_EGG = ITEMS.register("crab_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.CRAB, 0x261f4e, 0xf78b21, new Item.Properties()));
+
+    public static final RegistryObject<Item> ARROW_CRAB_SPAWN_EGG = ITEMS.register("arrow_crab_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.ARROW_CRAB, 0x4b3827, 0xd94b19, new Item.Properties()));
+
+    public static final RegistryObject<Item> MOORISH_IDOL_SPAWN_EGG = ITEMS.register("moorish_idol_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.MOORISH_IDOL, 0x322b2f, 0xf2c447, new Item.Properties()));
+
+    public static final RegistryObject<Item> JELLYFISH_SPAWN_EGG = ITEMS.register("jellyfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntities.JELLYFISH, 0xf6b7dd, 0xef8298, new Item.Properties()));
+
+
     public static final RegistryObject<Item> GOBY_BUCKET = ITEMS.register("goby_bucket", () -> new ItemModFishBucket(ModEntities.GOBY, Fluids.WATER, new Item.Properties()));
+
+    public static final RegistryObject<Item> ANGELFISH_BUCKET = ITEMS.register("angelfish_bucket", () -> new ItemModFishBucket(ModEntities.ANGELFISH, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> CRAB_BUCKET = ITEMS.register("crab_bucket", () -> new ItemModFishBucket(ModEntities.CRAB, Fluids.WATER, new Item.Properties()));
 
@@ -97,8 +116,16 @@ public class ModItems {
     public static final RegistryObject<Item> SEAHORSE_BUCKET = ITEMS.register("seahorse_bucket", () -> new ItemModFishBucket(ModEntities.SEAHORSE, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> HOGFISH_BUCKET = ITEMS.register("hogfish_bucket", () -> new ItemModFishBucket(ModEntities.HOGFISH, Fluids.WATER, new Item.Properties()));
+    public static final RegistryObject<Item> JELLYFISH_BUCKET = ITEMS.register("jellyfish_bucket", () -> new ItemModFishBucket(ModEntities.JELLYFISH, Fluids.WATER, new Item.Properties()));
+
 
     public static final RegistryObject<Item> RAW_GOBY = ITEMS.register("raw_goby", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
+
+    public static final RegistryObject<Item> RAW_ANGELFISH = ITEMS.register("raw_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
+
+    public static final RegistryObject<Item> RAW_MOORISH_IDOL = ITEMS.register("raw_moorish_idol", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
+
+    public static final RegistryObject<Item> RAW_CRAB_MEAT = ITEMS.register("crab_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).meat().build())));
 
     public static final RegistryObject<Item> RAW_TANG = ITEMS.register("raw_tang", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
@@ -120,6 +147,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> PARROTFISH_BUCKET = ITEMS.register("parrotfish_bucket", () -> new ItemModFishBucket(ModEntities.PARROTFISH, Fluids.WATER, new Item.Properties()));
 
+    public static final RegistryObject<Item> MOORISH_IDOL_BUCKET = ITEMS.register("moorish_idol_bucket", () -> new ItemModFishBucket(ModEntities.MOORISH_IDOL, Fluids.WATER, new Item.Properties()));
+
     public static final RegistryObject<Item> SPOTTED_EAGLE_RAY_BUCKET = ITEMS.register("spotted_eagle_ray_bucket", () -> new ItemModFishBucket(ModEntities.RAY, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> RAW_DWARF_ANGELFISH = ITEMS.register("raw_dwarf_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
@@ -140,6 +169,8 @@ public class ModItems {
 
     public static final RegistryObject<Item> BASSLET_COOKIE = ITEMS.register("basslet_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.5F).build())));
 
+    public static final RegistryObject<Item> IDOL_COOKIE = ITEMS.register("idol_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.5F).build())));
+
     public static final RegistryObject<Item> BUTTERED_BUTTERFLYFISH_TOAST = ITEMS.register("buttered_butterflyfish", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(20).saturationMod(0F).build())));
 
     public static final RegistryObject<Item> HOGFISH_BACON = ITEMS.register("hogfish_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).build())));
@@ -149,6 +180,12 @@ public class ModItems {
     public static final RegistryObject<Item> ULTRA_BACON_SANDWICH = ITEMS.register("bacon_sandwich", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(10).saturationMod(1.8F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, 0), 1.0F).build())));
 
     public static final RegistryObject<Item> PIPEFISH_SUSHI = ITEMS.register("pipefish_sushi", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(0).saturationMod(0F).alwaysEat().effect(new MobEffectInstance(MobEffects.HEAL, 1, 1), 1F).build())));
+
+    public static final RegistryObject<Item> GLOB_OF_JELLY = ITEMS.register("glob_of_jelly", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> JELLY_TART = ITEMS.register("jelly_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(0.5F).build())));
+    public static final RegistryObject<Item> JELLY_SANDWICH = ITEMS.register("jelly_sandwich", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(6).saturationMod(1.6F).build())));
+    public static final RegistryObject<Item> JELLYFISH_JELLY = ITEMS.register("jellyfish_jelly", () -> new JellyBottleItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(5).saturationMod(1.5F).alwaysEat().build())));
+
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

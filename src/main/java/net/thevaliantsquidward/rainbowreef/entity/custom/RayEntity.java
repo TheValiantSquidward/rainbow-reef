@@ -199,12 +199,7 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        if (geoAnimatableAnimationState.isMoving()) {
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.eagle_ray.swim", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        }
-        else
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.eagle_ray.swim", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

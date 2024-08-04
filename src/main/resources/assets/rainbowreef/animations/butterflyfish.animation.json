@@ -1,97 +1,53 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.butterflyfish.move": {
+		"swimming": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
+				"fin_tip": {
+					"rotation": {
+						"vector": [0, "math.sin(query.anim_time*360)*5", 0]
+					}
+				},
+				"r_bottom_fin": {
+					"rotation": {
+						"vector": [0, 0, "math.sin(query.anim_time*360)*-10"]
+					}
+				},
+				"l_bottom_fin": {
+					"rotation": {
+						"vector": [0, 0, "math.sin(query.anim_time*360)*10"]
+					}
+				},
 				"root": {
 					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 10, 0]
-						},
-						"1.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.5": {
-							"vector": [0, -10, 0]
-						},
-						"2.0": {
-							"vector": [0, 0, 0]
-						}
+						"vector": ["math.sin(query.anim_time*180)*3", "math.sin(query.anim_time*360)*12", 0]
+					},
+					"position": {
+						"vector": [0, "math.sin(query.anim_time*180-30)*-1", 0]
 					}
 				},
 				"tail": {
 					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 20, 0]
-						},
-						"1.0": {
-							"vector": [0, 0, 0]
-						},
-						"1.5": {
-							"vector": [0, -20, 0]
-						},
-						"2.0": {
-							"vector": [0, 0, 0]
-						}
+						"vector": [0, "math.cos((query.anim_time - 60)* 360)*-14", 0]
 					}
 				},
 				"r_fin": {
 					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, -20, 0]
-						},
-						"1.0": {
-							"vector": [0, 15, 0]
-						},
-						"1.5": {
-							"vector": [0, -22.5, 0]
-						},
-						"2.0": {
-							"vector": [0, 0, 0]
-						}
+						"vector": [0, "-30+math.cos((query.anim_time - 60)* 720)*14", 0]
 					}
 				},
 				"l_fin": {
 					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [0, 20, 0]
-						},
-						"1.0": {
-							"vector": [0, -12.5, 0]
-						},
-						"1.5": {
-							"vector": [0, 22.5, 0]
-						},
-						"2.0": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"bottom_l_fin": {
-					"rotation": {
-						"vector": [40, 0, 0]
-					}
-				},
-				"bottom_r_fin": {
-					"rotation": {
-						"vector": [40, 0, 0]
+						"vector": [0, "30+math.cos((query.anim_time - 60)* 720)*-14", 0]
 					}
 				}
 			}
+		},
+		"new": {
+			"loop": true
 		}
-	}
+	},
+	"geckolib_format_version": 2
 }

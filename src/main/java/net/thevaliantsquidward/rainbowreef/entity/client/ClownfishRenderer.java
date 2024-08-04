@@ -15,6 +15,7 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
     private static final ResourceLocation CLOWNFISH_4 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_4.png");
     private static final ResourceLocation CLOWNFISH_5 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_5.png");
     private static final ResourceLocation CLOWNFISH_6 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_6.png");
+    private static final ResourceLocation CLOWNFISH_7 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_7.png");
 
     public ClownfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ClownfishModel());
@@ -32,6 +33,7 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
             case 4 -> CLOWNFISH_4;
             case 5 -> CLOWNFISH_5;
             case 6 -> CLOWNFISH_6;
+            case 7 -> CLOWNFISH_7;
             default -> CLOWNFISH_3;
         };
     }

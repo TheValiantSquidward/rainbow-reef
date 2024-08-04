@@ -61,10 +61,19 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
             case 5 -> "clown";
             case 6 -> "achilles";
             case 7 -> "purple";
-            case 8 -> "messy";
-            case 9 -> "distorted";
-            case 10 -> "pearly";
-            case 11 -> "black";
+            case 8 -> "black";
+            case 9 -> "regalblue";
+            case 10 -> "gem";
+            case 11 -> "penguin";
+            case 12 -> "greenspot";
+            case 13 -> "rusty";
+            case 14 -> "pearly";
+            case 15 -> "yellowbellyblue";
+            case 16 -> "muddy";
+            case 17 -> "chocolate";
+            case 18 -> "sailfin";
+            case 19 -> "atlanticblue";
+
             default -> "bluehippo";
         };
     }
@@ -228,7 +237,7 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.tangfish.move", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

@@ -206,12 +206,7 @@ public class SmallSharkEntity extends AbstractFish implements GeoEntity, Bucketa
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        if (geoAnimatableAnimationState.isMoving()) {
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.animation", Animation.LoopType.LOOP));
-            return PlayState.CONTINUE;
-        }
-        else
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.small_shark.animation2", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

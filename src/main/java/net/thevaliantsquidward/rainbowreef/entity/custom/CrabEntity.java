@@ -18,14 +18,14 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -60,6 +60,7 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.INT);
+
 
 
     public CrabEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
@@ -156,21 +157,21 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
             default -> "vampire";
         };
     }
-    @javax.annotation.Nullable
+
+    @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
         Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
         if (holder.is(Biomes.MANGROVE_SWAMP)) {
             this.setVariant(1);
         } else if (holder.is(Biomes.BEACH)) {
-            this.setVariant(2);
+            this.setVariant(2); 
         }  else if (holder.is(Biomes.STONY_SHORE)) {
             this.setVariant(3);
         }  else if (holder.is(Biomes.LUKEWARM_OCEAN)) {
             this.setVariant(4);
-        } if (holder.is(Biomes.OCEAN)) {
+        } else if (holder.is(Biomes.OCEAN)) {
             this.setVariant(5);
-        } if (holder.is(Biomes.COLD_OCEAN)) {
+        }  else if (holder.is(Biomes.COLD_OCEAN)) {
             this.setVariant(6);
         } else {
             this.setVariant(0);
@@ -195,15 +196,30 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         return true;
     }
 
+    public void spawnChildFromBreeding(ServerLevel pLevel, Animal pMate) {
+        ItemStack itemstack = new ItemStack(Items.SNIFFER_EGG);
+        ItemEntity itementity = new ItemEntity(pLevel, this.position().x(), this.position().y(), this.position().z(), itemstack);
+        itementity.setDefaultPickUpDelay();
+        this.finalizeSpawnChildFromBreeding(pLevel, pMate, (AgeableMob)null);
+        this.playSound(SoundEvents.SNIFFER_EGG_PLOP, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.5F);
+        pLevel.addFreshEntity(itementity);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
-        this.goalSelector.addGoal(3, new CrabBottomWander(this, 1.0D, 10, 50));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.MANGROVE_PROPAGULE), false));
+        this.goalSelector.addGoal(4, new CrabBottomWander(this, 1.0D, 10, 50));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
 
     }
+
+
+
     protected PathNavigation createNavigation(Level worldIn) {
         CrabPathfinder crab = new CrabPathfinder(this, worldIn) {
             public boolean isStableDestination(BlockPos pos) {

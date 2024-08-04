@@ -12,13 +12,13 @@
     },
     {
       "predicate": {
-        "rainbowreef:variant": 1
+        "rainbowreef:variant": 2
       },
       "model": "rainbowreef:item/horned"
     },
     {
       "predicate": {
-        "rainbowreef:variant": 2
+        "rainbowreef:variant": 1
       },
       "model": "rainbowreef:item/pajama"
     }

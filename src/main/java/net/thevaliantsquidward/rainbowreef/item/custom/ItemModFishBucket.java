@@ -38,6 +38,33 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
+        if (fishType == ModEntities.JELLYFISH.get()) {
+            CompoundTag compoundnbt = stack.getTag();
+            if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
+                int i = compoundnbt.getInt("BucketVariantTag");
+                String s = "entity.rainbowreef.jellyfish.variant_" + JellyfishEntity.getVariantName(i);
+                tooltip.add((Component.translatable(s)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            }
+        }
+
+        if (fishType == ModEntities.ANGELFISH.get()) {
+            CompoundTag compoundnbt = stack.getTag();
+            if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
+                int i = compoundnbt.getInt("BucketVariantTag");
+                String s = "entity.rainbowreef.angelfish.variant_" + AngelfishEntity.getVariantName(i);
+                tooltip.add((Component.translatable(s)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            }
+        }
+
+        if (fishType == ModEntities.MOORISH_IDOL.get()) {
+            CompoundTag compoundnbt = stack.getTag();
+            if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
+                int i = compoundnbt.getInt("BucketVariantTag");
+                String s = "entity.rainbowreef.moorish_idol.variant_" + MoorishIdolEntity.getVariantName(i);
+                tooltip.add((Component.translatable(s)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            }
+        }
+
         if (fishType == ModEntities.TANG.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {

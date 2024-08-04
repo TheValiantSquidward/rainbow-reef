@@ -27,6 +27,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> CORALSTONE = registerBlock("coralstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
+    public static final RegistryObject<Block> JELLY_BLOCK = registerBlock("jelly_block",
+            () -> new JellyBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).friction(0.5F).noOcclusion()));
+
     public static final RegistryObject<Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
@@ -67,33 +70,30 @@ public class ModBlocks {
     public static final RegistryObject<Block> FAKE_BUBBLES = registerBlock("fake_bubbles",
             () -> new FakeBubbleBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
 
-    public static final RegistryObject<Block> MUD_BURROW = registerBlock("mud_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.copy(Blocks.MUD).mapColor(MapColor.TERRACOTTA_CYAN).sound(SoundType.MUD)));
-
-    public static final RegistryObject<Block> SAND_BURROW = registerBlock("sand_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.copy(Blocks.SAND).mapColor(MapColor.SAND).sound(SoundType.SAND)));
-
-    public static final RegistryObject<Block> STONE_BURROW = registerBlock("stone_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.copy(Blocks.STONE).mapColor(MapColor.STONE).sound(SoundType.STONE)));
-
-
-    public static final RegistryObject<Block> GREEN_GLASS_CHAIN = registerBlock("base_glass_chaingreen",
-            () -> new ChainBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN).forceSolidOn().requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.GLASS).noOcclusion()));
 
     public static final RegistryObject<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(1.0F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
-                return 15;
-            }).noOcclusion().pushReaction(PushReaction.DESTROY)));
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
+                    .strength(1.0F, 0.0F)
+                    .sound(SoundType.WOOL)
+                    .lightLevel((p_152677_) -> {return 15;})
+                    .noOcclusion()
+                    .pushReaction(PushReaction.DESTROY),
+                    Block.box(3.0D, 2.0D, 3.0D, 13.0D, 14.0D, 13.0D)
+                            ));
 
     public static final RegistryObject<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(1.0F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
                 return 15;
-            }).noOcclusion().pushReaction(PushReaction.DESTROY)));
+            }).noOcclusion().pushReaction(PushReaction.DESTROY),
+                    Block.box(3.0D, 2.0D, 3.0D, 13.0D, 14.0D, 13.0D)
+            ));
 
     public static final RegistryObject<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(1.0F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
                 return 15;
-            }).noOcclusion().pushReaction(PushReaction.DESTROY)));
+            }).noOcclusion().pushReaction(PushReaction.DESTROY),
+                    Block.box(3.0D, 2.0D, 3.0D, 13.0D, 14.0D, 13.0D)
+                    ));
 
 
 

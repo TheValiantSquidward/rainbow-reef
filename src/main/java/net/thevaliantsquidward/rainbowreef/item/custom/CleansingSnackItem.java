@@ -20,7 +20,6 @@ public class CleansingSnackItem extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        // Call the finishUsingItem method from the superclass (Item)
         ItemStack itemStack = super.finishUsingItem(stack, level, entity);
 
         if (!level.isClientSide && entity instanceof ServerPlayer serverPlayer) {

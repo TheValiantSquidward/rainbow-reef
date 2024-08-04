@@ -13,7 +13,7 @@
 			"bones": [
 				{
 					"name": "root",
-					"pivot": [0, 2, 0]
+					"pivot": [0, 2, -3]
 				},
 				{
 					"name": "body",
@@ -26,19 +26,19 @@
 					]
 				},
 				{
-					"name": "bottom_l_fin",
+					"name": "l_bottom_fin",
 					"parent": "body",
 					"pivot": [0.25, 0, -2],
 					"cubes": [
-						{"origin": [0.25, -4, -2], "size": [0, 4, 2], "uv": [10, 12]}
+						{"origin": [0.25, -4, -2], "size": [0, 4, 2], "pivot": [0.25, 0, -1], "rotation": [15, 0, -15], "uv": [10, 12]}
 					]
 				},
 				{
-					"name": "bottom_r_fin",
+					"name": "r_bottom_fin",
 					"parent": "body",
 					"pivot": [-0.25, 0, -2],
 					"cubes": [
-						{"origin": [-0.25, -4, -2], "size": [0, 4, 2], "uv": [10, 12], "mirror": true}
+						{"origin": [-0.25, -4, -2], "size": [0, 4, 2], "pivot": [-0.25, 0, -1], "rotation": [15, 0, 15], "uv": [10, 12], "mirror": true}
 					]
 				},
 				{

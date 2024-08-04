@@ -19,7 +19,7 @@ public class AngelfishModel extends GeoModel<AngelfishEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(AngelfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "animations/dwarf_angelfish.animation.json");
+        return new ResourceLocation(RainbowReef.MOD_ID, "animations/angelfish.animation.json");
     }
 
 

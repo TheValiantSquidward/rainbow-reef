@@ -62,6 +62,8 @@ public class ClownfishEntity extends AbstractSchoolingFish implements GeoEntity,
             case 4 -> "clownfish_5";
             case 5 -> "clownfish_6";
             case 6 -> "clownfish_7";
+            case 7 -> "clownfish_8";
+
             default -> "clownfish_3";
         };
     }
@@ -209,7 +211,7 @@ public class ClownfishEntity extends AbstractSchoolingFish implements GeoEntity,
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.clownfish.move", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

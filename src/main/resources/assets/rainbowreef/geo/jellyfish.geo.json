@@ -1,0 +1,80 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.jellyfish",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [0, 0.5, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "bell",
+					"parent": "root",
+					"pivot": [0, 2.75, 0],
+					"cubes": [
+						{"origin": [-8, 1, -8], "size": [16, 11, 16], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "center",
+					"parent": "root",
+					"pivot": [0, 4, 0],
+					"cubes": [
+						{"origin": [-7, 0, -7], "size": [14, 8, 14], "uv": [0, 27]},
+						{"origin": [-6.5, -2, -6.5], "size": [13, 2, 13], "uv": [43, 36]}
+					]
+				},
+				{
+					"name": "thing",
+					"parent": "center",
+					"pivot": [0, 0, 0],
+					"rotation": [0, 0, -2.5],
+					"cubes": [
+						{"origin": [-4, -13, 0], "size": [8, 15, 0], "pivot": [0, 0, 0], "rotation": [0, 45, 0], "uv": [0, 0]},
+						{"origin": [-4, -13, 0], "size": [8, 15, 0], "pivot": [0, 0, 0], "rotation": [0, -45, 0], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "tentacles_4",
+					"parent": "center",
+					"pivot": [5, 0, 0.5],
+					"cubes": [
+						{"origin": [5, -21, -5], "size": [0, 21, 11], "uv": [1, 70]}
+					]
+				},
+				{
+					"name": "tentacles_3",
+					"parent": "center",
+					"pivot": [-0.5, 0, -6],
+					"cubes": [
+						{"origin": [-6, -21, -6], "size": [11, 21, 0], "uv": [12, 81]}
+					]
+				},
+				{
+					"name": "tentacles_2",
+					"parent": "center",
+					"pivot": [-6, 0, 0.5],
+					"cubes": [
+						{"origin": [-6, -21, -5], "size": [0, 21, 11], "uv": [1, 70]}
+					]
+				},
+				{
+					"name": "tentacles_1",
+					"parent": "center",
+					"pivot": [-0.5, 0, 6],
+					"cubes": [
+						{"origin": [-6, -21, 6], "size": [11, 21, 0], "uv": [12, 81]}
+					]
+				}
+			]
+		}
+	]
+}
