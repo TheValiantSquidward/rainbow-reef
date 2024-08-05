@@ -74,11 +74,19 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0D);
     }
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MoorishIdolEntity.class, EntityDataSerializers.INT);
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(VARIANT, 0);
+    }
+    public static String getVariantName(int variant) {
+        return switch (variant) {
+            case 1 -> "ornate";
+            default -> "default";
+        };
     }
 
     @Override
@@ -98,12 +106,14 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         }
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("BucketVariantTag", this.getVariant());
     }
 
     @Override
     public void loadFromBucketTag(@Nonnull CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
         if (compound.contains("BucketVariantTag", 3)) {
+            this.setVariant(compound.getInt("BucketVariantTag"));
         }
     }
 
@@ -113,14 +123,23 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, Integer.valueOf(variant));
+    }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.fromBucket());
+        compound.putInt("Variant", this.getVariant());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setVariant(compound.getInt("Variant"));
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
@@ -149,6 +168,16 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
     }
 
 
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        float variantChange = this.getRandom().nextFloat();
+        if(variantChange <= 0.001F){
+            this.setVariant(1);
+        }else{
+            this.setVariant(0);
+        }
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
 
 
     public static AttributeSupplier setAttributes() {

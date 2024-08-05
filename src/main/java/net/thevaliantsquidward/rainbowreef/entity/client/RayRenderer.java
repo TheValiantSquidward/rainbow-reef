@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.entity.custom.MoorishIdolEntity;
 import net.thevaliantsquidward.rainbowreef.entity.custom.RayEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
@@ -13,14 +14,13 @@ public class RayRenderer extends GeoEntityRenderer<RayEntity> {
         super(renderManager, new RayModel());
     }
 
-    @Override
-    public ResourceLocation getTextureLocation(RayEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spotted_eagle_ray.png");
-    }
+    private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spotted_eagle_ray.png");
+    private static final ResourceLocation ORNATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/ornate_eagle_ray.png");
 
-    @Override
-    public void render(RayEntity entity, float entityYaw, float partialTick, PoseStack poseStack,
-                       MultiBufferSource bufferSource, int packedLight) {
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    public ResourceLocation getTextureLocation(RayEntity entity) {
+        return switch (entity.getVariant()) {
+            case 1 -> ORNATE;
+            default -> DEFAULT;
+        };
     }
 }
