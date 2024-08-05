@@ -4,10 +4,7 @@ package net.thevaliantsquidward.rainbowreef.item;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BowlFoodItem;
-import net.minecraft.world.item.HoneyBottleItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,6 +17,7 @@ import net.thevaliantsquidward.rainbowreef.item.custom.CleansingSnackItem;
 import net.thevaliantsquidward.rainbowreef.item.custom.ItemModFishBucket;
 import net.thevaliantsquidward.rainbowreef.item.custom.JellyBottleItem;
 import net.thevaliantsquidward.rainbowreef.item.custom.ParrotfishPunchItem;
+import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
 
 public class ModItems {
 
@@ -96,7 +94,8 @@ public class ModItems {
     public static final RegistryObject<Item> ANGELFISH_BUCKET = ITEMS.register("angelfish_bucket", () -> new ItemModFishBucket(ModEntities.ANGELFISH, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> CRAB_BUCKET = ITEMS.register("crab_bucket", () -> new ItemModFishBucket(ModEntities.CRAB, Fluids.WATER, new Item.Properties()));
-
+    public static final RegistryObject<Item> CLAW_DISC = ITEMS.register("claw_disc",
+            () -> new RecordItem(2, ModSounds.CLAW, new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), 2240));
     public static final RegistryObject<Item> PIPEFISH_BUCKET = ITEMS.register("pipefish_bucket", () -> new ItemModFishBucket(ModEntities.PIPEFISH, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> DWARF_ANGELFISH_BUCKET = ITEMS.register("dwarf_angelfish_bucket", () -> new ItemModFishBucket(ModEntities.DWARFANGEL, Fluids.WATER, new Item.Properties()));
@@ -108,6 +107,8 @@ public class ModItems {
     public static final RegistryObject<Item> CLOWNFISH_BUCKET = ITEMS.register("clownfish_bucket", () -> new ItemModFishBucket(ModEntities.CLOWNFISH, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> BOXFISH_BUCKET = ITEMS.register("boxfish_bucket", () -> new ItemModFishBucket(ModEntities.BOXFISH, Fluids.WATER, new Item.Properties()));
+
+    public static final RegistryObject<Item> ARROW_CRAB_BUCKET = ITEMS.register("arrow_crab_bucket", () -> new ItemModFishBucket(ModEntities.ARROW_CRAB, Fluids.WATER, new Item.Properties()));
 
     public static final RegistryObject<Item> BUTTERFISH_BUCKET = ITEMS.register("butterflyfish_bucket", () -> new ItemModFishBucket(ModEntities.BUTTERFISH, Fluids.WATER, new Item.Properties()));
 

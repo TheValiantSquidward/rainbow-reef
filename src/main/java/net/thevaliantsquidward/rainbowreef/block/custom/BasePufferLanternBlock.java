@@ -17,52 +17,29 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BasePufferLanternBlock extends Block implements SimpleWaterloggedBlock {
+public class BasePufferLanternBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    protected final VoxelShape HANGING_AABB;
 
-    //protected final VoxelShape HANGING_AABB = Shapes.or(Block.box(3.0D, 2.0D, 3.0D, 13.0D, 14.0D, 13.0D));
-    protected static final VoxelShape AABB = Shapes.or(Block.box(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D));
-    public BasePufferLanternBlock(Properties properties, VoxelShape hanging) {
+    protected  final VoxelShape Z_AXIS_AABB;
+    protected  final VoxelShape X_AXIS_AABB;
+
+
+    public BasePufferLanternBlock(Properties properties, VoxelShape z_axis_aabb, VoxelShape x_axis_aabb) {
         super(properties);
-
-        this.HANGING_AABB = hanging;
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)));
+        this.Z_AXIS_AABB = z_axis_aabb;
+        this.X_AXIS_AABB = x_axis_aabb;
     }
-
 
     @Override
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return pState.getValue(HANGING) ? HANGING_AABB : AABB;
+        return pState.getValue(FACING).getAxis() == Direction.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
     }
 
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        Direction direction = getConnectedDirection(pState).getOpposite();
-        return Block.canSupportCenter(pLevel, pPos.relative(direction), direction.getOpposite());
-    }
-
-
-    protected static Direction getConnectedDirection(BlockState pState) {
-        return pState.getValue(HANGING) ? Direction.DOWN : Direction.UP;
-    }
+    /* FACING */
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        FluidState fluidstate = pContext.getLevel().getFluidState(pContext.getClickedPos());
-
-        for(Direction direction : pContext.getNearestLookingDirections()) {
-            this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
-            if (direction.getAxis() == Direction.Axis.Y) {
-                BlockState blockstate = this.defaultBlockState().setValue(HANGING, Boolean.valueOf(direction == Direction.UP));
-                if (blockstate.canSurvive(pContext.getLevel(), pContext.getClickedPos())) {
-                    return blockstate.setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
-                }
-            }
-        }
-
-        return null;
+        return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -77,7 +54,7 @@ public class BasePufferLanternBlock extends Block implements SimpleWaterloggedBl
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, HANGING, WATERLOGGED);
+        pBuilder.add(FACING);
     }
 
 }

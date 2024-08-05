@@ -12,22 +12,21 @@
     },
     {
       "predicate": {
-        "rainbowreef:variant": 2
-      },
-      "model": "rainbowreef:item/horned"
-    },
-    {
-      "predicate": {
         "rainbowreef:variant": 1
       },
       "model": "rainbowreef:item/pajama"
-    }
-  ,
+    },
+    {
+      "predicate": {
+        "rainbowreef:variant": 2
+      },
+      "model": "rainbowreef:item/nurse"
+    },
     {
       "predicate": {
         "rainbowreef:variant": 3
       },
-      "model": "rainbowreef:item/nurse"
+      "model": "rainbowreef:item/horned"
     }
   ]
 }

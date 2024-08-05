@@ -73,7 +73,7 @@ public class ArrowCrabEntity extends Animal implements GeoEntity, Bucketable {
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ModItems.CRAB_BUCKET.get());
+        ItemStack stack = new ItemStack(ModItems.ARROW_CRAB_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }

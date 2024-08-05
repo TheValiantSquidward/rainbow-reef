@@ -56,10 +56,12 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.RAW_TANG.get());
 
                         pOutput.accept(ModItems.ANGELFISH_BUCKET.get());
+                        pOutput.accept(ModItems.ARROW_CRAB_BUCKET.get());
                         pOutput.accept(ModItems.BASSLET_BUCKET.get());
                         pOutput.accept(ModItems.BOXFISH_BUCKET.get());
                         pOutput.accept(ModItems.BUTTERFISH_BUCKET.get());
                         pOutput.accept(ModItems.CLOWNFISH_BUCKET.get());
+                        pOutput.accept(ModItems.CRAB_BUCKET.get());
                         pOutput.accept(ModItems.DWARF_ANGELFISH_BUCKET.get());
                         pOutput.accept(ModItems.GOBY_BUCKET.get());
                         pOutput.accept(ModItems.HOGFISH_BUCKET.get());
@@ -111,7 +113,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
 
-
+                        pOutput.accept(ModItems.CLAW_DISC.get());
                     })
                     .build());
 

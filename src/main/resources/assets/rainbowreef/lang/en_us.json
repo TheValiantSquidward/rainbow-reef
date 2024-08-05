@@ -19,6 +19,10 @@
   "item.rainbowreef.jellyfish_bucket" : "Bucket of Jellyfish",
   "item.rainbowreef.angelfish_bucket" : "Bucket of Angelfish",
   "item.rainbowreef.moorish_idol_bucket" : "Bucket of Moorish Idol",
+  "item.rainbowreef.arrow_crab_bucket" : "Bucket of Arrow Crab",
+
+  "item.rainbowreef.claw_disc" : "Music Disc",
+  "item.rainbowreef.claw_disc.desc" : "TheValiantSquidward - Claw",
 
   "item.rainbowreef.raw_goby" : "Goby",
   "item.rainbowreef.raw_tang" : "Tang",
@@ -88,6 +92,9 @@
   "block.rainbowreef.dead_shelf_coral_block" : "Dead Shelf Coral Block",
   "block.rainbowreef.shelf_coral_fan" : "Shelf Coral Fan",
   "block.rainbowreef.dead_shelf_coral_fan" : "Dead Shelf Coral Fan",
+  "block.rainbowreef.blue_puffer_lantern" : "Blue Puffer Lantern",
+  "block.rainbowreef.green_puffer_lantern" : "Green Puffer Lantern",
+  "block.rainbowreef.orange_puffer_lantern" : "Orange Puffer Lantern",
 
   "entity.rainbowreef.goby.variant_mandarin": "Mandarin",
   "entity.rainbowreef.goby.variant_purplefire": "Purple Fire",
@@ -113,6 +120,9 @@
   "entity.rainbowreef.basslet.variant_accessor": "Accessor",
   "entity.rainbowreef.basslet.variant_candy": "Candy",
   "entity.rainbowreef.basslet.variant_blackcap": "Blackcap",
+
+  "entity.rainbowreef.arrow_crab.variant_yellowlined": "Yellowline",
+  "entity.rainbowreef.arrow_crab.variant_red": "Scarlet",
 
   "entity.rainbowreef.hogfish.variant_cuban": "Cuban",
   "entity.rainbowreef.hogfish.variant_spanish": "Spanish",
@@ -204,12 +214,15 @@
   "entity.rainbowreef.pipefish.variant_orangestriped": "Orangestriped",
   "entity.rainbowreef.pipefish.variant_bluestriped": "Bluestriped",
   "entity.rainbowreef.pipefish.variant_pink": "Pink",
+  "entity.rainbowreef.ray.variant_default": "Spotted",
+  "entity.rainbowreef.ray.variant_ornate": "Ornate",
 
   "entity.rainbowreef.crab.variant_vampire": "Vampire",
   "entity.rainbowreef.crab.variant_halloween": "Halloween",
   "entity.rainbowreef.crab.variant_emerald": "Emerald",
   "entity.rainbowreef.crab.variant_ghost": "Ghost",
   "entity.rainbowreef.crab.variant_blue": "Blue",
+  "entity.rainbowreef.crab.variant_sally": "Sally Lightfoot",
   "entity.rainbowreef.crab.variant_purple": "Purple",
   "entity.rainbowreef.crab.variant_candy": "Candy",
 

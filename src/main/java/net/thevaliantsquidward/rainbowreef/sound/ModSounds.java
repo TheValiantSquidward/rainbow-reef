@@ -17,6 +17,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> JELLYHIT = registerSoundEvents("jellyhit");
     public static final RegistryObject<SoundEvent> JELLYBOUNCE = registerSoundEvents("jellybounce");
 
+    public static final RegistryObject<SoundEvent> CLAW = registerSoundEvents("claw");
+
     private static RegistryObject<SoundEvent> registerSoundEvents(String name) {
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(RainbowReef.MOD_ID, name)));
     }

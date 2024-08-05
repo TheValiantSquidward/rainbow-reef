@@ -1,5 +1,12 @@
 {
-  "jellyhit": {
+  "claw": {
+    "sounds":[
+      {
+        "name": "rainbowreef:claw",
+        "stream": true
+      }
+    ]
+  },"jellyhit": {
     "category": "neutral",
     "sounds": [
       {
