@@ -54,6 +54,7 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
             case 2 -> "rainbow";
             case 3 -> "midnight";
             case 4 -> "stoplight";
+            case 5 -> "mediterranean";
             default -> "blue";
         };
     }

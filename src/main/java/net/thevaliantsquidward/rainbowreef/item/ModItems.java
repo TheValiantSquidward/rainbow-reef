@@ -154,11 +154,14 @@ public class ModItems {
 
     public static final RegistryObject<Item> RAW_DWARF_ANGELFISH = ITEMS.register("raw_dwarf_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
-    public static final RegistryObject<Item> GOBY_GUMMY = ITEMS.register("goby_gummy", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(2).saturationMod(1.6F).fast().build())));
+    public static final RegistryObject<Item> GOBY_GUMMY = ITEMS.register("goby_gummy", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(2).saturationMod(0.5F).fast().build())));
 
-    public static final RegistryObject<Item> BOXFISH_BREAD = ITEMS.register("boxfish_bread", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(9).saturationMod(1.8F).effect(new MobEffectInstance(MobEffects.WITHER, 140, 224), 0.01F).build())));
+    public static final RegistryObject<Item> ROASTED_CRAB_MEAT = ITEMS.register("roasted_crab_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).meat().build())));
+    public static final RegistryObject<Item> CRAB_CAKE = ITEMS.register("crabcake", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.7F).meat().build())));
 
-    public static final RegistryObject<Item> CLOWNFISH_CUPCAKE = ITEMS.register("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(2F).effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 2), 1F).build())));
+    public static final RegistryObject<Item> BOXFISH_BREAD = ITEMS.register("boxfish_bread", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(9).saturationMod(0.8F).effect(new MobEffectInstance(MobEffects.WITHER, 140, 224), 0.01F).build())));
+
+    public static final RegistryObject<Item> CLOWNFISH_CUPCAKE = ITEMS.register("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(1F).effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 2), 1F).build())));
 
     public static final RegistryObject<Item> DRIED_SEAHORSE = ITEMS.register("dried_seahorse", () -> new CleansingSnackItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().fast().alwaysEat().build())));
 

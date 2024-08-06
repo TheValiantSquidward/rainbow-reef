@@ -57,6 +57,8 @@
   "item.rainbowreef.jellyfish_jelly" : "Jellyfish Jelly",
   "item.rainbowreef.glob_of_jelly" : "Glob of Jelly",
   "item.rainbowreef.idol_cookie" : "Idol Cookie",
+  "item.rainbowreef.roasted_crab_meat" : "Roasted Crab Meat",
+  "item.rainbowreef.crabcake" : "Crabcake",
 
   "item.rainbowreef.goby_spawn_egg" : "Goby Spawn Egg",
   "item.rainbowreef.tang_spawn_egg" : "Tang Spawn Egg",
@@ -155,8 +157,8 @@
 
   "entity.rainbowreef.clownfish.variant_clownfish_1": "Ocellaris",
   "entity.rainbowreef.clownfish.variant_clownfish_2": "Maroon",
-  "entity.rainbowreef.clownfish.variant_clownfish_3": "Pink Skunk",
-  "entity.rainbowreef.clownfish.variant_clownfish_4": "Black and White",
+  "entity.rainbowreef.clownfish.variant_clownfish_3": "Black and White",
+  "entity.rainbowreef.clownfish.variant_clownfish_4": "Pink Skunk",
   "entity.rainbowreef.clownfish.variant_clownfish_5": "Clarkii",
   "entity.rainbowreef.clownfish.variant_clownfish_6": "Blizzard",
   "entity.rainbowreef.clownfish.variant_clownfish_7": "Tomato",
@@ -193,6 +195,7 @@
   "entity.rainbowreef.parrotfish.variant_stoplight": "Stoplight",
   "entity.rainbowreef.parrotfish.variant_humphead": "Humphead",
   "entity.rainbowreef.parrotfish.variant_rainbow": "Rainbow",
+  "entity.rainbowreef.parrotfish.variant_mediterranean": "Mediterranean",
 
   "entity.rainbowreef.dwarf_angelfish.variant_bicolor": "Bicolor",
   "entity.rainbowreef.dwarf_angelfish.variant_coralbeauty": "Coral Beauty",

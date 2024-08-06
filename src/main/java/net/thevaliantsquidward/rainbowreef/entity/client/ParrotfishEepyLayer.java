@@ -20,6 +20,7 @@ public class ParrotfishEepyLayer extends GeoRenderLayer<ParrotfishEntity> {
     private static final ResourceLocation SLEEPY_HUMPHEAD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parroteepy/parrotfish_sleepy_1.png");
     private static final ResourceLocation SLEEPY_MIDNIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parroteepy/parrotfish_sleepy_4.png");
     private static final ResourceLocation SLEEPY_RAINBOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parroteepy/parrotfish_sleepy_2.png");
+    private static final ResourceLocation SLEEPY_RED_SEA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parroteepy/parrotfish_sleepy_5.png");
 
 
     public ParrotfishEepyLayer(GeoRenderer<ParrotfishEntity> entityRendererIn) {
@@ -33,6 +34,7 @@ public class ParrotfishEepyLayer extends GeoRenderLayer<ParrotfishEntity> {
             case 2 -> SLEEPY_RAINBOW;
             case 3 -> SLEEPY_MIDNIGHT;
             case 4 -> SLEEPY_STOPLIGHT;
+            case 5 -> SLEEPY_RED_SEA;
             default -> SLEEPY_BLUE;
         };
     }

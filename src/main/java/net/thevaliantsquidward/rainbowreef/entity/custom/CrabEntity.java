@@ -154,6 +154,7 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
             case 4 -> "emerald";
             case 5 -> "blue";
             case 6 -> "purple";
+            case 7 -> "candy";
             default -> "vampire";
         };
     }
