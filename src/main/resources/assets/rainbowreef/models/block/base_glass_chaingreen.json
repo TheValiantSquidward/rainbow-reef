@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/chain",
-  "textures": {
-    "particle": "rainbowreef:block/chains/green_glass_chain",
-    "all": "rainbowreef:block/chains/green_glass_chain"
-  }
-}

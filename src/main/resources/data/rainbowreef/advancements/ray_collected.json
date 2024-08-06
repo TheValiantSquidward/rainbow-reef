@@ -19,10 +19,11 @@
     "experience": 100
   },
   "criteria": {
-    "1": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:spotted_eagle_ray_bucket"]} ] } }
+    "1": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:spotted_eagle_ray_bucket"], "nbt": "{BucketVariantTag:0}" } ] } },
+    "2": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:spotted_eagle_ray_bucket"], "nbt": "{BucketVariantTag:1}" } ] } }
   },
   "requirements": [
-    ["1"]
+    ["1"], ["2"]
   ],
   "sends_telemetry_event": true
 }

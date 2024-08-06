@@ -133,9 +133,32 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.BLUE_PUFFER_LANTERN.get());
                         pOutput.accept(ModBlocks.GREEN_PUFFER_LANTERN.get());
                         pOutput.accept(ModBlocks.ORANGE_PUFFER_LANTERN.get());
+                        pOutput.accept(ModBlocks.JELLY_BLOCK.get());
+
+                        pOutput.accept(ModBlocks.BARREL_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.BARREL_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL.get());
+
+                        pOutput.accept(ModBlocks.CHIMNEY_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.CHIMNEY_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL.get());
+
+                        pOutput.accept(ModBlocks.HAND_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.HAND_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL.get());
+
+                        pOutput.accept(ModBlocks.SHELF_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.SHELF_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_SHELF_CORAL.get());
-                        pOutput.accept(ModBlocks.JELLY_BLOCK.get());
+
+                        pOutput.accept(ModBlocks.TOWER_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.TOWER_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL.get());
 
                     })
                     .build());

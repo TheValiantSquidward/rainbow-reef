@@ -33,27 +33,40 @@
 						"vector": [0, "math.cos((query.anim_time - 60)* 720)*-14", 0]
 					}
 				},
-				"r_fin": {
-					"rotation": {
-						"vector": [0, "math.cos((query.anim_time - 60)* 720)*14", 0]
-					}
-				},
 				"l_fin_bottom": {
 					"rotation": {
 						"vector": [0, 0, "math.cos((query.anim_time - 60)* 360)*-8"]
 					}
 				},
+				"r_fin": {
+					"rotation": {
+						"vector": [0, "math.cos((query.anim_time - 60)* 720)*14", 0]
+					}
+				},
 				"r_fin_bottom": {
 					"rotation": {
-						"vector": [0, 0, "math.sin(query.anim_time*360)*-8"]
+						"vector": [0, 0, "math.cos((query.anim_time - 60)* 360)*8"]
+					}
+				},
+				"fin": {
+					"rotation": {
+						"vector": [0, "math.cos((query.anim_time - 60)* 360)*-4", 0]
 					}
 				},
 				"fin_tip": {
 					"rotation": {
-						"vector": [0, "math.sin(query.anim_time*360)*5", 0]
+						"vector": [0, "math.cos((query.anim_time - 60)* 360)*-10", 0]
+					}
+				},
+				"bottom_fin": {
+					"rotation": {
+						"vector": [0, "math.cos((query.anim_time - 60)* 360)*-4", 0]
 					}
 				}
 			}
+		},
+		"new": {
+			"loop": true
 		}
 	},
 	"geckolib_format_version": 2

@@ -54,17 +54,48 @@ public class ModBlocks {
     public static final RegistryObject<Block> SHELF_CORAL = registerBlock("shelf_coral", () ->
             new CoralPlantBlock(DEAD_SHELF_CORAL.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
 
-    public static final RegistryObject<Block> DEAD_SHELF_CORAL_FAN = BLOCKS.register("dead_shelf_coral_fan", () ->
-            new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
+    public static final RegistryObject<Block> DEAD_BARREL_CORAL = registerBlock("dead_barrel_coral", () ->
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
 
- public static final RegistryObject<Block> DEAD_SHELF_CORAL_WALL_FAN = BLOCKS.register("dead_shelf_coral_wall_fan", () ->
-         new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_SHELF_CORAL_FAN.get())));
+    public static final RegistryObject<Block> BARREL_CORAL = registerBlock("barrel_coral", () ->
+            new CoralPlantBlock(DEAD_BARREL_CORAL.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> DEAD_HAND_CORAL = registerBlock("dead_hand_coral", () ->
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
 
-    public static final RegistryObject<Block> SHELF_CORAL_FAN = BLOCKS.register("shelf_coral_fan", () ->
-            new CoralFanBlock(DEAD_SHELF_CORAL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> HAND_CORAL = registerBlock("hand_coral", () ->
+            new CoralPlantBlock(DEAD_HAND_CORAL.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> DEAD_CHIMNEY_CORAL = registerBlock("dead_chimney_coral", () ->
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
 
-    public static final RegistryObject<Block> SHELF_CORAL_WALL_FAN = BLOCKS.register("shelf_coral_wall_fan", () ->
-            new CoralWallFanBlock(DEAD_SHELF_CORAL_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(SHELF_CORAL_FAN.get())));
+    public static final RegistryObject<Block> CHIMNEY_CORAL = registerBlock("chimney_coral", () ->
+            new CoralPlantBlock(DEAD_CHIMNEY_CORAL.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+    public static final RegistryObject<Block> DEAD_TOWER_CORAL = registerBlock("dead_tower_coral", () ->
+            new BaseCoralPlantBlock(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().noCollission().instabreak()));
+
+    public static final RegistryObject<Block> TOWER_CORAL = registerBlock("tower_coral", () ->
+            new CoralPlantBlock(DEAD_TOWER_CORAL.get(), BlockBehaviour.Properties.copy(Blocks.LILY_PAD).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+
+    public static final RegistryObject<Block> DEAD_BARREL_CORAL_BLOCK = registerBlock("dead_barrel_coral_block", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final RegistryObject<Block> BARREL_CORAL_BLOCK = registerBlock("barrel_coral_block", () ->
+            new CoralBlock(DEAD_BARREL_CORAL_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> DEAD_HAND_CORAL_BLOCK = registerBlock("dead_hand_coral_block", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final RegistryObject<Block> HAND_CORAL_BLOCK = registerBlock("hand_coral_block", () ->
+            new CoralBlock(DEAD_HAND_CORAL_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> DEAD_TOWER_CORAL_BLOCK = registerBlock("dead_tower_coral_block", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final RegistryObject<Block> TOWER_CORAL_BLOCK = registerBlock("tower_coral_block", () ->
+            new CoralBlock(DEAD_TOWER_CORAL_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
+    public static final RegistryObject<Block> DEAD_CHIMNEY_CORAL_BLOCK = registerBlock("dead_chimney_coral_block", () ->
+            new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
+
+    public static final RegistryObject<Block> CHIMNEY_CORAL_BLOCK = registerBlock("chimney_coral_block", () ->
+            new CoralBlock(DEAD_CHIMNEY_CORAL_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
 
 
     public static final RegistryObject<Block> FAKE_BUBBLES = registerBlock("fake_bubbles",

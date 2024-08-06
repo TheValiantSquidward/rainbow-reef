@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "rainbowreef:block/coral/tower_coral_block"
+  }
+}
