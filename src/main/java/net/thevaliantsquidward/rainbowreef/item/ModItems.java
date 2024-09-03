@@ -13,10 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
-import net.thevaliantsquidward.rainbowreef.item.custom.CleansingSnackItem;
-import net.thevaliantsquidward.rainbowreef.item.custom.ItemModFishBucket;
-import net.thevaliantsquidward.rainbowreef.item.custom.JellyBottleItem;
-import net.thevaliantsquidward.rainbowreef.item.custom.ParrotfishPunchItem;
+import net.thevaliantsquidward.rainbowreef.item.custom.*;
 import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
 
 public class ModItems {
@@ -159,7 +156,7 @@ public class ModItems {
     public static final RegistryObject<Item> ROASTED_CRAB_MEAT = ITEMS.register("roasted_crab_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).meat().build())));
     public static final RegistryObject<Item> CRAB_CAKE = ITEMS.register("crabcake", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(0.7F).meat().build())));
 
-    public static final RegistryObject<Item> BOXFISH_BREAD = ITEMS.register("boxfish_bread", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(9).saturationMod(0.8F).effect(new MobEffectInstance(MobEffects.WITHER, 140, 224), 0.01F).build())));
+    public static final RegistryObject<Item> BOXFISH_BREAD = ITEMS.register("boxfish_bread", () -> new BoxfishBreadItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(9).saturationMod(0.8F).build())));
 
     public static final RegistryObject<Item> CLOWNFISH_CUPCAKE = ITEMS.register("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(1F).effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 2), 1F).build())));
 
