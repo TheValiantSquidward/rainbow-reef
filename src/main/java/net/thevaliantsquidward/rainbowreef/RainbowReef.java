@@ -15,11 +15,11 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.thevaliantsquidward.rainbowreef.block.ModBlocks;
-import net.thevaliantsquidward.rainbowreef.damage.ModDamageTypes;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.entity.client.*;
 import net.thevaliantsquidward.rainbowreef.item.ModCreativeModeTabs;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
+import net.thevaliantsquidward.rainbowreef.loot.ModLootModifiers;
 import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
 import org.slf4j.Logger;
 
@@ -43,6 +43,8 @@ public class RainbowReef
         ModItems.register(modEventBus);
 
         ModSounds.register(modEventBus);
+
+        ModLootModifiers.register(modEventBus);
 
         ModBlocks.BLOCKS.register(modEventBus);
 

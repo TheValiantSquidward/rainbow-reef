@@ -32,6 +32,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.BeehiveBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
@@ -197,14 +198,14 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         return true;
     }
 
-    public void spawnChildFromBreeding(ServerLevel pLevel, Animal pMate) {
-        ItemStack itemstack = new ItemStack(Items.SNIFFER_EGG);
-        ItemEntity itementity = new ItemEntity(pLevel, this.position().x(), this.position().y(), this.position().z(), itemstack);
-        itementity.setDefaultPickUpDelay();
-        this.finalizeSpawnChildFromBreeding(pLevel, pMate, (AgeableMob)null);
-        this.playSound(SoundEvents.SNIFFER_EGG_PLOP, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.5F);
-        pLevel.addFreshEntity(itementity);
-    }
+  //  public void spawnChildFromBreeding(ServerLevel pLevel, Animal pMate) {
+  //      ItemStack itemstack = new ItemStack(Items.SNIFFER_EGG);
+  //      ItemEntity itementity = new ItemEntity(pLevel, this.position().x(), this.position().y(), this.position().z(), itemstack);
+  //      itementity.setDefaultPickUpDelay();
+  //      this.finalizeSpawnChildFromBreeding(pLevel, pMate, (AgeableMob)null);
+  //      this.playSound(SoundEvents.SNIFFER_EGG_PLOP, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.5F);
+  //      pLevel.addFreshEntity(itementity);
+  //  }
 
     @Override
     protected void registerGoals() {
@@ -261,11 +262,51 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 10, this::predicate));
+    }
+    private boolean partyCrab;
+    private BlockPos jukebox;
+
+    @Override
+    protected boolean isImmobile() {
+        return super.isImmobile() || this.isPartyCrab();
     }
 
+    public void aiStep() {
+        if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 3.46D) || !this.level().getBlockState(this.jukebox).is(Blocks.JUKEBOX)) {
+            this.partyCrab = false;
+            this.jukebox = null;
+        }
+
+
+        super.aiStep();
+
+    }
+    public boolean isPartyCrab() {
+        return this.partyCrab;
+    }
+
+    private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.crab.idle");
+    private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.crab.dance");
+    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.crab.walk1");
+    private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.crab.feed");
+
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.clownfish.move", Animation.LoopType.LOOP));
+        if(this.isPartyCrab()) {
+            geoAnimatableAnimationState.setAndContinue(CRAB_DANCE);
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+            return PlayState.CONTINUE;
+        } else
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 ) {
+            {
+                geoAnimatableAnimationState.setAndContinue(CRAB_WALK);
+                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
+            }
+        } else {
+            geoAnimatableAnimationState.setAndContinue(CRAB_IDLE);
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+        }
         return PlayState.CONTINUE;
     }
 

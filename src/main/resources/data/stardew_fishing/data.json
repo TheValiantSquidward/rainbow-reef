@@ -1,0 +1,101 @@
+{
+  "replace": false,
+  "behaviors": {
+    "rainbowreef:goby": {
+      "idle_time": 40,
+      "top_speed": 4,
+      "up_acceleration": 0.4,
+      "down_acceleration": 0.5,
+      "avg_distance": 50,
+      "move_variation": 5
+    },
+    "rainbowreef:boxfish": {
+      "idle_time": 10,
+      "top_speed": 20,
+      "up_acceleration": 0.9,
+      "down_acceleration": 0.9,
+      "avg_distance": 50,
+      "move_variation": 40
+    },
+    "rainbowreef:clownfish": {
+      "idle_time": 30,
+      "top_speed": 6,
+      "up_acceleration": 0.4,
+      "down_acceleration": 0.4,
+      "avg_distance": 50,
+      "move_variation": 5
+    },
+    "rainbowreef:seahorse": {
+      "idle_time": 60,
+      "top_speed": 1,
+      "up_acceleration": 0.1,
+      "down_acceleration": 0.2,
+      "avg_distance": 10,
+      "move_variation": 40
+    },
+    "rainbowreef:pipefish": {
+      "idle_time": 60,
+      "top_speed": 2,
+      "up_acceleration": 0.1,
+      "down_acceleration": 0.2,
+      "avg_distance": 10,
+      "move_variation": 40
+    },
+    "rainbowreef:parrotfish": {
+      "idle_time": 20,
+      "top_speed": 6,
+      "up_acceleration": 0.6,
+      "down_acceleration": 0.6,
+      "avg_distance": 20,
+      "move_variation": 10
+    },
+    "rainbowreef:tang": {
+      "idle_time": 20,
+      "top_speed": 5,
+      "up_acceleration": 0.5,
+      "down_acceleration": 0.3,
+      "avg_distance": 20,
+      "move_variation": 25
+    },
+    "rainbowreef:moorish_idol": {
+      "idle_time": 15,
+      "top_speed": 30,
+      "up_acceleration": 0.5,
+      "down_acceleration": 0.4,
+      "avg_distance": 50,
+      "move_variation": 30
+    }
+  },
+  "rainbowreef:hogfish": {
+  "idle_time": 40,
+  "top_speed": 40,
+  "up_acceleration": 0.3,
+  "down_acceleration": 0.4,
+  "avg_distance": 20,
+  "move_variation": 15
+},
+  "rainbowreef:basslet": {
+    "idle_time": 40,
+    "top_speed": 60,
+    "up_acceleration": 0.1,
+    "down_acceleration": 0.9,
+    "avg_distance": 30,
+    "move_variation": 5
+  },
+  "rainbowreef:dwarf_angelfish": {
+    "idle_time": 10,
+    "top_speed": 10,
+    "up_acceleration": 0.3,
+    "down_acceleration": 0.3,
+    "avg_distance": 20,
+    "move_variation": 30
+  },
+  "rainbowreef:angelfish": {
+    "idle_time": 20,
+    "top_speed": 20,
+    "up_acceleration": 0.6,
+    "down_acceleration": 0.6,
+    "avg_distance": 30,
+    "move_variation": 40
+  }
+}
