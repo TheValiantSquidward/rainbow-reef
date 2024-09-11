@@ -9,8 +9,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,19 +19,15 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.CrabBottomWander;
@@ -52,7 +46,7 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 
-public class CrabEntity extends Animal implements GeoEntity, Bucketable {
+public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     //crabbing about
@@ -219,9 +213,7 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
 
     }
-
-
-
+    
     protected PathNavigation createNavigation(Level worldIn) {
         CrabPathfinder crab = new CrabPathfinder(this, worldIn) {
             public boolean isStableDestination(BlockPos pos) {
@@ -230,8 +222,13 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         };
         return crab;
     }
+
     public void travel(Vec3 travelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
+        if (this.isDancing()) {
+            travelVector = Vec3.ZERO;
+        }
+
+        if (this.isEffectiveAi() && this.isInWater() && !this.isDancing()) {
             this.moveRelative(this.getSpeed(), travelVector);
             this.move(MoverType.SELF, this.getDeltaMovement());
             if(this.jumping){
@@ -273,7 +270,7 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
     }
 
     public void aiStep() {
-        if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 3.46D) || !this.level().getBlockState(this.jukebox).is(Blocks.JUKEBOX)) {
+        if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 5.46D) || !this.level().getBlockState(this.jukebox).is(Blocks.JUKEBOX)) {
             this.partyCrab = false;
             this.jukebox = null;
         }
@@ -282,6 +279,12 @@ public class CrabEntity extends Animal implements GeoEntity, Bucketable {
         super.aiStep();
 
     }
+
+    public void setRecordPlayingNearby(BlockPos pPos, boolean pIsPartying) {
+        this.jukebox = pPos;
+        this.partyCrab = pIsPartying;
+    }
+
     public boolean isPartyCrab() {
         return this.partyCrab;
     }
