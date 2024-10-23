@@ -54,7 +54,7 @@ public final class ClientEvents {
         event.put(ModEntities.PIPEFISH.get(), PipefishEntity.setAttributes());
         event.put(ModEntities.RAY.get(), RayEntity.setAttributes());
         event.put(ModEntities.CRAB.get(), CrabEntity.setAttributes());
-        event.put(ModEntities.MOORISH_IDOL.get(), CrabEntity.setAttributes());
+        event.put(ModEntities.MOORISH_IDOL.get(), MoorishIdolEntity.setAttributes());
         event.put(ModEntities.ANGELFISH.get(), AngelfishEntity.setAttributes());
         event.put(ModEntities.ARROW_CRAB.get(), ArrowCrabEntity.setAttributes());
         event.put(ModEntities.JELLYFISH.get(), JellyfishEntity.setAttributes());

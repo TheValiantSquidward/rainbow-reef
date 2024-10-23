@@ -205,7 +205,7 @@ public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .build();
     }
 

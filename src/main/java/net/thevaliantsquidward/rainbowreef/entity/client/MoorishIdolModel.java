@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.entity.custom.GobyEntity;
-import net.thevaliantsquidward.rainbowreef.entity.custom.HogfishEntity;
 import net.thevaliantsquidward.rainbowreef.entity.custom.MoorishIdolEntity;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;

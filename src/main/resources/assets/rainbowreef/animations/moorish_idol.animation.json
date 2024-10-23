@@ -7,7 +7,7 @@
 			"bones": {
 				"r_bottom_fin": {
 					"rotation": {
-						"vector": ["math.cos((query.anim_time - 60)* 180)*-5", "s((query.anim_time - 60)* 180)*-5", 0]
+						"vector": ["math.cos((query.anim_time - 60)* 180)*-5", "math.cos((query.anim_time - 60)* 180)*-5", 0]
 					}
 				},
 				"l_bottom_fin": {
