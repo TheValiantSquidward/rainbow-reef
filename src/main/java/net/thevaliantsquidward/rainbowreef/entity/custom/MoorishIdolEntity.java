@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -33,6 +34,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -80,6 +83,7 @@ public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketa
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
     }
+
 
     @Override
     @Nonnull
@@ -168,7 +172,7 @@ public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketa
 
     public MoorishIdolEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -184,18 +188,20 @@ public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketa
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.7D)
+                .add(Attributes.MAX_HEALTH, 7D)
+                .add(Attributes.MOVEMENT_SPEED, 0.8D)
                 .build();
     }
+
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 1, 20, 20, 2));
     }
+
 
 
     protected SoundEvent getAmbientSound() {
@@ -227,7 +233,6 @@ public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketa
     public static <T extends Mob> boolean canSpawn(EntityType<MoorishIdolEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

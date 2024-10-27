@@ -197,7 +197,7 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.1D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2D)
                 .build();
     }
 

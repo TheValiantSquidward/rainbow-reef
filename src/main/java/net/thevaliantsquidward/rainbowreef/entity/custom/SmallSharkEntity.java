@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -190,7 +191,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
         //this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         //this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 1, 120));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 1, 20, 20, 1));
         //so it's entity, speed, and then frequency
     }
 

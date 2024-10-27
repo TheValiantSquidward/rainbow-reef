@@ -213,6 +213,9 @@ public class ClownfishEntity extends AbstractSchoolingFish implements GeoEntity,
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
+        //Anemone seeker goal plan:
+        //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
+        //Pathfinds back to home nem and makes it hide for 3 - 5 secs
     }
 
 
