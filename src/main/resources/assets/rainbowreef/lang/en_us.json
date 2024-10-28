@@ -2,7 +2,7 @@
   "creativetab.rainbow_reef_tab" : "Rainbow Reef",
   "creativetab.rainbow_reef_block_tab" : "Rainbow Reef Blocks",
 
-  "death.attack.boxfish": "%s experienced ichthyotoxic, hemolytic, nonprotein poison",
+  "death.attack.rainbowreef.ate_boxfish": "%1$s experienced ichthyotoxic, hemolytic, nonprotein poison",
 
   "item.rainbowreef.goby_bucket" : "Bucket of Goby",
   "item.rainbowreef.tang_bucket" : "Bucket of Tang",

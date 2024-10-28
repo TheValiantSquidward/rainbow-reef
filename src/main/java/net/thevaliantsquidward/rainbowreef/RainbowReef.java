@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,12 +24,18 @@ import net.thevaliantsquidward.rainbowreef.loot.ModLootModifiers;
 import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
 import org.slf4j.Logger;
 
+import java.util.Locale;
+
 
 @Mod(RainbowReef.MOD_ID)
 public class RainbowReef
 {
     public static final String MOD_ID = "rainbowreef";
     private static final Logger LOGGER = LogUtils.getLogger();
+
+    public static ResourceLocation prefix(String name) {
+        return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
+    }
 
     public RainbowReef()
     {
