@@ -31,6 +31,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.goal.RandomSleepyLookaroundGoal;
 import net.thevaliantsquidward.rainbowreef.goal.RandomSleepySwimGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
@@ -45,7 +47,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
+public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -77,6 +79,10 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
         super.tick();
     }
 
+    @Override
+    public int variant() {
+        return getVariant();
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -176,7 +182,7 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
         return MobType.WATER;
     }
 
-    public ParrotfishEntity(EntityType<? extends AbstractSchoolingFish> pEntityType, Level pLevel) {
+    public ParrotfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
@@ -200,6 +206,7 @@ public class ParrotfishEntity extends AbstractSchoolingFish implements GeoEntity
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(4, new RandomSleepyLookaroundGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 1, 1));
