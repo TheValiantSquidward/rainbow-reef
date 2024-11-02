@@ -5,6 +5,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.SemiAquatic;
 
 import java.util.EnumSet;
 

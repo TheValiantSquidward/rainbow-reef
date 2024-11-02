@@ -30,6 +30,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -42,7 +44,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ButterfishEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
+public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -74,6 +76,11 @@ public class ButterfishEntity extends AbstractSchoolingFish implements GeoEntity
         }
 
         super.tick();
+    }
+
+    @Override
+    public int variant() {
+        return getVariant();
     }
 
     @Override
@@ -182,7 +189,7 @@ public class ButterfishEntity extends AbstractSchoolingFish implements GeoEntity
         return MobType.WATER;
     }
 
-    public ButterfishEntity(EntityType<? extends AbstractSchoolingFish> pEntityType, Level pLevel) {
+    public ButterfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new SmoothSwimmingMoveControl(this, 50, 15, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 15);
@@ -207,6 +214,7 @@ public class ButterfishEntity extends AbstractSchoolingFish implements GeoEntity
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }

@@ -33,6 +33,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -45,7 +47,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Bucketable {
+public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -53,7 +55,7 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.INT);
 
-    public TangEntity(EntityType<? extends AbstractSchoolingFish> pEntityType, Level pLevel) {
+    public TangEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
@@ -121,6 +123,10 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
         super.tick();
     }
 
+    @Override
+    public int variant() {
+        return getVariant();
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -248,6 +254,7 @@ public class TangEntity extends AbstractSchoolingFish implements GeoEntity, Buck
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.9, 1));
     }

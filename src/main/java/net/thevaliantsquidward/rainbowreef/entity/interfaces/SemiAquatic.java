@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.goalz;
+package net.thevaliantsquidward.rainbowreef.entity.interfaces;
 
 
 public interface SemiAquatic {
