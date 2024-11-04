@@ -57,7 +57,7 @@ public class ClownfishEntity extends VariantSchoolingFish implements GeoEntity, 
 
     public ClownfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -239,8 +239,6 @@ public class ClownfishEntity extends VariantSchoolingFish implements GeoEntity, 
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
-
-    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }

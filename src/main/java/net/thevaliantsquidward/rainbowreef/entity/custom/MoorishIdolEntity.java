@@ -1,6 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
 
+import com.google.errorprone.annotations.Var;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
@@ -48,7 +50,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity, Bucketable {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -74,6 +76,11 @@ public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketa
         }
 
         super.tick();
+    }
+
+    @Override
+    public int getMaxSchoolSize() {
+        return 20;
     }
 
 
@@ -170,9 +177,9 @@ public class MoorishIdolEntity extends WaterAnimal implements GeoEntity, Bucketa
         return MobType.WATER;
     }
 
-    public MoorishIdolEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public MoorishIdolEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

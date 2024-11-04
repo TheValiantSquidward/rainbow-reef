@@ -22,6 +22,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
@@ -47,11 +49,50 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class JellyfishEntity extends AbstractFish implements GeoEntity {
+public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+
+    public float xBodyRot;
+    public float xBodyRotO;
+    public float zBodyRot;
+    public float zBodyRotO;
+    public float tentacleMovement;
+    public float oldTentacleMovement;
+    public float tentacleAngle;
+    public float oldTentacleAngle;
+    private float speed;
+    private float tentacleSpeed;
+    private float rotateSpeed;
+    private float tx;
+    private float ty;
+    private float tz;
 
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
 
+    public JellyfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.random.setSeed((long)this.getId());
+        this.tentacleSpeed = 3.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
+        //        this number ^ deterimnes how often the jelly boosts
+    }
 
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new JelRandomMovementGoal(this));
+    }
+
+    public static AttributeSupplier setAttributes() {
+        return Animal.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 7D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .build();
+    }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
         if (SCALE.equals(pKey)) {
@@ -82,10 +123,6 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
         this.entityData.set(SCALE, scale);
     }
 
-    public float xBodyRotO;
-    public float zBodyRot;
-    public float zBodyRotO;
-
     public static <T extends Mob> boolean canSpawn(EntityType<JellyfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
@@ -105,19 +142,6 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
     }
     @Override
     public void tick() {
-
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
-        }
-
-        super.tick();
-
-        //if(this.level.isClientSide) return;
         if (!this.hasCustomName()) {
             this.setScale(0);
         } else {
@@ -130,7 +154,79 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
             }
         }
 
+        super.tick();
     }
+
+    public void aiStep() {
+        super.aiStep();
+
+
+        this.xBodyRotO = this.xBodyRot;
+        this.zBodyRotO = this.zBodyRot;
+        this.oldTentacleMovement = this.tentacleMovement;
+        this.oldTentacleAngle = this.tentacleAngle;
+        this.tentacleMovement += this.tentacleSpeed;
+
+        if ((double)this.tentacleMovement > 6.283185307179586) {
+            //                                number ^ is 2PI
+            if (this.level().isClientSide) {
+                this.tentacleMovement = 6.2831855F;
+            } else {
+                this.tentacleMovement -= 6.2831855F;
+            }
+        }
+
+        if (this.isInWaterOrBubble()) {
+            if (this.tentacleMovement < 3.1415927F) {
+                //                    number ^ is PI
+                //this part of the if cycle boosts the jellyfish when the tentaclemovement is at the correct position
+
+                float extramovement = this.tentacleMovement / 3.1415927F;
+                this.tentacleAngle = Mth.sin(extramovement * extramovement * 3.1415927F) * 3.1415927F * 0.25F;
+                if ((double)extramovement > 0.75) {
+                    this.speed = (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
+                    this.rotateSpeed = 1.0F;
+                } else {
+                    this.rotateSpeed *= 0.8F;
+                }
+            } else {
+                this.tentacleAngle = 0.0F;
+                this.speed *= 0.8F;
+                //this represents drag as the jelly slows down
+                this.rotateSpeed *= 0.99F;
+            }
+
+            if (!this.level().isClientSide) {
+                this.setDeltaMovement((double)(this.tx * this.speed), (double)(this.ty * this.speed), (double)(this.tz * this.speed));
+                //every tick, the entity's velocity is set to the direction vector times the velocity
+            }
+
+            Vec3 movement = this.getDeltaMovement();
+            double HMovement = movement.horizontalDistance();
+            this.yBodyRot += (-((float)Mth.atan2(movement.x, movement.z)) * 57.295776F - this.yBodyRot) * 0.1F;
+            this.setYRot(this.yBodyRot);
+            this.zBodyRot += 3.1415927F * this.rotateSpeed * 1.5F;
+            this.xBodyRot += (-((float)Mth.atan2(HMovement, movement.y)) * 57.295776F - this.xBodyRot) * 0.1F;
+
+        } else {
+            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * 3.1415927F * 0.25F;
+            if (!this.level().isClientSide) {
+                double VMovement = this.getDeltaMovement().y;
+                if (this.hasEffect(MobEffects.LEVITATION)) {
+                    VMovement = 0.05 * (double)(this.getEffect(MobEffects.LEVITATION).getAmplifier() + 1);
+                } else if (!this.isNoGravity()) {
+                    VMovement -= 0.08;
+                }
+
+                this.setDeltaMovement(0.0, VMovement * 0.9800000190734863, 0.0);
+            }
+
+            this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
+        }
+
+    }
+
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -139,7 +235,7 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
         this.entityData.define(SCALE, 0);
     }
 
-    @Override
+
     @Nonnull
     public ItemStack getBucketItemStack() {
         ItemStack stack = new ItemStack(ModItems.JELLYFISH_BUCKET.get());
@@ -149,7 +245,7 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
         return stack;
     }
 
-    @Override
+
     public void saveToBucketTag(@Nonnull ItemStack bucket) {
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
@@ -159,7 +255,7 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
         compoundnbt.putInt("BucketVariantTag", this.getVariant());
     }
 
-    @Override
+
     public void loadFromBucketTag(@Nonnull CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
         if (compound.contains("BucketVariantTag", 3)) {
@@ -216,17 +312,14 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
         this.setScale(Math.min(compound.getInt("scale"), 0));
     }
 
-    @Override
     public boolean fromBucket() {
         return this.entityData.get(FROM_BUCKET);
     }
 
-    @Override
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
 
-    @Override
     @Nonnull
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
@@ -252,28 +345,11 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
         return MobType.WATER;
     }
 
-    public JellyfishEntity(EntityType<? extends AbstractFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
-
-
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 7D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
-                .build();
-    }
     public void travel(Vec3 pTravelVector) {
+
         this.move(MoverType.SELF, this.getDeltaMovement());
+        super.travel(pTravelVector);
     }
-    private float tx;
-    private float ty;
-    private float tz;
-    @Override
-    protected void registerGoals() {
-        //this.goalSelector.addGoal(0, new JellyRandomMovementGoal(this));
-        //this.goalSelector.addGoal(1, new JellyFleeGoal());
-        }
 
     public void setMovementVector(float pTx, float pTy, float pTz) {
         this.tx = pTx;
@@ -284,100 +360,55 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
     public boolean hasMovementVector() {
         return this.tx != 0.0F || this.ty != 0.0F || this.tz != 0.0F;
     }
-    class JellyFleeGoal extends Goal {
-        private static final float SQUID_FLEE_SPEED = 3.0F;
-        private static final float SQUID_FLEE_MIN_DISTANCE = 5.0F;
-        private static final float SQUID_FLEE_MAX_DISTANCE = 10.0F;
-        private int fleeTicks;
 
 
-        public boolean canUse() {
-            LivingEntity livingentity = JellyfishEntity.this.getLastHurtByMob();
-            if (JellyfishEntity.this.isInWater() && livingentity != null) {
-                return JellyfishEntity.this.distanceToSqr(livingentity) < 100.0D;
-            } else {
-                return false;
-            }
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void start() {
-            this.fleeTicks = 0;
-        }
-
-        public boolean requiresUpdateEveryTick() {
-            return true;
-        }
-
-        /**
-         * Keep ticking a continuous task that has already been started
-         */
-        public void tick() {
-            ++this.fleeTicks;
-            LivingEntity livingentity = JellyfishEntity.this.getLastHurtByMob();
-            if (livingentity != null) {
-                Vec3 vec3 = new Vec3(JellyfishEntity.this.getX() - livingentity.getX(), JellyfishEntity.this.getY() - livingentity.getY(), JellyfishEntity.this.getZ() - livingentity.getZ());
-                BlockState blockstate = JellyfishEntity.this.level().getBlockState(BlockPos.containing(JellyfishEntity.this.getX() + vec3.x, JellyfishEntity.this.getY() + vec3.y, JellyfishEntity.this.getZ() + vec3.z));
-                FluidState fluidstate = JellyfishEntity.this.level().getFluidState(BlockPos.containing(JellyfishEntity.this.getX() + vec3.x, JellyfishEntity.this.getY() + vec3.y, JellyfishEntity.this.getZ() + vec3.z));
-                if (fluidstate.is(FluidTags.WATER) || blockstate.isAir()) {
-                    double d0 = vec3.length();
-                    if (d0 > 0.0D) {
-                        vec3.normalize();
-                        double d1 = 3.0D;
-                        if (d0 > 5.0D) {
-                            d1 -= (d0 - 5.0D) / 5.0D;
-                        }
-
-                        if (d1 > 0.0D) {
-                            vec3 = vec3.scale(d1);
-                        }
-                    }
-
-                    if (blockstate.isAir()) {
-                        vec3 = vec3.subtract(0.0D, vec3.y, 0.0D);
-                    }
-
-                    JellyfishEntity.this.setMovementVector((float)vec3.x / 20.0F, (float)vec3.y / 20.0F, (float)vec3.z / 20.0F);
-                }
-
-                if (this.fleeTicks % 10 == 5) {
-                    JellyfishEntity.this.level().addParticle(ParticleTypes.BUBBLE, JellyfishEntity.this.getX(), JellyfishEntity.this.getY(), JellyfishEntity.this.getZ(), 0.0D, 0.0D, 0.0D);
-                }
-
-            }
-        }
-    }
 
 
-    class JellyRandomMovementGoal extends Goal {
+
+
+
+    class JelRandomMovementGoal extends Goal {
         private final JellyfishEntity squid;
 
-        public JellyRandomMovementGoal(JellyfishEntity pSquid) {
+        public JelRandomMovementGoal(JellyfishEntity pSquid) {
             this.squid = pSquid;
         }
 
-
         public boolean canUse() {
             return true;
         }
 
-
         public void tick() {
-            int i = this.squid.getNoActionTime();
-            if (i > 100) {
+            int pauseTime = this.squid.getNoActionTime();
+            if (pauseTime > 100) {
                 this.squid.setMovementVector(0.0F, 0.0F, 0.0F);
             } else if (this.squid.getRandom().nextInt(reducedTickDelay(50)) == 0 || !this.squid.wasTouchingWater || !this.squid.hasMovementVector()) {
-                float f = this.squid.getRandom().nextFloat() * ((float)Math.PI * 2F);
-                float f1 = Mth.cos(f) * 0.2F;
-                float f2 = -0.1F + this.squid.getRandom().nextFloat() * 0.2F;
-                float f3 = Mth.sin(f) * 0.2F;
-                this.squid.setMovementVector(f1, f2, f3);
+                float randomMotion = this.squid.getRandom().nextFloat() * 6.2831855F;
+                float randX = Mth.cos(randomMotion) * 0.2F;
+                float randY = -0.1F + this.squid.getRandom().nextFloat() * 0.2F;
+                float randZ = Mth.sin(randomMotion) * 0.2F;
+                this.squid.setMovementVector(randX, randY, randZ);
+                //the goal modifies the angle of the squid, using setMovementVector to set the direction of the jelly by scaling each dimension's movement vector
             }
 
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
@@ -391,7 +422,6 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
     }
 
 
-    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
@@ -402,7 +432,7 @@ public class JellyfishEntity extends AbstractFish implements GeoEntity {
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.jellyfish.move", Animation.LoopType.LOOP));
+        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.jellyfish.swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

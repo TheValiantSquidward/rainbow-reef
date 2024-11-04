@@ -65,6 +65,11 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
         };
     }
 
+    @Override
+    public int getMaxSchoolSize() {
+        return 20;
+    }
+
     public void tick() {
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
@@ -191,7 +196,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
 
     public ButterfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 15, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 15, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 15);
     }
 
@@ -233,7 +238,6 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     }
 
 
-    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }

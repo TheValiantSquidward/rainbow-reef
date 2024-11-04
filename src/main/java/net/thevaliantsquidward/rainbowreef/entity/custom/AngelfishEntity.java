@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -45,7 +46,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class AngelfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, Bucketable {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -63,6 +64,11 @@ public class AngelfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
             case 6 -> "bluequeen";
             default -> "emperor";
         };
+    }
+
+    @Override
+    public int getMaxSchoolSize() {
+        return 3;
     }
 
     public void tick() {
@@ -180,10 +186,10 @@ public class AngelfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
         return MobType.WATER;
     }
 
-    public AngelfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public AngelfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
 
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

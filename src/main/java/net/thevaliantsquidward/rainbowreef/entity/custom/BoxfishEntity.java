@@ -176,7 +176,7 @@ public class BoxfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     public BoxfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

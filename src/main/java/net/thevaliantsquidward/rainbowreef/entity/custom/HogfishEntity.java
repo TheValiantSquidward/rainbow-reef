@@ -177,7 +177,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     public HogfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

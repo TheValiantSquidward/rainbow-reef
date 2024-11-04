@@ -56,7 +56,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
 
     public SmallSharkEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 10, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 5, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

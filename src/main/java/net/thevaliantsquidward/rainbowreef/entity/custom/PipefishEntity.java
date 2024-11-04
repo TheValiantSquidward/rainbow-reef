@@ -187,7 +187,7 @@ public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable
 
     public PipefishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 10, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 10, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

@@ -66,6 +66,11 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         };
     }
 
+    @Override
+    public int getMaxSchoolSize() {
+        return 10;
+    }
+
     public void tick() {
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
@@ -184,7 +189,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
 
     public ParrotfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -226,7 +231,6 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
     }
 
 
-    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
