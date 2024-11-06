@@ -11,7 +11,7 @@
 						"easing": "linear"
 					},
 					"position": {
-						"vector": [0, "math.sin(query.anim_time*180-30)*-1", 0],
+						"vector": [0, "1+math.sin(query.anim_time*180-30)*-1", 0],
 						"easing": "linear"
 					}
 				},

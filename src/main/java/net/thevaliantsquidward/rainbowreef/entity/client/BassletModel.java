@@ -20,7 +20,7 @@ public class BassletModel extends GeoModel<BassletEntity> {
 
     @Override
     public ResourceLocation getTextureResource(BassletEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/fairy.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/fairy.png");
     }
 
     @Override

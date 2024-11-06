@@ -9,11 +9,11 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.SmallSharkEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class HogfishRenderer extends GeoEntityRenderer<HogfishEntity> {
-    private static final ResourceLocation CUBAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/cuban.png");
-    private static final ResourceLocation SPANISH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spanish.png");
-    private static final ResourceLocation CORAL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/coral.png");
-    private static final ResourceLocation LYRETAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/lyretail.png");
-    private static final ResourceLocation PEPPERMINT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/peppermint.png");
+    private static final ResourceLocation CUBAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/cuban.png");
+    private static final ResourceLocation SPANISH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/spanish.png");
+    private static final ResourceLocation CORAL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/coral.png");
+    private static final ResourceLocation LYRETAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/lyretail.png");
+    private static final ResourceLocation PEPPERMINT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/peppermint.png");
 
 
     public HogfishRenderer(EntityRendererProvider.Context renderManagerIn) {

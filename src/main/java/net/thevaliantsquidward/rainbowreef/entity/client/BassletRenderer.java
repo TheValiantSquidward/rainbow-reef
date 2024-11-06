@@ -9,14 +9,14 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.BoxfishEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class BassletRenderer extends GeoEntityRenderer<BassletEntity> {
-    private static final ResourceLocation FAIRY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/fairy.png");
-    private static final ResourceLocation BRAZILIAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/brazilian.png");
-    private static final ResourceLocation ACCESSOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/accessor.png");
-    private static final ResourceLocation BLACKCAP = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/blackcap.png");
-    private static final ResourceLocation CANDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/candy.png");
-    private static final ResourceLocation GOLD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goldbasslet.png");
-    private static final ResourceLocation GILDED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/gilded.png");
-    private static final ResourceLocation SWISSGUARD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/swissguard.png");
+    private static final ResourceLocation FAIRY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/fairy.png");
+    private static final ResourceLocation BRAZILIAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/brazilian.png");
+    private static final ResourceLocation ACCESSOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/accessor.png");
+    private static final ResourceLocation BLACKCAP = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/blackcap.png");
+    private static final ResourceLocation CANDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/candy.png");
+    private static final ResourceLocation GOLD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/goldbasslet.png");
+    private static final ResourceLocation GILDED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/gilded.png");
+    private static final ResourceLocation SWISSGUARD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/swissguard.png");
 
     public BassletRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BassletModel());

@@ -19,7 +19,7 @@ public class TangModel extends GeoModel<TangEntity> {
 
     @Override
     public ResourceLocation getTextureResource(TangEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tangfish_0.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blue.png");
     }
 
     @Override

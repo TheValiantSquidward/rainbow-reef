@@ -8,13 +8,13 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.DwarfAngelfishEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEntity> {
-    private static final ResourceLocation BICOLOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/bicolor.png");
-    private static final ResourceLocation CORAL_BEAUTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/coral_beauty.png");
-    private static final ResourceLocation CANDY_CANE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/cand_cane.png");
-    private static final ResourceLocation FLAME = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/flame.png");
-    private static final ResourceLocation SPOTTED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spotted.png");
-    private static final ResourceLocation MASKED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/masked.png");
-    private static final ResourceLocation CHERUB = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/cherubfish.png");
+    private static final ResourceLocation BICOLOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/bicolor.png");
+    private static final ResourceLocation CORAL_BEAUTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/coral_beauty.png");
+    private static final ResourceLocation PEPPERMINT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/peppermint.png");
+    private static final ResourceLocation FLAME = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/flame.png");
+    private static final ResourceLocation KEYHOLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/keyhole.png");
+    private static final ResourceLocation MASKED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/masked.png");
+    private static final ResourceLocation CHERUB = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/cherubfish.png");
 
 
     public DwarfAngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -28,9 +28,9 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
     public ResourceLocation getTextureLocation(DwarfAngelfishEntity entity) {
         return switch (entity.getVariant()) {
             case 1 -> CORAL_BEAUTY;
-            case 2 -> CANDY_CANE;
+            case 2 -> PEPPERMINT;
             case 3 -> FLAME;
-            case 4 -> SPOTTED;
+            case 4 -> KEYHOLE;
             case 5 -> MASKED;
             case 6 -> CHERUB;
             default -> BICOLOR;

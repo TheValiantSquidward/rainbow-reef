@@ -9,12 +9,12 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.SmallSharkEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
-    private static final ResourceLocation BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/blue.png");
-    private static final ResourceLocation HUMPHEAD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/humphead.png");
-    private static final ResourceLocation RAINBOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/rainbow.png");
-    private static final ResourceLocation MIDNIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/midnight.png");
-    private static final ResourceLocation STOPLIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/stoplight.png");
-    private static final ResourceLocation MEDITERRANEAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/redseaparrotfish.png");
+    private static final ResourceLocation BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/blue.png");
+    private static final ResourceLocation HUMPHEAD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/humphead.png");
+    private static final ResourceLocation RAINBOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/rainbow.png");
+    private static final ResourceLocation MIDNIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/midnight.png");
+    private static final ResourceLocation STOPLIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/stoplight.png");
+    private static final ResourceLocation MEDITERRANEAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/redseaparrotfish.png");
 
 
     public ParrotfishRenderer(EntityRendererProvider.Context renderManagerIn) {

@@ -14,7 +14,7 @@ public class RayModel extends GeoModel<RayEntity> {
 
     @Override
     public ResourceLocation getTextureResource(RayEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spotted_eagle_ray.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/spotted_eagle_ray.png");
     }
 
     @Override

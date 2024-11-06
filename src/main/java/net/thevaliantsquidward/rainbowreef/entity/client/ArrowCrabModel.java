@@ -14,7 +14,7 @@ public class ArrowCrabModel extends GeoModel<ArrowCrabEntity> {
 
     @Override
     public ResourceLocation getTextureResource(ArrowCrabEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/yellowlinearrowcrab.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/arrowcrab/yellowlinearrowcrab.png");
     }
 
     @Override

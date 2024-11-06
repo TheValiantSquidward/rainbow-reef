@@ -8,8 +8,8 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.MoorishIdolEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class MoorishIdolRenderer extends GeoEntityRenderer<MoorishIdolEntity> {
-    private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/defaultmoorishidol.png");
-    private static final ResourceLocation SILVER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/silvermoorishidol.png");
+    private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/moorishidol/defaultmoorishidol.png");
+    private static final ResourceLocation SILVER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/moorishidol/silvermoorishidol.png");
 
 
 

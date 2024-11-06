@@ -8,26 +8,26 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.TangEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class TangRenderer extends GeoEntityRenderer<TangEntity> {
-    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_0.png");
-    private static final ResourceLocation TEXTURE_POWDERBLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_1.png");
-    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_3.png");
-    private static final ResourceLocation TEXTURE_UNICORN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_4.png");
-    private static final ResourceLocation TEXTURE_CONVICT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_5.png");
-    private static final ResourceLocation TEXTURE_CLOWN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_6.png");
-    private static final ResourceLocation TEXTURE_ACHILLES = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_7.png");
-    private static final ResourceLocation TEXTURE_YELLOW_BELLY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_8.png");
-    private static final ResourceLocation TEXTURE_MUDDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_9.png");
-    private static final ResourceLocation TEXTURE_PEARLY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_10.png");
-    private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_11.png");
-    private static final ResourceLocation TEXTURE_BLACK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_12.png");
-    private static final ResourceLocation TEXTURE_GEM = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_13.png");
-    private static final ResourceLocation TEXTURE_REGAL_BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_14.png");
-    private static final ResourceLocation TEXTURE_PENGUIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_15.png");
-    private static final ResourceLocation TEXTURE_GREEN_SPOT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_16.png");
-    private static final ResourceLocation TEXTURE_RUSTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_17.png");
-    private static final ResourceLocation TEXTURE_CHOCOLATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_18.png");
-    private static final ResourceLocation TEXTURE_SAILFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_19.png");
-    private static final ResourceLocation TEXTURE_ATLANTIC = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/tangfish_20.png");
+    private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blue.png");
+    private static final ResourceLocation TEXTURE_POWDERBLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/powderblue.png");
+    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/yellow.png");
+    private static final ResourceLocation TEXTURE_UNICORN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/unicorn.png");
+    private static final ResourceLocation TEXTURE_CONVICT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/convict.png");
+    private static final ResourceLocation TEXTURE_CLOWN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/clown.png");
+    private static final ResourceLocation TEXTURE_ACHILLES = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/achilles.png");
+    private static final ResourceLocation TEXTURE_YELLOW_BELLY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/yellowbelly.png");
+    private static final ResourceLocation TEXTURE_MUDDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/muddy.png");
+    private static final ResourceLocation TEXTURE_PEARLY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/pearly.png");
+    private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/purple.png");
+    private static final ResourceLocation TEXTURE_BLACK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/black.png");
+    private static final ResourceLocation TEXTURE_GEM = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/gem.png");
+    private static final ResourceLocation TEXTURE_REGAL_BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/regalblue.png");
+    private static final ResourceLocation TEXTURE_PENGUIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/penguin.png");
+    private static final ResourceLocation TEXTURE_GREEN_SPOT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/greenspot.png");
+    private static final ResourceLocation TEXTURE_RUSTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/rusty.png");
+    private static final ResourceLocation TEXTURE_CHOCOLATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/chocolate.png");
+    private static final ResourceLocation TEXTURE_SAILFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/sailfin.png");
+    private static final ResourceLocation TEXTURE_ATLANTIC = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/atlantic.png");
 
 
     public TangRenderer(EntityRendererProvider.Context renderManagerIn) {

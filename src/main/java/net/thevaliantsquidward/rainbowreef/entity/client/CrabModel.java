@@ -13,7 +13,7 @@ public class CrabModel extends GeoModel<CrabEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CrabEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/vampire.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/vampire.png");
     }
 
     @Override

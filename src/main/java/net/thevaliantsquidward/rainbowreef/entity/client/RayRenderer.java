@@ -14,8 +14,8 @@ public class RayRenderer extends GeoEntityRenderer<RayEntity> {
         super(renderManager, new RayModel());
     }
 
-    private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spotted_eagle_ray.png");
-    private static final ResourceLocation ORNATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/ornate_eagle_ray.png");
+    private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/spotted_eagle_ray.png");
+    private static final ResourceLocation ORNATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/ornate_eagle_ray.png");
 
     public ResourceLocation getTextureLocation(RayEntity entity) {
         return switch (entity.getVariant()) {

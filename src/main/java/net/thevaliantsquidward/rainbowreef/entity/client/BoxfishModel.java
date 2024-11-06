@@ -19,7 +19,7 @@ public class BoxfishModel extends GeoModel<BoxfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(BoxfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/yellowboxfish.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/yellowboxfish.png");
     }
 
     @Override

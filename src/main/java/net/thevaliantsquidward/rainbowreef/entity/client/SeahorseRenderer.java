@@ -9,16 +9,16 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.SeahorseEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class SeahorseRenderer extends GeoEntityRenderer<SeahorseEntity> {
-    private static final ResourceLocation KELPY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/kelpy.png");
-    private static final ResourceLocation COBALT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/cobalt.png");
-    private static final ResourceLocation GOLD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/gold.png");
-    private static final ResourceLocation AMBER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/amber.png");
-    private static final ResourceLocation SILVER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/silver.png");
-    private static final ResourceLocation GARNET = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/garnet.png");
-    private static final ResourceLocation RUBY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/ruby.png");
-    private static final ResourceLocation SPINEL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spinel.png");
-    private static final ResourceLocation CHERT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/chert.png");
-    private static final ResourceLocation ONYX = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/onyx.png");
+    private static final ResourceLocation KELPY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/kelpy.png");
+    private static final ResourceLocation COBALT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/cobalt.png");
+    private static final ResourceLocation GOLD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/gold.png");
+    private static final ResourceLocation AMBER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/amber.png");
+    private static final ResourceLocation SILVER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/silver.png");
+    private static final ResourceLocation GARNET = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/garnet.png");
+    private static final ResourceLocation RUBY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/ruby.png");
+    private static final ResourceLocation SPINEL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/spinel.png");
+    private static final ResourceLocation CHERT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/chert.png");
+    private static final ResourceLocation ONYX = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/onyx.png");
 
 
 

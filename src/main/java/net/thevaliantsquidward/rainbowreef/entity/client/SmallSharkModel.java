@@ -30,7 +30,7 @@ public class SmallSharkModel extends GeoModel<SmallSharkEntity> {
 
     @Override
     public ResourceLocation getTextureResource(SmallSharkEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/epauletteshark.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/epauletteshark.png");
     }
 
     @Override

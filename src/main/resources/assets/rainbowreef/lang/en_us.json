@@ -172,14 +172,14 @@
   "entity.rainbowreef.tang.variant_atlanticblue": "Atlantic Blue",
   "entity.rainbowreef.tang.variant_sailfin": "Sailfin",
 
-  "entity.rainbowreef.clownfish.variant_clownfish_1": "Ocellaris",
-  "entity.rainbowreef.clownfish.variant_clownfish_2": "Maroon",
-  "entity.rainbowreef.clownfish.variant_clownfish_3": "Black and White",
-  "entity.rainbowreef.clownfish.variant_clownfish_4": "Pink Skunk",
-  "entity.rainbowreef.clownfish.variant_clownfish_5": "Clarkii",
-  "entity.rainbowreef.clownfish.variant_clownfish_6": "Blizzard",
-  "entity.rainbowreef.clownfish.variant_clownfish_7": "Tomato",
-  "entity.rainbowreef.clownfish.variant_clownfish_8": "Blue Strain",
+  "entity.rainbowreef.clownfish.variant_ocellaris": "Ocellaris",
+  "entity.rainbowreef.clownfish.variant_maroon": "Maroon",
+  "entity.rainbowreef.clownfish.variant_blackandwhite": "Black and White",
+  "entity.rainbowreef.clownfish.variant_pinkscunk": "Pink Skunk",
+  "entity.rainbowreef.clownfish.variant_clarkii": "Clarkii",
+  "entity.rainbowreef.clownfish.variant_blizzard": "Blizzard",
+  "entity.rainbowreef.clownfish.variant_tomato": "Tomato",
+  "entity.rainbowreef.clownfish.variant_bluestrain": "Blue Strain",
 
   "entity.rainbowreef.seahorse.variant_kelpy": "Kelpy",
   "entity.rainbowreef.seahorse.variant_cobalt": "Cobalt",
@@ -193,7 +193,7 @@
   "entity.rainbowreef.seahorse.variant_onyx": "Onyx",
 
   "entity.rainbowreef.small_shark.variant_epaulette": "Epaulette",
-  "entity.rainbowreef.small_shark.variant_pajama": "Pajama",
+  "entity.rainbowreef.small_shark.variant_pajama": "Pyjama",
   "entity.rainbowreef.small_shark.variant_horned": "Horned",
   "entity.rainbowreef.small_shark.variant_nurse": "Nurse",
 
@@ -216,9 +216,9 @@
 
   "entity.rainbowreef.dwarf_angelfish.variant_bicolor": "Bicolor",
   "entity.rainbowreef.dwarf_angelfish.variant_coralbeauty": "Coral Beauty",
-  "entity.rainbowreef.dwarf_angelfish.variant_candycane": "Candy Cane",
+  "entity.rainbowreef.dwarf_angelfish.variant_candycane": "Peppermint",
   "entity.rainbowreef.dwarf_angelfish.variant_flame": "Flame",
-  "entity.rainbowreef.dwarf_angelfish.variant_spotted": "Spotted",
+  "entity.rainbowreef.dwarf_angelfish.variant_spotted": "Keyhole",
 
   "entity.rainbowreef.butterflyfish.variant_easterisland": "Easter Island",
   "entity.rainbowreef.butterflyfish.variant_threadfin": "Threadfin",

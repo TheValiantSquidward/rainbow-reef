@@ -19,7 +19,7 @@ public class MoorishIdolModel extends GeoModel<MoorishIdolEntity> {
 
     @Override
     public ResourceLocation getTextureResource(MoorishIdolEntity animatable) {
-       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/defaultmoorishidol.png");
+       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/moorishidol/defaultmoorishidol.png");
     }
 
     @Override

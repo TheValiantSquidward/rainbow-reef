@@ -8,12 +8,12 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.PipefishEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class PipefishRenderer extends GeoEntityRenderer<PipefishEntity> {
-    private static final ResourceLocation GREEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/greenpipe.png");
-    private static final ResourceLocation JANNS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jannspipe.png");
-    private static final ResourceLocation MULTIBANDED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/multibandedpipe.png");
-    private static final ResourceLocation ORANGESTRIPED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/orangestripedpipe.png");
-    private static final ResourceLocation BLUESTRIPED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/bluestripedpipe.png");
-    private static final ResourceLocation PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pink.png");
+    private static final ResourceLocation GREEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/greenpipe.png");
+    private static final ResourceLocation JANNS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/jannspipe.png");
+    private static final ResourceLocation MULTIBANDED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/multibandedpipe.png");
+    private static final ResourceLocation ORANGESTRIPED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/orangestripedpipe.png");
+    private static final ResourceLocation BLUESTRIPED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/bluestripedpipe.png");
+    private static final ResourceLocation PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/pink.png");
 
 
     public PipefishRenderer(EntityRendererProvider.Context renderManagerIn) {

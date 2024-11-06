@@ -19,7 +19,7 @@ public class SeahorseModel extends GeoModel<SeahorseEntity> {
 
     @Override
     public ResourceLocation getTextureResource(SeahorseEntity animatable) {
-       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/kelpy.png");
+       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/kelpy.png");
     }
 
     @Override

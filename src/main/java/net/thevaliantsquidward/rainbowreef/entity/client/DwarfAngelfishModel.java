@@ -19,7 +19,7 @@ public class DwarfAngelfishModel extends GeoModel<DwarfAngelfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(DwarfAngelfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/bicolor.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/bicolor.png");
     }
 
     @Override

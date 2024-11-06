@@ -8,14 +8,14 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.GobyEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class GobyRenderer extends GeoEntityRenderer<GobyEntity> {
-    private static final ResourceLocation TEXTURE_FIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/firegoby.png");
-    private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/purplefiregoby.png");
-    private static final ResourceLocation TEXTURE_CANDYCANE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/candycanegoby.png");
-    private static final ResourceLocation TEXTURE_MANDARIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/mandaringoby.png");
-    private static final ResourceLocation TEXTURE_YELLOWWATCH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/yellowwatchmangoby.png");
-    private static final ResourceLocation TEXTURE_BLACK_RAY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/blackray.png");
-    private static final ResourceLocation TEXTURE_HELFRICHI = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/helfrichi.png");
-    private static final ResourceLocation TEXTURE_CATALINA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/catalinagoby.png");
+    private static final ResourceLocation TEXTURE_FIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/firegoby.png");
+    private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/purplefiregoby.png");
+    private static final ResourceLocation TEXTURE_CANDYCANE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/candycanegoby.png");
+    private static final ResourceLocation TEXTURE_MANDARIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/mandaringoby.png");
+    private static final ResourceLocation TEXTURE_YELLOWWATCH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/yellowwatchmangoby.png");
+    private static final ResourceLocation TEXTURE_BLACK_RAY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/blackray.png");
+    private static final ResourceLocation TEXTURE_HELFRICHI = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/helfrichi.png");
+    private static final ResourceLocation TEXTURE_CATALINA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/catalinagoby.png");
 
 
     public GobyRenderer(EntityRendererProvider.Context renderManagerIn) {

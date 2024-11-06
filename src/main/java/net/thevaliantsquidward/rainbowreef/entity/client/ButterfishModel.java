@@ -19,7 +19,7 @@ public class ButterfishModel extends GeoModel<ButterfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(ButterfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/copperband.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/copperband.png");
     }
 
     @Override

@@ -28,7 +28,7 @@ public class JellyfishModel extends GeoModel<JellyfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(JellyfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish_1.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_1.png");
     }
 
     @Override

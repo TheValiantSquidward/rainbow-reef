@@ -8,14 +8,14 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.ButterfishEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
-    private static final ResourceLocation COPPERBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/copperband.png");
-    private static final ResourceLocation EASTERISLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/easterisle.png");
-    private static final ResourceLocation THREADFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/threadfin.png");
-    private static final ResourceLocation BANNER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/banner.png");
-    private static final ResourceLocation BLUECHEEK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/bluecheek.png");
-    private static final ResourceLocation LONGNOSE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/longnose.png");
-    private static final ResourceLocation SPOTFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/spotfin.png");
-    private static final ResourceLocation HOODED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hooded.png");
+    private static final ResourceLocation COPPERBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/copperband.png");
+    private static final ResourceLocation EASTERISLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/easterisle.png");
+    private static final ResourceLocation THREADFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/threadfin.png");
+    private static final ResourceLocation BANNER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/banner.png");
+    private static final ResourceLocation BLUECHEEK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/bluecheek.png");
+    private static final ResourceLocation LONGNOSE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/longnose.png");
+    private static final ResourceLocation SPOTFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/spotfin.png");
+    private static final ResourceLocation HOODED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/hooded.png");
 
     public ButterfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ButterfishModel());

@@ -9,10 +9,10 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.JellyfishEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class JellyfishRenderer extends GeoEntityRenderer<JellyfishEntity> {
-    private static final ResourceLocation TEXTURE_PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish_1.png");
-    private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish_0.png");
-    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish_2.png");
-    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish_3.png");
+    private static final ResourceLocation TEXTURE_PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_1.png");
+    private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_0.png");
+    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_2.png");
+    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_3.png");
 
     public JellyfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new JellyfishModel());

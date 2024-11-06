@@ -19,7 +19,7 @@ public class GobyModel extends GeoModel<GobyEntity> {
 
     @Override
     public ResourceLocation getTextureResource(GobyEntity animatable) {
-       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/firegoby.png");
+       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/firegoby.png");
     }
 
     @Override

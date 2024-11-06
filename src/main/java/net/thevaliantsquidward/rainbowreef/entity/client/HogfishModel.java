@@ -19,7 +19,7 @@ public class HogfishModel extends GeoModel<HogfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(HogfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/cuban.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/cuban.png");
     }
 
     @Override

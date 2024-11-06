@@ -19,7 +19,7 @@ public class PipefishModel extends GeoModel<PipefishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(PipefishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/greenpipe.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/greenpipe.png");
     }
 
     @Override

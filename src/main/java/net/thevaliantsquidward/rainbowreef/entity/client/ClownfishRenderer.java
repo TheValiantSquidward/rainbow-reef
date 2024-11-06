@@ -8,14 +8,14 @@ import net.thevaliantsquidward.rainbowreef.entity.custom.ClownfishEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
-    private static final ResourceLocation CLOWNFISH_3 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_3.png");
-    private static final ResourceLocation CLOWNFISH_0 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_0.png");
-    private static final ResourceLocation CLOWNFISH_1 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_1.png");
-    private static final ResourceLocation CLOWNFISH_2 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_2.png");
-    private static final ResourceLocation CLOWNFISH_4 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_4.png");
-    private static final ResourceLocation CLOWNFISH_5 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_5.png");
-    private static final ResourceLocation CLOWNFISH_6 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_6.png");
-    private static final ResourceLocation CLOWNFISH_7 = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish_7.png");
+    private static final ResourceLocation BLACKANDWHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blackandwhite.png");
+    private static final ResourceLocation OCELLARIS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/ocellaris.png");
+    private static final ResourceLocation MAROON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/maroon.png");
+    private static final ResourceLocation PINKSCUNK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/pinkscunk.png");
+    private static final ResourceLocation CLARKII = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/clarkii.png");
+    private static final ResourceLocation BLIZZARD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blizzard.png");
+    private static final ResourceLocation TOMATO = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/tomato.png");
+    private static final ResourceLocation BLUESTRAIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/bluestrain.png");
 
     public ClownfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ClownfishModel());
@@ -27,14 +27,14 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
 
     public ResourceLocation getTextureLocation(ClownfishEntity entity) {
         return switch (entity.getVariant()) {
-            case 1 -> CLOWNFISH_0;
-            case 2 -> CLOWNFISH_1;
-            case 3 -> CLOWNFISH_2;
-            case 4 -> CLOWNFISH_4;
-            case 5 -> CLOWNFISH_5;
-            case 6 -> CLOWNFISH_6;
-            case 7 -> CLOWNFISH_7;
-            default -> CLOWNFISH_3;
+            case 1 -> OCELLARIS;
+            case 2 -> MAROON;
+            case 3 -> PINKSCUNK;
+            case 4 -> CLARKII;
+            case 5 -> BLIZZARD;
+            case 6 -> TOMATO;
+            case 7 -> BLUESTRAIN;
+            default -> BLACKANDWHITE;
         };
     }
 }

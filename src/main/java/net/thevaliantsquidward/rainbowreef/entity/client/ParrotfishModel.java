@@ -20,7 +20,7 @@ public class ParrotfishModel extends GeoModel<ParrotfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(ParrotfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/blue.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/blue.png");
     }
 
     @Override
