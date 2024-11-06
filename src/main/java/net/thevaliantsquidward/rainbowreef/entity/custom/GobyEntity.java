@@ -67,6 +67,9 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
             case 5 -> "catalina";
             case 6 -> "blackray";
             case 7 -> "helfrichi";
+            case 8 -> "blueneon";
+            case 9 -> "yellowneon";
+            case 10 -> "neonhybrid";
             default -> "fire";
         };
     }
@@ -167,19 +170,25 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.12F){
+        if(variantChange <= 0.01F){
+            this.setVariant(10);
+        } else if(variantChange <= 0.10F){
+            this.setVariant(9);
+        } else if(variantChange <= 0.20F){
+            this.setVariant(8);
+        } else if(variantChange <= 0.30F){
             this.setVariant(7);
-        }else if(variantChange <= 0.24F){
+        }else if(variantChange <= 0.40F){
             this.setVariant(6);
-        }else if(variantChange <= 0.36F){
+        }else if(variantChange <= 0.50F){
             this.setVariant(5);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(4);
         }else if(variantChange <= 0.60F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.70F){
             this.setVariant(3);
-        }else if(variantChange <= 0.72F){
+        }else if(variantChange <= 0.80F){
             this.setVariant(2);
-        }else if(variantChange <= 0.84F){
+        }else if(variantChange <= 0.90F){
             this.setVariant(1);
         }else{
             this.setVariant(0);
