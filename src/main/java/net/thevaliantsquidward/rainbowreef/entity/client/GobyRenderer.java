@@ -17,9 +17,9 @@ public class GobyRenderer extends GeoEntityRenderer<GobyEntity> {
     private static final ResourceLocation TEXTURE_HELFRICHI = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/helfrichi.png");
     private static final ResourceLocation TEXTURE_CATALINA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/catalinagoby.png");
 
-    private static final ResourceLocation TEXTURE_BLUE_NEON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/blue_neon.png");
-    private static final ResourceLocation TEXTURE_YELLOW_NEON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/yellow_neon_goby.png");
-    private static final ResourceLocation TEXTURE_NEON_HYBRID = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/neon_hybrid.png");
+    private static final ResourceLocation TEXTURE_BLUE_NEON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/blue_neon.png");
+    private static final ResourceLocation TEXTURE_YELLOW_NEON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/yellow_neon_goby.png");
+    private static final ResourceLocation TEXTURE_NEON_HYBRID = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/neon_hybrid.png");
 
 
     public GobyRenderer(EntityRendererProvider.Context renderManagerIn) {
