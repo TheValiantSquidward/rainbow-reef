@@ -44,6 +44,16 @@
 						"vector": [0, 0, "math.cos((query.anim_time - 60)* 720)*10"],
 						"easing": "linear"
 					}
+				},
+				"TopFIn": {
+					"rotation": {
+						"vector": [0, 0, "math.cos((query.anim_time - 60)* 360)*8"]
+					}
+				},
+				"BottomFin": {
+					"rotation": {
+						"vector": [0, 0, "math.cos((query.anim_time - 60)* 360)*-8"]
+					}
 				}
 			}
 		},

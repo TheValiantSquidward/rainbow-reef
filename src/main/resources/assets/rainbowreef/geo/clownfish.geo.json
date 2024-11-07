@@ -25,7 +25,7 @@
 					"parent": "core",
 					"pivot": [0, 1.5, 2],
 					"cubes": [
-						{"origin": [0, 0, 2], "size": [0, 3, 3], "uv": [0, 9]}
+						{"origin": [0, -1, 2], "size": [0, 5, 4], "uv": [0, 11]}
 					]
 				},
 				{
@@ -33,8 +33,23 @@
 					"parent": "core",
 					"pivot": [0, 1.5, 0],
 					"cubes": [
-						{"origin": [-1, 0, -2], "size": [2, 3, 4], "uv": [6, 8]},
-						{"origin": [0, -2, -2], "size": [0, 7, 5], "uv": [0, 0]}
+						{"origin": [-1, 0, -2], "size": [2, 3, 4], "uv": [6, 8]}
+					]
+				},
+				{
+					"name": "TopFIn",
+					"parent": "body",
+					"pivot": [0, 3, 0],
+					"cubes": [
+						{"origin": [0, 3, -2], "size": [0, 2, 5], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "BottomFin",
+					"parent": "body",
+					"pivot": [0, 0, 1],
+					"cubes": [
+						{"origin": [0, -2, -1], "size": [0, 2, 4], "uv": [0, 6]}
 					]
 				},
 				{
