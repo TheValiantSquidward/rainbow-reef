@@ -14,13 +14,13 @@ public class GroundseekingRandomSwimGoal extends RandomStrollGoal {
 
     int radius;
     int height;
-    int prox;
+    double prox;
 
-    public GroundseekingRandomSwimGoal(PathfinderMob fi, double spdmultiplier, int interval, int radius, int height, int proximity) {
+    public GroundseekingRandomSwimGoal(PathfinderMob fi, double spdmultiplier, int interval, int SearchRadius, int SearchHeight, double proximity) {
         super(fi, spdmultiplier, interval);
         this.fims = fi;
-        this.radius = radius;
-        this.height = height;
+        this.radius = SearchRadius;
+        this.height = SearchHeight;
         this.prox = proximity;
         //radius = search width
         //height = search height
@@ -58,7 +58,6 @@ public class GroundseekingRandomSwimGoal extends RandomStrollGoal {
     @Nullable
     protected Vec3 getPosition() {
         Vec3 goalpos = GoalUtils.getRandomSwimmablePosWithSeabed(this.mob, radius, height);
-        System.out.println(goalpos);
 
         return goalpos;
     }

@@ -57,7 +57,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
 
     public TangEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 

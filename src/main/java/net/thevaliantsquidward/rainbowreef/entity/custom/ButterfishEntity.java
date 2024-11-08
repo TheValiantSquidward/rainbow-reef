@@ -196,7 +196,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
 
     public ButterfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 15, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 15, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 15);
     }
 

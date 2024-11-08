@@ -26,7 +26,7 @@ public abstract class VariantSchoolingFish extends WaterAnimal implements Varian
     }
 
     protected void registerGoals() {
-        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
     }
 
     public int getMaxSpawnClusterSize() {

@@ -38,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.GroundseekingRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -50,7 +51,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity, Bucketable {
+public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity{
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -63,6 +64,11 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
             case 1 -> "silver";
             default -> "default";
         };
+    }
+
+    @Override
+    public int getMaxSchoolSize() {
+        return 40;
     }
 
     public void tick() {
@@ -79,10 +85,9 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
     }
 
     @Override
-    public int getMaxSchoolSize() {
-        return 20;
+    public int variant() {
+        return getVariant();
     }
-
 
     @Override
     protected void defineSynchedData() {
@@ -179,7 +184,8 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
 
     public MoorishIdolEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
+
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -196,17 +202,16 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 7D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8D)
+                .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
     }
 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 1, 20, 20, 2));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1D, 1, 20, 20, 2));
     }
 
 

@@ -57,13 +57,18 @@ public class ClownfishEntity extends VariantSchoolingFish implements GeoEntity, 
 
     public ClownfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     @Override
     public boolean isNoGravity() {
         return this.isInWater();
+    }
+
+    @Override
+    public int getMaxSchoolSize() {
+        return 5;
     }
 
 

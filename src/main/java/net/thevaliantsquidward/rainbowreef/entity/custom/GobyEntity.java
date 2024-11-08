@@ -202,7 +202,7 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
     public GobyEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 10, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
@@ -218,7 +218,7 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 100.0D)
                 .build();
     }
 
@@ -230,7 +230,7 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 100, 20, 20, 2));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 75, 5, 10, 0.1));
     }
 
 
@@ -252,11 +252,23 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 10, this::predicate));
+        //transitiontick is the ticks of interpolation between animations
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 ) {
+            {
+                geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
+            }
+        } else {
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("iddling", Animation.LoopType.LOOP));
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+        }
+
         return PlayState.CONTINUE;
     }
     public static <T extends Mob> boolean canSpawn(EntityType<GobyEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {

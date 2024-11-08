@@ -18,7 +18,7 @@
 				{
 					"name": "bell",
 					"parent": "root",
-					"pivot": [0, 0.75, 0],
+					"pivot": [0, 6.75, 0],
 					"cubes": [
 						{"origin": [-8, 1, -8], "size": [16, 11, 16], "uv": [0, 0]}
 					]
