@@ -101,18 +101,84 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             case 8 -> "black";
             case 9 -> "regalblue";
             case 10 -> "gem";
-            case 11 -> "penguin";
-            case 12 -> "greenspot";
-            case 13 -> "rusty";
-            case 14 -> "pearly";
-            case 15 -> "yellowbellyblue";
-            case 16 -> "muddy";
-            case 17 -> "chocolate";
+            case 11 -> "penguin"; //a
+            case 12 -> "greenspot"; //a
+            case 13 -> "rusty"; //a
+            case 14 -> "pearly"; //a
+            case 15 -> "yellowbellyblue"; //a
+            case 16 -> "muddy"; //a
+            case 17 -> "chocolate"; //a
             case 18 -> "sailfin";
             case 19 -> "atlanticblue";
 
             default -> "bluehippo";
         };
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        float aberrant = this.getRandom().nextFloat();
+        float variantChange = this.getRandom().nextFloat();
+        float aberrantVariantChange = this.getRandom().nextFloat();
+
+        if(aberrant <= 0.001){
+            if (aberrantVariantChange <= 0.14F) {
+                this.setVariant(11);
+            } else
+            if (aberrantVariantChange <= 0.28F) {
+                this.setVariant(12);
+            } else
+            if (aberrantVariantChange <= 0.42F) {
+                this.setVariant(13);
+            } else
+            if (aberrantVariantChange <= 0.56F) {
+                this.setVariant(14);
+            } else
+            if (aberrantVariantChange <= 0.70F) {
+                this.setVariant(15);
+            } else if (aberrantVariantChange <= 0.84F) {
+                this.setVariant(16);
+            } else {
+                this.setVariant(17);
+            }
+
+        }
+        else {
+            if (variantChange <= 0.09F) {
+                this.setVariant(1);
+            } else
+                if (variantChange <= 0.18F) {
+                this.setVariant(2);
+            } else
+                if (variantChange <= 0.27F) {
+                    this.setVariant(3);
+                } else
+                if (variantChange <= 0.36F) {
+                    this.setVariant(4);
+                } else
+                if (variantChange <= 0.45F) {
+                    this.setVariant(5);
+                } else
+                if (variantChange <= 0.54F) {
+                    this.setVariant(6);
+                } else
+                    if (variantChange <= 0.63F) {
+                this.setVariant(7);
+            } else
+                if (variantChange <= 0.72F) {
+                        this.setVariant(8);
+                    } else
+                    if (variantChange <= 0.81F) {
+                        this.setVariant(9);
+                    } else
+                    if (variantChange <= 0.90F) {
+                        this.setVariant(10);
+                    } else
+                    {
+                this.setVariant(0);
+            }
+        }
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
     public void tick() {
@@ -211,38 +277,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-         if(variantChange <= 0.0002){
-            this.setVariant(10);
-        } if(variantChange <= 0.003){
-            this.setVariant(9);
-        }else if(variantChange <= 0.004){
-            this.setVariant(8);
-        }else if(variantChange <= 0.10F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.20F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.30F){
-            this.setVariant(11);
-        }else if(variantChange <= 0.40F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.70F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.80F){
-            this.setVariant(1);
-        }else if(variantChange <= 0.90F){
-            this.setVariant(12);
-        } else{
-            this.setVariant(0);
-        }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
+
 
 
 

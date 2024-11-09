@@ -220,10 +220,20 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 ) {
+            {
+                geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
+            }
+        } else {
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("iddling", Animation.LoopType.LOOP));
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+        }
+
         return PlayState.CONTINUE;
     }
-
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
