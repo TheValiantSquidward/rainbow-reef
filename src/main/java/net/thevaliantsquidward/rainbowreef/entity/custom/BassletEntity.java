@@ -46,6 +46,8 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
@@ -162,6 +164,10 @@ public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
+        LocalDate currentDate = LocalDate.now();
+        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
+            this.setVariant(4);
+        }else
         if(variantChange <= 0.0001){
             this.setVariant(6);
         }else if(variantChange <= 0.001){

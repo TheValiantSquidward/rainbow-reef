@@ -11,7 +11,7 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
     private static final ResourceLocation BLACKANDWHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blackandwhite.png");
     private static final ResourceLocation OCELLARIS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/ocellaris.png");
     private static final ResourceLocation MAROON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/maroon.png");
-    private static final ResourceLocation PINKSCUNK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/pinkscunk.png");
+    private static final ResourceLocation PINKSKUNK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/pinkscunk.png");
     private static final ResourceLocation CLARKII = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/clarkii.png");
     private static final ResourceLocation BLIZZARD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blizzard.png");
     private static final ResourceLocation TOMATO = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/tomato.png");
@@ -29,7 +29,7 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
         return switch (entity.getVariant()) {
             case 1 -> OCELLARIS;
             case 2 -> MAROON;
-            case 3 -> PINKSCUNK;
+            case 3 -> PINKSKUNK;
             case 4 -> CLARKII;
             case 5 -> BLIZZARD;
             case 6 -> TOMATO;

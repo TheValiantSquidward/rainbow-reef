@@ -62,32 +62,37 @@ import java.util.function.Predicate;
 
 public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
+
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(RayEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(RayEntity.class, EntityDataSerializers.INT);
 
-    public RayEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
-        super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    public static String getVariantName(int variant) {
+        return switch (variant) {
+            case 1 -> "ornate";
+            default -> "spotted";
+        };
     }
-    public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 5.0D);
+
+    public void tick() {
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            //use this stuff for fish flopping
+        }
+
+        super.tick();
     }
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MoorishIdolEntity.class, EntityDataSerializers.INT);
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(VARIANT, 0);
-    }
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "ornate";
-            default -> "default";
-        };
+        this.entityData.define(FROM_BUCKET, false);
     }
 
     @Override
@@ -134,8 +139,8 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putBoolean("FromBucket", this.fromBucket());
         compound.putInt("Variant", this.getVariant());
+        compound.putBoolean("FromBucket", this.fromBucket());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -153,26 +158,23 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
-    public static <T extends Mob> boolean canSpawn(EntityType<RayEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
+
     @Override
     @Nonnull
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-
-
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.001F){
+        if(variantChange <= 0.20F) {
+            this.setVariant(4);
+        } else if(variantChange <= 0.40F) {
+            this.setVariant(3);
+        } else if(variantChange <= 0.60F){
+            this.setVariant(2);
+        }else if(variantChange <= 0.80F){
             this.setVariant(1);
         }else{
             this.setVariant(0);
@@ -180,30 +182,36 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+
+    public RayEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
+    }
+
+    protected PathNavigation createNavigation(Level p_27480_) {
+        return new WaterBoundPathNavigation(this, p_27480_);
+    }
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 7D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.MAX_HEALTH, 4D)
+                .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
     }
 
+    @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1) {
-            @Override
-            public boolean canUse() {
-                return super.canUse() && isInWater();
-            }
-        });
-        this.goalSelector.addGoal(2, new RandomStrollGoal(this, 0.8D, 15) {
-            @Override
-            public boolean canUse() {
-                return !this.mob.isInWater() && super.canUse();
-            }
-        });
+        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }
 
 
@@ -219,8 +227,8 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+    protected SoundEvent getFlopSound() {
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
     @Override
@@ -232,8 +240,9 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
-
-
+    public static <T extends Mob> boolean canSpawn(EntityType<RayEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
