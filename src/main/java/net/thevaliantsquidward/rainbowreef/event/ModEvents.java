@@ -12,6 +12,7 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.BasicItemListing;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -52,9 +53,6 @@ public class ModEvents {
             ));
         }
     }
-
-
-
 
 
 

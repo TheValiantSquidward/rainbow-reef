@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef.entity.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.allay.Allay;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -28,12 +30,12 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.DynamicGameEventListener;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.goalz.CrabBottomWander;
-import net.thevaliantsquidward.rainbowreef.entity.goalz.CrabFindWater;
-import net.thevaliantsquidward.rainbowreef.entity.goalz.CrabLeaveWater;
-import net.thevaliantsquidward.rainbowreef.entity.goalz.CrabPathfinder;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.*;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.DancesToJukebox;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -46,19 +48,17 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 
-public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
+public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, DancesToJukebox {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     //crabbing about
     //the crabby beast
     //crabbed to meet you
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
 
-
-
-    public CrabEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public CrabEntity(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -106,25 +106,28 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
+
+
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
-
     public void setVariant(int variant) {
         this.entityData.set(VARIANT, Integer.valueOf(variant));
     }
-
+    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.getVariant());
         compound.putBoolean("FromBucket", this.fromBucket());
     }
-
+    @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setVariant(compound.getInt("Variant"));
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
+
+
 
     @Override
     public boolean fromBucket() {
@@ -163,11 +166,11 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
             this.setVariant(2); 
         }  else if (holder.is(Biomes.STONY_SHORE)) {
             this.setVariant(3);
-        }  else if (holder.is(Biomes.LUKEWARM_OCEAN)) {
+        }  else if (holder.is(Biomes.LUKEWARM_OCEAN) || holder.is(Biomes.DEEP_LUKEWARM_OCEAN)) {
             this.setVariant(4);
-        } else if (holder.is(Biomes.OCEAN)) {
+        } else if (holder.is(Biomes.OCEAN) || holder.is(Biomes.DEEP_OCEAN)) {
             this.setVariant(5);
-        }  else if (holder.is(Biomes.COLD_OCEAN)) {
+        }  else if (holder.is(Biomes.COLD_OCEAN) || holder.is(Biomes.DEEP_COLD_OCEAN)) {
             this.setVariant(6);
         } else {
             this.setVariant(0);
@@ -203,14 +206,26 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
 
     @Override
     protected void registerGoals() {
+        this.targetSelector.addGoal(0, new ConditionalStopGoal(this) {
+        @Override
+        public boolean canUse() {
+            CrabEntity crab = (CrabEntity) getCreatura();
+            //System.out.println(crab.isDancing());
+            return crab.isDancing();
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            CrabEntity crab = (CrabEntity) getCreatura();
+            return crab.isDancing();
+        }
+        });
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.MANGROVE_PROPAGULE), false));
         this.goalSelector.addGoal(4, new CrabBottomWander(this, 1.0D, 10, 50));
-        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
 
     }
     
@@ -224,6 +239,7 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
     }
 
     public void travel(Vec3 travelVector) {
+
         if (this.isDancing()) {
             travelVector = Vec3.ZERO;
         }
@@ -261,32 +277,15 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 10, this::predicate));
     }
-    private boolean partyCrab;
-    private BlockPos jukebox;
 
     @Override
-    protected boolean isImmobile() {
-        return super.isImmobile() || this.isPartyCrab();
-    }
+    public void tick() {
+        super.tick();
 
-    public void aiStep() {
-        if (this.jukebox == null || !this.jukebox.closerToCenterThan(this.position(), 5.46D) || !this.level().getBlockState(this.jukebox).is(Blocks.JUKEBOX)) {
-            this.partyCrab = false;
-            this.jukebox = null;
+        if (this.isDancing() && this.getJukeboxPos() != null) {
+            this.getLookControl().setLookAt(getJukeboxPos().getCenter());
         }
 
-
-        super.aiStep();
-
-    }
-
-    public void setRecordPlayingNearby(BlockPos pPos, boolean pIsPartying) {
-        this.jukebox = pPos;
-        this.partyCrab = pIsPartying;
-    }
-
-    public boolean isPartyCrab() {
-        return this.partyCrab;
     }
 
     private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.crab.idle");
@@ -295,7 +294,7 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable {
     private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.crab.feed");
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        if(this.isPartyCrab()) {
+        if(this.isDancing()) {
             geoAnimatableAnimationState.setAndContinue(CRAB_DANCE);
             geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
             return PlayState.CONTINUE;
