@@ -298,10 +298,10 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
 
     }
 
-    private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.crab.idle");
-    private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.crab.dance");
-    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.crab.walk1");
-    private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.crab.feed");
+    private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.arrow_crab.idle");
+    private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.arrow_crab.dance");
+    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.arrow_crab.walk1");
+    private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.arrow_crab.feed");
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
         if (this.isDancing()) {
