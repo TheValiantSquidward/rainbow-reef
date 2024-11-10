@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity.goalz;
 
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -43,6 +44,9 @@ public class GroundseekingRandomSwimGoal extends RandomStrollGoal {
     }
 
     public void tick() {
+        //if (this.fims.isEyeInFluid(FluidTags.WATER)) {
+            //this.fims.setDeltaMovement(this.fims.getDeltaMovement().add(0.0, 0.005, 0.0));
+        //}
     }
 
     @Override

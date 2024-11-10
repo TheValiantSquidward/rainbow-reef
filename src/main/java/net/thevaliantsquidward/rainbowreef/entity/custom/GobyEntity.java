@@ -8,6 +8,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -87,6 +88,16 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
         }
 
         super.tick();
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+        }
+        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
+        //must be applied independently to each fish
+
+        super.travel(pTravelVector);
     }
 
 
@@ -230,7 +241,7 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 75, 5, 10, 0.1));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 75, 5, 10, 0.01));
     }
 
 

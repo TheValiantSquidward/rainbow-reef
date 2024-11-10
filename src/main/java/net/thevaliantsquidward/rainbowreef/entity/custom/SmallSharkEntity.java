@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -35,6 +36,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
+import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -48,6 +50,27 @@ import javax.annotation.Nullable;
 
 public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
+    public Vec3 rightRefPoint;
+    public Vec3 rightRefOffset = new Vec3(1, 0, 0);
+
+    public Vec3 leftRefPoint;
+    public Vec3 leftRefOffset = new Vec3(-1, 0, 0);
+
+    public Vec3 upRefPoint;
+    public Vec3 upRefOffset = new Vec3(0, -1, 0);
+
+    public Vec3 downRefPoint;
+    public Vec3 downRefOffset = new Vec3(0, 1, 0);
+
+
+
+    public Vec3 tail0Point;
+    public Vec3 tail1Point;
+    public Vec3 tail2Point;
+
+    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 0.125);
+    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 0.625-0.125);
+    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1.0625-0.625);
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
 
@@ -56,8 +79,45 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
 
     public SmallSharkEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 5, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
+
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+
+        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
+        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
+        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
+    }
+
+    public void tick() {
+        //START of IK
+        //the entity rotations must be negativized because we want the points to be transformed relative to the entity
+        tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
+        tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
+        tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
+
+
+        //side refs don't move vertically
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+        //END of IK
+
+        super.tick();
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+        }
+        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
+        //must be applied independently to each fish
+
+        super.travel(pTravelVector);
     }
 
     @Override
@@ -183,7 +243,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 7D)
-                .add(Attributes.MOVEMENT_SPEED, 0.6D)
+                .add(Attributes.MOVEMENT_SPEED, 0.8D)
                 .build();
     }
 
@@ -192,7 +252,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
         //this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         //this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 1, 20, 20, 1));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
         //so it's entity, speed, and then frequency
     }
 

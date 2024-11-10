@@ -45,7 +45,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.GroundseekingRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
+import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -60,7 +65,39 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
+
+    //START of necessary IK shit
+    public Vec3 rightRefPoint;
+    public Vec3 rightRefOffset = new Vec3(1, 0, 0);
+
+    public Vec3 leftRefPoint;
+    public Vec3 leftRefOffset = new Vec3(-1, 0, 0);
+
+    public Vec3 upRefPoint;
+    public Vec3 upRefOffset = new Vec3(0, -1, 0);
+
+    public Vec3 downRefPoint;
+    public Vec3 downRefOffset = new Vec3(0, 1, 0);
+
+
+
+    public Vec3 tail0Point;
+    public Vec3 tail1Point;
+    public Vec3 tail2Point;
+    public Vec3 tail3Point;
+
+
+    //Offset to the points relative to their parent point
+    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 0.125);
+    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 0.625-0.125);
+    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1.0625-0.625);
+    public Vec3 tail3Offset = new Vec3(0.0, 0.0, 1);
+    //x = side to side offset
+    //y = vert offset
+    //z = fore to back offset(pos is back)
+
+    //END of necessary IK shit
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -75,17 +112,9 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         };
     }
 
-    public void tick() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
-        }
-
-        super.tick();
+    @Override
+    public int getMaxSchoolSize() {
+        return 10;
     }
 
     @Override
@@ -186,10 +215,49 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
         return MobType.WATER;
     }
 
-    public RayEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public RayEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
+
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+
+        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
+        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
+        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
+        tail3Point = MathHelpers.rotateAroundCenterFlatDeg(tail2Point, tail2Point.subtract(tail3Offset), (double) -this.getYRot());
+    }
+
+    public void tick() {
+        //START of IK
+        //the entity rotations must be negativized because we want the points to be transformed relative to the entity
+
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            //use this stuff for fish flopping
+        } else {
+            tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
+            tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
+            tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
+            tail3Point = MathHelpers.rotateAroundCenter3dDeg(tail2Point, tail2Point.subtract(tail3Offset), -MathHelpers.angleTo(tail2Point, tail3Point).y, -MathHelpers.angleTo(tail2Point, tail3Point).x);
+
+
+            //side refs don't move vertically
+            leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+            rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+            upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+            downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+            //END of IK
+        }
+
+        super.tick();
     }
 
     @Override
@@ -210,8 +278,9 @@ public class RayEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 3, 1, 20, 20, 2));
     }
 
 

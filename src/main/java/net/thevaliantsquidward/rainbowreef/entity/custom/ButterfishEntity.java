@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -213,7 +214,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.5D)
                 .build();
     }
 
@@ -223,6 +224,17 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.001, 0.0));
+        }
+        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
+        //must be applied independently to each fish
+
+        super.travel(pTravelVector);
+    }
+
 
 
     protected SoundEvent getAmbientSound() {
