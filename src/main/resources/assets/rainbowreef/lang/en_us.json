@@ -178,7 +178,7 @@
   "entity.rainbowreef.clownfish.variant_ocellaris": "Ocellaris",
   "entity.rainbowreef.clownfish.variant_maroon": "Maroon",
   "entity.rainbowreef.clownfish.variant_blackandwhite": "Black and White",
-  "entity.rainbowreef.clownfish.variant_pinkscunk": "Pink Skunk",
+  "entity.rainbowreef.clownfish.variant_pinkskunk": "Pink Skunk",
   "entity.rainbowreef.clownfish.variant_clarkii": "Clarkii",
   "entity.rainbowreef.clownfish.variant_blizzard": "Blizzard",
   "entity.rainbowreef.clownfish.variant_tomato": "Tomato",
@@ -237,7 +237,7 @@
   "entity.rainbowreef.pipefish.variant_orangestriped": "Orangestriped",
   "entity.rainbowreef.pipefish.variant_bluestriped": "Bluestriped",
   "entity.rainbowreef.pipefish.variant_pink": "Pink",
-  "entity.rainbowreef.ray.variant_default": "Spotted",
+  "entity.rainbowreef.ray.variant_spotted": "Spotted",
   "entity.rainbowreef.ray.variant_ornate": "Ornate",
 
   "entity.rainbowreef.crab.variant_vampire": "Vampire",

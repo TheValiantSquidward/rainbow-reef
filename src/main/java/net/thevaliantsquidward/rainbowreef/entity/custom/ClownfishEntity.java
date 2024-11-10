@@ -81,15 +81,15 @@ public class ClownfishEntity extends VariantSchoolingFish implements GeoEntity, 
     }
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "clownfish_1";
-            case 2 -> "clownfish_2";
-            case 3 -> "clownfish_4";
-            case 4 -> "clownfish_5";
-            case 5 -> "clownfish_6";
-            case 6 -> "clownfish_7";
-            case 7 -> "clownfish_8";
+            case 1 -> "ocellaris";
+            case 2 -> "maroon";
+            case 3 -> "pinkskunk";
+            case 4 -> "clarkii";
+            case 5 -> "blizzard";
+            case 6 -> "tomato";
+            case 7 -> "bluestrain";
 
-            default -> "clownfish_3";
+            default -> "blackandwhite";
         };
     }
 

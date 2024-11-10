@@ -15,6 +15,7 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
     private static final ResourceLocation KEYHOLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/keyhole.png");
     private static final ResourceLocation MASKED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/masked.png");
     private static final ResourceLocation CHERUB = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/cherubfish.png");
+    private static final ResourceLocation JAPANESE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/japanese.png");
 
 
     public DwarfAngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -33,6 +34,7 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
             case 4 -> KEYHOLE;
             case 5 -> MASKED;
             case 6 -> CHERUB;
+            case 7 -> JAPANESE;
             default -> BICOLOR;
         };
     }

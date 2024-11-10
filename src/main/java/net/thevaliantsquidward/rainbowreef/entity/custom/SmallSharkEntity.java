@@ -74,6 +74,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
             case 1 -> "pajama";
             case 2 -> "horned";
             case 3 -> "nurse";
+            case 4 -> "zebra";
             default -> "epaulette";
         };
     }
@@ -162,7 +163,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         if (dataTag == null) {
-            setVariant(random.nextInt(4));
+            setVariant(random.nextInt(5));
         } else {
             if (dataTag.contains("Variant", 4)){
                 this.setVariant(dataTag.getInt("Variant"));
@@ -219,10 +220,20 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+
+        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 ) {
+            {
+                geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+                return PlayState.CONTINUE;
+            }
+        } else {
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("iddling", Animation.LoopType.LOOP));
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+        }
+
         return PlayState.CONTINUE;
     }
-
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

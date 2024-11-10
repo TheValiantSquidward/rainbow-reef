@@ -46,6 +46,8 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
@@ -64,6 +66,7 @@ public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable 
             case 5 -> "gold";
             case 6 -> "gilded";
             case 7 -> "swissguard";
+            case 8 -> "yellow scissortail";
             default -> "fairy";
         };
     }
@@ -161,19 +164,25 @@ public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
+        LocalDate currentDate = LocalDate.now();
+        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
+            this.setVariant(4);
+        }else
         if(variantChange <= 0.0001){
             this.setVariant(6);
         }else if(variantChange <= 0.001){
             this.setVariant(5);
-        }else if(variantChange <= 0.16F){
+        }else if(variantChange <= 0.14F){
             this.setVariant(4);
-        }else if(variantChange <= 0.32F){
+        }         if(variantChange <= 0.28) {
+            this.setVariant(8);
+        }else if(variantChange <= 0.42F){
             this.setVariant(7);
-        }else if(variantChange <= 0.48F){
+        }else if(variantChange <= 0.56F){
             this.setVariant(3);
-        }else if(variantChange <= 0.64F){
+        }else if(variantChange <= 0.70F){
             this.setVariant(2);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.84F){
             this.setVariant(1);
         }else{
             this.setVariant(0);
