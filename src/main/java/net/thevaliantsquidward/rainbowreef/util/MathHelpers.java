@@ -58,11 +58,31 @@ public class MathHelpers {
         return new Vec3(newMeX, newMeY, newMeZ);
     }
 
-    public static double angleFromYdiff(double hyp, Vec3 point, Vec3 child) {
-        double ydiff = child.y - point.y;
+    public static double angleFromYdiff(Vec3 lead, Vec3 point, Vec3 trail) {
+        double NextHeight = trail.y - point.y;
+        double PrevHeight = lead.y - point.y;
 
-        return Math.asin(ydiff/hyp);
+        double distToNextFlat = flatDist(point, trail);
+        double distToPrevFlat = flatDist(lead, point);
+
+        double ThetaPrevious = Math.asin(PrevHeight/distToPrevFlat);
+        double ThetaNext = Math.asin(NextHeight/distToNextFlat);
+
+        if (PrevHeight/distToPrevFlat > 1){
+            ThetaPrevious = Math.asin(1);
+        } else if (PrevHeight/distToPrevFlat < -1) {
+            ThetaPrevious = Math.asin(-1);
+        }
+        if (NextHeight/distToNextFlat > 1){
+            ThetaNext = Math.asin(1);
+        } else if (NextHeight/distToNextFlat < -1) {
+            ThetaNext = Math.asin(-1);
+        }
+
+
+        return ThetaPrevious + ThetaNext;
     }
+
 
     public static double getAngleForLinkTopDownFlat(Vec3 point, Vec3 parent, Vec3 child, Vec3 leftRef, Vec3 rightRef){
         //I AM PRETTY SURE LEFT IS NEGATIVE(down) BUT I AM TOO LAZY TO CONFIRM
@@ -105,5 +125,12 @@ public class MathHelpers {
         }
     }
 
+    public static double vertAngleClamp(double angle, double poslim) {
+        return Mth.clamp(angle, -poslim, poslim);
+    }
+
+    public static double flatDist(Vec3 a, Vec3 b) {
+        return Math.abs(Math.hypot(a.x - b.x, a.z - b.z));
+    }
 
 }
