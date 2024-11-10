@@ -107,6 +107,10 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     //END of necessary IK shit
 
 
+    public int animTime;
+    public double animSpeed = 1;
+
+
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(RayEntity.class, EntityDataSerializers.BOOLEAN);
@@ -246,15 +250,8 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
         //START of IK
         //the entity rotations must be negativized because we want the points to be transformed relative to the entity
 
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
-        } else {
-            //START of IK
+        if (this.isInWater()){
+        //START of IK
             //the entity rotations must be negativized because we want the points to be transformed relative to the entity
 
             tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
@@ -284,6 +281,21 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
             downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
             //END of IK
+
+
+            if(this.level().isClientSide()) {
+                if (this.animTime == (int)(8 * 20 / (this.animSpeed))) {
+                    this.animTime = 0;
+                    this.animSpeed = 0.5 + (2 * Math.random());
+                    //animation speed ranges from 0.5 times, to 2.5 times)
+
+                } else {
+                    this.animTime++;
+                }
+            }
+
+            System.out.println(this.animTime);
+            System.out.println(this.animSpeed);
         }
 
         super.tick();
@@ -331,11 +343,21 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+        if(this.isUnderWater()) {
+            geoAnimatableAnimationState.getController().setAnimationSpeed(animSpeed);
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+        } else {
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("stranded", Animation.LoopType.LOOP));
+        }
+
+        if(!this.level().isClientSide()) {
+            System.out.println("server");
+        }
+
         return PlayState.CONTINUE;
     }
     public static <T extends Mob> boolean canSpawn(EntityType<RayEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {

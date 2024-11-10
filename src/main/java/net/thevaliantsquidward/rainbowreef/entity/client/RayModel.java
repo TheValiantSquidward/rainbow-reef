@@ -37,7 +37,6 @@ public class RayModel extends GeoModel<RayEntity> {
         EntityModelData extraData = customPredicate.getData(DataTickets.ENTITY_MODEL_DATA);
 
         if (entity.isUnderWater()) {
-
             CoreGeoBone tail1 = this.getAnimationProcessor().getBone("tail");
             CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail_tip");
             CoreGeoBone tail3 = this.getAnimationProcessor().getBone("tail_tip2");
