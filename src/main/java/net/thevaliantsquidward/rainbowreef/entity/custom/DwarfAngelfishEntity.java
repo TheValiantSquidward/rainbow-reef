@@ -157,27 +157,17 @@ public class DwarfAngelfishEntity extends WaterAnimal implements GeoEntity, Buck
     }
 
     @Nullable
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-
-        if(variantChange <= 0.12F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.24F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(1);
-        }else if(variantChange <= 0.72F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.84F){
-            this.setVariant(6);
-        }if(variantChange <= 0.96F){
-            this.setVariant(7);
-        } else{
-            this.setVariant(0);
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        if (dataTag == null) {
+            setVariant(random.nextInt(8));
+        } else {
+            if (dataTag.contains("Variant", 4)){
+                this.setVariant(dataTag.getInt("Variant"));
+            }
         }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return spawnDataIn;
     }
 
 

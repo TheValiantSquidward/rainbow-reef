@@ -47,6 +47,8 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, DancesToJukebox {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -146,32 +148,17 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
     }
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "halloween";
-            case 2 -> "ghost";
-            case 3 -> "sally";
-            case 4 -> "emerald";
-            case 5 -> "blue";
-            case 6 -> "purple";
-            case 7 -> "candy";
-            default -> "vampire";
+            case 1 -> "red";
+            default -> "yellowlined";
         };
     }
 
-    @Nullable
+    @javax.annotation.Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
-        Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
-        if (holder.is(Biomes.MANGROVE_SWAMP)) {
+        float variantChange = this.getRandom().nextFloat();
+
+        if (variantChange <= 0.10F) {
             this.setVariant(1);
-        } else if (holder.is(Biomes.BEACH)) {
-            this.setVariant(2); 
-        }  else if (holder.is(Biomes.STONY_SHORE)) {
-            this.setVariant(3);
-        }  else if (holder.is(Biomes.LUKEWARM_OCEAN) || holder.is(Biomes.DEEP_LUKEWARM_OCEAN)) {
-            this.setVariant(4);
-        } else if (holder.is(Biomes.OCEAN) || holder.is(Biomes.DEEP_OCEAN)) {
-            this.setVariant(5);
-        }  else if (holder.is(Biomes.COLD_OCEAN) || holder.is(Biomes.DEEP_COLD_OCEAN)) {
-            this.setVariant(6);
         } else {
             this.setVariant(0);
         }
@@ -288,10 +275,10 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
 
     }
 
-    private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.crab.idle");
-    private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.crab.dance");
-    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.crab.walk1");
-    private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.crab.feed");
+    private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.arrow_crab.idle");
+    private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.arrow_crab.dance");
+    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.arrow_crab.walk1");
+    private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.arrow_crab.feed");
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
         if(this.isDancing()) {
