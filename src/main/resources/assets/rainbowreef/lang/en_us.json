@@ -209,6 +209,13 @@
   "entity.rainbowreef.jellyfish.variant_yellow": "White",
   "entity.rainbowreef.jellyfish.variant_pink": "Pink",
   "entity.rainbowreef.jellyfish.variant_orange": "Orange",
+  "entity.rainbowreef.jellyfish.variant_muddy": "Muddy",
+  "entity.rainbowreef.jellyfish.variant_red": "Red",
+  "entity.rainbowreef.jellyfish.variant_cherry": "Cherry",
+  "entity.rainbowreef.jellyfish.variant_abyssal": "Abyssal",
+  "entity.rainbowreef.jellyfish.variant_minty": "Minty",
+  "entity.rainbowreef.jellyfish.variant_azure": "Azure",
+  "entity.rainbowreef.jellyfish.variant_": "",
 
   "entity.rainbowreef.parrotfish.variant_blue": "Blue",
   "entity.rainbowreef.parrotfish.variant_midnight": "Midnight",

@@ -137,9 +137,54 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
             case 1 -> "orange";
             case 2 -> "white";
             case 3 -> "yellow";
+            case 4 -> "muddy";
+            case 5 -> "abyssal";
+            case 6 -> "cherry";
+            case 7 -> "minty";
+            case 8 -> "azure";
+            case 9 -> "red";
             default -> "pink";
         };
     }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        float variantChange = this.getRandom().nextFloat();
+        float rare = this.getRandom().nextFloat();
+        float rareVariantChange = this.getRandom().nextFloat();
+        if(rare <= 0.10) {
+            if(rareVariantChange <= 0.20F){
+                this.setVariant(4);
+            }else
+            if(rareVariantChange <= 0.40F){
+                this.setVariant(5);
+            }else
+            if(rareVariantChange <= 0.60F){
+                this.setVariant(6);
+            }else
+            if(rareVariantChange <= 0.80F){
+                this.setVariant(7);
+            }else
+            {
+                this.setVariant(8);
+            }
+        } else
+
+        if(variantChange <= 0.20F){
+            this.setVariant(9);
+        }else if(variantChange <= 0.40F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.60F){
+            this.setVariant(2);
+        }else if(variantChange <= 0.80F){
+            this.setVariant(1);
+        } else{
+            this.setVariant(0);
+        }
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
+
     @Override
     public void tick() {
         if (!this.hasCustomName()) {
@@ -325,20 +370,6 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.25F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.75F){
-            this.setVariant(1);
-        } else{
-            this.setVariant(0);
-        }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
 
 
     public MobType getMobType() {
