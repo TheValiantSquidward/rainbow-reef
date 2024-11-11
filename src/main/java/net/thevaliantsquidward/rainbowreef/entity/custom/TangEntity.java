@@ -34,6 +34,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -57,7 +58,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
 
     public TangEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -296,7 +297,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.9, 1));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
     }
 
     public static <T extends Mob> boolean canSpawn(EntityType<TangEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {

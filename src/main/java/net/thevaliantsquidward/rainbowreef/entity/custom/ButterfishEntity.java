@@ -32,6 +32,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -197,7 +198,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
 
     public ButterfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 15, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 30, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 15);
     }
 
@@ -214,7 +215,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.5D)
+                .add(Attributes.MOVEMENT_SPEED, 0.4D)
                 .build();
     }
 
@@ -222,7 +223,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
     }
 
     public void travel(Vec3 pTravelVector) {
