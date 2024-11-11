@@ -109,13 +109,13 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
         downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
         //END of IK
 
-        if (!this.level().isClientSide()) {
+        /*if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();
 
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail1Point.x), (tail1Point.y), (tail1Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail2Point.x), (tail2Point.y), (tail2Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }
+            }*/
 
 
         super.tick();
@@ -124,6 +124,8 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     public void travel(Vec3 pTravelVector) {
         if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+        } else if (this.isUnderWater()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.01, 0.0));
         }
         //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
         //must be applied independently to each fish

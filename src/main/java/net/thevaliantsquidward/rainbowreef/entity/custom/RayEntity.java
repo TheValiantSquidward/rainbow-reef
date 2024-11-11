@@ -228,7 +228,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     public RayEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 90, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
         leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
@@ -286,16 +286,13 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             if(this.level().isClientSide()) {
                 if (this.animTime == (int)(8 * 20 / (this.animSpeed))) {
                     this.animTime = 0;
-                    this.animSpeed = 0.5 + (2 * Math.random());
-                    //animation speed ranges from 0.5 times, to 2.5 times)
+                    this.animSpeed = 0.5 + (1 * Math.random());
+                    //animation speed ranges from 0.5 times, to 1.5 times)
 
                 } else {
                     this.animTime++;
                 }
             }
-
-            System.out.println(this.animTime);
-            System.out.println(this.animSpeed);
         }
 
         super.tick();
@@ -312,7 +309,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
+                .add(Attributes.MAX_HEALTH, 6D)
                 .add(Attributes.MOVEMENT_SPEED, 2D)
                 .build();
     }
@@ -348,14 +345,11 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
         if(this.isUnderWater()) {
-            geoAnimatableAnimationState.getController().setAnimationSpeed(animSpeed);
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1);
             geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
         } else {
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1);
             geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("stranded", Animation.LoopType.LOOP));
-        }
-
-        if(!this.level().isClientSide()) {
-            System.out.println("server");
         }
 
         return PlayState.CONTINUE;

@@ -57,8 +57,8 @@ public class SmallSharkModel extends GeoModel<SmallSharkEntity> {
             //gotta set up UNIQUE NODES FOR EACH BONE
 
             core.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
-            tail1.setRotX((float) (tail1.getRotX() - (MathHelpers.vertAngleClamp(MathHelpers.angleFromYdiff(entity.position(), entity.tail0Point, entity.tail1Point), Mth.PI*0.20))));
-            tail2.setRotX((float) (tail1.getRotX() - (MathHelpers.vertAngleClamp(MathHelpers.angleFromYdiff(entity.tail0Point, entity.tail1Point, entity.tail2Point), Mth.PI*0.20))));
+            tail1.setRotX((float) (tail1.getRotX() - (MathHelpers.vertAngleClamp(MathHelpers.angleFromYdiff(entity.position(), entity.tail0Point, entity.tail1Point), Mth.PI*0.15))));
+            tail2.setRotX((float) (tail1.getRotX() - (MathHelpers.vertAngleClamp(MathHelpers.angleFromYdiff(entity.tail0Point, entity.tail1Point, entity.tail2Point), Mth.PI*0.15))));
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
         }
         //ik stuff END

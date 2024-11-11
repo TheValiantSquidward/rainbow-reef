@@ -125,8 +125,53 @@ public class MathHelpers {
         }
     }
 
-    public static double vertAngleClamp(double angle, double poslim) {
-        return Mth.clamp(angle, -poslim, poslim);
+    public static double vertAngleClamp(double angle, double lim) {
+        return Mth.clamp(angle, -lim, lim);
+    }
+
+    public static double ShortestPathCircleLerp(double pStart, double pEnd, double pDelta) {
+
+        double distFore = Mth.TWO_PI - pStart;
+        double distBack = Mth.abs((float) pStart) + Mth.abs((float) pEnd);
+
+        if (pDelta < 0.0) {
+            return pStart;
+        } else if (distBack < distFore){
+            //shorter to lerp back
+            return pDelta > 1.0 ? pEnd : Mth.inverseLerp(pDelta, pStart, pEnd);
+        } else {
+            return pDelta > 1.0 ? pEnd : Mth.lerp(pDelta, pStart, pEnd);
+        }
+    }
+
+    public static double LerpDegrees(double start, double end, double amount)
+    {
+        double difference = Math.abs(end - start);
+        if (difference > Mth.PI)
+        {
+            // We need to add on to one of the values.
+            if (end > start)
+            {
+                // We'll add it on to start...
+                start += Mth.TWO_PI;
+            }
+            else
+            {
+                // Add it on to end.
+                end += Mth.TWO_PI;
+            }
+        }
+
+        // Interpolate it.
+        double value = (start + ((end - start) * amount));
+
+        // Wrap it..
+        float rangeZero = Mth.TWO_PI;
+
+        if (value >= 0 && value <= Mth.TWO_PI)
+            return value;
+
+        return (value % rangeZero);
     }
 
     public static double flatDist(Vec3 a, Vec3 b) {
