@@ -58,11 +58,31 @@ public class MathHelpers {
         return new Vec3(newMeX, newMeY, newMeZ);
     }
 
-    public static double angleFromYdiff(double hyp, Vec3 point, Vec3 child) {
-        double ydiff = child.y - point.y;
+    public static double angleFromYdiff(Vec3 lead, Vec3 point, Vec3 trail) {
+        double NextHeight = trail.y - point.y;
+        double PrevHeight = lead.y - point.y;
 
-        return Math.asin(ydiff/hyp);
+        double distToNextFlat = flatDist(point, trail);
+        double distToPrevFlat = flatDist(lead, point);
+
+        double ThetaPrevious = Math.asin(PrevHeight/distToPrevFlat);
+        double ThetaNext = Math.asin(NextHeight/distToNextFlat);
+
+        if (PrevHeight/distToPrevFlat > 1){
+            ThetaPrevious = Math.asin(1);
+        } else if (PrevHeight/distToPrevFlat < -1) {
+            ThetaPrevious = Math.asin(-1);
+        }
+        if (NextHeight/distToNextFlat > 1){
+            ThetaNext = Math.asin(1);
+        } else if (NextHeight/distToNextFlat < -1) {
+            ThetaNext = Math.asin(-1);
+        }
+
+
+        return ThetaPrevious + ThetaNext;
     }
+
 
     public static double getAngleForLinkTopDownFlat(Vec3 point, Vec3 parent, Vec3 child, Vec3 leftRef, Vec3 rightRef){
         //I AM PRETTY SURE LEFT IS NEGATIVE(down) BUT I AM TOO LAZY TO CONFIRM
@@ -105,5 +125,57 @@ public class MathHelpers {
         }
     }
 
+    public static double vertAngleClamp(double angle, double lim) {
+        return Mth.clamp(angle, -lim, lim);
+    }
+
+    public static double ShortestPathCircleLerp(double pStart, double pEnd, double pDelta) {
+
+        double distFore = Mth.TWO_PI - pStart;
+        double distBack = Mth.abs((float) pStart) + Mth.abs((float) pEnd);
+
+        if (pDelta < 0.0) {
+            return pStart;
+        } else if (distBack < distFore){
+            //shorter to lerp back
+            return pDelta > 1.0 ? pEnd : Mth.inverseLerp(pDelta, pStart, pEnd);
+        } else {
+            return pDelta > 1.0 ? pEnd : Mth.lerp(pDelta, pStart, pEnd);
+        }
+    }
+
+    public static double LerpDegrees(double start, double end, double amount)
+    {
+        double difference = Math.abs(end - start);
+        if (difference > Mth.PI)
+        {
+            // We need to add on to one of the values.
+            if (end > start)
+            {
+                // We'll add it on to start...
+                start += Mth.TWO_PI;
+            }
+            else
+            {
+                // Add it on to end.
+                end += Mth.TWO_PI;
+            }
+        }
+
+        // Interpolate it.
+        double value = (start + ((end - start) * amount));
+
+        // Wrap it..
+        float rangeZero = Mth.TWO_PI;
+
+        if (value >= 0 && value <= Mth.TWO_PI)
+            return value;
+
+        return (value % rangeZero);
+    }
+
+    public static double flatDist(Vec3 a, Vec3 b) {
+        return Math.abs(Math.hypot(a.x - b.x, a.z - b.z));
+    }
 
 }

@@ -81,23 +81,34 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     public Vec3 downRefOffset = new Vec3(0, 1, 0);
 
 
-
     public Vec3 tail0Point;
     public Vec3 tail1Point;
     public Vec3 tail2Point;
     public Vec3 tail3Point;
+    public Vec3 tail4Point;
+    public Vec3 tail5Point;
+    public Vec3 tail6Point;
+
 
 
     //Offset to the points relative to their parent point
-    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 0.125);
-    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 0.625-0.125);
-    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1.0625-0.625);
-    public Vec3 tail3Offset = new Vec3(0.0, 0.0, 1);
+    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 0.47);
+    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 0.47);
+    //technically the second segment's bone position offset, but affects the segment before it
+    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 0.47);
+    public Vec3 tail3Offset = new Vec3(0.0, 0.0, 0.47);
+    public Vec3 tail4Offset = new Vec3(0.0, 0.0, 0.47);
+    public Vec3 tail5Offset = new Vec3(0.0, 0.0, 0.47);
+    public Vec3 tail6Offset = new Vec3(0.0, 0.0, 0.47);
     //x = side to side offset
     //y = vert offset
     //z = fore to back offset(pos is back)
 
     //END of necessary IK shit
+
+
+    public int animTime;
+    public double animSpeed = 1;
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -217,7 +228,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     public RayEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 180, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 90, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
         leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
@@ -229,24 +240,39 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
         tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
         tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
         tail3Point = MathHelpers.rotateAroundCenterFlatDeg(tail2Point, tail2Point.subtract(tail3Offset), (double) -this.getYRot());
+        tail4Point = MathHelpers.rotateAroundCenterFlatDeg(tail3Point, tail3Point.subtract(tail4Offset), (double) -this.getYRot());
+        tail5Point = MathHelpers.rotateAroundCenterFlatDeg(tail4Point, tail4Point.subtract(tail5Offset), (double) -this.getYRot());
+        tail6Point = MathHelpers.rotateAroundCenterFlatDeg(tail5Point, tail5Point.subtract(tail6Offset), (double) -this.getYRot());
+
     }
 
     public void tick() {
         //START of IK
         //the entity rotations must be negativized because we want the points to be transformed relative to the entity
 
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
-        } else {
+        if (this.isInWater()){
+        //START of IK
+            //the entity rotations must be negativized because we want the points to be transformed relative to the entity
+
             tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
             tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
             tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
             tail3Point = MathHelpers.rotateAroundCenter3dDeg(tail2Point, tail2Point.subtract(tail3Offset), -MathHelpers.angleTo(tail2Point, tail3Point).y, -MathHelpers.angleTo(tail2Point, tail3Point).x);
+            tail4Point = MathHelpers.rotateAroundCenter3dDeg(tail3Point, tail3Point.subtract(tail4Offset), -MathHelpers.angleTo(tail3Point, tail4Point).y, -MathHelpers.angleTo(tail3Point, tail4Point).x);
+            tail5Point = MathHelpers.rotateAroundCenter3dDeg(tail4Point, tail4Point.subtract(tail5Offset), -MathHelpers.angleTo(tail4Point, tail5Point).y, -MathHelpers.angleTo(tail4Point, tail5Point).x);
+            tail6Point = MathHelpers.rotateAroundCenter3dDeg(tail5Point, tail5Point.subtract(tail6Offset), -MathHelpers.angleTo(tail5Point, tail6Point).y, -MathHelpers.angleTo(tail5Point, tail6Point).x);
+
+            /*if (!this.level().isClientSide()) {
+                ServerLevel llel = (ServerLevel) this.level();
+
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail1Point.x), (tail1Point.y), (tail1Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail2Point.x), (tail2Point.y), (tail2Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail3Point.x), (tail3Point.y), (tail3Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail4Point.x), (tail4Point.y), (tail4Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail5Point.x), (tail5Point.y), (tail5Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail6Point.x), (tail6Point.y), (tail6Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            }*/
 
 
             //side refs don't move vertically
@@ -255,6 +281,18 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
             downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
             //END of IK
+
+
+            if(this.level().isClientSide()) {
+                if (this.animTime == (int)(8 * 20 / (this.animSpeed))) {
+                    this.animTime = 0;
+                    this.animSpeed = 0.5 + (1 * Math.random());
+                    //animation speed ranges from 0.5 times, to 1.5 times)
+
+                } else {
+                    this.animTime++;
+                }
+            }
         }
 
         super.tick();
@@ -271,8 +309,8 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 1D)
+                .add(Attributes.MAX_HEALTH, 6D)
+                .add(Attributes.MOVEMENT_SPEED, 2D)
                 .build();
     }
 
@@ -302,11 +340,18 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+        if(this.isUnderWater()) {
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1);
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+        } else {
+            geoAnimatableAnimationState.getController().setAnimationSpeed(1);
+            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("stranded", Animation.LoopType.LOOP));
+        }
+
         return PlayState.CONTINUE;
     }
     public static <T extends Mob> boolean canSpawn(EntityType<RayEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
