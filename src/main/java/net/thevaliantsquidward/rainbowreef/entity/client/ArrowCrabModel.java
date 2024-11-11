@@ -19,7 +19,7 @@ public class ArrowCrabModel extends GeoModel<ArrowCrabEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(ArrowCrabEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "animations/dwarf_angelfish.animation.json");
+        return new ResourceLocation(RainbowReef.MOD_ID, "animations/arrow_crab.animation.json");
     }
 
 
