@@ -129,6 +129,8 @@ public class ModBlocks {
                     Block.box(3.0D, 2.0D, 3.0D, 13.0D, 16.0D, 13.0D)
                     ));
 
+    public static final RegistryObject<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.8F)));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
