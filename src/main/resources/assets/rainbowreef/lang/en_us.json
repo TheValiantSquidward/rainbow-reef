@@ -115,6 +115,10 @@
   "block.rainbowreef.chimney_coral_block" : "Chimney Coral Block",
   "block.rainbowreef.dead_chimney_coral_block" : "Dead Chimney Coral Block",
 
+  "block.rainbowreef.yellow_sea_anemone" : "Yellow Sea Anemone",
+  "block.rainbowreef.orange_sea_anemone" : "Orange Sea Anemone",
+  "block.rainbowreef.green_sea_anemone" : "Green Sea Anemone",
+
   "entity.rainbowreef.goby.variant_mandarin": "Mandarin",
   "entity.rainbowreef.goby.variant_purplefire": "Purple Fire",
   "entity.rainbowreef.goby.variant_fire": "Fire",
@@ -124,6 +128,8 @@
   "entity.rainbowreef.goby.variant_blueneon": "Blue Neon",
   "entity.rainbowreef.goby.variant_yellowneon": "Yellow Neon",
   "entity.rainbowreef.goby.variant_neonhybrid": "Hybrid Neon",
+  "entity.rainbowreef.goby.variant_blackline": "Blackline",
+  "entity.rainbowreef.goby.variant_helfrichi": "Helfrichi",
 
   "entity.rainbowreef.moorish_idol.variant_default": "Idol",
   "entity.rainbowreef.moorish_idol.variant_silver": "Silver Idol",
@@ -142,6 +148,7 @@
   "entity.rainbowreef.basslet.variant_accessor": "Accessor",
   "entity.rainbowreef.basslet.variant_candy": "Candy",
   "entity.rainbowreef.basslet.variant_blackcap": "Blackcap",
+  "entity.rainbowreef.basslet.variant_swissguard": "Swissguard",
 
   "entity.rainbowreef.arrow_crab.variant_yellowlined": "Yellowline",
   "entity.rainbowreef.arrow_crab.variant_red": "Scarlet",
@@ -199,6 +206,7 @@
   "entity.rainbowreef.small_shark.variant_pajama": "Pyjama",
   "entity.rainbowreef.small_shark.variant_horned": "Horned",
   "entity.rainbowreef.small_shark.variant_nurse": "Nurse",
+  "entity.rainbowreef.small_shark.variant_zebra": "Zebra",
 
   "entity.rainbowreef.boxfish.variant_purple": "White Spotted",
   "entity.rainbowreef.boxfish.variant_stripe": "White Barred",
@@ -228,6 +236,9 @@
   "entity.rainbowreef.dwarf_angelfish.variant_candycane": "Peppermint",
   "entity.rainbowreef.dwarf_angelfish.variant_flame": "Flame",
   "entity.rainbowreef.dwarf_angelfish.variant_spotted": "Keyhole",
+  "entity.rainbowreef.dwarf_angelfish.variant_japanese": "Japanese",
+  "entity.rainbowreef.dwarf_angelfish.variant_cherub": "Cherubfish",
+  "entity.rainbowreef.dwarf_angelfish.variant_masked": "Masked",
 
   "entity.rainbowreef.butterflyfish.variant_easterisland": "Easter Island",
   "entity.rainbowreef.butterflyfish.variant_threadfin": "Threadfin",
@@ -236,6 +247,7 @@
   "entity.rainbowreef.butterflyfish.variant_longnose": "Longnose",
   "entity.rainbowreef.butterflyfish.variant_spotfin": "Spotfin",
   "entity.rainbowreef.butterflyfish.variant_copperbanded": "Copperband",
+  "entity.rainbowreef.butterflyfish.variant_hooded": "Hooded",
 
   "entity.rainbowreef.pipefish.variant_green": "Green",
   "entity.rainbowreef.pipefish.variant_janns": "Janns",

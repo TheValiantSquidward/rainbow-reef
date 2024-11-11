@@ -132,6 +132,12 @@ public class ModBlocks {
     public static final RegistryObject<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
             () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.8F)));
 
+    public static final RegistryObject<Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.8F)));
+
+    public static final RegistryObject<Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.8F)));
+
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
         RegistryObject<B> block = BLOCKS.register(name, supplier);
