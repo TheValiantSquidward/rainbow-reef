@@ -27,6 +27,12 @@
         "rainbowreef:variant": 3
       },
       "model": "rainbowreef:item/horned"
+    },
+    {
+      "predicate": {
+        "rainbowreef:variant": 4
+      },
+      "model": "rainbowreef:item/zebra"
     }
   ]
 }
