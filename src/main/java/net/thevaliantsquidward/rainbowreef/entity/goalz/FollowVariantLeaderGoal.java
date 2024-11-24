@@ -34,7 +34,7 @@ public class FollowVariantLeaderGoal extends Goal {
             Predicate<VariantSchoolingFish> predicate = (p_25258_) -> {
                 return p_25258_.canBeFollowed() || !p_25258_.isFollower();
             };
-            List<? extends VariantSchoolingFish> list = this.mob.level().getEntitiesOfClass(this.mob.getClass(), this.mob.getBoundingBox().inflate(20.0D, 20.0D, 20.0D), predicate);
+            List<? extends VariantSchoolingFish> list = this.mob.level().getEntitiesOfClass(this.mob.getClass(), this.mob.getBoundingBox().inflate(25.0D, 25.0D, 25.0D), predicate);
             VariantSchoolingFish schoolingWaterAnimal = DataFixUtils.orElse(list.stream().filter(VariantSchoolingFish::canBeFollowed).findAny(), this.mob);
             schoolingWaterAnimal.addFollowers(list.stream().filter((p_25255_) -> {
                 return !p_25255_.isFollower();
