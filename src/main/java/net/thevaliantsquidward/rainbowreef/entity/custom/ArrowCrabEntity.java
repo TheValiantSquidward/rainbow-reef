@@ -17,6 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
@@ -144,44 +145,21 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
+
+
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "halloween";
-            case 2 -> "ghost";
-            case 3 -> "sally";
-            case 4 -> "emerald";
-            case 5 -> "blue";
-            case 6 -> "purple";
-            case 7 -> "candy";
-            default -> "vampire";
+            case 1 -> "red";
+            default -> "yellowlined";
         };
     }
 
-    @Nullable
+    @javax.annotation.Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
-        Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
-        float spookyVariantChange = this.getRandom().nextFloat();
-        LocalDate currentDate = LocalDate.now();
-        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
+        float variantChange = this.getRandom().nextFloat();
 
-            if (spookyVariantChange <= 0.33) {
-                this.setVariant(1);
-            } else if (spookyVariantChange <= 66) {
-                this.setVariant(2);
-            } else
-                this.setVariant(0);
-        } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
+        if (variantChange <= 0.10F) {
             this.setVariant(1);
-        } else if (holder.is(Biomes.BEACH)) {
-            this.setVariant(2);
-        } else if (holder.is(Biomes.STONY_SHORE)) {
-            this.setVariant(3);
-        } else if (holder.is(Biomes.LUKEWARM_OCEAN) || holder.is(Biomes.DEEP_LUKEWARM_OCEAN)) {
-            this.setVariant(4);
-        } else if (holder.is(Biomes.OCEAN) || holder.is(Biomes.DEEP_OCEAN)) {
-            this.setVariant(5);
-        } else if (holder.is(Biomes.COLD_OCEAN) || holder.is(Biomes.DEEP_COLD_OCEAN)) {
-            this.setVariant(6);
         } else {
             this.setVariant(0);
         }
@@ -232,11 +210,8 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
         });
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 2.0D));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.25D, Ingredient.of(Items.MANGROVE_PROPAGULE), false));
-        this.goalSelector.addGoal(4, new CrabBottomWander(this, 1.0D, 10, 50));
-
+        this.goalSelector.addGoal(3, new CrabBottomWander(this, 1.0D, 10, 50));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
     }
 
     protected PathNavigation createNavigation(Level worldIn) {
@@ -300,7 +275,7 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
 
     private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.arrow_crab.idle");
     private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.arrow_crab.dance");
-    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.arrow_crab.walk1");
+    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.arrow_crab.walk");
     private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.arrow_crab.feed");
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {

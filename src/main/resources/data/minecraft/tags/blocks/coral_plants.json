@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-
+    "rainbowreef:barrel_coral",
+    "rainbowreef:shelf_coral",
+    "rainbowreef:hand_coral",
+    "rainbowreef:tower_coral",
+    "rainbowreef:chimney_coral"
   ]
 }

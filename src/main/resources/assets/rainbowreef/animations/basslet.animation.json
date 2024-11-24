@@ -29,19 +29,19 @@
 				},
 				"tail": {
 					"rotation": {
-						"vector": ["math.cos((query.anim_time - 60)* 360)*-4", "math.cos((query.anim_time - 60)* 360)*-15", 0],
+						"vector": ["math.cos((query.anim_time - 60)* 360)*5", "math.cos((query.anim_time - 60)* 360)*-25", 0],
 						"easing": "linear"
 					}
 				},
 				"l_fin": {
 					"rotation": {
-						"vector": [0, 0, "math.cos((query.anim_time - 60)* 360)*-20"],
+						"vector": [0, 0, "math.cos((query.anim_time - 60)* 720)*-20"],
 						"easing": "linear"
 					}
 				},
 				"r_fin": {
 					"rotation": {
-						"vector": [0, 0, "math.cos((query.anim_time - 60)* 360)*20"],
+						"vector": [0, 0, "math.cos((query.anim_time - 60)* 720)*20"],
 						"easing": "linear"
 					}
 				}

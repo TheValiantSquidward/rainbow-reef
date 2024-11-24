@@ -8,6 +8,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -30,41 +31,44 @@ import javax.annotation.Nullable;
 public class AnemoneBlock extends Block implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
 
-    public AnemoneBlock(BlockBehaviour.Properties pProperties) {
-        super(pProperties);
+    public AnemoneBlock(BlockBehaviour.Properties p_221506_) {
+        super(p_221506_);
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.valueOf(false)));
     }
 
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(WATERLOGGED);
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext p_221508_) {
+        FluidState fluidstate = p_221508_.getLevel().getFluidState(p_221508_.getClickedPos());
+        boolean flag = fluidstate.getType() == Fluids.WATER;
+        return super.getStateForPlacement(p_221508_).setValue(WATERLOGGED, Boolean.valueOf(flag));
     }
+
+
+    public BlockState updateShape(BlockState p_221514_, Direction p_221515_, BlockState p_221516_, LevelAccessor p_221517_, BlockPos p_221518_, BlockPos p_221519_) {
+        if (p_221514_.getValue(WATERLOGGED)) {
+            p_221517_.scheduleTick(p_221518_, Fluids.WATER, Fluids.WATER.getTickDelay(p_221517_));
+        }
+
+        return super.updateShape(p_221514_, p_221515_, p_221516_, p_221517_, p_221518_, p_221519_);
+    }
+
+    public FluidState getFluidState(BlockState p_221523_) {
+        return p_221523_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_221523_);
+    }
+
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_221521_) {
+        p_221521_.add(WATERLOGGED);
+    }
+
+    protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 5.0D, 16.0D);
+
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
                 return BOTTOM_AABB;
     }
 
-    public FluidState getFluidState(BlockState pState) {
-        return pState.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(pState);
-    }
-
-    public boolean placeLiquid(LevelAccessor pLevel, BlockPos pPos, BlockState pState, FluidState pFluidState) {
-        return true;
-    }
-
-    public boolean canPlaceLiquid(BlockGetter pLevel, BlockPos pPos, BlockState pState, Fluid pFluid) {
-        return true;
-    }
-
-
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pState.getValue(WATERLOGGED)) {
-            pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
-        }
-
-        return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
-    }
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         switch (pType) {

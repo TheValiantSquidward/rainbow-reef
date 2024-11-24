@@ -104,7 +104,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
-                    .strength(1.0F, 0.0F)
+                    .strength(0.5F, 0.0F)
                     .sound(SoundType.WOOL)
                     .lightLevel((p_152677_) -> {return 15;})
                     .noOcclusion()
@@ -114,7 +114,7 @@ public class ModBlocks {
                             ));
 
     public static final RegistryObject<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(1.0F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 2.0D, 3.0D, 13.0D, 16.0D, 13.0D),
@@ -122,7 +122,7 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(1.0F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 2.0D, 3.0D, 13.0D, 16.0D, 13.0D),
@@ -130,7 +130,13 @@ public class ModBlocks {
                     ));
 
     public static final RegistryObject<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.8F)));
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.5F)));
+
+    public static final RegistryObject<Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.5F)));
+
+    public static final RegistryObject<Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.5F)));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
