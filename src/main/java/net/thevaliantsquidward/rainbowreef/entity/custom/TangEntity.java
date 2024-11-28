@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
@@ -64,7 +65,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
 
     @Override
     public int getMaxSchoolSize() {
-        return 100;
+        return 20;
     }
 
     @Override
@@ -179,6 +180,25 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
                 this.setVariant(0);
             }
         }
+
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL || reason == MobSpawnType.SPAWN_EGG) {
+            float schoolsize = this.getRandom().nextFloat();
+            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
+            System.out.println("new");
+            System.out.println(schoolcount);
+
+            if (schoolcount > 0 && !this.level().isClientSide()) {
+                System.out.println("ran");
+                for (int i = 0; i < schoolcount; i++) {
+                    System.out.println(i);
+                    TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
+                    urine.setVariant(this.getVariant());
+                    urine.moveTo(this.getX(), this.getY(), this.getZ());
+                    this.level().addFreshEntity(urine);
+                }
+            }
+        }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -289,7 +309,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8D)
+                .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
     }
 

@@ -9,6 +9,7 @@ import software.bernie.geckolib.model.GeoModel;
 public class ArrowCrabModel extends GeoModel<ArrowCrabEntity> {
     @Override
     public ResourceLocation getModelResource(ArrowCrabEntity animatable) {
+
         return new ResourceLocation(RainbowReef.MOD_ID, "geo/arrow_crab.geo.json");
     }
 
