@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "rainbowreef:block/cerulean_starfish"
+      },
+      {
+        "model": "rainbowreef:block/cerulean_starfish",
+        "y": 90
+      },
+      {
+        "model": "rainbowreef:block/cerulean_starfish",
+        "y": 180
+      },
+      {
+        "model": "rainbowreef:block/cerulean_starfish",
+        "y": 270
+      }
+    ]
+  }
+}

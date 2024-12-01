@@ -81,12 +81,15 @@
   "item.rainbowreef.moorish_idol_spawn_egg" : "Moorish Idol Spawn Egg",
   "item.rainbowreef.jellyfish_spawn_egg" : "Jellyfish Spawn Egg",
 
+  "block.rainbowreef.cerulean_starfish" : "Cerulean Starfish",
+
   "block.rainbowreef.coralstone" : "Coralstone",
   "block.rainbowreef.jelly_block" : "Block of Jelly",
   "block.rainbowreef.coralstone_bricks" : "Coralstone Bricks",
   "block.rainbowreef.polished_coralstone" : "Polished Coralstone",
   "block.rainbowreef.chiseled_coralstone" : "Chiseled Coralstone",
   "block.rainbowreef.bubbler" : "Bubbler",
+  "block.rainbowreef.red_sand_bubbler" : "Red Sand Bubbler",
   "block.rainbowreef.blue_puffer_lantern" : "Blue Puffer Lantern",
   "block.rainbowreef.green_puffer_lantern" : "Green Puffer Lantern",
   "block.rainbowreef.orange_puffer_lantern" : "Orange Puffer Lantern",

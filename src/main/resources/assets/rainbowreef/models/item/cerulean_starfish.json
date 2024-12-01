@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "rainbowreef:item/yellow_anemone_item"
+    "layer0": "rainbowreef:item/cerulean_starfish"
   }
 }

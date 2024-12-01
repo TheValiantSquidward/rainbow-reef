@@ -1,3 +1,6 @@
 {
-  "parent": "rainbowreef:block/orange_sea_anemone"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "rainbowreef:item/orange_anemone_item"
+  }
 }
