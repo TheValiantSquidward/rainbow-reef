@@ -191,7 +191,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             this.setVariant(0);
         }
 
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL || reason == MobSpawnType.SPAWN_EGG) {
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL) {
             float schoolsize = this.getRandom().nextFloat();
             int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
             System.out.println("new");
@@ -201,7 +201,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
                 System.out.println("ran");
                 for (int i = 0; i < schoolcount; i++) {
                     System.out.println(i);
-                    TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
+                    TangEntity urine = new TangEntity(ModEntities.BUTTERFISH.get(), this.level());
                     urine.setVariant(this.getVariant());
                     urine.moveTo(this.getX(), this.getY(), this.getZ());
                     this.level().addFreshEntity(urine);

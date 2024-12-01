@@ -1,7 +1,12 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube",
   "textures": {
-    "end": "rainbowreef:block/bubbler_sand",
-    "side": "minecraft:block/sand"
+    "down": "minecraft:block/sand",
+    "east": "minecraft:block/sand",
+    "north": "minecraft:block/sand",
+    "particle": "minecraft:block/sand",
+    "south": "minecraft:block/sand",
+    "up": "rainbowreef:block/bubbler_sand",
+    "west": "minecraft:block/sand"
   }
 }

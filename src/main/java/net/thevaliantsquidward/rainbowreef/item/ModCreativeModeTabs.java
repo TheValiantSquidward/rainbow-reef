@@ -130,6 +130,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.POLISHED_CORALSTONE.get());
                         pOutput.accept(ModBlocks.CHISELED_CORALSTONE.get());
                         pOutput.accept(ModBlocks.BUBBLER.get());
+                        pOutput.accept(ModBlocks.RED_SAND_BUBBLER.get());
                         pOutput.accept(ModBlocks.BLUE_PUFFER_LANTERN.get());
                         pOutput.accept(ModBlocks.GREEN_PUFFER_LANTERN.get());
                         pOutput.accept(ModBlocks.ORANGE_PUFFER_LANTERN.get());

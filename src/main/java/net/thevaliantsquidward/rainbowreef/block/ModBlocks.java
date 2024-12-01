@@ -42,6 +42,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> BUBBLER = registerBlock("bubbler",
             () -> new BubblerBlock(BlockBehaviour.Properties.copy(Blocks.SAND).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
+    public static final RegistryObject<Block> RED_SAND_BUBBLER = registerBlock("red_sand_bubbler",
+            () -> new BubblerBlock(BlockBehaviour.Properties.copy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+
     public static final RegistryObject<Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () ->
             new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));
 
@@ -101,6 +104,9 @@ public class ModBlocks {
     public static final RegistryObject<Block> FAKE_BUBBLES = registerBlock("fake_bubbles",
             () -> new FakeBubbleBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
 
+    public static final RegistryObject<Block> FAKE_BUBBLES_RED_SAND = registerBlock("fake_bubbles_red_sand",
+            () -> new FakeBubbleBlockRedSand(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
+
 
     public static final RegistryObject<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
@@ -130,13 +136,17 @@ public class ModBlocks {
                     ));
 
     public static final RegistryObject<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.5F)));
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).noOcclusion().strength(0.5F)));
 
     public static final RegistryObject<Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.5F)));
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).noOcclusion().strength(0.5F)));
 
     public static final RegistryObject<Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK).noOcclusion().strength(0.5F)));
+            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).noOcclusion().strength(0.5F)));
+
+
+    public static final RegistryObject<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
+            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.GLOW_LICHEN).requiresCorrectToolForDrops().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)));
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {

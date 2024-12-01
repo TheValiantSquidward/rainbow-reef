@@ -181,7 +181,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             }
         }
 
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL || reason == MobSpawnType.SPAWN_EGG) {
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL) {
             float schoolsize = this.getRandom().nextFloat();
             int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
             System.out.println("new");
