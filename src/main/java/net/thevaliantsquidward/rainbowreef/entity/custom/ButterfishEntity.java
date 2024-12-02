@@ -235,7 +235,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.6D)
                 .build();
     }
 
