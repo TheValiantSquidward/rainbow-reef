@@ -33,4 +33,28 @@ public class GoalUtils {
 
         return null;
     }
+
+    @Nullable
+    public static Vec3 getRandomSwimmablePosThatIsntTheSameDepth(PathfinderMob pPathfinder, int pRadius, int pVerticalDistance) {
+        Vec3 testPos = DefaultRandomPos.getPos(pPathfinder, pRadius, pVerticalDistance);
+        int MaxSearchAmount = pRadius*pRadius*pRadius;
+
+        for (int x = 0; testPos != null && x < MaxSearchAmount; testPos = DefaultRandomPos.getPos(pPathfinder, pRadius, pVerticalDistance), x ++) {
+
+            if (testPos != null) {
+
+                if (Math.abs(Math.abs(testPos.y) - Math.abs(pPathfinder.position().y())) > 1) {
+                    return testPos;
+                }
+
+                if (x == MaxSearchAmount - 1) {
+                    return testPos;
+                    //basically this keeps the entity moving if it can't find somewhere to go
+                    //might be useful for drowned farms or smthing
+                }
+            }
+        }
+
+        return null;
+    }
 }

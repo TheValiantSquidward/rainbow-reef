@@ -53,7 +53,7 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        return BehaviorUtils.getRandomSwimmablePos(this.mob, radius, height);
+        return GoalUtils.getRandomSwimmablePosThatIsntTheSameDepth(this.mob, radius, height);
     }
     //previously 32 and 12
 }

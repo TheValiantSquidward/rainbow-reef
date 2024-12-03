@@ -31,6 +31,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.goal.RandomSleepyLookaroundGoal;
@@ -180,6 +181,28 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         }else{
             this.setVariant(0);
         }
+
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
+                //|| reason == MobSpawnType.SPAWN_EGG
+        ) {
+            float schoolsize = this.getRandom().nextFloat();
+            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
+            System.out.println("new");
+            System.out.println(schoolcount);
+
+            if (schoolcount > 0 && !this.level().isClientSide()) {
+                System.out.println("ran");
+                for (int i = 0; i < schoolcount; i++) {
+                    System.out.println(i);
+                    ParrotfishEntity urine = new ParrotfishEntity(ModEntities.PARROTFISH.get(), this.level());
+                    urine.setVariant(this.getVariant());
+                    urine.moveTo(this.getX(), this.getY(), this.getZ());
+                    urine.startFollowing(this);
+                    this.level().addFreshEntity(urine);
+                }
+            }
+        }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -205,7 +228,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0D)
                 .build();
     }
 
@@ -214,7 +237,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         super.registerGoals();
         this.goalSelector.addGoal(4, new RandomSleepyLookaroundGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 1, 1));
+        this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 0.8, 1));
     }
 
 

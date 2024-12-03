@@ -177,7 +177,9 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
             this.setVariant(0);
         }
 
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL || reason == MobSpawnType.SPAWN_EGG) {
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
+                //|| reason == MobSpawnType.SPAWN_EGG
+        ) {
             float schoolsize = this.getRandom().nextFloat();
             int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
             System.out.println("new");
@@ -187,9 +189,10 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
                 System.out.println("ran");
                 for (int i = 0; i < schoolcount; i++) {
                     System.out.println(i);
-                    TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
+                    MoorishIdolEntity urine = new MoorishIdolEntity(ModEntities.MOORISH_IDOL.get(), this.level());
                     urine.setVariant(this.getVariant());
                     urine.moveTo(this.getX(), this.getY(), this.getZ());
+                    urine.startFollowing(this);
                     this.level().addFreshEntity(urine);
                 }
             }
@@ -231,7 +234,7 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1D, 1, 20, 20, 2));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8D, 1, 20, 20, 2));
     }
 
 

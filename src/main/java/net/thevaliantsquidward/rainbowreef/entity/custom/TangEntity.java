@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
+import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -48,6 +49,8 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
 
@@ -65,7 +68,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
 
     @Override
     public int getMaxSchoolSize() {
-        return 20;
+        return 30;
     }
 
     @Override
@@ -181,7 +184,9 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             }
         }
 
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL) {
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
+                //|| reason == MobSpawnType.SPAWN_EGG
+        ) {
             float schoolsize = this.getRandom().nextFloat();
             int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
             System.out.println("new");
@@ -194,9 +199,11 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
                     TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
                     urine.setVariant(this.getVariant());
                     urine.moveTo(this.getX(), this.getY(), this.getZ());
+                    urine.startFollowing(this);
                     this.level().addFreshEntity(urine);
                 }
             }
+
         }
 
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -317,7 +324,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3));
     }
 
     public static <T extends Mob> boolean canSpawn(EntityType<TangEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {

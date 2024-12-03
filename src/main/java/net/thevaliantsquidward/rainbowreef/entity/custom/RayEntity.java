@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
+import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -126,7 +127,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
 
     @Override
     public int getMaxSchoolSize() {
-        return 5;
+        return 4;
     }
 
     @Override
@@ -221,7 +222,9 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             this.setVariant(0);
         }
 
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL || reason == MobSpawnType.SPAWN_EGG) {
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
+                //|| reason == MobSpawnType.SPAWN_EGG
+        ) {
             float schoolsize = this.getRandom().nextFloat();
             int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
             System.out.println("new");
@@ -231,9 +234,10 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
                 System.out.println("ran");
                 for (int i = 0; i < schoolcount; i++) {
                     System.out.println(i);
-                    TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
+                    RayEntity urine = new RayEntity(ModEntities.RAY.get(), this.level());
                     urine.setVariant(this.getVariant());
                     urine.moveTo(this.getX(), this.getY(), this.getZ());
+                    urine.startFollowing(this);
                     this.level().addFreshEntity(urine);
                 }
             }
@@ -338,7 +342,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 3, 1, 20, 20, 2));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 2));
     }
 
 
