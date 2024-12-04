@@ -68,7 +68,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
 
     @Override
     public int getMaxSchoolSize() {
-        return 30;
+        return 20;
     }
 
     @Override
@@ -184,26 +184,29 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             }
         }
 
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
+
+        if (this.getRandom().nextFloat() >= 0.90) {
+            if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
                 //|| reason == MobSpawnType.SPAWN_EGG
-        ) {
-            float schoolsize = this.getRandom().nextFloat();
-            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-            System.out.println("new");
-            System.out.println(schoolcount);
+            ) {
+                float schoolsize = this.getRandom().nextFloat();
+                int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
+                System.out.println("new");
+                System.out.println(schoolcount);
 
-            if (schoolcount > 0 && !this.level().isClientSide()) {
-                System.out.println("ran");
-                for (int i = 0; i < schoolcount; i++) {
-                    System.out.println(i);
-                    TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
-                    urine.setVariant(this.getVariant());
-                    urine.moveTo(this.getX(), this.getY(), this.getZ());
-                    urine.startFollowing(this);
-                    this.level().addFreshEntity(urine);
+                if (schoolcount > 0 && !this.level().isClientSide()) {
+                    System.out.println("ran");
+                    for (int i = 0; i < schoolcount; i++) {
+                        System.out.println(i);
+                        TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
+                        urine.setVariant(this.getVariant());
+                        urine.moveTo(this.getX(), this.getY(), this.getZ());
+                        urine.startFollowing(this);
+                        this.level().addFreshEntity(urine);
+                    }
                 }
-            }
 
+            }
         }
 
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);

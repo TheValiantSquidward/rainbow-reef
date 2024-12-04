@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cod",
+    "minecraft:salmon",
+    "minecraft:pufferfish",
+    "minecraft:ink_sac",
+    "minecraft:glow_ink_sac",
+    "rainbowreef:raw_goby",
+    "rainbowreef:raw_tang",
+    "rainbowreef:raw_dwarf_angelfish",
+    "rainbowreef:raw_seahorse",
+    "rainbowreef:raw_boxfish",
+    "rainbowreef:raw_butterflyfish",
+    "rainbowreef:raw_basslet",
+    "rainbowreef:raw_hogfish",
+    "rainbowreef:raw_pipefish",
+    "rainbowreef:crab_meat"
+  ]
+}

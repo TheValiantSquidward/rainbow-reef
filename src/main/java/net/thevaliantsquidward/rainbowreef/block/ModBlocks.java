@@ -136,13 +136,13 @@ public class ModBlocks {
                     ));
 
     public static final RegistryObject<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).noOcclusion().strength(0.5F)));
+            () -> new AnemoneBlock(0));
 
     public static final RegistryObject<Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).noOcclusion().strength(0.5F)));
+            () -> new AnemoneBlock(1));
 
     public static final RegistryObject<Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
-            () -> new AnemoneBlock(BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_BLOCK).noOcclusion().strength(0.5F)));
+            () -> new AnemoneBlock(2));
 
 
     public static final RegistryObject<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->

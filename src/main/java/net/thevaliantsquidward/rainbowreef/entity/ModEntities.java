@@ -60,7 +60,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<ClownfishEntity>> CLOWNFISH =
             ENTITY_TYPES.register("clownfish",
                     () -> EntityType.Builder.of(ClownfishEntity::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.5f, 0.5f)
+                            .sized(0.3f, 0.3f)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "clownfish").toString()));
 
     public static final RegistryObject<EntityType<ButterfishEntity>> BUTTERFISH =

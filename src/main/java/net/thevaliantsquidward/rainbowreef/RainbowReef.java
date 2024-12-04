@@ -22,6 +22,7 @@ import net.thevaliantsquidward.rainbowreef.item.ModCreativeModeTabs;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import net.thevaliantsquidward.rainbowreef.loot.ModLootModifiers;
 import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
+import net.thevaliantsquidward.rainbowreef.util.RRPOI;
 import org.slf4j.Logger;
 
 import java.util.Locale;
@@ -52,6 +53,8 @@ public class RainbowReef
         ModSounds.register(modEventBus);
 
         ModLootModifiers.register(modEventBus);
+
+        RRPOI.DEF_REG.register(modEventBus);
 
         ModBlocks.BLOCKS.register(modEventBus);
 

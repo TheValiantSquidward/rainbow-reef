@@ -191,7 +191,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             this.setVariant(0);
         }
 
-        if (this.getRandom().nextFloat() >= 0.60) {
+        if (this.getRandom().nextFloat() >= 0.80) {
             if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
                 //|| reason == MobSpawnType.SPAWN_EGG
             ) {

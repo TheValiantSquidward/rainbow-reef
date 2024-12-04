@@ -1,7 +1,31 @@
 {
   "variants": {
-    "": {
-      "model": "rainbowreef:block/yellow_sea_anemone"
+    "facing=east": {
+      "model": "rainbowreef:block/yellow_sea_anemone",
+      "x": -90,
+      "y": -90
+    },
+    "facing=north": {
+      "model": "rainbowreef:block/yellow_sea_anemone",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "rainbowreef:block/yellow_sea_anemone",
+      "x": -90,
+      "z": 180
+    },
+    "facing=west": {
+      "model": "rainbowreef:block/yellow_sea_anemone",
+      "x": 90,
+      "y": -90
+    },
+    "facing=down": {
+      "model": "rainbowreef:block/yellow_sea_anemone",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "rainbowreef:block/yellow_sea_anemone",
+      "x": 0
     }
   }
 }
