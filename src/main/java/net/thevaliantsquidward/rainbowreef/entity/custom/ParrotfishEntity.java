@@ -189,13 +189,9 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
             ) {
                 float schoolsize = this.getRandom().nextFloat();
                 int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-                System.out.println("new");
-                System.out.println(schoolcount);
 
                 if (schoolcount > 0 && !this.level().isClientSide()) {
-                    System.out.println("ran");
                     for (int i = 0; i < schoolcount; i++) {
-                        System.out.println(i);
                         ParrotfishEntity urine = new ParrotfishEntity(ModEntities.PARROTFISH.get(), this.level());
                         urine.setVariant(this.getVariant());
                         urine.moveTo(this.getX(), this.getY(), this.getZ());

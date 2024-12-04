@@ -1,6 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,12 +12,14 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.block.custom.AnemoneBlock;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.util.RRPOI;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
@@ -29,8 +32,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class NemHoster extends VariantSchoolingFish {
-    private static final EntityDataAccessor<BlockPos> HOME = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.BLOCK_POS);
-    private static final EntityDataAccessor<Boolean> HASNEM = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<BlockPos> HOME = SynchedEntityData.defineId(NemHoster.class, EntityDataSerializers.BLOCK_POS);
+    private static final EntityDataAccessor<Boolean> HASNEM = SynchedEntityData.defineId(NemHoster.class, EntityDataSerializers.BOOLEAN);
 
 
     int nemSearchCooldown;
@@ -46,6 +49,16 @@ public class NemHoster extends VariantSchoolingFish {
         super.defineSynchedData();
         this.entityData.define(HOME, new BlockPos(0,0,0));
         this.entityData.define(HASNEM, false);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(0, new LocateNemGoal(this));
+        this.goalSelector.addGoal(1, new MoveToNemGoal(this, 0.8,5, 1));
+        //Anemone seeker goal plan:
+        //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
+        //Pathfinds back to home nem and makes it hide for 3 - 5 secs
     }
 
     public void tick() {
@@ -115,21 +128,15 @@ class LocateNemGoal extends Goal {
         this.clown.nemSearchCooldown = 200;
         List<BlockPos> list = this.findNems();
 
-        BlockPos target = new BlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+        BlockPos closest = null;
 
-        if (!list.isEmpty()) {
-            Iterator var2 = list.iterator();
-
-            while(var2.hasNext()) {
-                BlockPos blockpos = (BlockPos)var2.next();
-
-
-                if (clown.distanceToSqr(target.getX(), target.getY(), target.getZ()) < clown.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) ) {
-                    target = blockpos;
-                }
+        for (BlockPos pos : list) {
+            if (closest == null || this.clown.distanceToSqr(closest.getX(), closest.getY(), closest.getZ()) > this.clown.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) {
+                closest = pos;
             }
-
-            this.clown.setNemPos(target);
+        }
+        if (closest != null) {
+            this.clown.setNemPos(closest);
             this.clown.setHasNem(true);
 
         } else {
@@ -145,70 +152,50 @@ class LocateNemGoal extends Goal {
         PoiManager poimanager = ((ServerLevel)clown.level()).getPoiManager();
 
         Stream<PoiRecord> stream = poimanager.getInRange((p_218130_) -> {
-            return p_218130_.is(RRPOI.GREEN_NEM.getId());
-        }, blockpos, 20, PoiManager.Occupancy.ANY);
+            return p_218130_.is(RRPOI.GREEN_NEM.getKey()) || p_218130_.is(RRPOI.ORANGE_NEM.getKey()) || p_218130_.is(RRPOI.YELLOW_NEM.getKey());
+        }, blockpos, 50, PoiManager.Occupancy.ANY);
 
-        return (List)stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((p_148811_) -> {
+        return stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((p_148811_) -> {
             return p_148811_.distSqr(blockpos);
         })).collect(Collectors.toList());
     }
 
 }
 
-class MoveToNemGoal extends RandomStrollGoal {
+class MoveToNemGoal extends Goal{
 
     NemHoster fims;
     Vec3 wantedPos;
 
     int radius;
-    int height;
     int prox;
 
     double spd;
 
-    public MoveToNemGoal(NemHoster fi, double spdmultiplier, int radius, int proximity) {
-        super(fi, spdmultiplier, 1);
+    public MoveToNemGoal(NemHoster fi, double spdmultiplier, int maxOut, int proximity) {
         this.fims = fi;
-        this.radius = radius;
-        this.height = height;
+        this.radius = maxOut;
         this.prox = proximity;
         this.spd = spdmultiplier;
     }
 
-    @Override
     public boolean canUse() {
         BlockPos nem = this.fims.getNemPos();
 
-        return this.fims.distanceToSqr(nem.getX(), nem.getY(), nem.getZ()) < radius && fims.isInWater();
+        return !(nem == null) && this.fims.distanceToSqr(nem.getX(), nem.getY(), nem.getZ()) > radius && fims.isInWater();
     }
 
-    @Override
     public boolean canContinueToUse() {
         BlockPos nem = this.fims.getNemPos();
-        wantedPos = new Vec3(nem.getX(), nem.getY(), nem.getZ());
 
-        return super.canContinueToUse() && fims.isInWater() && !(this.wantedPos.distanceTo(this.fims.position()) <= this.fims.getBbWidth() * prox);
-        //second part cancels the goal if the animal gets close enough
+        return !(nem == null) && this.fims.distanceToSqr(nem.getX(), nem.getY(), nem.getZ()) > radius && fims.isInWater();
+        //second part cancels the goal if the animal gets close enough, but if the distance is greater than the maximum distance it keeps running
     }
 
     public void tick() {
-    }
-
-    @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
-    }
-
-    @Nullable
-    protected Vec3 getPosition() {
-        BlockPos nem = this.fims.getNemPos();
-        wantedPos = new Vec3(nem.getX(), nem.getY(), nem.getZ());
-
-        return wantedPos;
+        this.fims.getNavigation().stop();
+        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
+        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
+        //((ServerLevel) fims.level()).sendParticles(ParticleTypes.BUBBLE, (double)fimspos.x() + fims.level().random.nextDouble(), (double)(fimspos.y() + 1), (double)fimspos.z() + fims.level().random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.PoiTypeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -105,7 +106,7 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
 
     public void tick() {
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(0, 0, 0);
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
@@ -114,6 +115,16 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
         }
 
         super.tick();
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
+        }
+        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
+        //must be applied independently to each fish
+
+        super.travel(pTravelVector);
     }
 
     @Override
@@ -217,9 +228,48 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
         }else{
             this.setVariant(0);
         }
+
+        List<BlockPos> list = this.findNems();
+
+        BlockPos target = new BlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+        if (!list.isEmpty()) {
+            Iterator var2 = list.iterator();
+
+            while(var2.hasNext()) {
+                BlockPos blockpos = (BlockPos)var2.next();
+
+
+                if (this.distanceToSqr(target.getX(), target.getY(), target.getZ()) < this.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) ) {
+                    target = blockpos;
+                }
+            }
+
+            this.setNemPos(target);
+            this.setHasNem(true);
+
+        } else {
+            this.setNemPos(null);
+            this.setHasNem(false);
+
+        }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
+
+    private List<BlockPos> findNems() {
+        BlockPos blockpos = this.blockPosition();
+        PoiManager poimanager = ((ServerLevel)this.level()).getPoiManager();
+
+        Stream<PoiRecord> stream = poimanager.getInRange((p_218130_) -> {
+            return p_218130_.is(RRPOI.GREEN_NEM.getKey()) || p_218130_.is(RRPOI.ORANGE_NEM.getKey()) || p_218130_.is(RRPOI.YELLOW_NEM.getKey());
+        }, blockpos, 50, PoiManager.Occupancy.ANY);
+
+        return (List)stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((p_148811_) -> {
+            return p_148811_.distSqr(blockpos);
+        })).collect(Collectors.toList());
+    }
 
     public MobType getMobType() {
         return MobType.WATER;
@@ -236,9 +286,7 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8D, 100, 50, 50, 1));
-        //this.goalSelector.addGoal(0, new LocateNemGoal(this));
-        //this.goalSelector.addGoal(0, new MoveToNemGoal(this, 0.8,5, 1));
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1));
         //Anemone seeker goal plan:
         //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
         //Pathfinds back to home nem and makes it hide for 3 - 5 secs

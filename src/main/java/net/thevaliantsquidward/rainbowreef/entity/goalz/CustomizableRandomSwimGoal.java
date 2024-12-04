@@ -27,8 +27,7 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        boolean canUse =super.canUse() && fims.isInWater();
-        return canUse;
+        return super.canUse() && fims.isInWater();
     }
 
     @Override
