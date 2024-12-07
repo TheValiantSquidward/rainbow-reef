@@ -50,6 +50,12 @@
 						"vector": [0, "math.cos((query.anim_time - 60)* 360)*-15", 0],
 						"easing": "linear"
 					}
+				},
+				"FinTipTallBody": {
+					"rotation": {
+						"vector": [0, "math.cos((query.anim_time - 60)* 360)*-15", 0],
+						"easing": "linear"
+					}
 				}
 			}
 		},

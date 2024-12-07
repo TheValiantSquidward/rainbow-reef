@@ -28,6 +28,15 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
     private static final ResourceLocation TEXTURE_CHOCOLATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/chocolate.png");
     private static final ResourceLocation TEXTURE_SAILFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/sailfin.png");
     private static final ResourceLocation TEXTURE_ATLANTIC = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/atlantic.png");
+    private static final ResourceLocation TEXTURE_EYESTRIPE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/eyestripe.png");
+    private static final ResourceLocation TEXTURE_WHITECHEEK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/whitecheek.png");
+    private static final ResourceLocation TEXTURE_SCOPAS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/scopas.png");
+    private static final ResourceLocation TEXTURE_GOTH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/goth.png");
+    private static final ResourceLocation TEXTURE_POWDERHYBRID = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/powderbluehybrid.png");
+    private static final ResourceLocation TEXTURE_PASTELBLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/pastelblue.png");
+    private static final ResourceLocation TEXTURE_YELLOWSTRIKE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/yellowstrike.png");
+    private static final ResourceLocation TEXTURE_BLACKSURGEON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blacksurgeon.png");
+    private static final ResourceLocation TEXTURE_ORANGEBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/orangeband.png");
 
 
     public TangRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -59,6 +68,16 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
             case 17 -> TEXTURE_CHOCOLATE;
             case 18 -> TEXTURE_SAILFIN;
             case 19 -> TEXTURE_ATLANTIC;
+            case 20 -> TEXTURE_EYESTRIPE;
+            case 21 -> TEXTURE_WHITECHEEK;
+            case 22 -> TEXTURE_SCOPAS;
+            case 23 -> TEXTURE_GOTH;
+            case 24 -> TEXTURE_POWDERHYBRID;
+            case 25 -> TEXTURE_PASTELBLUE;
+            case 26 -> TEXTURE_YELLOWSTRIKE;
+            case 27 -> TEXTURE_BLACKSURGEON;
+            case 28 -> TEXTURE_ORANGEBAND;
+
             default -> TEXTURE_BLUE;
         };
     }

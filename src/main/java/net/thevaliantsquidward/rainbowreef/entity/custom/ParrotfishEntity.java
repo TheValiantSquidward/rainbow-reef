@@ -63,6 +63,8 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
             case 3 -> "midnight";
             case 4 -> "stoplight";
             case 5 -> "mediterranean";
+            case 6 -> "princess";
+            case 7 -> "yellowtail";
             default -> "blue";
         };
     }
@@ -170,13 +172,19 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.20F) {
+        if(variantChange <= 0.12F) {
+            this.setVariant(7);
+        } else if(variantChange <= 0.24F) {
+            this.setVariant(6);
+        } else if(variantChange <= 0.36F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.48F){
             this.setVariant(4);
-        } else if(variantChange <= 0.40F) {
+        }else if(variantChange <= 0.60F){
             this.setVariant(3);
-        } else if(variantChange <= 0.60F){
+        }else if(variantChange <=  0.72F){
             this.setVariant(2);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.84F){
             this.setVariant(1);
         }else{
             this.setVariant(0);

@@ -65,6 +65,7 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
             case 4 -> "yellowband";
             case 5 -> "rockbeauty";
             case 6 -> "bluequeen";
+            case 7 -> "majestic";
             default -> "emperor";
         };
     }
@@ -183,6 +184,8 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
             this.setVariant(1);
         }else if(variantChange <= 0.80F){
             this.setVariant(5);
+        }else if(variantChange <= 0.88F){
+            this.setVariant(7);
         } else{
             this.setVariant(0);
         }

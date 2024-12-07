@@ -112,9 +112,18 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             case 14 -> "pearly"; //a
             case 15 -> "yellowbellyblue"; //a
             case 16 -> "muddy"; //a
-            case 17 -> "chocolate"; //a
+            case 17 -> "chocolate";
             case 18 -> "sailfin";
             case 19 -> "atlanticblue";
+            case 20 -> "eyestripe";
+            case 21 -> "whitecheek";
+            case 22 -> "scopas";
+            case 23 -> "goth"; //a
+            case 24 -> "powderhybrid"; //a
+            case 25 -> "pastelblue"; //a
+            case 26 -> "yellowstrike"; //a
+            case 27 -> "blacksurgeon";
+            case 28 -> "orangeband";
 
             default -> "bluehippo";
         };
@@ -127,57 +136,87 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
         float aberrantVariantChange = this.getRandom().nextFloat();
 
         if(aberrant <= 0.001){
-            if (aberrantVariantChange <= 0.14F) {
+            if (aberrantVariantChange <= 0.11F) {
                 this.setVariant(11);
             } else
-            if (aberrantVariantChange <= 0.28F) {
+            if (aberrantVariantChange <= 0.22F) {
                 this.setVariant(12);
             } else
-            if (aberrantVariantChange <= 0.42F) {
+            if (aberrantVariantChange <= 0.33F) {
                 this.setVariant(13);
             } else
-            if (aberrantVariantChange <= 0.56F) {
+            if (aberrantVariantChange <= 0.44F) {
                 this.setVariant(14);
             } else
-            if (aberrantVariantChange <= 0.70F) {
+            if (aberrantVariantChange <= 0.55F) {
                 this.setVariant(15);
-            } else if (aberrantVariantChange <= 0.84F) {
+            } else if (aberrantVariantChange <= 0.66F) {
                 this.setVariant(16);
+            } else if (aberrantVariantChange <= 0.77F) {
+                this.setVariant(23);
+            } else if (aberrantVariantChange <= 0.88F) {
+                this.setVariant(24);
+            } else if (aberrantVariantChange <= 0.99F) {
+                this.setVariant(26);
             } else {
-                this.setVariant(17);
+                this.setVariant(25);
             }
 
         }
         else {
-            if (variantChange <= 0.09F) {
+            if (variantChange <= 0.05F) {
                 this.setVariant(1);
             } else
-                if (variantChange <= 0.18F) {
+                if (variantChange <= 0.10F) {
                 this.setVariant(2);
             } else
-                if (variantChange <= 0.27F) {
+                if (variantChange <= 0.15F) {
                     this.setVariant(3);
                 } else
-                if (variantChange <= 0.36F) {
+                if (variantChange <= 0.20F) {
                     this.setVariant(4);
                 } else
-                if (variantChange <= 0.45F) {
+                if (variantChange <= 0.25F) {
                     this.setVariant(5);
                 } else
-                if (variantChange <= 0.54F) {
+                if (variantChange <= 0.30F) {
                     this.setVariant(6);
                 } else
-                    if (variantChange <= 0.63F) {
+                    if (variantChange <= 0.35F) {
                 this.setVariant(7);
             } else
-                if (variantChange <= 0.72F) {
+                if (variantChange <= 0.40F) {
                         this.setVariant(8);
                     } else
-                    if (variantChange <= 0.81F) {
+                    if (variantChange <= 0.45F) {
                         this.setVariant(9);
                     } else
-                    if (variantChange <= 0.90F) {
+                    if (variantChange <= 0.50F) {
                         this.setVariant(10);
+                    } else
+                    if (variantChange <= 0.55F) {
+                        this.setVariant(18);
+                    } else
+                    if (variantChange <= 0.60F) {
+                        this.setVariant(19);
+                    } else
+                    if (variantChange <= 0.65F) {
+                        this.setVariant(20);
+                    } else
+                    if (variantChange <= 0.70F) {
+                        this.setVariant(21);
+                    } else
+                    if (variantChange <= 0.75F) {
+                        this.setVariant(22);
+                    } else
+                    if (variantChange <= 0.85F) {
+                        this.setVariant(17);
+                    } else
+                    if (variantChange <= 0.90F) {
+                        this.setVariant(27);
+                    } else
+                    if (variantChange <= 0.95F) {
+                        this.setVariant(28);
                     } else
                     {
                 this.setVariant(0);

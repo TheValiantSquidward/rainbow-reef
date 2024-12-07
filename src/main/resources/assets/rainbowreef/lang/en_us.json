@@ -144,6 +144,7 @@
   "entity.rainbowreef.angelfish.variant_bluering": "Blue Ring",
   "entity.rainbowreef.angelfish.variant_yellowband": "Yellowbar",
   "entity.rainbowreef.angelfish.variant_bluequeen": "St. Paul's Blue Queen",
+  "entity.rainbowreef.angelfish.variant_majestic": "Majestic",
 
 
   "entity.rainbowreef.basslet.variant_fairy": "Fairy",
@@ -184,6 +185,15 @@
   "entity.rainbowreef.tang.variant_chocolate": "Chocolate",
   "entity.rainbowreef.tang.variant_atlanticblue": "Atlantic Blue",
   "entity.rainbowreef.tang.variant_sailfin": "Sailfin",
+  "entity.rainbowreef.tang.variant_eyestripe": "Eyestripe",
+  "entity.rainbowreef.tang.variant_whitecheek": "White Cheek",
+  "entity.rainbowreef.tang.variant_scopas": "Scopas",
+  "entity.rainbowreef.tang.variant_goth": "Goth",
+  "entity.rainbowreef.tang.variant_powderhybrid": "Powder Hybrid",
+  "entity.rainbowreef.tang.variant_pastelblue": "Pastel Blue",
+  "entity.rainbowreef.tang.variant_yellowstrike": "Yellow Strike",
+  "entity.rainbowreef.tang.variant_blacksurgeon": "Black Surgeon",
+  "entity.rainbowreef.tang.variant_orangeband": "Orange Band",
 
   "entity.rainbowreef.clownfish.variant_ocellaris": "Ocellaris",
   "entity.rainbowreef.clownfish.variant_maroon": "Maroon",
@@ -233,6 +243,8 @@
   "entity.rainbowreef.parrotfish.variant_humphead": "Humphead",
   "entity.rainbowreef.parrotfish.variant_rainbow": "Rainbow",
   "entity.rainbowreef.parrotfish.variant_mediterranean": "Mediterranean",
+  "entity.rainbowreef.parrotfish.variant_princess": "Princess",
+  "entity.rainbowreef.parrotfish.variant_yellowtail": "Yellow Tail",
 
   "entity.rainbowreef.dwarf_angelfish.variant_bicolor": "Bicolor",
   "entity.rainbowreef.dwarf_angelfish.variant_coralbeauty": "Coral Beauty",
