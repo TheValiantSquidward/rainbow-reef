@@ -4,8 +4,8 @@
     "minecraft:mangrove_swamp"
   ],
   "spawners" : {
-   "type" : "rainbowreef:pipefish",
-    "weight" : 5,
+    "type" : "rainbowreef:butterflyfish",
+    "weight" : 10,
     "minCount" : 1,
     "maxCount" : 3
   }

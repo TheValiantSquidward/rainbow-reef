@@ -16,6 +16,11 @@ public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
     private static final ResourceLocation LONGNOSE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/longnose.png");
     private static final ResourceLocation SPOTFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/spotfin.png");
     private static final ResourceLocation HOODED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/hooded.png");
+    private static final ResourceLocation ARABIC = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/arabic.png");
+    private static final ResourceLocation PYRAMID = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/pyramid.png");
+    private static final ResourceLocation REDSEA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/redsea.png");
+    private static final ResourceLocation SIXSPINED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/sixspined.png");
+
 
     public ButterfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ButterfishModel());
@@ -34,6 +39,10 @@ public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
             case 5 -> LONGNOSE;
             case 6 -> SPOTFIN;
             case 7 -> HOODED;
+            case 8 -> ARABIC;
+            case 9 -> PYRAMID;
+            case 10 -> REDSEA;
+            case 11 -> SIXSPINED;
             default -> COPPERBAND;
         };
     }

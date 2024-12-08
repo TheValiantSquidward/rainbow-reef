@@ -64,6 +64,10 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             case 5 -> "longnose";
             case 6 -> "spotfin";
             case 7 -> "hooded";
+            case 8 -> "arabic";
+            case 9 -> "pyramid";
+            case 10 -> "redsea";
+            case 11 -> "sixspined";
             default -> "copperbanded";
         };
     }
@@ -173,20 +177,28 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.12F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.24F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.36F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.72F){
+        if(variantChange <= 0.08F){
             this.setVariant(1);
-        }else if(variantChange <= 0.84F){
+        }else if(variantChange <= 0.16F){
+            this.setVariant(2);
+        }else if(variantChange <= 0.24F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.32F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.40F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.48F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.56F){
             this.setVariant(7);
+        }else if(variantChange <= 0.64F){
+            this.setVariant(8);
+        }else if(variantChange <= 0.72F){
+            this.setVariant(9);
+        }else if(variantChange <= 0.80F){
+            this.setVariant(10);
+        }else if(variantChange <= 0.88F){
+            this.setVariant(11);
         } else{
             this.setVariant(0);
         }

@@ -88,7 +88,7 @@
   "block.rainbowreef.coralstone_bricks" : "Coralstone Bricks",
   "block.rainbowreef.polished_coralstone" : "Polished Coralstone",
   "block.rainbowreef.chiseled_coralstone" : "Chiseled Coralstone",
-  "block.rainbowreef.bubbler" : "Bubbler",
+  "block.rainbowreef.bubbler" : "Sand Bubbler",
   "block.rainbowreef.red_sand_bubbler" : "Red Sand Bubbler",
   "block.rainbowreef.blue_puffer_lantern" : "Blue Puffer Lantern",
   "block.rainbowreef.green_puffer_lantern" : "Green Puffer Lantern",
@@ -145,6 +145,8 @@
   "entity.rainbowreef.angelfish.variant_yellowband": "Yellowbar",
   "entity.rainbowreef.angelfish.variant_bluequeen": "St. Paul's Blue Queen",
   "entity.rainbowreef.angelfish.variant_majestic": "Majestic",
+  "entity.rainbowreef.angelfish.variant_king": "King",
+  "entity.rainbowreef.angelfish.variant_semicircle": "Semicircle",
 
 
   "entity.rainbowreef.basslet.variant_fairy": "Fairy",
@@ -263,6 +265,10 @@
   "entity.rainbowreef.butterflyfish.variant_spotfin": "Spotfin",
   "entity.rainbowreef.butterflyfish.variant_copperbanded": "Copperband",
   "entity.rainbowreef.butterflyfish.variant_hooded": "Hooded",
+  "entity.rainbowreef.butterflyfish.variant_arabic": "Arabic",
+  "entity.rainbowreef.butterflyfish.variant_pyramid": "Pyramid",
+  "entity.rainbowreef.butterflyfish.variant_redsea": "Redsea",
+  "entity.rainbowreef.butterflyfish.variant_sixspined": "Six Spined",
 
   "entity.rainbowreef.pipefish.variant_green": "Green",
   "entity.rainbowreef.pipefish.variant_janns": "Janns",

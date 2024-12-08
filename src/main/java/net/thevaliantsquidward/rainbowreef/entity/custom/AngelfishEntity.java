@@ -66,6 +66,8 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
             case 5 -> "rockbeauty";
             case 6 -> "bluequeen";
             case 7 -> "majestic";
+            case 8 -> "king";
+            case 9 -> "semicircle";
             default -> "emperor";
         };
     }
@@ -174,18 +176,22 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
 
-        if(variantChange <= 0.16F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.32F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.64F){
+        if(variantChange <= 0.11F){
             this.setVariant(1);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.22F){
+            this.setVariant(2);
+        }else if(variantChange <= 0.33F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.44F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.55F){
             this.setVariant(5);
-        }else if(variantChange <= 0.88F){
+        }else if(variantChange <= 0.66F){
             this.setVariant(7);
+        }else if(variantChange <= 0.77F){
+            this.setVariant(8);
+        }else if(variantChange <= 0.88F){
+            this.setVariant(9);
         } else{
             this.setVariant(0);
         }
