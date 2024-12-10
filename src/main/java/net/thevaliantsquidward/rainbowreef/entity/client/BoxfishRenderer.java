@@ -12,6 +12,10 @@ public class BoxfishRenderer extends GeoEntityRenderer<BoxfishEntity> {
     private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/whitespottedboxfish.png");
     private static final ResourceLocation TEXTURE_STRIPE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/whitebarredboxfish.png");
     private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/hornnosedboxfish.png");
+    private static final ResourceLocation TEXTURE_BLUETAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/bluetail.png");
+    private static final ResourceLocation TEXTURE_LONGHORN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/longhorn.png");
+    private static final ResourceLocation TEXTURE_WHITLEYS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/whitleys.png");
+
 
     public BoxfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BoxfishModel());
@@ -26,6 +30,9 @@ public class BoxfishRenderer extends GeoEntityRenderer<BoxfishEntity> {
             case 1 -> TEXTURE_PURPLE;
             case 2 -> TEXTURE_STRIPE;
             case 3 -> TEXTURE_WHITE;
+            case 4 -> TEXTURE_BLUETAIL;
+            case 5 -> TEXTURE_LONGHORN;
+            case 6 -> TEXTURE_WHITLEYS;
             default -> TEXTURE_GOLD;
         };
     }

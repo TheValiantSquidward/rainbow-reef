@@ -12,6 +12,7 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
 public class SeahorseModel extends GeoModel<SeahorseEntity> {
+
     @Override
     public ResourceLocation getModelResource(SeahorseEntity animatable) {
         return new ResourceLocation(RainbowReef.MOD_ID, "geo/seahorse.geo.json");

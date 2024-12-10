@@ -176,7 +176,9 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
 
-        if(variantChange <= 0.11F){
+        if(variantChange <= 0.001){
+            this.setVariant(6);
+        }else if(variantChange <= 0.11F){
             this.setVariant(1);
         }else if(variantChange <= 0.22F){
             this.setVariant(2);

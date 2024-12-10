@@ -148,6 +148,8 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
             case 2 -> "horned";
             case 3 -> "nurse";
             case 4 -> "zebra";
+            case 5 -> "albino";
+            case 6 -> "piebald";
             default -> "epaulette";
         };
     }

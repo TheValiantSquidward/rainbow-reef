@@ -154,7 +154,10 @@
   "entity.rainbowreef.basslet.variant_accessor": "Accessor",
   "entity.rainbowreef.basslet.variant_candy": "Candy",
   "entity.rainbowreef.basslet.variant_blackcap": "Blackcap",
+  "entity.rainbowreef.basslet.variant_gold": "Golden",
+  "entity.rainbowreef.basslet.variant_gilded": "Gilded",
   "entity.rainbowreef.basslet.variant_swissguard": "Swissguard",
+  "entity.rainbowreef.basslet.variant_yellowscissortail": "Yellow Scissortail",
 
   "entity.rainbowreef.arrow_crab.variant_yellowlined": "Yellowline",
   "entity.rainbowreef.arrow_crab.variant_red": "Scarlet",
@@ -205,8 +208,10 @@
   "entity.rainbowreef.clownfish.variant_blizzard": "Blizzard",
   "entity.rainbowreef.clownfish.variant_tomato": "Tomato",
   "entity.rainbowreef.clownfish.variant_bluestrain": "Blue Strain",
+  "entity.rainbowreef.clownfish.variant_madagascar": "Madagascar",
+  "entity.rainbowreef.clownfish.variant_oman": "Oman",
 
-  "entity.rainbowreef.seahorse.variant_kelpy": "Kelpy",
+  "entity.rainbowreef.seahorse.variant_kelpy": "Olivine",
   "entity.rainbowreef.seahorse.variant_cobalt": "Cobalt",
   "entity.rainbowreef.seahorse.variant_gold": "Gold",
   "entity.rainbowreef.seahorse.variant_amber": "Amber",
@@ -227,6 +232,10 @@
   "entity.rainbowreef.boxfish.variant_stripe": "White Barred",
   "entity.rainbowreef.boxfish.variant_white": "Horn Nosed",
   "entity.rainbowreef.boxfish.variant_gold": "Yellow",
+  "entity.rainbowreef.boxfish.variant_bluetail": "Bluetail",
+  "entity.rainbowreef.boxfish.variant_longhorn": "Longhorn",
+  "entity.rainbowreef.boxfish.variant_whitleys": "Whitley's",
+
 
   "entity.rainbowreef.jellyfish.variant_white": "Yellow",
   "entity.rainbowreef.jellyfish.variant_yellow": "White",

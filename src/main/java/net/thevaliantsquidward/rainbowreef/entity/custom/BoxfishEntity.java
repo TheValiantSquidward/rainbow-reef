@@ -60,6 +60,9 @@ public class BoxfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
             case 1 -> "purple";
             case 2 -> "stripe";
             case 3 -> "white";
+            case 4 -> "bluetail";
+            case 5 -> "longhorn";
+            case 6 -> "whitleys";
             default -> "gold";
         };
     }
@@ -157,12 +160,18 @@ public class BoxfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.25F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.75F){
+        if(variantChange <= 0.16F){
             this.setVariant(1);
+        }else if(variantChange <= 0.30F){
+            this.setVariant(2);
+        }else if(variantChange <= 0.44F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.58F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.72F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.86F){
+            this.setVariant(6);
         }else{
             this.setVariant(0);
         }

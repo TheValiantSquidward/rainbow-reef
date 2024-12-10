@@ -35,6 +35,7 @@ public class ClownfishModel extends GeoModel<ClownfishEntity> {
         EntityModelData extraData = customPredicate.getData(DataTickets.ENTITY_MODEL_DATA);
 
         core.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
+
     }
 
 }
