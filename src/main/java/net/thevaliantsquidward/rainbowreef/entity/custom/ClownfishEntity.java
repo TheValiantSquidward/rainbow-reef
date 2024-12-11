@@ -92,17 +92,20 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
     }
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "ocellaris";
+            case 1 -> "blackandwhite";
             case 2 -> "maroon";
             case 3 -> "pinkskunk";
             case 4 -> "clarkii";
-            case 5 -> "blizzard";
+            case 5 -> "blizzard"; //r
             case 6 -> "tomato";
-            case 7 -> "bluestrain";
+            case 7 -> "bluestrain"; //a
             case 8 -> "madagascar";
-            case 9 -> "oman";
+            case 9 -> "oman"; //r
+            case 10 -> "allard";
+            case 11 -> "mocha"; //r
 
-            default -> "blackandwhite";
+
+            default -> "ocellaris";
         };
     }
 
@@ -215,26 +218,43 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
+        float rare = this.getRandom().nextFloat();
+        float rareVariantChange = this.getRandom().nextFloat();
         if(variantChange <= 0.001){
             this.setVariant(7);
-        }else if(variantChange <= 0.05F){
-            this.setVariant(9);
-        }else if(variantChange <= 0.20F){
-            this.setVariant(8);
-        }else if(variantChange <= 0.30F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.40F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.70F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.80F){
+        } else
+        if (variantChange <= 0.13F) {
             this.setVariant(1);
+        } else
+        if (variantChange <= 0.26F) {
+            this.setVariant(2);
+        } else
+        if (variantChange <= 0.39F) {
+            this.setVariant(3);
+        } else
+        if (variantChange <= 0.42F) {
+            this.setVariant(4);
+        } else
+        if (variantChange <= 0.55F) {
+            this.setVariant(6);
+        } else
+        if (variantChange <= 0.60F) {
+            this.setVariant(8);
+        } else
+        if (variantChange <= 0.81F) {
+            this.setVariant(10);
         }else{
             this.setVariant(0);
+        }
+        if(rare <= 0.15){
+            if (rareVariantChange <= 0.33F) {
+                this.setVariant(9);
+            } else
+            if (rareVariantChange <= 0.63F) {
+                this.setVariant(11);
+            } else {
+                this.setVariant(5);
+            }
         }
 
         List<BlockPos> list = this.findNems();

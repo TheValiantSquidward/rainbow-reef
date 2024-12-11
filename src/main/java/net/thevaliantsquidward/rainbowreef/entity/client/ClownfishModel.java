@@ -19,7 +19,7 @@ public class ClownfishModel extends GeoModel<ClownfishEntity> {
 
     @Override
     public ResourceLocation getTextureResource(ClownfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blackandwhite.png");
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/ocellaris.png");
     }
 
     @Override

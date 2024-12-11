@@ -147,6 +147,8 @@
   "entity.rainbowreef.angelfish.variant_majestic": "Majestic",
   "entity.rainbowreef.angelfish.variant_king": "King",
   "entity.rainbowreef.angelfish.variant_semicircle": "Semicircle",
+  "entity.rainbowreef.angelfish.variant_banded": "Banded",
+  "entity.rainbowreef.angelfish.variant_gray": "Gray",
 
 
   "entity.rainbowreef.basslet.variant_fairy": "Fairy",
@@ -199,6 +201,10 @@
   "entity.rainbowreef.tang.variant_yellowstrike": "Yellow Strike",
   "entity.rainbowreef.tang.variant_blacksurgeon": "Black Surgeon",
   "entity.rainbowreef.tang.variant_orangeband": "Orange Band",
+  "entity.rainbowreef.tang.variant_blondelipstick": "Blonde Lipstick",
+  "entity.rainbowreef.tang.variant_whitetailbristletooth": "White Tail Bristetooth",
+  "entity.rainbowreef.tang.variant_zebra": "Zebra",
+
 
   "entity.rainbowreef.clownfish.variant_ocellaris": "Ocellaris",
   "entity.rainbowreef.clownfish.variant_maroon": "Maroon",
@@ -210,6 +216,9 @@
   "entity.rainbowreef.clownfish.variant_bluestrain": "Blue Strain",
   "entity.rainbowreef.clownfish.variant_madagascar": "Madagascar",
   "entity.rainbowreef.clownfish.variant_oman": "Oman",
+  "entity.rainbowreef.clownfish.variant_allard": "Allard's",
+  "entity.rainbowreef.clownfish.variant_mocha": "Mocha",
+
 
   "entity.rainbowreef.seahorse.variant_kelpy": "Olivine",
   "entity.rainbowreef.seahorse.variant_cobalt": "Cobalt",
@@ -265,6 +274,11 @@
   "entity.rainbowreef.dwarf_angelfish.variant_japanese": "Japanese",
   "entity.rainbowreef.dwarf_angelfish.variant_cherub": "Cherubfish",
   "entity.rainbowreef.dwarf_angelfish.variant_masked": "Masked",
+  "entity.rainbowreef.dwarf_angelfish.variant_blacknox": "Black Nox",
+  "entity.rainbowreef.dwarf_angelfish.variant_lamarck": "Lamarck",
+  "entity.rainbowreef.dwarf_angelfish.variant_lemonpeel": "Lemon Peal",
+  "entity.rainbowreef.dwarf_angelfish.variant_yellow": "Yellow",
+
 
   "entity.rainbowreef.butterflyfish.variant_easterisland": "Easter Island",
   "entity.rainbowreef.butterflyfish.variant_threadfin": "Threadfin",
@@ -327,7 +341,7 @@
   "advancements.husbandry.collect_hogfish.description" : "Collect all Hogfish Variants",
 
   "advancements.husbandry.collect_ray.title" : "Let's Name the Species",
-  "advancements.husbandry.collect_ray.description" : "Collect a Ray",
+  "advancements.husbandry.collect_ray.description" : "Collect all Ray Variants",
 
   "advancements.husbandry.collect_parrotfish.title" : "Polly Wants a Cracker",
   "advancements.husbandry.collect_parrotfish.description" : "Collect all Parrotfish Variants",
@@ -342,10 +356,10 @@
   "advancements.husbandry.collect_butter.title" : "Butterfish? Where?",
   "advancements.husbandry.collect_butter.description" : "Collect all Butterflyfish Variants",
 
-  "advancements.husbandry.collect_clownfish.title" : "You Found Nemo",
+  "advancements.husbandry.collect_clownfish.title" : "You Found Nemo!",
   "advancements.husbandry.collect_clownfish.description" : "Collect all Clownfish Variants",
 
-  "advancements.husbandry.collect_seahorse.title" : "I See Horse",
+  "advancements.husbandry.collect_seahorse.title" : "I See A Horse",
   "advancements.husbandry.collect_seahorse.description" : "Collect all Seahorse Variants",
 
   "advancements.husbandry.collect_tang.title" : "A Whole Pallette of Fish",

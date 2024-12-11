@@ -9,13 +9,17 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEntity> {
     private static final ResourceLocation BICOLOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/bicolor.png");
-    private static final ResourceLocation CORAL_BEAUTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/coral_beauty.png");
+    private static final ResourceLocation CORAL_BEAUTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/coralbeauty.png");
     private static final ResourceLocation PEPPERMINT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/peppermint.png");
     private static final ResourceLocation FLAME = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/flame.png");
     private static final ResourceLocation KEYHOLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/keyhole.png");
     private static final ResourceLocation MASKED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/masked.png");
     private static final ResourceLocation CHERUB = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/cherubfish.png");
     private static final ResourceLocation JAPANESE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/japanese.png");
+    private static final ResourceLocation BLACKNOX = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/blacknox.png");
+    private static final ResourceLocation LAMARCK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/lamarck.png");
+    private static final ResourceLocation LEMONPEEL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/lemonpeel.png");
+    private static final ResourceLocation YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/yellow.png");
 
 
     public DwarfAngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -35,6 +39,10 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
             case 5 -> MASKED;
             case 6 -> CHERUB;
             case 7 -> JAPANESE;
+            case 8 -> BLACKNOX;
+            case 9 -> LAMARCK;
+            case 10 -> LEMONPEEL;
+            case 11 -> YELLOW;
             default -> BICOLOR;
         };
     }

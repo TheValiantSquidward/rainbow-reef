@@ -37,6 +37,10 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
     private static final ResourceLocation TEXTURE_YELLOWSTRIKE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/yellowstrike.png");
     private static final ResourceLocation TEXTURE_BLACKSURGEON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blacksurgeon.png");
     private static final ResourceLocation TEXTURE_ORANGEBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/orangeband.png");
+    private static final ResourceLocation TEXTURE_BLONDELIPSTICK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blondelipstick.png");
+    private static final ResourceLocation TEXTURE_WHITETAILBRISTLETOOTH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/whitetailbristletooth.png");
+    private static final ResourceLocation TEXTURE_ZEBRA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/zebra.png");
+
 
 
     public TangRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -77,6 +81,9 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
             case 26 -> TEXTURE_YELLOWSTRIKE;
             case 27 -> TEXTURE_BLACKSURGEON;
             case 28 -> TEXTURE_ORANGEBAND;
+            case 29 -> TEXTURE_BLONDELIPSTICK;
+            case 30 -> TEXTURE_WHITETAILBRISTLETOOTH;
+            case 31 -> TEXTURE_ZEBRA;
 
             default -> TEXTURE_BLUE;
         };

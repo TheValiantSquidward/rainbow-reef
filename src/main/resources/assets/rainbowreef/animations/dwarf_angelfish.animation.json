@@ -13,7 +13,7 @@
 				},
 				"core": {
 					"rotation": {
-						"vector": ["math.sin(query.anim_time*180)*3", "math.sin(query.anim_time*360)*10", "math.sin(query.anim_time*180)*2"],
+						"vector": ["math.sin(query.anim_time*180)*5", "math.sin(query.anim_time*360)*10", "math.sin(query.anim_time*180)*2"],
 						"easing": "linear"
 					},
 					"position": {
@@ -23,7 +23,7 @@
 				},
 				"l_fin": {
 					"rotation": {
-						"vector": [0, "math.cos((query.anim_time - 60)* 720)*-14", 0],
+						"vector": [0, "math.cos((query.anim_time - 60)* 720)*-20", 0],
 						"easing": "linear"
 					}
 				},
@@ -41,7 +41,7 @@
 				},
 				"r_fin": {
 					"rotation": {
-						"vector": [0, "math.cos((query.anim_time - 60)* 720)*14", 0],
+						"vector": [0, "math.cos((query.anim_time - 60)* 720)*20", 0],
 						"easing": "linear"
 					}
 				}

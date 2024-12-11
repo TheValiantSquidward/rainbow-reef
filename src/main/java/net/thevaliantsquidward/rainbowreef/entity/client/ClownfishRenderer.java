@@ -18,6 +18,9 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
     private static final ResourceLocation BLUESTRAIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/bluestrain.png");
     private static final ResourceLocation MADAGASCAR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/madagascar.png");
     private static final ResourceLocation OMAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/oman.png");
+    private static final ResourceLocation ALLARD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/allard.png");
+    private static final ResourceLocation MOCHA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/mocha.png");
+
 
 
     public ClownfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -30,7 +33,7 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
 
     public ResourceLocation getTextureLocation(ClownfishEntity entity) {
         return switch (entity.getVariant()) {
-            case 1 -> OCELLARIS;
+            case 1 -> BLACKANDWHITE;
             case 2 -> MAROON;
             case 3 -> PINKSKUNK;
             case 4 -> CLARKII;
@@ -39,7 +42,9 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
             case 7 -> BLUESTRAIN;
             case 8 -> MADAGASCAR;
             case 9 -> OMAN;
-            default -> BLACKANDWHITE;
+            case 10 -> ALLARD;
+            case 11 -> MOCHA;
+            default -> OCELLARIS;
         };
     }
 }

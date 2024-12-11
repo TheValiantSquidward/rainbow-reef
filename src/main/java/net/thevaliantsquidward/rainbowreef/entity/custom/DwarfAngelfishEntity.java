@@ -63,6 +63,10 @@ public class DwarfAngelfishEntity extends WaterAnimal implements GeoEntity, Buck
             case 5 -> "masked";
             case 6 -> "cherub";
             case 7 -> "japanese";
+            case 8 -> "blacknox";
+            case 9 -> "lamarck";
+            case 10 -> "lemonpeel";
+            case 11 -> "yellow";
             default -> "bicolor";
         };
     }
@@ -162,7 +166,7 @@ public class DwarfAngelfishEntity extends WaterAnimal implements GeoEntity, Buck
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         if (dataTag == null) {
-            setVariant(random.nextInt(8));
+            setVariant(random.nextInt(12));
         } else {
             if (dataTag.contains("Variant", 4)){
                 this.setVariant(dataTag.getInt("Variant"));
