@@ -137,11 +137,11 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
             case 1 -> "orange";
             case 2 -> "white";
             case 3 -> "yellow";
-            case 4 -> "muddy";
-            case 5 -> "abyssal";
-            case 6 -> "cherry";
-            case 7 -> "minty";
-            case 8 -> "azure";
+            case 4 -> "muddy"; //r
+            case 5 -> "abyssal"; //r
+            case 6 -> "cherry"; //r
+            case 7 -> "minty"; //r
+            case 8 -> "azure"; //r
             case 9 -> "red";
             default -> "pink";
         };

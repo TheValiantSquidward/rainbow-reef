@@ -48,17 +48,17 @@
 				{
 					"name": "l_fin",
 					"parent": "body",
-					"pivot": [2, 2, -2],
+					"pivot": [2, 3, -2],
 					"cubes": [
-						{"origin": [2, 1, -2], "size": [0, 3, 4], "pivot": [2, 2, -2], "rotation": [15, 35, 0], "uv": [0, 3]}
+						{"origin": [2, 1.01777, -2.14535], "size": [0, 3, 4], "pivot": [2, 2.01777, -2.14535], "rotation": [15, 35, 0], "uv": [0, 3]}
 					]
 				},
 				{
 					"name": "r_fin",
 					"parent": "body",
-					"pivot": [-2, 2, -1],
+					"pivot": [-2, 3, -2],
 					"cubes": [
-						{"origin": [-2, 1, -1], "size": [0, 3, 4], "pivot": [-2, 2, -1], "rotation": [15, -35, 0], "uv": [0, 3], "mirror": true}
+						{"origin": [-2, 1.01777, -2.14535], "size": [0, 3, 4], "pivot": [-2, 2.01777, -2.14535], "rotation": [15, -35, 0], "uv": [0, 3], "mirror": true}
 					]
 				},
 				{

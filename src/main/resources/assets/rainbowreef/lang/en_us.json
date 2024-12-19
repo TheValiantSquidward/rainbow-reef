@@ -131,10 +131,10 @@
   "entity.rainbowreef.goby.variant_blueneon": "Blue Neon",
   "entity.rainbowreef.goby.variant_yellowneon": "Yellow Neon",
   "entity.rainbowreef.goby.variant_neonhybrid": "Hybrid Neon",
-  "entity.rainbowreef.goby.variant_blackline": "Blackline",
+  "entity.rainbowreef.goby.variant_blackray": "Blackray",
   "entity.rainbowreef.goby.variant_helfrichi": "Helfrichi",
 
-  "entity.rainbowreef.moorish_idol.variant_default": "Idol",
+  "entity.rainbowreef.moorish_idol.variant_default": "Zanclus",
   "entity.rainbowreef.moorish_idol.variant_silver": "Silver Idol",
 
   "entity.rainbowreef.angelfish.variant_french": "French",
@@ -160,6 +160,8 @@
   "entity.rainbowreef.basslet.variant_gilded": "Gilded",
   "entity.rainbowreef.basslet.variant_swissguard": "Swissguard",
   "entity.rainbowreef.basslet.variant_yellowscissortail": "Yellow Scissortail",
+  "entity.rainbowreef.basslet.variant_sunrise": "Sunrise",
+  "entity.rainbowreef.basslet.variant_striped": "Striped",
 
   "entity.rainbowreef.arrow_crab.variant_yellowlined": "Yellowline",
   "entity.rainbowreef.arrow_crab.variant_red": "Scarlet",
@@ -218,6 +220,8 @@
   "entity.rainbowreef.clownfish.variant_oman": "Oman",
   "entity.rainbowreef.clownfish.variant_allard": "Allard's",
   "entity.rainbowreef.clownfish.variant_mocha": "Mocha",
+  "entity.rainbowreef.clownfish.variant_whitesnout": "White Snout",
+
 
 
   "entity.rainbowreef.seahorse.variant_kelpy": "Olivine",
@@ -236,6 +240,9 @@
   "entity.rainbowreef.small_shark.variant_horned": "Horned",
   "entity.rainbowreef.small_shark.variant_nurse": "Nurse",
   "entity.rainbowreef.small_shark.variant_zebra": "Zebra",
+  "entity.rainbowreef.small_shark.variant_albino": "Albino",
+  "entity.rainbowreef.small_shark.variant_piebald": "Piebald",
+
 
   "entity.rainbowreef.boxfish.variant_purple": "White Spotted",
   "entity.rainbowreef.boxfish.variant_stripe": "White Barred",
@@ -265,6 +272,9 @@
   "entity.rainbowreef.parrotfish.variant_mediterranean": "Mediterranean",
   "entity.rainbowreef.parrotfish.variant_princess": "Princess",
   "entity.rainbowreef.parrotfish.variant_yellowtail": "Yellow Tail",
+  "entity.rainbowreef.parrotfish.variant_bluebumphead": "Blue Bumphead",
+  "entity.rainbowreef.parrotfish.variant_red": "Red",
+
 
   "entity.rainbowreef.dwarf_angelfish.variant_bicolor": "Bicolor",
   "entity.rainbowreef.dwarf_angelfish.variant_coralbeauty": "Coral Beauty",
@@ -292,6 +302,8 @@
   "entity.rainbowreef.butterflyfish.variant_pyramid": "Pyramid",
   "entity.rainbowreef.butterflyfish.variant_redsea": "Redsea",
   "entity.rainbowreef.butterflyfish.variant_sixspined": "Six Spined",
+  "entity.rainbowreef.butterflyfish.variant_darklongnose": "Dark Longnose",
+
 
   "entity.rainbowreef.pipefish.variant_green": "Green",
   "entity.rainbowreef.pipefish.variant_janns": "Janns",

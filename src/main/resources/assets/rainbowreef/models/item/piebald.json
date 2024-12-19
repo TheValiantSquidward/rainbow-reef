@@ -1,6 +1,6 @@
 {
   "parent" : "item/generated",
   "textures" : {
-    "layer0": "rainbowreef:item/nurseshork"
+    "layer0": "rainbowreef:item/piebaldshork"
   }
 }

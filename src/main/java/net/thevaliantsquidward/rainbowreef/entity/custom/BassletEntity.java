@@ -68,6 +68,8 @@ public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable 
             case 6 -> "gilded";
             case 7 -> "swissguard";
             case 8 -> "yellowscissortail";
+            case 9 -> "sunrise";
+            case 10 -> "striped";
             default -> "fairy";
         };
     }
@@ -171,20 +173,24 @@ public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable 
         }else
         if(variantChange <= 0.001){
             this.setVariant(8);
-        }else if(variantChange <= 0.12){
-            this.setVariant(7);
-        }else if(variantChange <= 0.24F){
-            this.setVariant(6);
-        }         if(variantChange <= 0.36) {
-            this.setVariant(5);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.62F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.74F){
+        }else if(variantChange <= 0.10){
             this.setVariant(1);
+        }else if(variantChange <= 0.20F){
+            this.setVariant(2);
+        }         if(variantChange <= 0.30) {
+            this.setVariant(3);
+        }else if(variantChange <= 0.40F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.50F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.60F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.70F){
+            this.setVariant(7);
+        }else if(variantChange <= 0.80F){
+            this.setVariant(9);
+        }else if(variantChange <= 0.90F){
+            this.setVariant(10);
         }else{
             this.setVariant(0);
         }

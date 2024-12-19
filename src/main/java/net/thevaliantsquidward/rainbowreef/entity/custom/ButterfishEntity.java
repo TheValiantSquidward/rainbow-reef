@@ -1,6 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -30,6 +31,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.entity.custom.base.VariantSchoolingFish;
@@ -57,7 +60,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "easterisland";
+            case 1 -> "easterisland"; //r
             case 2 -> "threadfin";
             case 3 -> "banner";
             case 4 -> "bluecheek";
@@ -68,6 +71,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             case 9 -> "pyramid";
             case 10 -> "redsea";
             case 11 -> "sixspined";
+            case 12 -> "darklongnose"; //r
             default -> "copperbanded";
         };
     }
@@ -177,31 +181,46 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
+        float rare = this.getRandom().nextFloat();
+        float rareVariantChange = this.getRandom().nextFloat();
+        Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
+        if(rare <= 0.10) {
+            if(rareVariantChange <= 0.50F){
+                this.setVariant(1);
+            }else
+            {
+                this.setVariant(12);
+            }
+        } else
         if(variantChange <= 0.08F){
-            this.setVariant(1);
-        }else if(variantChange <= 0.16F){
             this.setVariant(2);
-        }else if(variantChange <= 0.24F){
+        }else if(variantChange <= 0.16F){
             this.setVariant(3);
-        }else if(variantChange <= 0.32F){
+        }else if(variantChange <= 0.24F){
             this.setVariant(4);
-        }else if(variantChange <= 0.40F){
+        }else if(variantChange <= 0.32F){
             this.setVariant(5);
-        }else if(variantChange <= 0.48F){
+        }else if(variantChange <= 0.40F){
             this.setVariant(6);
-        }else if(variantChange <= 0.56F){
+        }else if(variantChange <= 0.48F){
             this.setVariant(7);
-        }else if(variantChange <= 0.64F){
+        }else if(variantChange <= 0.56F){
             this.setVariant(8);
-        }else if(variantChange <= 0.72F){
+        }else if(variantChange <= 0.64F){
             this.setVariant(9);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.72F){
             this.setVariant(10);
-        }else if(variantChange <= 0.88F){
+        }else if(variantChange <= 0.80F){
+            this.setVariant(13);
+        } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
             this.setVariant(11);
         } else{
             this.setVariant(0);
         }
+
+
+
+
 
         if (this.getRandom().nextFloat() >= 0.80) {
             if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL

@@ -181,7 +181,7 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.01F){
+        if(variantChange <= 0.001F){
             this.setVariant(10);
         } else if(variantChange <= 0.10F){
             this.setVariant(9);

@@ -31,13 +31,14 @@
     "9": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:clownfish_bucket"], "nbt": "{BucketVariantTag:8}" } ] } },
     "10": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:clownfish_bucket"], "nbt": "{BucketVariantTag:9}" } ] } },
     "11": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:clownfish_bucket"], "nbt": "{BucketVariantTag:10}" } ] } },
-    "12": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:clownfish_bucket"], "nbt": "{BucketVariantTag:11}" } ] } }
+    "12": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:clownfish_bucket"], "nbt": "{BucketVariantTag:11}" } ] } },
+    "13": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:clownfish_bucket"], "nbt": "{BucketVariantTag:12}" } ] } }
 
 
 
   },
   "requirements": [
-    ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"]
+    ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"], ["9"], ["10"], ["11"], ["12"], ["13"]
   ],
   "sends_telemetry_event": true
 }

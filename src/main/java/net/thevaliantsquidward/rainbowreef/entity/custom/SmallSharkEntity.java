@@ -234,25 +234,31 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     }
 
     @Nullable
-    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if (dataTag == null) {
-            setVariant(random.nextInt(5));
-        } else {
-            if (dataTag.contains("Variant", 4)){
-                this.setVariant(dataTag.getInt("Variant"));
+        float variantChange = this.getRandom().nextFloat();
+        float aberrant = this.getRandom().nextFloat();
+        float aberrantVariantChange = this.getRandom().nextFloat();
+        if(aberrant <= 0.01) {
+            if(aberrantVariantChange <= 0.50F){
+                this.setVariant(5);
+            }else
+            {
+                this.setVariant(6);
             }
+        } else
+        if(variantChange <= 0.20F) {
+            this.setVariant(1);
+        } else if(variantChange <= 0.40F) {
+            this.setVariant(2);
+        } else if(variantChange <= 0.50F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.70F){
+            this.setVariant(4);
+        }else{
+            this.setVariant(0);
         }
-        return spawnDataIn;
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
-
-
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-
 
 
     public static AttributeSupplier setAttributes() {

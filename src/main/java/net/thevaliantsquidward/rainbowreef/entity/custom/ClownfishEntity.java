@@ -103,6 +103,7 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
             case 9 -> "oman"; //r
             case 10 -> "allard";
             case 11 -> "mocha"; //r
+            case 12 -> "whitesnout"; //r
 
 
             default -> "ocellaris";
@@ -246,12 +247,15 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
         }else{
             this.setVariant(0);
         }
-        if(rare <= 0.15){
-            if (rareVariantChange <= 0.33F) {
+        if(rare <= 0.10){
+            if (rareVariantChange <= 0.25F) {
                 this.setVariant(9);
             } else
-            if (rareVariantChange <= 0.63F) {
+            if (rareVariantChange <= 0.50F) {
                 this.setVariant(11);
+            } else
+            if (rareVariantChange <= 0.75F) {
+                this.setVariant(12);
             } else {
                 this.setVariant(5);
             }

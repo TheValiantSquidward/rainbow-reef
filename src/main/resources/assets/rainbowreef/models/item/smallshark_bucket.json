@@ -33,6 +33,18 @@
         "rainbowreef:variant": 4
       },
       "model": "rainbowreef:item/zebra"
+    },
+    {
+      "predicate": {
+        "rainbowreef:variant": 5
+      },
+      "model": "rainbowreef:item/albino"
+    },
+    {
+      "predicate": {
+        "rainbowreef:variant": 6
+      },
+      "model": "rainbowreef:item/piebald"
     }
   ]
 }

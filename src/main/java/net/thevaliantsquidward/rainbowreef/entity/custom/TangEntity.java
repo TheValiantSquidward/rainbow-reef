@@ -168,7 +168,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             }
 
         }
-        if(rare <= 0.35){
+        if(rare <= 0.15){
             if (rareVariantChange <= 0.16F) {
                 this.setVariant(7);
             } else
