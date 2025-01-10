@@ -72,6 +72,14 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             case 10 -> "redsea";
             case 11 -> "sixspined";
             case 12 -> "darklongnose"; //r
+            case 13 -> "saddleback";
+            case 14 -> "african";
+            case 15 -> "eritrean";
+            case 16 -> "marginated";
+            case 17 -> "thompson";
+            case 18 -> "mullers";
+            case 19 -> "wroughtiron";
+
             default -> "copperbanded";
         };
     }
@@ -192,26 +200,38 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
                 this.setVariant(12);
             }
         } else
-        if(variantChange <= 0.08F){
+        if(variantChange <= 0.05F){
             this.setVariant(2);
-        }else if(variantChange <= 0.16F){
+        }else if(variantChange <= 0.10F){
             this.setVariant(3);
-        }else if(variantChange <= 0.24F){
+        }else if(variantChange <= 0.15F){
             this.setVariant(4);
-        }else if(variantChange <= 0.32F){
+        }else if(variantChange <= 0.20F){
             this.setVariant(5);
-        }else if(variantChange <= 0.40F){
+        }else if(variantChange <= 0.25F){
             this.setVariant(6);
-        }else if(variantChange <= 0.48F){
+        }else if(variantChange <= 0.30F){
             this.setVariant(7);
-        }else if(variantChange <= 0.56F){
+        }else if(variantChange <= 0.35F){
             this.setVariant(8);
-        }else if(variantChange <= 0.64F){
+        }else if(variantChange <= 0.40F){
             this.setVariant(9);
-        }else if(variantChange <= 0.72F){
+        }else if(variantChange <= 0.45F){
             this.setVariant(10);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.50F){
             this.setVariant(13);
+        }else if(variantChange <= 0.55F){
+            this.setVariant(14);
+        }else if(variantChange <= 0.60F){
+            this.setVariant(15);
+        }else if(variantChange <= 0.65F){
+            this.setVariant(16);
+        }else if(variantChange <= 0.70F){
+            this.setVariant(17);
+        }else if(variantChange <= 0.75F){
+            this.setVariant(18);
+        }else if(variantChange <= 0.80F){
+            this.setVariant(19);
         } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
             this.setVariant(11);
         } else{
@@ -266,8 +286,8 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.6D)
+                .add(Attributes.MAX_HEALTH, 6D)
+                .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
     }
 

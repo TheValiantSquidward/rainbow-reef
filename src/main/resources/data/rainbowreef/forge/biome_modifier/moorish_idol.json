@@ -5,8 +5,8 @@
   ],
   "spawners" : {
    "type" : "rainbowreef:moorish_idol",
-    "weight" : 10,
+    "weight" : 8,
     "minCount" : 1,
-    "maxCount" : 3
+    "maxCount" : 2
   }
 }

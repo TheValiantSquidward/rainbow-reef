@@ -70,6 +70,8 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
             case 9 -> "semicircle";
             case 10 -> "banded";
             case 11 -> "gray";
+            case 12 -> "oldwoman";
+            case 13 -> "guinean";
 
             default -> "queen";
         };
@@ -182,28 +184,32 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
         if(variantChange <= 0.001){
             this.setVariant(6);
         } else
-        if(variantChange <= 0.09){
+        if(variantChange <= 0.07){
             this.setVariant(1);
         } else
-        if(variantChange <= 0.18){
+        if(variantChange <= 0.14){
             this.setVariant(2);
         } else
-        if (variantChange <= 0.23F) {
+        if (variantChange <= 0.21F) {
             this.setVariant(3);
-        }else if(variantChange <= 0.32F){
+        }else if(variantChange <= 0.28F){
             this.setVariant(4);
-        }else if(variantChange <= 0.41F){
+        }else if(variantChange <= 0.35F){
             this.setVariant(5);
-        }else if(variantChange <= 0.50F){
+        }else if(variantChange <= 0.42F){
             this.setVariant(7);
-        }else if(variantChange <= 0.59F){
+        }else if(variantChange <= 0.49F){
             this.setVariant(8);
-        }else if(variantChange <= 0.68F){
+        }else if(variantChange <= 0.56F){
             this.setVariant(9);
-        }else if(variantChange <= 0.77F){
+        }else if(variantChange <= 0.63F){
             this.setVariant(10);
-        }else if(variantChange <= 0.86F){
+        }else if(variantChange <= 0.70F){
             this.setVariant(11);
+        }else if(variantChange <= 0.77F){
+            this.setVariant(12);
+        }else if(variantChange <= 0.84F){
+            this.setVariant(13);
         } else{
             this.setVariant(0);
         }

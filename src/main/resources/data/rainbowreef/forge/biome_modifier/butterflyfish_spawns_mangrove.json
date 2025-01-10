@@ -7,6 +7,6 @@
     "type" : "rainbowreef:butterflyfish",
     "weight" : 15,
     "minCount" : 1,
-    "maxCount" : 3
+    "maxCount" : 5
   }
 }

@@ -89,7 +89,7 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 7D)
+                .add(Attributes.MAX_HEALTH, 10D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .build();
     }

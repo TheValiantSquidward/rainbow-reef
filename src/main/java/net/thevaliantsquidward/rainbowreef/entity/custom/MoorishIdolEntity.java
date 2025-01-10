@@ -220,7 +220,7 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 7D)
+                .add(Attributes.MAX_HEALTH, 8D)
                 .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
     }

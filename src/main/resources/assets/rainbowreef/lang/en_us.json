@@ -149,6 +149,8 @@
   "entity.rainbowreef.angelfish.variant_semicircle": "Semicircle",
   "entity.rainbowreef.angelfish.variant_banded": "Banded",
   "entity.rainbowreef.angelfish.variant_gray": "Gray",
+  "entity.rainbowreef.angelfish.variant_guinean": "Guinean",
+  "entity.rainbowreef.angelfish.variant_oldwoman": "Old Woman",
 
 
   "entity.rainbowreef.basslet.variant_fairy": "Fairy",
@@ -162,6 +164,9 @@
   "entity.rainbowreef.basslet.variant_yellowscissortail": "Yellow Scissortail",
   "entity.rainbowreef.basslet.variant_sunrise": "Sunrise",
   "entity.rainbowreef.basslet.variant_striped": "Striped",
+  "entity.rainbowreef.basslet.variant_blackstriped": "Blackstripe",
+  "entity.rainbowreef.basslet.variant_midnight": "Midnight",
+
 
   "entity.rainbowreef.arrow_crab.variant_yellowlined": "Yellowline",
   "entity.rainbowreef.arrow_crab.variant_red": "Scarlet",
@@ -221,6 +226,9 @@
   "entity.rainbowreef.clownfish.variant_allard": "Allard's",
   "entity.rainbowreef.clownfish.variant_mocha": "Mocha",
   "entity.rainbowreef.clownfish.variant_whitesnout": "White Snout",
+  "entity.rainbowreef.clownfish.variant_goldnugget": "Gold Nugget",
+  "entity.rainbowreef.clownfish.variant_redsaddleback": "Red Saddleback",
+  "entity.rainbowreef.clownfish.variant_snowstorm": "Snowstorm",
 
 
 
@@ -303,6 +311,14 @@
   "entity.rainbowreef.butterflyfish.variant_redsea": "Redsea",
   "entity.rainbowreef.butterflyfish.variant_sixspined": "Six Spined",
   "entity.rainbowreef.butterflyfish.variant_darklongnose": "Dark Longnose",
+  "entity.rainbowreef.butterflyfish.variant_saddleback": "Saddleback",
+  "entity.rainbowreef.butterflyfish.variant_african": "African",
+  "entity.rainbowreef.butterflyfish.variant_eritrean": "Eritrean",
+  "entity.rainbowreef.butterflyfish.variant_marginated": "Marginated",
+  "entity.rainbowreef.butterflyfish.variant_thompson": "Thompson",
+  "entity.rainbowreef.butterflyfish.variant_mullers": "Muller's",
+  "entity.rainbowreef.butterflyfish.variant_wroughtiron": "Wrought Iron",
+
 
 
   "entity.rainbowreef.pipefish.variant_green": "Green",
