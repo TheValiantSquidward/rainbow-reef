@@ -43,7 +43,7 @@ public class ModBlocks {
             () -> new BubblerBlock(BlockBehaviour.Properties.copy(Blocks.SAND).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
     public static final RegistryObject<Block> RED_SAND_BUBBLER = registerBlock("red_sand_bubbler",
-            () -> new BubblerBlock(BlockBehaviour.Properties.copy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+            () -> new RedSandBubblerBlock(BlockBehaviour.Properties.copy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
     public static final RegistryObject<Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () ->
             new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F)));

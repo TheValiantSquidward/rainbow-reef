@@ -82,14 +82,14 @@ public class FakeBubbleBlockRedSand extends Block implements BucketPickup {
     }
 
     private static boolean canExistIn(BlockState pBlockState) {
-        return pBlockState.is(ModBlocks.FAKE_BUBBLES.get()) || pBlockState.is(Blocks.WATER) && pBlockState.getFluidState().getAmount() >= 8 && pBlockState.getFluidState().isSource();
+        return pBlockState.is(ModBlocks.FAKE_BUBBLES_RED_SAND.get()) || pBlockState.is(Blocks.WATER) && pBlockState.getFluidState().getAmount() >= 8 && pBlockState.getFluidState().isSource();
     }
 
     private static BlockState getColumnState(BlockState pBlockState) {
-        if (pBlockState.is(ModBlocks.FAKE_BUBBLES.get())) {
+        if (pBlockState.is(ModBlocks.FAKE_BUBBLES_RED_SAND.get())) {
             return pBlockState;
         } else {
-            return pBlockState.is(ModBlocks.RED_SAND_BUBBLER.get()) ? ModBlocks.FAKE_BUBBLES.get().defaultBlockState() : Blocks.WATER.defaultBlockState();
+            return pBlockState.is(ModBlocks.RED_SAND_BUBBLER.get()) ? ModBlocks.FAKE_BUBBLES_RED_SAND.get().defaultBlockState() : Blocks.WATER.defaultBlockState();
         }
     }
 
@@ -109,7 +109,7 @@ public class FakeBubbleBlockRedSand extends Block implements BucketPickup {
 
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         pLevel.scheduleTick(pCurrentPos, Fluids.WATER, Fluids.WATER.getTickDelay(pLevel));
-        if (!pState.canSurvive(pLevel, pCurrentPos) || pFacing == Direction.DOWN || pFacing == Direction.UP && !pFacingState.is(ModBlocks.FAKE_BUBBLES.get()) && canExistIn(pFacingState)) {
+        if (!pState.canSurvive(pLevel, pCurrentPos) || pFacing == Direction.DOWN || pFacing == Direction.UP && !pFacingState.is(ModBlocks.FAKE_BUBBLES_RED_SAND.get()) && canExistIn(pFacingState)) {
             pLevel.scheduleTick(pCurrentPos, this, 5);
         }
 
@@ -118,7 +118,7 @@ public class FakeBubbleBlockRedSand extends Block implements BucketPickup {
 
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
         BlockState blockstate = pLevel.getBlockState(pPos.below());
-        return blockstate.is(ModBlocks.FAKE_BUBBLES.get()) || blockstate.is(ModBlocks.RED_SAND_BUBBLER.get());
+        return blockstate.is(ModBlocks.FAKE_BUBBLES_RED_SAND.get()) || blockstate.is(ModBlocks.RED_SAND_BUBBLER.get());
     }
 
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
