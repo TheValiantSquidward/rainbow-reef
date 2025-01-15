@@ -1,16 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "++",
-    "++"
+    "+&",
+    "&+"
   ],
   "key": {
     "+": {
-      "item": "minecraft:dead_brain_coral_block"
+      "tag": "minecraft:coral_blocks"
+    },
+    "&": {
+      "tag": "minecraft:sand"
     }
   },
   "result": {
     "item": "rainbowreef:coralstone",
-    "count": 4
+    "count": 8
   }
 }

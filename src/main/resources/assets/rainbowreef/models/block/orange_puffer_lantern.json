@@ -1,10 +1,10 @@
 {
 	"credit": "Made with Blockbench",
-	"texture_size": [64, 64],
 	"render_type": "cutout",
+	"texture_size": [64, 64],
 	"textures": {
 		"1": "rainbowreef:block/puffer_lantern_orange",
-		"particle": "minecraft:block/orange_wool"
+		"particle": "block/orange_wool"
 	},
 	"elements": [
 		{
@@ -220,7 +220,8 @@
 		},
 		"gui": {
 			"rotation": [20, 157, 0],
-			"translation": [0, 3, 0]
+			"translation": [0, 1, 0],
+			"scale": [0.83, 0.83, 0.83]
 		},
 		"head": {
 			"translation": [0, 14, 0]
