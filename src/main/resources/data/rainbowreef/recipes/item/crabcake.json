@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "rainbowreef:crab_meat"
+    },
+    {
+      "item": "rainbowreef:crab_meat"
+    },
+    {
+      "item": "minecraft:bread"
+    },
+    {
+      "item": "minecraft:egg"
+    }
+  ],
+  "result": {
+    "count":3,
+    "item": "rainbowreef:crabcake"
+  }
+}
