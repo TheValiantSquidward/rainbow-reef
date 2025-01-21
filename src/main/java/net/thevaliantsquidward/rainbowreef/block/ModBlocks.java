@@ -24,6 +24,7 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS,
             RainbowReef.MOD_ID);
 
+
     public static final RegistryObject<Block> CORALSTONE = registerBlock("coralstone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
