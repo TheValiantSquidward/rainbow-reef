@@ -55,7 +55,8 @@ public class NemHoster extends VariantSchoolingFish {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new LocateNemGoal(this));
-        this.goalSelector.addGoal(1, new MoveToNemGoal(this, 0.8,5, 1));
+        this.goalSelector.addGoal(2, new MoveToNemGoal(this, 0.8,16, 1));
+        this.goalSelector.addGoal(1, new RestInNemGoal(this, 0.8,16, 1));
         //Anemone seeker goal plan:
         //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
         //Pathfinds back to home nem and makes it hide for 3 - 5 secs
@@ -66,6 +67,7 @@ public class NemHoster extends VariantSchoolingFish {
         if (this.getNemPos() != null) {
             if (!(this.level().getBlockState(new BlockPos(getNemPos())).getBlock() instanceof AnemoneBlock)) {
                 this.setHasNem(false);
+                this.setNemPos(null);
             } else {
                 this.setHasNem(true);
             }
@@ -153,7 +155,7 @@ class LocateNemGoal extends Goal {
 
         Stream<PoiRecord> stream = poimanager.getInRange((p_218130_) -> {
             return p_218130_.is(RRPOI.GREEN_NEM.getKey()) || p_218130_.is(RRPOI.ORANGE_NEM.getKey()) || p_218130_.is(RRPOI.YELLOW_NEM.getKey());
-        }, blockpos, 50, PoiManager.Occupancy.ANY);
+        }, blockpos, 100, PoiManager.Occupancy.ANY);
 
         return stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((p_148811_) -> {
             return p_148811_.distSqr(blockpos);
@@ -165,7 +167,6 @@ class LocateNemGoal extends Goal {
 class MoveToNemGoal extends Goal{
 
     NemHoster fims;
-    Vec3 wantedPos;
 
     int radius;
     int prox;
@@ -196,6 +197,80 @@ class MoveToNemGoal extends Goal{
         this.fims.getNavigation().stop();
         this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
         this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
-        //((ServerLevel) fims.level()).sendParticles(ParticleTypes.BUBBLE, (double)fimspos.x() + fims.level().random.nextDouble(), (double)(fimspos.y() + 1), (double)fimspos.z() + fims.level().random.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
+    }
+
+
+    public void start() {
+        this.fims.getNavigation().stop();
+        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 2F);
+        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 2F);
+    }
+}
+
+class RestInNemGoal extends RandomStrollGoal{
+
+    NemHoster fims;
+
+    double spd;
+
+    private final boolean checkNoActionTime;
+
+    public RestInNemGoal(NemHoster fi, double spdmultiplier, int interval, boolean check) {
+        super(fi, spdmultiplier, interval);
+        this.fims = fi;
+        this.spd = spdmultiplier;
+        this.checkNoActionTime = check;
+    }
+
+    public boolean canUse() {
+        BlockPos nem = this.fims.getNemPos();
+
+        if (!this.forceTrigger) {
+            if (this.checkNoActionTime && this.mob.getNoActionTime() >= 100) {
+                return false;
+            }
+
+            if (this.mob.getRandom().nextInt(reducedTickDelay(this.interval)) != 0) {
+                return false;
+            }
+        }
+
+        Vec3 $$0 = this.getPosition();
+        if ($$0 == null) {
+            return false;
+        } else {
+            this.wantedX = $$0.x;
+            this.wantedY = $$0.y;
+            this.wantedZ = $$0.z;
+            this.forceTrigger = false;
+            return !(nem == null) && fims.isInWater();
+        }
+
+        return !(nem == null) && fims.isInWater();
+    }
+
+    public boolean canContinueToUse() {
+        BlockPos nem = this.fims.getNemPos();
+
+        return !(nem == null) && fims.isInWater();
+        //second part cancels the goal if the animal gets close enough, but if the distance is greater than the maximum distance it keeps running
+    }
+
+    public void tick() {
+        if (this.fims.blockPosition() == this.fims.getNemPos()) {
+            this.fims.setTarget(null);
+            this.fims.getNavigation().stop();
+        } else {
+            this.fims.getNavigation().stop();
+            this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
+            this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
+        }
+    }
+
+
+    public void start() {
+        this.fims.getNavigation().stop();
+        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 2F);
+        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 2F);
     }
 }
