@@ -20,6 +20,10 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
     private static final ResourceLocation LAMARCK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/lamarck.png");
     private static final ResourceLocation LEMONPEEL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/lemonpeel.png");
     private static final ResourceLocation YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/yellow.png");
+    private static final ResourceLocation ORANGEPEEL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/orangepeel.png");
+    private static final ResourceLocation PEARLSCALE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/pearlscale.png");
+    private static final ResourceLocation RESPLENDENT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/resplendent.png");
+    private static final ResourceLocation YELLOWTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/yellowtail.png");
 
 
     public DwarfAngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -43,6 +47,10 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
             case 9 -> LAMARCK;
             case 10 -> LEMONPEEL;
             case 11 -> YELLOW;
+            case 12 -> ORANGEPEEL;
+            case 13 -> PEARLSCALE;
+            case 14 -> RESPLENDENT;
+            case 15 -> YELLOWTAIL;
             default -> BICOLOR;
         };
     }

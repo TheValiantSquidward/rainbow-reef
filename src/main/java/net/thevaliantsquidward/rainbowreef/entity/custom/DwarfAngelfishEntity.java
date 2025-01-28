@@ -57,16 +57,20 @@ public class DwarfAngelfishEntity extends WaterAnimal implements GeoEntity, Buck
     public static String getVariantName(int variant) {
         return switch (variant) {
             case 1 -> "coralbeauty";
-            case 2 -> "candycane";
+            case 2 -> "candycane"; //r
             case 3 -> "flame";
             case 4 -> "spotted";
             case 5 -> "masked";
             case 6 -> "cherub";
-            case 7 -> "japanese";
+            case 7 -> "japanese"; //r
             case 8 -> "blacknox";
             case 9 -> "lamarck";
             case 10 -> "lemonpeel";
             case 11 -> "yellow";
+            case 12 -> "orangepeel"; //ab
+            case 13 -> "pearlscale";
+            case 14 -> "resplendent";
+            case 15 -> "yellowtail"; //r
             default -> "bicolor";
         };
     }
@@ -162,17 +166,58 @@ public class DwarfAngelfishEntity extends WaterAnimal implements GeoEntity, Buck
     }
 
     @Nullable
-    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if (dataTag == null) {
-            setVariant(random.nextInt(12));
-        } else {
-            if (dataTag.contains("Variant", 4)){
-                this.setVariant(dataTag.getInt("Variant"));
+        float variantChange = this.getRandom().nextFloat();
+        float aberrant = this.getRandom().nextFloat();
+        float rare = this.getRandom().nextFloat();
+        float aberrantVariantChange = this.getRandom().nextFloat();
+        float rareVariantChange = this.getRandom().nextFloat();
+
+        if(aberrant <= 0.001) {
+            if(aberrantVariantChange <= 1F){
+                this.setVariant(12);
+
             }
+
+        } else
+        if(rare <= 0.10) {
+            if(rareVariantChange <= 0.33F){
+                this.setVariant(2);
+            }else
+            if(rareVariantChange <= 0.66F){
+                this.setVariant(7);
+            }else
+            {
+                this.setVariant(15);
+            }
+        } else
+
+        if(variantChange <= 0.08F){
+            this.setVariant(1);
+        }else if(variantChange <= 0.16F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.24F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.30F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.38F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.46F){
+            this.setVariant(8);
+        }else if(variantChange <= 0.54F){
+            this.setVariant(9);
+        }else if(variantChange <= 0.62F){
+            this.setVariant(10);
+        }else if(variantChange <= 0.70F){
+            this.setVariant(11);
+        }else if(variantChange <= 0.78F){
+            this.setVariant(13);
+        }else if(variantChange <= 0.86F){
+            this.setVariant(14);
+        } else{
+            this.setVariant(0);
         }
-        return spawnDataIn;
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
 
