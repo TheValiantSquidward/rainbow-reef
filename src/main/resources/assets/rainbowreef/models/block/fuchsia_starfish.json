@@ -2,8 +2,8 @@
   "ambientocclusion": false,
   "render_type": "cutout",
   "textures": {
-    "particle": "rainbowreef:block/blue_starfish",
-    "glow_lichen": "rainbowreef:block/blue_starfish"
+    "particle": "rainbowreef:block/pink_starfish",
+    "glow_lichen": "rainbowreef:block/pink_starfish"
   },
   "elements": [
     {   "from": [ 0, 0, 0.1 ],

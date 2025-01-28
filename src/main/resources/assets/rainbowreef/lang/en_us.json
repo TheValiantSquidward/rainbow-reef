@@ -82,6 +82,12 @@
   "item.rainbowreef.jellyfish_spawn_egg" : "Jellyfish Spawn Egg",
 
   "block.rainbowreef.cerulean_starfish" : "Cerulean Starfish",
+  "block.rainbowreef.umber_starfish" : "Umber Starfish",
+  "block.rainbowreef.tangerine_starfish" : "Tangerine Starfish",
+  "block.rainbowreef.carmine_starfish" : "Carmine Starfish",
+  "block.rainbowreef.fuchsia_starfish" : "Fuchsia Starfish",
+  "block.rainbowreef.saffron_starfish" : "Saffron Starfish",
+  "block.rainbowreef.chartreuse_starfish" : "Chartreuse Starfish",
 
   "block.rainbowreef.coralstone" : "Coralstone",
   "block.rainbowreef.jelly_block" : "Block of Jelly",
