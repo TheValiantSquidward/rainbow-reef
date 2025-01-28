@@ -69,7 +69,13 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
             default -> "kelpy";
         };
     }
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
+    }
 
+    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+        return !this.fromBucket() && !this.hasCustomName();
+    }
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();

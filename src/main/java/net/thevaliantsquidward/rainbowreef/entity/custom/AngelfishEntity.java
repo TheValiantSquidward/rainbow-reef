@@ -57,6 +57,14 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(AngelfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AngelfishEntity.class, EntityDataSerializers.INT);
 
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
+    }
+
+    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+        return !this.fromBucket() && !this.hasCustomName();
+    }
+
     public static String getVariantName(int variant) {
         return switch (variant) {
             case 1 -> "french";

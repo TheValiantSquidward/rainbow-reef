@@ -72,6 +72,14 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         };
     }
 
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
+    }
+
+    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+        return !this.fromBucket() && !this.hasCustomName();
+    }
+
     @Override
     public int getMaxSchoolSize() {
         return 5;

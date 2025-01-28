@@ -74,7 +74,13 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
             default -> "fire";
         };
     }
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
+    }
 
+    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+        return !this.fromBucket() && !this.hasCustomName();
+    }
     public void tick() {
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
