@@ -56,7 +56,7 @@ public class NemHoster extends VariantSchoolingFish {
         super.registerGoals();
         this.goalSelector.addGoal(0, new LocateNemGoal(this));
         this.goalSelector.addGoal(2, new MoveToNemGoal(this, 0.8,16, 1));
-        this.goalSelector.addGoal(1, new RestInNemGoal(this, 0.8,16, 1));
+        //this.goalSelector.addGoal(1, new RestInNemGoal(this, 0.8,16, 1));
         //Anemone seeker goal plan:
         //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
         //Pathfinds back to home nem and makes it hide for 3 - 5 secs
@@ -71,6 +71,10 @@ public class NemHoster extends VariantSchoolingFish {
             } else {
                 this.setHasNem(true);
             }
+        }
+
+        if (this.nemSearchCooldown > 0){
+            this.nemSearchCooldown--;
         }
 
         super.tick();
@@ -118,7 +122,7 @@ class LocateNemGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return !this.clown.hasNem() && this.clown.nemSearchCooldown == 0;
+        return !this.clown.hasNem() && this.clown.nemSearchCooldown <= 0;
     }
 
 
@@ -127,7 +131,7 @@ class LocateNemGoal extends Goal {
     }
 
     public void start() {
-        this.clown.nemSearchCooldown = 200;
+        this.clown.nemSearchCooldown = 100;
         List<BlockPos> list = this.findNems();
 
         BlockPos closest = null;
@@ -246,7 +250,7 @@ class RestInNemGoal extends RandomStrollGoal{
             return !(nem == null) && fims.isInWater();
         }
 
-        return !(nem == null) && fims.isInWater();
+        //return !(nem == null) && fims.isInWater();
     }
 
     public boolean canContinueToUse() {
