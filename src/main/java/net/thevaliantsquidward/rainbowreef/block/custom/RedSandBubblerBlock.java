@@ -17,8 +17,9 @@ public class RedSandBubblerBlock extends Block {
     }
 
     public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        FakeBubbleBlock.updateColumn(pLevel, pPos.above(), pState);
+        FakeBubbleBlockRedSand.updateColumn(pLevel, pPos.above(), pState);
     }
+
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
         if (pFacing == Direction.UP && pFacingState.is(Blocks.WATER)) {
             pLevel.scheduleTick(pCurrentPos, this, 20);
