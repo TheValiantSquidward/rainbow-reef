@@ -22,6 +22,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.block.ModBlocks;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.entity.custom.*;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
@@ -37,7 +38,7 @@ public class ModEvents {
         if(event.getType() == VillagerProfession.FISHERMAN) {
             Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
 
-            ItemStack emeralds = new ItemStack(Items.EMERALD, 64);
+            ItemStack emeraldsExpensive = new ItemStack(Items.EMERALD, 64);
             ItemStack fishBucket = new ItemStack(ModItems.TANG_BUCKET.get());
 
             CompoundTag nbt = fishBucket.getOrCreateTag();
@@ -45,12 +46,14 @@ public class ModEvents {
             fishBucket.setTag(nbt);
 
             trades.get(3).add(new BasicItemListing(
-                    emeralds,
+                    emeraldsExpensive,
                     fishBucket,
-                    10,
-                    8,
+                    1,
+                    3,
                     0.05f
             ));
+
+
         }
     }
 
