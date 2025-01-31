@@ -49,7 +49,24 @@ public class ModEvents {
                     emeraldsExpensive,
                     fishBucket,
                     1,
-                    3,
+                    30,
+                    0.2f
+            ));
+
+
+        }
+
+        if(event.getType() == VillagerProfession.MASON) {
+            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
+
+            ItemStack emeralds = new ItemStack(Items.EMERALD);
+            ItemStack coralStone = new ItemStack(ModBlocks.POLISHED_CORALSTONE.get(), 4);
+
+            trades.get(2).add(new BasicItemListing(
+                    emeralds,
+                    coralStone,
+                    16,
+                    10,
                     0.05f
             ));
 

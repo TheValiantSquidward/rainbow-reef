@@ -4,7 +4,7 @@
 	"render_type": "cutout",
 	"textures": {
 		"1": "rainbowreef:block/puffer_lantern_blue",
-		"particle": "minecraft:block/cyan_wool"
+		"particle": "rainbowreef:block/particle/bluepuffer"
 	},
 	"elements": [
 		{

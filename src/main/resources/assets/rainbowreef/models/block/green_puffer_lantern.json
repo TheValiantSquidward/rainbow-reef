@@ -4,7 +4,7 @@
 	"render_type": "cutout",
 	"textures": {
 		"1": "rainbowreef:block/puffer_lantern_green",
-		"particle": "minecraft:block/lime_wool"
+		"particle": "rainbowreef:block/particle/greenpuffer"
 	},
 	"elements": [
 		{

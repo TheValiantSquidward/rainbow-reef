@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"1": "rainbowreef:block/puffer_lantern_orange",
-		"particle": "block/orange_wool"
+		"particle": "rainbowreef:block/particle/orangepuffer"
 	},
 	"elements": [
 		{

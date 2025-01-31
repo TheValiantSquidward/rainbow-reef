@@ -110,9 +110,9 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.BLUE_WOOL)
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
                     .strength(0.5F, 0.0F)
-                    .sound(SoundType.WOOL)
+                    .sound(SoundType.LANTERN)
                     .lightLevel((p_152677_) -> {return 15;})
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY),
@@ -121,7 +121,7 @@ public class ModBlocks {
                             ));
 
     public static final RegistryObject<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.GREEN_WOOL).strength(0.5F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
@@ -129,7 +129,7 @@ public class ModBlocks {
             ));
 
     public static final RegistryObject<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.ORANGE_WOOL).strength(0.5F, 0.0F).sound(SoundType.WOOL).lightLevel((p_152677_) -> {
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> {
                 return 15;
             }).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
