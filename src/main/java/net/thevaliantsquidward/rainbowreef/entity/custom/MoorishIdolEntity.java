@@ -66,7 +66,13 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
             default -> "default";
         };
     }
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
+    }
 
+    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+        return !this.fromBucket() && !this.hasCustomName();
+    }
     @Override
     public int getMaxSchoolSize() {
         return 20;

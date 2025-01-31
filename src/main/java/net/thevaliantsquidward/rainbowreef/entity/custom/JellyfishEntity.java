@@ -146,7 +146,13 @@ public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketabl
             default -> "pink";
         };
     }
+    public boolean requiresCustomPersistence() {
+        return super.requiresCustomPersistence() || this.fromBucket();
+    }
 
+    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+        return !this.fromBucket() && !this.hasCustomName();
+    }
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
