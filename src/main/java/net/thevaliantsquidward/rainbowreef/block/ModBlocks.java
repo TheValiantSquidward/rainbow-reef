@@ -101,6 +101,17 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHIMNEY_CORAL_BLOCK = registerBlock("chimney_coral_block", () ->
             new CoralBlock(DEAD_CHIMNEY_CORAL_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
 
+  public static final RegistryObject<Block> DEAD_BARREL_CORAL_FAN = BLOCKS.register("dead_barrel_coral_fan", () ->
+          new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
+
+  public static final RegistryObject<Block> DEAD_BARREL_CORAL_WALL_FAN = BLOCKS.register("dead_barrel_coral_wall_fan", () ->
+          new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_BARREL_CORAL_FAN.get())));
+
+  public static final RegistryObject<Block> BARREL_CORAL_FAN = BLOCKS.register("barrel_coral_fan", () ->
+          new CoralFanBlock(DEAD_BARREL_CORAL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+  public static final RegistryObject<Block> BARREL_CORAL_WALL_FAN = BLOCKS.register("barrel_coral_wall_fan", () ->
+          new CoralWallFanBlock(DEAD_BARREL_CORAL_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(BARREL_CORAL_FAN.get())));
 
     public static final RegistryObject<Block> FAKE_BUBBLES = registerBlock("fake_bubbles",
             () -> new FakeBubbleBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
