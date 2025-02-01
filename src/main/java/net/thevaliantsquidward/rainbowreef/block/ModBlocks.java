@@ -159,7 +159,7 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -167,7 +167,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> UMBER_STARFISH = registerBlock("umber_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -175,7 +175,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> TANGERINE_STARFISH = registerBlock("tangerine_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -183,7 +183,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> CARMINE_STARFISH = registerBlock("carmine_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -191,7 +191,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> FUCHSIA_STARFISH = registerBlock("fuchsia_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -199,7 +199,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> SAFFRON_STARFISH = registerBlock("saffron_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -207,7 +207,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> CHARTREUSE_STARFISH = registerBlock("chartreuse_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
