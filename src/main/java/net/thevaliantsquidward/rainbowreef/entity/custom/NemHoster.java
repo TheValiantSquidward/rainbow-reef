@@ -59,7 +59,7 @@ public class NemHoster extends VariantSchoolingFish {
         super.registerGoals();
         this.goalSelector.addGoal(0, new LocateNemGoal(this));
         this.goalSelector.addGoal(2, new MoveToNemGoal(this, 1,16, 1));
-        this.goalSelector.addGoal(3, new RestInNemGoal(this, 3,400, 400, true));
+        this.goalSelector.addGoal(3, new RestInNemGoal(this, 3,600, 400, true));
         //Anemone seeker goal plan:
         //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
         //Pathfinds back to home nem and makes it hide for 3 - 5 secs
@@ -153,8 +153,10 @@ class LocateNemGoal extends Goal {
         BlockPos closest = null;
 
         for (BlockPos pos : list) {
-            if (closest == null || this.clown.distanceToSqr(closest.getX(), closest.getY(), closest.getZ()) > this.clown.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) && this.clown.canSee(pos)) {
-                closest = pos;
+            if (closest == null || this.clown.distanceToSqr(closest.getX(), closest.getY(), closest.getZ()) > this.clown.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) {
+                if (this.clown.canSee(pos)) {
+                    closest = pos;
+                }
             }
         }
         if (closest != null) {
