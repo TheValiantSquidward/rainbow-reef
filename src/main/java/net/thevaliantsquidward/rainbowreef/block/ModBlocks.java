@@ -108,6 +108,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> FAKE_BUBBLES_RED_SAND = registerBlock("fake_bubbles_red_sand",
             () -> new FakeBubbleBlockRedSand(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
 
+    public static final RegistryObject<Block> ANGELFISH_CAKE = registerBlock("angelfish_cake", () -> new AngelfishCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     public static final RegistryObject<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
