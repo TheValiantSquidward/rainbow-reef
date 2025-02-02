@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "rainbowreef:barrel_coral_fan",
-    "rainbowreef:shelf_coral_fan",
-    "rainbowreef:hand_coral_fan",
-    "rainbowreef:tower_coral_fan",
-    "rainbowreef:chimney_coral_fan"
+
   ]
 }
