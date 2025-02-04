@@ -144,6 +144,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.BARREL_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_BARREL_CORAL.get());
+                        pOutput.accept(ModBlocks.BARREL_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_FAN.get());
 
                         pOutput.accept(ModBlocks.CHIMNEY_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_BLOCK.get());
