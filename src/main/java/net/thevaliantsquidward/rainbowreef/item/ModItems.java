@@ -1,6 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.item;
 
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
@@ -12,6 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.block.ModBlocks;
 import net.thevaliantsquidward.rainbowreef.entity.ModEntities;
 import net.thevaliantsquidward.rainbowreef.item.custom.*;
 import net.thevaliantsquidward.rainbowreef.sound.ModSounds;
@@ -186,6 +188,12 @@ public class ModItems {
     public static final RegistryObject<Item> JELLY_SANDWICH = ITEMS.register("jelly_sandwich", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(6).saturationMod(1.6F).build())));
     public static final RegistryObject<Item> JELLYFISH_JELLY = ITEMS.register("jellyfish_jelly", () -> new JellyBottleItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(5).saturationMod(1.5F).alwaysEat().build())));
 
+    public static final RegistryObject<Item> BARREL_CORAL_FAN = ITEMS.register("barrel_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.BARREL_CORAL_FAN.get(), ModBlocks.BARREL_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_BARREL_CORAL_FAN = ITEMS.register("dead_barrel_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_BARREL_CORAL_FAN.get(), ModBlocks.DEAD_BARREL_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
