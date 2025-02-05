@@ -151,6 +151,9 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.CHIMNEY_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL.get());
+                        pOutput.accept(ModBlocks.CHIMNEY_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_FAN.get());
+
 
                         pOutput.accept(ModBlocks.HAND_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.DEAD_HAND_CORAL_BLOCK.get());

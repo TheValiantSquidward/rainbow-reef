@@ -195,6 +195,13 @@ public class ModItems {
             () -> new StandingAndWallBlockItem(ModBlocks.DEAD_BARREL_CORAL_FAN.get(), ModBlocks.DEAD_BARREL_CORAL_WALL_FAN.get(),
                     new Item.Properties(), Direction.DOWN));
 
+    public static final RegistryObject<Item> CHIMNEY_CORAL_FAN = ITEMS.register("chimney_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.CHIMNEY_CORAL_FAN.get(), ModBlocks.CHIMNEY_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_CHIMNEY_CORAL_FAN = ITEMS.register("dead_chimney_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_CHIMNEY_CORAL_FAN.get(), ModBlocks.DEAD_CHIMNEY_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
