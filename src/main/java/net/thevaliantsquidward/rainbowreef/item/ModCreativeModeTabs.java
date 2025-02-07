@@ -177,6 +177,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.FUCHSIA_STARFISH.get());
                         pOutput.accept(ModBlocks.SAFFRON_STARFISH.get());
                         pOutput.accept(ModBlocks.CHARTREUSE_STARFISH.get());
+                        pOutput.accept(ModBlocks.VIOLET_STARFISH.get());
+
                     })
                     .build());
 

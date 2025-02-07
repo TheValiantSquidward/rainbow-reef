@@ -225,6 +225,13 @@ public class ModBlocks {
                     return null;
                 }
             });
+    public static final RegistryObject<Block> VIOLET_STARFISH = registerBlock("violet_starfish", () ->
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+                @Override
+                public MultifaceSpreader getSpreader() {
+                    return null;
+                }
+            });
 
 
     public static <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
