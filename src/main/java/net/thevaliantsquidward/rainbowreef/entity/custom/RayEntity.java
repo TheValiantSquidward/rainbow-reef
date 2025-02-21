@@ -109,6 +109,33 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     //END of necessary IK shit
 
 
+    public double tail1OldY;
+    public double tail2OldY;
+    public double tail3OldY;
+    public double tail4OldY;
+    public double tail5OldY;
+    public double oldBodyPitch;
+    public double tail1OldPitch;
+    public double tail2OldPitch;
+    public double tail3OldPitch;
+    public double tail4OldPitch;
+    public double tail5OldPitch;
+
+
+    public double tail1Angle;
+    public double tail2Angle;
+    public double tail3Angle;
+    public double tail4Angle;
+    public double tail5Angle;
+    public double bodyPitch;
+    public double tail1Pitch;
+    public double tail2Pitch;
+    public double tail3Pitch;
+    public double tail4Pitch;
+    public double tail5Pitch;
+
+
+
     public int animTime;
     public double animSpeed = 1;
 
@@ -281,6 +308,30 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
         if (this.isInWater()){
         //START of IK
             //the entity rotations must be negativized because we want the points to be transformed relative to the entity
+
+            tail1OldY = tail1Angle;
+            tail2OldY = tail2Angle;
+            tail3OldY = tail3Angle;
+            tail4OldY = tail4Angle;
+            tail5OldY = tail5Angle;
+
+            //tail1OldPitch = tail1Pitch;
+            //tail2OldPitch = tail2Pitch;
+            //tail3OldPitch = tail3Pitch;
+            //tail4OldPitch = tail4Pitch;
+            //tail5OldPitch = tail5Pitch;
+
+            tail1Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
+            tail2Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail2Point, this.tail1Point, this.tail3Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
+            tail3Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail3Point, this.tail2Point, this.tail4Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
+            tail4Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail4Point, this.tail3Point, this.tail5Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
+            tail5Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail5Point, this.tail4Point, this.tail6Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
+
+            //tail1Pitch = ((float) (MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point)));
+            //tail2Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail1Point, this.tail2Point, this.tail3Point)));
+            //tail3Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail2Point, this.tail3Point, this.tail4Point)));
+            //tail4Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail3Point, this.tail4Point, this.tail5Point)));
+            //tail5Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail4Point, this.tail5Point, this.tail6Point)));
 
             tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
             tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);

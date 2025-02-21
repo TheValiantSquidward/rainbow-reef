@@ -129,7 +129,13 @@ public class MathHelpers {
         return Mth.clamp(angle, -lim, lim);
     }
 
-    public static double ShortestPathCircleLerp(double pStart, double pEnd, double pDelta) {
+    public static double rLerp (double w, double A, double B){
+        double CS = (1-w)*Math.cos(A) + w*Math.cos(B);
+        double SN = (1-w)*Math.sin(A) + w*Math.sin(B);
+        return Math.atan2(SN,CS);
+    }
+
+    public static double ShortestPathCircleLerp(double pDelta, double pStart, double pEnd) {
 
         double distFore = Mth.TWO_PI - pStart;
         double distBack = Mth.abs((float) pStart) + Mth.abs((float) pEnd);
@@ -144,7 +150,7 @@ public class MathHelpers {
         }
     }
 
-    public static double LerpDegrees(double start, double end, double amount)
+    public static double LerpDegrees(double amount, double start, double end)
     {
         double difference = Math.abs(end - start);
         if (difference > Mth.PI)
