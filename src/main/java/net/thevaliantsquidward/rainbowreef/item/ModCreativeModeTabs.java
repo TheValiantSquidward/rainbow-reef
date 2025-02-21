@@ -114,6 +114,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.PIPEFISH_SUSHI.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
+                        pOutput.accept(ModBlocks.ANGELFISH_CAKE.get());
 
                         pOutput.accept(ModItems.CLAW_DISC.get());
                     })
@@ -143,11 +144,16 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.BARREL_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_BARREL_CORAL.get());
+                        pOutput.accept(ModBlocks.BARREL_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_FAN.get());
 
                         pOutput.accept(ModBlocks.CHIMNEY_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.CHIMNEY_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL.get());
+                        pOutput.accept(ModBlocks.CHIMNEY_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_FAN.get());
+
 
                         pOutput.accept(ModBlocks.HAND_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.DEAD_HAND_CORAL_BLOCK.get());
@@ -171,6 +177,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.FUCHSIA_STARFISH.get());
                         pOutput.accept(ModBlocks.SAFFRON_STARFISH.get());
                         pOutput.accept(ModBlocks.CHARTREUSE_STARFISH.get());
+                        pOutput.accept(ModBlocks.VIOLET_STARFISH.get());
+
                     })
                     .build());
 

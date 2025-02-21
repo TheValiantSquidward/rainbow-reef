@@ -101,6 +101,29 @@ public class ModBlocks {
     public static final RegistryObject<Block> CHIMNEY_CORAL_BLOCK = registerBlock("chimney_coral_block", () ->
             new CoralBlock(DEAD_CHIMNEY_CORAL_BLOCK.get(), BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK)));
 
+  public static final RegistryObject<Block> DEAD_BARREL_CORAL_FAN = BLOCKS.register("dead_barrel_coral_fan", () ->
+          new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
+
+  public static final RegistryObject<Block> DEAD_BARREL_CORAL_WALL_FAN = BLOCKS.register("dead_barrel_coral_wall_fan", () ->
+          new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_BARREL_CORAL_FAN.get())));
+
+  public static final RegistryObject<Block> BARREL_CORAL_FAN = BLOCKS.register("barrel_coral_fan", () ->
+          new CoralFanBlock(DEAD_BARREL_CORAL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+  public static final RegistryObject<Block> BARREL_CORAL_WALL_FAN = BLOCKS.register("barrel_coral_wall_fan", () ->
+          new CoralWallFanBlock(DEAD_BARREL_CORAL_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(BARREL_CORAL_FAN.get())));
+
+    public static final RegistryObject<Block> DEAD_CHIMNEY_CORAL_FAN = BLOCKS.register("dead_chimney_coral_fan", () ->
+            new BaseCoralFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_FAN).requiresCorrectToolForDrops().noCollission().instabreak()));
+
+    public static final RegistryObject<Block> DEAD_CHIMNEY_CORAL_WALL_FAN = BLOCKS.register("dead_chimney_coral_wall_fan", () ->
+            new BaseCoralWallFanBlock(BlockBehaviour.Properties.copy(Blocks.DEAD_BRAIN_CORAL_WALL_FAN).requiresCorrectToolForDrops().noCollission().instabreak().dropsLike(DEAD_BARREL_CORAL_FAN.get())));
+
+    public static final RegistryObject<Block> CHIMNEY_CORAL_FAN = BLOCKS.register("chimney_coral_fan", () ->
+            new CoralFanBlock(DEAD_CHIMNEY_CORAL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS)));
+
+    public static final RegistryObject<Block> CHIMNEY_CORAL_WALL_FAN = BLOCKS.register("chimney_coral_wall_fan", () ->
+            new CoralWallFanBlock(DEAD_CHIMNEY_CORAL_WALL_FAN.get(), BlockBehaviour.Properties.copy(Blocks.BRAIN_CORAL_WALL_FAN).noCollission().instabreak().sound(SoundType.WET_GRASS).dropsLike(BARREL_CORAL_FAN.get())));
 
     public static final RegistryObject<Block> FAKE_BUBBLES = registerBlock("fake_bubbles",
             () -> new FakeBubbleBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
@@ -108,6 +131,7 @@ public class ModBlocks {
     public static final RegistryObject<Block> FAKE_BUBBLES_RED_SAND = registerBlock("fake_bubbles_red_sand",
             () -> new FakeBubbleBlockRedSand(BlockBehaviour.Properties.copy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
 
+    public static final RegistryObject<Block> ANGELFISH_CAKE = registerBlock("angelfish_cake", () -> new AngelfishCakeBlock(BlockBehaviour.Properties.copy(Blocks.CAKE)));
 
     public static final RegistryObject<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
@@ -147,7 +171,7 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -155,7 +179,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> UMBER_STARFISH = registerBlock("umber_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -163,7 +187,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> TANGERINE_STARFISH = registerBlock("tangerine_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -171,7 +195,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> CARMINE_STARFISH = registerBlock("carmine_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -179,7 +203,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> FUCHSIA_STARFISH = registerBlock("fuchsia_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -187,7 +211,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> SAFFRON_STARFISH = registerBlock("saffron_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;
@@ -195,7 +219,14 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> CHARTREUSE_STARFISH = registerBlock("chartreuse_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.copy(Blocks.BUBBLE_CORAL).instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
+                @Override
+                public MultifaceSpreader getSpreader() {
+                    return null;
+                }
+            });
+    public static final RegistryObject<Block> VIOLET_STARFISH = registerBlock("violet_starfish", () ->
+            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
                 @Override
                 public MultifaceSpreader getSpreader() {
                     return null;

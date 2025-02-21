@@ -61,6 +61,7 @@
   "item.rainbowreef.idol_cookie" : "Idol Cookie",
   "item.rainbowreef.roasted_crab_meat" : "Roasted Crab Meat",
   "item.rainbowreef.crabcake" : "Crabcake",
+  "block.rainbowreef.angelfish_cake" : "Angelfish Cake",
 
   "item.rainbowreef.goby_spawn_egg" : "Goby Spawn Egg",
   "item.rainbowreef.tang_spawn_egg" : "Tang Spawn Egg",
@@ -88,6 +89,8 @@
   "block.rainbowreef.fuchsia_starfish" : "Fuchsia Starfish",
   "block.rainbowreef.saffron_starfish" : "Saffron Starfish",
   "block.rainbowreef.chartreuse_starfish" : "Chartreuse Starfish",
+  "block.rainbowreef.violet_starfish" : "Violet Starfish",
+
 
   "block.rainbowreef.coralstone" : "Coralstone",
   "block.rainbowreef.jelly_block" : "Block of Jelly",
@@ -123,6 +126,10 @@
   "block.rainbowreef.dead_tower_coral_block" : "Dead Tower Coral Block",
   "block.rainbowreef.chimney_coral_block" : "Chimney Coral Block",
   "block.rainbowreef.dead_chimney_coral_block" : "Dead Chimney Coral Block",
+  "block.rainbowreef.barrel_coral_fan" : "Barrel Coral Fan",
+  "block.rainbowreef.dead_barrel_coral_fan" : "Dead Barrel Coral Fan",
+  "block.rainbowreef.chimney_coral_fan" : "Chimney Coral Fan",
+  "block.rainbowreef.dead_chimney_coral_fan" : "Dead Chimney Coral Fan",
 
   "block.rainbowreef.yellow_sea_anemone" : "Yellow Sea Anemone",
   "block.rainbowreef.orange_sea_anemone" : "Orange Sea Anemone",

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rainbowreef:polished_coralstone"
+          "name": "rainbowreef:chiseled_coralstone"
         }
       ],
       "conditions": [
