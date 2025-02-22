@@ -15,7 +15,20 @@ import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
 
+import static com.ibm.icu.text.PluralRules.Operand.v;
+
 public class RayModel extends GeoModel<RayEntity> {
+    public double timeElapsed = 0;
+    public double timeToTurn = 25;
+    public int currenttick = 0;
+
+    public float currentTail1Yaw = 0.1F;
+    public float currentTail2Yaw = 0.1F;
+    public float currentTail3Yaw = 0.1F;
+    public float currentTail4Yaw = 0.1F;
+    public float currentTail5Yaw = 0.1F;
+
+
     @Override
     public ResourceLocation getModelResource(RayEntity animatable) {
         return new ResourceLocation(RainbowReef.MOD_ID, "geo/eagle_ray.geo.json");
@@ -50,42 +63,57 @@ public class RayModel extends GeoModel<RayEntity> {
             roll.setRotZ((float) (MathHelpers.LerpDegrees(0.01, rollOldZ,Mth.PI - MathHelpers.getAngleForLinkTopDownFlat(entity.tail1Point, entity.tail0Point, entity.tail2Point, entity.leftRefPoint, entity.rightRefPoint)*1.2)));
             //basically lerp smooths out the transition, the lower pDelta is, the smoother it is
             //the 1.2 is just a scale factor for visuals
-            //System.out.println(yaw.getRotZ());
 
-            tail1.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail1OldY, (float) entity.tail1Angle, 0.25), Mth.PI*0.75)));
-            tail2.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail2OldY, (float) entity.tail2Angle, 0.25), Mth.PI*0.75)));
-            tail3.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail3OldY, (float) entity.tail3Angle, 0.25), Mth.PI*0.75)));
-            tail4.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail4OldY, (float) entity.tail4Angle, 0.25), Mth.PI*0.75)));
-            tail5.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail5OldY, (float) entity.tail5Angle, 0.25), Mth.PI*0.75)));
-            entity.tail1OldY = MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail1OldY, (float) entity.tail1Angle, 0.25), Mth.PI*0.75);
-            entity.tail2OldY = MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail2OldY, (float) entity.tail2Angle, 0.25), Mth.PI*0.75);
-            entity.tail3OldY = MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail3OldY, (float) entity.tail3Angle, 0.25), Mth.PI*0.75);
-            entity.tail4OldY = MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail4OldY, (float) entity.tail4Angle, 0.25), Mth.PI*0.75);
-            entity.tail5OldY = MathHelpers.angleClamp(Interpolations.lerpYaw((float) entity.tail5OldY, (float) entity.tail5Angle, 0.25), Mth.PI*0.75);
+            if (entity.tickCount == this.currenttick) {
+                this.timeElapsed += 5;
+
+                if (this.timeElapsed > this.timeToTurn) {
+                    this.timeElapsed = this.timeToTurn;
+                    System.out.println("equalled");
+                }
+
+            } else {
+                this.timeElapsed = 1;
+                this.currenttick = entity.tickCount;
+            }
+
+            //System.out.println(entity.tickCount);
+            //System.out.println(this.currenttick);
+            //System.out.println("ticks");
+            //System.out.println(this.timeElapsed);
+            //System.out.println("subticks");
+            tail1.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) this.currentTail1Yaw, (float) entity.tail1Angle, this.timeElapsed/this.timeToTurn), Mth.PI*0.75)));
+            tail2.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) this.currentTail2Yaw, (float) entity.tail2Angle, this.timeElapsed/this.timeToTurn), Mth.PI*0.75)));
+            tail3.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) this.currentTail3Yaw, (float) entity.tail3Angle, this.timeElapsed/this.timeToTurn), Mth.PI*0.75)));
+            tail4.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) this.currentTail4Yaw, (float) entity.tail4Angle, this.timeElapsed/this.timeToTurn), Mth.PI*0.75)));
+            tail5.setRotY((float) (Mth.PI - MathHelpers.angleClamp(Interpolations.lerpYaw((float) this.currentTail5Yaw, (float) entity.tail5Angle, this.timeElapsed/this.timeToTurn), Mth.PI*0.75)));
+            this.currentTail1Yaw = (float) Interpolations.lerpYaw((float) this.currentTail1Yaw, (float) entity.tail1Angle, this.timeElapsed/this.timeToTurn);
+            this.currentTail2Yaw = (float) Interpolations.lerpYaw((float) this.currentTail2Yaw, (float) entity.tail2Angle, this.timeElapsed/this.timeToTurn);
+            this.currentTail3Yaw = (float) Interpolations.lerpYaw((float) this.currentTail3Yaw, (float) entity.tail3Angle, this.timeElapsed/this.timeToTurn);
+            this.currentTail4Yaw = (float) Interpolations.lerpYaw((float) this.currentTail4Yaw, (float) entity.tail4Angle, this.timeElapsed/this.timeToTurn);
+            this.currentTail5Yaw = (float) Interpolations.lerpYaw((float) this.currentTail5Yaw, (float) entity.tail5Angle, this.timeElapsed/this.timeToTurn);
+            System.out.println(currentTail1Yaw);
             //this runs BETWEEN TICKS
             //0.25 means it interpolates to a quarter of the way to the target
-            //THIS FUCKING WORKS LESGOOO
 
             //No deg to rad because the arccos function used to return the angle
             //gotta set up UNIQUE NODES FOR EACH BONE
 
             //System.out.println(tail1OldY - tail1Angle);
 
-            double oldBodyPitch = body.getRotX();
-            double BodyPitch = ((float) (MathHelpers.angleFromYdiff(entity.position(), entity.tail0Point, entity.tail1Point)));
-            body.setRotX((float) (Interpolations.lerpYaw((float) oldBodyPitch, (float) BodyPitch, 0.01)));
-            //System.out.println("call");
+            double bodyOldX = body.getRotX();
+            body.setRotX((float) (MathHelpers.LerpDegrees(0.01, bodyOldX, MathHelpers.angleFromYdiff(entity.position(), entity.tail0Point, entity.tail1Point)*1.2)));
 
-            //tail1.setRotX((float) (Interpolations.lerpYaw((float) entity.tail1OldPitch, (float) entity.tail1Pitch, 0.01)));
-            //tail2.setRotX((float) (Interpolations.lerpYaw((float) entity.tail2OldPitch, (float) entity.tail2Pitch, 0.01)));
-            //tail3.setRotX((float) (Interpolations.lerpYaw((float) entity.tail3OldPitch, (float) entity.tail3Pitch, 0.01)));
-            //tail4.setRotX((float) (Interpolations.lerpYaw((float) entity.tail4OldPitch, (float) entity.tail4Pitch, 0.01)));
-            //tail5.setRotX((float) (Interpolations.lerpYaw((float) entity.tail5OldPitch, (float) entity.tail5Pitch, 0.01)));
-            entity.tail1OldPitch = (Interpolations.lerpYaw((float) entity.tail1OldPitch, (float) entity.tail1Pitch, 0.01));
-            entity.tail2OldPitch = (Interpolations.lerpYaw((float) entity.tail2OldPitch, (float) entity.tail2Pitch, 0.01));
-            entity.tail3OldPitch = (Interpolations.lerpYaw((float) entity.tail3OldPitch, (float) entity.tail3Pitch, 0.01));
-            entity.tail4OldPitch = (Interpolations.lerpYaw((float) entity.tail4OldPitch, (float) entity.tail4Pitch, 0.01));
-            entity.tail5OldPitch = (Interpolations.lerpYaw((float) entity.tail5OldPitch, (float) entity.tail5Pitch, 0.01));
+            //tail1.setRotX((float) (Interpolations.lerpYaw((float) entity.tail1OldPitch, (float) entity.tail1Pitch, 0.25)));
+            //tail2.setRotX((float) (Interpolations.lerpYaw((float) entity.tail2OldPitch, (float) entity.tail2Pitch, 0.25)));
+            //tail3.setRotX((float) (Interpolations.lerpYaw((float) entity.tail3OldPitch, (float) entity.tail3Pitch, 0.25)));
+            //tail4.setRotX((float) (Interpolations.lerpYaw((float) entity.tail4OldPitch, (float) entity.tail4Pitch, 0.25)));
+            //tail5.setRotX((float) (Interpolations.lerpYaw((float) entity.tail5OldPitch, (float) entity.tail5Pitch, 0.25)));
+            entity.tail1OldPitch = (Interpolations.lerpYaw((float) entity.tail1OldPitch, (float) entity.tail1Pitch, 0.25));
+            entity.tail2OldPitch = (Interpolations.lerpYaw((float) entity.tail2OldPitch, (float) entity.tail2Pitch, 0.25));
+            entity.tail3OldPitch = (Interpolations.lerpYaw((float) entity.tail3OldPitch, (float) entity.tail3Pitch, 0.25));
+            entity.tail4OldPitch = (Interpolations.lerpYaw((float) entity.tail4OldPitch, (float) entity.tail4Pitch, 0.25));
+            //entity.tail5OldPitch = (Interpolations.lerpYaw((float) entity.tail5OldPitch, (float) entity.tail5Pitch, 0.01));
 
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
 
@@ -93,6 +121,7 @@ public class RayModel extends GeoModel<RayEntity> {
                 "rotation": ["Math.cos((query.anim_time)*100*3.14)*Math.cos((query.anim_time)*50*3.14/4)*-10", 0, "Math.cos((query.anim_time)*45)*15"],
                 "position": [0, "2+Math.cos((query.anim_time)*100*3.14)*Math.cos((query.anim_time)*50*3.14/4)*0.5", 0]
             },*/
+
         }
     }
 
