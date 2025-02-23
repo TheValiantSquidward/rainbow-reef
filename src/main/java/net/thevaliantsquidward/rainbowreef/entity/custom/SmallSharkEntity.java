@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -73,6 +74,19 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     public Vec3 tail0Offset = new Vec3(0.0, 0.0, 0.125);
     public Vec3 tail1Offset = new Vec3(0.0, 0.0, 0.625-0.125);
     public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1.0625-0.625);
+
+    public double tail1Yaw;
+    public double tail2Yaw;
+    public double currentTail1Yaw = Mth.PI;
+    public double currentTail2Yaw = Mth.PI;
+
+
+
+    public double tail1Pitch;
+    public double tail2Pitch;
+    public double currentTail1Pitch = 0;
+    public double currentTail2Pitch = 0;
+
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
 
@@ -100,9 +114,14 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
         tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
         tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
         tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
-
-
         //side refs don't move vertically
+
+        tail1Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail0Point, this.position(), this.tail1Point, this.leftRefPoint, this.rightRefPoint);
+        tail2Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint);
+
+        tail1Pitch = MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point);
+        tail2Pitch = MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point);
+
         leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
         rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
         upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
@@ -115,6 +134,7 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail1Point.x), (tail1Point.y), (tail1Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail2Point.x), (tail2Point.y), (tail2Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+                //DEBUG STUFF
             }*/
 
 

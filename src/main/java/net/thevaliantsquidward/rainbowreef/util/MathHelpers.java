@@ -4,6 +4,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
+import static java.lang.Float.NaN;
+
 public class MathHelpers {
 
     public static Vec2 angleTo(Vec3 target, Vec3 mePos) {
@@ -129,16 +131,27 @@ public class MathHelpers {
         return Mth.clamp(angle, -lim, lim);
     }
 
-    public static double rLerp (double w, double A, double B){
+    public static double rLerp (double A, double B, double w){
+
         double CS = (1-w)*Math.cos(A) + w*Math.cos(B);
         double SN = (1-w)*Math.sin(A) + w*Math.sin(B);
+
+        if (Double.isNaN(Math.atan2(SN, CS))) {
+            return 0;
+        }
+
         return Math.atan2(SN,CS);
     }
 
-    public static double ShortestPathCircleLerp(double pDelta, double pStart, double pEnd) {
+    public static double ShortestPathCircleLerp(double pStart, double pEnd, double pDelta) {
 
         double distFore = Mth.TWO_PI - pStart;
         double distBack = Mth.abs((float) pStart) + Mth.abs((float) pEnd);
+
+        if (Double.isNaN(pStart) || Double.isNaN(pEnd)) {
+            //System.out.println("active");
+            return 0;
+        }
 
         if (pDelta < 0.0) {
             return pStart;
@@ -150,9 +163,12 @@ public class MathHelpers {
         }
     }
 
-    public static double LerpDegrees(double amount, double start, double end)
+    public static double LerpDegrees(double start, double end, double amount)
     {
         double difference = Math.abs(end - start);
+        //System.out.println("guh");
+        //System.out.println(Math.abs(end - start));
+
         if (difference > Mth.PI)
         {
             // We need to add on to one of the values.
@@ -171,11 +187,21 @@ public class MathHelpers {
         // Interpolate it.
         double value = (start + ((end - start) * amount));
 
+        //System.out.println(value);
+
         // Wrap it..
         float rangeZero = Mth.TWO_PI;
 
-        if (value >= 0 && value <= Mth.TWO_PI)
+        if (Double.isNaN(value)) {
+            return 0;
+        }
+
+        if (value >= 0 && value <= Mth.TWO_PI) {
+            //System.out.println(value);
             return value;
+        }
+
+        //System.out.println(value % rangeZero);
 
         return (value % rangeZero);
     }

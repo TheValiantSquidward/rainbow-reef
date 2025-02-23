@@ -51,14 +51,18 @@ public class SmallSharkModel extends GeoModel<SmallSharkEntity> {
             CoreGeoBone tail1 = this.getAnimationProcessor().getBone("tail");
             CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail_fin");
 
-            tail1.setRotY((float) (tail1.getRotY() + Mth.PI - MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(entity.tail0Point, entity.position(), entity.tail1Point, entity.leftRefPoint, entity.rightRefPoint), Mth.PI*0.75)));
-            tail2.setRotY((float) (tail2.getRotY() + Mth.PI - MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(entity.tail1Point, entity.tail0Point, entity.tail2Point, entity.leftRefPoint, entity.rightRefPoint), Mth.PI*0.75)));
+            tail1.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
+            tail1.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
+            entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
+            entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
             //No deg to rad because the arccos function used to return the angle
             //gotta set up UNIQUE NODES FOR EACH BONE
 
             core.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
-            tail1.setRotX((float) (tail1.getRotX() - (MathHelpers.vertAngleClamp(MathHelpers.angleFromYdiff(entity.position(), entity.tail0Point, entity.tail1Point), Mth.PI*0.15))));
-            tail2.setRotX((float) (tail1.getRotX() - (MathHelpers.vertAngleClamp(MathHelpers.angleFromYdiff(entity.tail0Point, entity.tail1Point, entity.tail2Point), Mth.PI*0.15))));
+            tail1.setRotX((float) (tail1.getRotX() - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
+            tail2.setRotX((float) (tail2.getRotX() - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
+            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
+            entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
         }
         //ik stuff END
