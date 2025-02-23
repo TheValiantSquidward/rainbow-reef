@@ -184,8 +184,11 @@ public class ModItems {
     public static final RegistryObject<Item> PIPEFISH_SUSHI = ITEMS.register("pipefish_sushi", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(0).saturationMod(0F).alwaysEat().effect(new MobEffectInstance(MobEffects.HEAL, 1, 1), 1F).build())));
 
     public static final RegistryObject<Item> GLOB_OF_JELLY = ITEMS.register("glob_of_jelly", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> JELLY_TART = ITEMS.register("jelly_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(0.5F).build())));
+
     public static final RegistryObject<Item> JELLY_SANDWICH = ITEMS.register("jelly_sandwich", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(6).saturationMod(1.6F).build())));
+
     public static final RegistryObject<Item> JELLYFISH_JELLY = ITEMS.register("jellyfish_jelly", () -> new JellyBottleItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(5).saturationMod(1.5F).alwaysEat().build())));
 
     public static final RegistryObject<Item> BARREL_CORAL_FAN = ITEMS.register("barrel_coral_fan",
@@ -200,6 +203,27 @@ public class ModItems {
 
     public static final RegistryObject<Item> DEAD_CHIMNEY_CORAL_FAN = ITEMS.register("dead_chimney_coral_fan",
             () -> new StandingAndWallBlockItem(ModBlocks.DEAD_CHIMNEY_CORAL_FAN.get(), ModBlocks.DEAD_CHIMNEY_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> SHELF_CORAL_FAN = ITEMS.register("shelf_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.SHELF_CORAL_FAN.get(), ModBlocks.SHELF_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_SHELF_CORAL_FAN = ITEMS.register("dead_shelf_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_SHELF_CORAL_FAN.get(), ModBlocks.DEAD_SHELF_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> HAND_CORAL_FAN = ITEMS.register("hand_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.HAND_CORAL_FAN.get(), ModBlocks.HAND_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_HAND_CORAL_FAN = ITEMS.register("dead_hand_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_HAND_CORAL_FAN.get(), ModBlocks.DEAD_HAND_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> TOWER_CORAL_FAN = ITEMS.register("tower_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.TOWER_CORAL_FAN.get(), ModBlocks.TOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_TOWER_CORAL_FAN = ITEMS.register("dead_tower_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_TOWER_CORAL_FAN.get(), ModBlocks.DEAD_TOWER_CORAL_WALL_FAN.get(),
                     new Item.Properties(), Direction.DOWN));
 
     public static void register(IEventBus eventBus) {

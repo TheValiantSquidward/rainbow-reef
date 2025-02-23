@@ -1,7 +1,7 @@
 {
   "parent": "block/coral_wall_fan",
   "textures": {
-    "fan": "rainbowreef:block/coral/dead_barrel_fan_coral"
+    "fan": "rainbowreef:block/coral/dead_hand_coral_fan"
   },
   "render_type": "cutout"
 }

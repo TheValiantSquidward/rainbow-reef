@@ -2,5 +2,7 @@
   "parent": "block/coral_wall_fan",
   "textures": {
     "fan": "rainbowreef:block/coral/shelf_coral_fan"
-  }
+  },
+  "render_type": "cutout"
+
 }

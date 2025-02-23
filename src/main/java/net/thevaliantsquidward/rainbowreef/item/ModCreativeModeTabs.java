@@ -159,16 +159,22 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.DEAD_HAND_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.HAND_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_HAND_CORAL.get());
+                        pOutput.accept(ModBlocks.HAND_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL_FAN.get());
 
                         pOutput.accept(ModBlocks.SHELF_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.SHELF_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_SHELF_CORAL.get());
+                        pOutput.accept(ModBlocks.SHELF_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_FAN.get());
 
                         pOutput.accept(ModBlocks.TOWER_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_BLOCK.get());
                         pOutput.accept(ModBlocks.TOWER_CORAL.get());
                         pOutput.accept(ModBlocks.DEAD_TOWER_CORAL.get());
+                        pOutput.accept(ModBlocks.TOWER_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_FAN.get());
 
                         pOutput.accept(ModBlocks.CERULEAN_STARFISH.get());
                         pOutput.accept(ModBlocks.UMBER_STARFISH.get());

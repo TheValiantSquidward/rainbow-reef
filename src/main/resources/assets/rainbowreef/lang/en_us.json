@@ -130,6 +130,10 @@
   "block.rainbowreef.dead_barrel_coral_fan" : "Dead Barrel Coral Fan",
   "block.rainbowreef.chimney_coral_fan" : "Chimney Coral Fan",
   "block.rainbowreef.dead_chimney_coral_fan" : "Dead Chimney Coral Fan",
+  "block.rainbowreef.hand_coral_fan" : "Hand Coral Fan",
+  "block.rainbowreef.dead_hand_coral_fan" : "Dead Hand Coral Fan",
+  "block.rainbowreef.tower_coral_fan" : "Tower Coral Fan",
+  "block.rainbowreef.dead_tower_coral_fan" : "Dead Tower Coral Fan",
 
   "block.rainbowreef.yellow_sea_anemone" : "Yellow Sea Anemone",
   "block.rainbowreef.orange_sea_anemone" : "Orange Sea Anemone",
