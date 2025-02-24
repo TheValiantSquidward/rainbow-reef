@@ -1,0 +1,6 @@
+{
+  "parent" : "item/generated",
+  "textures" : {
+    "layer0" : "rainbowreef:block/coral/dead_flower_coral_fan"
+  }
+}

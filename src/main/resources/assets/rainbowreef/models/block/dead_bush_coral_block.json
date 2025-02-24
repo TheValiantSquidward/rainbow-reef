@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "rainbowreef:block/coral/dead_bush_coral_block"
+  }
+}

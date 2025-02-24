@@ -141,48 +141,72 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModBlocks.ORANGE_SEA_ANEMONE.get());
 
                         pOutput.accept(ModBlocks.BARREL_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.BARREL_CORAL.get());
-                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL.get());
-                        pOutput.accept(ModBlocks.BARREL_CORAL_FAN.get());
-                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_FAN.get());
-
                         pOutput.accept(ModBlocks.CHIMNEY_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.CHIMNEY_CORAL.get());
-                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL.get());
-                        pOutput.accept(ModBlocks.CHIMNEY_CORAL_FAN.get());
-                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_FAN.get());
-
-
                         pOutput.accept(ModBlocks.HAND_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.HAND_CORAL.get());
-                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL.get());
-                        pOutput.accept(ModBlocks.HAND_CORAL_FAN.get());
-                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL_FAN.get());
-
                         pOutput.accept(ModBlocks.SHELF_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.SHELF_CORAL.get());
-                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL.get());
-                        pOutput.accept(ModBlocks.SHELF_CORAL_FAN.get());
-                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_FAN.get());
-
                         pOutput.accept(ModBlocks.TOWER_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_BLOCK.get());
-                        pOutput.accept(ModBlocks.TOWER_CORAL.get());
-                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL.get());
-                        pOutput.accept(ModBlocks.TOWER_CORAL_FAN.get());
-                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.ROSE_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.FLOWER_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.RING_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.BUSH_CORAL_BLOCK.get());
 
-                        pOutput.accept(ModBlocks.CERULEAN_STARFISH.get());
-                        pOutput.accept(ModBlocks.UMBER_STARFISH.get());
-                        pOutput.accept(ModBlocks.TANGERINE_STARFISH.get());
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_ROSE_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_FLOWER_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_RING_CORAL_BLOCK.get());
+                        pOutput.accept(ModBlocks.DEAD_BUSH_CORAL_BLOCK.get());
+
+                        pOutput.accept(ModBlocks.BARREL_CORAL.get());
+                        pOutput.accept(ModBlocks.CHIMNEY_CORAL.get());
+                        pOutput.accept(ModBlocks.HAND_CORAL.get());
+                        pOutput.accept(ModBlocks.SHELF_CORAL.get());
+                        pOutput.accept(ModBlocks.TOWER_CORAL.get());
+                        pOutput.accept(ModBlocks.ROSE_CORAL.get());
+                        pOutput.accept(ModBlocks.FLOWER_CORAL.get());
+                        pOutput.accept(ModBlocks.RING_CORAL.get());
+                        pOutput.accept(ModBlocks.BUSH_CORAL.get());
+
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_ROSE_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_FLOWER_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_RING_CORAL.get());
+                        pOutput.accept(ModBlocks.DEAD_BUSH_CORAL.get());
+
+                        pOutput.accept(ModBlocks.BARREL_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.CHIMNEY_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.HAND_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.SHELF_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.TOWER_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.ROSE_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.FLOWER_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.RING_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.BUSH_CORAL_FAN.get());
+
+                        pOutput.accept(ModBlocks.DEAD_BARREL_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_CHIMNEY_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_HAND_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_SHELF_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_TOWER_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_ROSE_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_FLOWER_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_RING_CORAL_FAN.get());
+                        pOutput.accept(ModBlocks.DEAD_BUSH_CORAL_FAN.get());
+
                         pOutput.accept(ModBlocks.CARMINE_STARFISH.get());
+                        pOutput.accept(ModBlocks.CERULEAN_STARFISH.get());
+                        pOutput.accept(ModBlocks.CHARTREUSE_STARFISH.get());
                         pOutput.accept(ModBlocks.FUCHSIA_STARFISH.get());
                         pOutput.accept(ModBlocks.SAFFRON_STARFISH.get());
-                        pOutput.accept(ModBlocks.CHARTREUSE_STARFISH.get());
+                        pOutput.accept(ModBlocks.TANGERINE_STARFISH.get());
+                        pOutput.accept(ModBlocks.UMBER_STARFISH.get());
                         pOutput.accept(ModBlocks.VIOLET_STARFISH.get());
 
                     })

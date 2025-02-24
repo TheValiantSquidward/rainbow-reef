@@ -156,7 +156,9 @@ public class ModItems {
     public static final RegistryObject<Item> GOBY_GUMMY = ITEMS.register("goby_gummy", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(2).saturationMod(0.5F).fast().build())));
 
     public static final RegistryObject<Item> ROASTED_CRAB_MEAT = ITEMS.register("roasted_crab_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).meat().build())));
+
     public static final RegistryObject<Item> CRAB_CAKE = ITEMS.register("crabcake", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(7).saturationMod(1F).meat().build())));
+
     public static final RegistryObject<Item> BOXFISH_BREAD = ITEMS.register("boxfish_bread", () -> new BoxfishBreadItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(9).saturationMod(0.8F).build())));
 
     public static final RegistryObject<Item> CLOWNFISH_CUPCAKE = ITEMS.register("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(1F).effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 2), 1F).build())));
@@ -224,6 +226,34 @@ public class ModItems {
 
     public static final RegistryObject<Item> DEAD_TOWER_CORAL_FAN = ITEMS.register("dead_tower_coral_fan",
             () -> new StandingAndWallBlockItem(ModBlocks.DEAD_TOWER_CORAL_FAN.get(), ModBlocks.DEAD_TOWER_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> ROSE_CORAL_FAN = ITEMS.register("rose_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.ROSE_CORAL_FAN.get(), ModBlocks.ROSE_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_ROSE_CORAL_FAN = ITEMS.register("dead_rose_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_ROSE_CORAL_FAN.get(), ModBlocks.DEAD_ROSE_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> FLOWER_CORAL_FAN = ITEMS.register("flower_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.FLOWER_CORAL_FAN.get(), ModBlocks.FLOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_FLOWER_CORAL_FAN = ITEMS.register("dead_flower_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_FLOWER_CORAL_FAN.get(), ModBlocks.DEAD_FLOWER_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> RING_CORAL_FAN = ITEMS.register("ring_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.RING_CORAL_FAN.get(), ModBlocks.RING_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_RING_CORAL_FAN = ITEMS.register("dead_ring_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_RING_CORAL_FAN.get(), ModBlocks.DEAD_RING_CORAL_WALL_FAN.get(),
+                    new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> BUSH_CORAL_FAN = ITEMS.register("bush_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.BUSH_CORAL_FAN.get(), ModBlocks.BUSH_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+
+    public static final RegistryObject<Item> DEAD_BUSH_CORAL_FAN = ITEMS.register("dead_bush_coral_fan",
+            () -> new StandingAndWallBlockItem(ModBlocks.DEAD_BUSH_CORAL_FAN.get(), ModBlocks.DEAD_BUSH_CORAL_WALL_FAN.get(),
                     new Item.Properties(), Direction.DOWN));
 
     public static void register(IEventBus eventBus) {
