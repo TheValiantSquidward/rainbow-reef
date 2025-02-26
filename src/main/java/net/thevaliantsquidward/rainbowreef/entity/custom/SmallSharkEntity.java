@@ -170,6 +170,8 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
             case 4 -> "zebra";
             case 5 -> "albino";
             case 6 -> "piebald";
+            case 7 -> "portjackson";
+
             default -> "epaulette";
         };
     }
@@ -273,14 +275,16 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
                 this.setVariant(6);
             }
         } else
-        if(variantChange <= 0.20F) {
+        if(variantChange <= 0.15F) {
             this.setVariant(1);
-        } else if(variantChange <= 0.40F) {
+        } else if(variantChange <= 0.30F) {
             this.setVariant(2);
-        } else if(variantChange <= 0.50F){
+        } else if(variantChange <= 0.45F){
             this.setVariant(3);
-        }else if(variantChange <= 0.70F){
+        }else if(variantChange <= 0.60F){
             this.setVariant(4);
+        }else if(variantChange <= 0.75F){
+            this.setVariant(7);
         }else{
             this.setVariant(0);
         }

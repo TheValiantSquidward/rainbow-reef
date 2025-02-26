@@ -69,8 +69,8 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
         return switch (variant) {
             case 1 -> "french";
             case 2 -> "emperor";
-            case 3 -> "bluering";
-            case 4 -> "yellowband";
+            case 3 -> "yellowband";
+            case 4 -> "bluering";
             case 5 -> "rockbeauty";
             case 6 -> "bluequeen";
             case 7 -> "majestic";
@@ -80,6 +80,7 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
             case 11 -> "gray";
             case 12 -> "oldwoman";
             case 13 -> "guinean";
+            case 14 -> "queenslandyellowtail";
 
             default -> "queen";
         };
@@ -192,32 +193,43 @@ public class AngelfishEntity extends VariantSchoolingFish implements GeoEntity, 
         if(variantChange <= 0.001){
             this.setVariant(6);
         } else
-        if(variantChange <= 0.07){
+        if(variantChange <= 0.06){
             this.setVariant(1);
         } else
-        if(variantChange <= 0.14){
+        if(variantChange <= 0.12){
             this.setVariant(2);
         } else
-        if (variantChange <= 0.21F) {
+        if (variantChange <= 0.18F) {
             this.setVariant(3);
-        }else if(variantChange <= 0.28F){
+        }else
+        if(variantChange <= 0.24F){
             this.setVariant(4);
-        }else if(variantChange <= 0.35F){
+        }else
+        if(variantChange <= 0.30F){
             this.setVariant(5);
-        }else if(variantChange <= 0.42F){
+        }else
+        if(variantChange <= 0.36F){
             this.setVariant(7);
-        }else if(variantChange <= 0.49F){
+        }else if(variantChange <= 0.42F){
             this.setVariant(8);
-        }else if(variantChange <= 0.56F){
+        }else
+        if(variantChange <= 0.48F){
             this.setVariant(9);
-        }else if(variantChange <= 0.63F){
+        }else
+        if(variantChange <= 0.54F){
             this.setVariant(10);
-        }else if(variantChange <= 0.70F){
+        }else
+        if(variantChange <= 0.60F){
             this.setVariant(11);
-        }else if(variantChange <= 0.77F){
+        }else
+        if(variantChange <= 0.66F){
             this.setVariant(12);
-        }else if(variantChange <= 0.84F){
+        }else
+        if(variantChange <= 0.72F){
             this.setVariant(13);
+        }else
+        if(variantChange <= 0.78F){
+            this.setVariant(14);
         } else{
             this.setVariant(0);
         }

@@ -17,6 +17,7 @@ public class SmallSharkRenderer extends GeoEntityRenderer<SmallSharkEntity> {
     private static final ResourceLocation TEXTURE_ZEBRA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/zebra.png");
     private static final ResourceLocation TEXTURE_ALBINO = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/albino.png");
     private static final ResourceLocation TEXTURE_PIEBALD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/piebald_horned.png");
+    private static final ResourceLocation TEXTURE_PORTJACKSON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/portjackson.png");
 
     public SmallSharkRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new SmallSharkModel());
@@ -34,6 +35,7 @@ public class SmallSharkRenderer extends GeoEntityRenderer<SmallSharkEntity> {
             case 4 -> TEXTURE_ZEBRA;
             case 5 -> TEXTURE_ALBINO;
             case 6 -> TEXTURE_PIEBALD;
+            case 7 -> TEXTURE_PORTJACKSON;
             default -> TEXTURE_EPAULETTE;
         };
     }
