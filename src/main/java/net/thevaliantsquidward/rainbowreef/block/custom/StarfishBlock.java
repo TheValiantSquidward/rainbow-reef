@@ -3,6 +3,7 @@ package net.thevaliantsquidward.rainbowreef.block.custom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
@@ -15,11 +16,14 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
+import javax.annotation.Nullable;
+
 public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public StarfishBlock(Properties pProperties) {
         super(pProperties);
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)));
+        //TODO: USE STONE WALL CODE TO MAKE IT CONFORM TO NEARBY BLOCKS
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
@@ -46,5 +50,6 @@ public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBl
     public MultifaceSpreader getSpreader() {
         return null;
     }
+
 
 }

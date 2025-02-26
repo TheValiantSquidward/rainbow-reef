@@ -37,6 +37,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.IPlantable;
 import net.thevaliantsquidward.rainbowreef.block.ModBlocks;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nullable;
 import java.util.Iterator;
@@ -61,6 +62,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         this.registerDefaultState(this.stateDefinition.any()
                 .setValue(WATERLOGGED, Boolean.valueOf(true))
                 .setValue(COLOUR, Integer.valueOf(col))
+                //TODO: USE STONE WALL CODE TO MAKE IT CONFORM TO NEARBY BLOCKS
         );
     }
 
@@ -70,6 +72,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         def.add(FACING);
     }
 
+    @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         //BlockPos belowPos = pPos.below();
         if(state.getValue(FACING) == Direction.NORTH) {
@@ -85,8 +88,8 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
             return level.getBlockState(eastPos).isFaceSturdy(level, pos, Direction.WEST);
 
         } else if (state.getValue(FACING) == Direction.WEST) {
-            BlockPos eastPos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
-            return level.getBlockState(eastPos).isFaceSturdy(level, pos, Direction.EAST);
+            BlockPos westPos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
+            return level.getBlockState(westPos).isFaceSturdy(level, pos, Direction.EAST);
 
         } else if (state.getValue(FACING) == Direction.UP) {
             BlockPos upPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
@@ -101,6 +104,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext world) {
+
         Direction dir = world.getClickedFace();
         BlockState oppDir = world.getLevel().getBlockState(world.getClickedPos().relative(dir.getOpposite()));
 
@@ -119,10 +123,11 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
 
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
         switch (state.getValue(FACING)) {
+            default:
+                return UP_AABB;
             case DOWN:
                 return DOWN_AABB;
             case UP:
-            default:
                 return UP_AABB;
             case NORTH:
                 return NORTH_AABB;
@@ -140,8 +145,6 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     public BlockState mirror(BlockState state, Mirror flip) {
         return state.setValue(FACING, flip.mirror(state.getValue(FACING)));
     }
-
-
 
     public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
         switch (pType) {
@@ -164,7 +167,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         System.out.println(itemStack.is(ItemTags.FISHES));
 
 
-        if(itemStack.is(ItemTags.FISHES) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ModItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
+        if(itemStack.is(RRTags.NEM_DIET) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ModItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
             ItemStack drop;
             if (pState.getValue(COLOUR) == 0) {
                 drop = new ItemStack(ModBlocks.YELLOW_SEA_ANEMONE.get());
