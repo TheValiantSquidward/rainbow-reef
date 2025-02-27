@@ -79,6 +79,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             case 17 -> "thompson";
             case 18 -> "mullers";
             case 19 -> "wroughtiron";
+            case 20 -> "foureye";
 
             default -> "copperbanded";
         };
@@ -240,13 +241,13 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             this.setVariant(18);
         }else if(variantChange <= 0.80F){
             this.setVariant(19);
+        }else if(variantChange <= 0.85F){
+            this.setVariant(20);
         } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
             this.setVariant(11);
         } else{
             this.setVariant(0);
         }
-
-
 
 
 

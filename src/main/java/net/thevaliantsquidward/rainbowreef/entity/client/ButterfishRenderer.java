@@ -28,6 +28,7 @@ public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
     private static final ResourceLocation THOMPSON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/thompson.png");
     private static final ResourceLocation MULLERS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/mullers.png");
     private static final ResourceLocation WROUGHTIRON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/wroughtiron.png");
+    private static final ResourceLocation FOUREYE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/foureye.png");
 
 
     public ButterfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -59,6 +60,7 @@ public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
             case 17 -> THOMPSON;
             case 18 -> MULLERS;
             case 19 -> WROUGHTIRON;
+            case 20 -> FOUREYE;
 
             default -> COPPERBAND;
         };

@@ -197,7 +197,7 @@
 
   "entity.rainbowreef.basslet.variant_fairy": "Fairy",
   "entity.rainbowreef.basslet.variant_brazilian": "Brazilian",
-  "entity.rainbowreef.basslet.variant_accessor": "Accessor",
+  "entity.rainbowreef.basslet.variant_accessor": "Assessor",
   "entity.rainbowreef.basslet.variant_candy": "Candy",
   "entity.rainbowreef.basslet.variant_blackcap": "Blackcap",
   "entity.rainbowreef.basslet.variant_gold": "Golden",
@@ -358,6 +358,7 @@
   "entity.rainbowreef.butterflyfish.variant_thompson": "Thompson",
   "entity.rainbowreef.butterflyfish.variant_mullers": "Muller's",
   "entity.rainbowreef.butterflyfish.variant_wroughtiron": "Wrought Iron",
+  "entity.rainbowreef.butterflyfish.variant_foureye": "Foureye",
 
   "entity.rainbowreef.pipefish.variant_green": "Green",
   "entity.rainbowreef.pipefish.variant_janns": "Janns",
