@@ -2,12 +2,15 @@ package net.thevaliantsquidward.rainbowreef.entity.custom;
 
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -33,7 +36,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.goalz.HogfishDigGoal;
 import net.thevaliantsquidward.rainbowreef.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -48,7 +53,9 @@ import javax.annotation.Nullable;
 
 public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
 
-
+    private boolean isDigging;
+    private int digCooldown;
+    private BlockPos digPos;
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(HogfishEntity.class, EntityDataSerializers.BOOLEAN);
@@ -76,8 +83,15 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
+            this.isDigging = false;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
             //use this stuff for fish flopping
+        }
+
+        this.setCD(this.getCD() - 1);
+
+        if (isDigging()) {
+            spawnEffectsAtBlock(this.getDigPos());
         }
 
         super.tick();
@@ -130,6 +144,30 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     public void setVariant(int variant) {
         this.entityData.set(VARIANT, Integer.valueOf(variant));
+    }
+
+    public void setDigging(boolean dig) {
+        this.isDigging = dig;
+    }
+
+    public boolean isDigging() {
+        return this.isDigging;
+    }
+
+    public void setCD(int cd) {
+        this.digCooldown = cd;
+    }
+
+    public int getCD() {
+        return this.digCooldown;
+    }
+
+    public void setDigPos(BlockPos cd) {
+        this.digPos = cd;
+    }
+
+    public BlockPos getDigPos() {
+        return this.digPos;
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -185,6 +223,8 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
         super(pEntityType, pLevel);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        //this.setCD(500 + this.getRandom().nextInt(500));
+        this.setCD(0);
     }
 
     @Override
@@ -205,6 +245,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new HogfishDigGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }
@@ -241,6 +282,23 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
+    }
+
+    public void spawnEffectsAtBlock(BlockPos target) {
+        float radius = 0.3F;
+        for (int i1 = 0; i1 < 3; i1++) {
+            double motionX = getRandom().nextGaussian() * 0.07D;
+            double motionY = getRandom().nextGaussian() * 0.07D;
+            double motionZ = getRandom().nextGaussian() * 0.07D;
+            float angle = (float) ((0.0174532925 * this.yBodyRot) + i1);
+            double extraX = radius * Mth.sin(Mth.PI + angle);
+            double extraY = 0.8F;
+            double extraZ = radius * Mth.cos(angle);
+            BlockState state = this.level().getBlockState(target);
+            if (state.isSolid()) {
+                level().addAlwaysVisibleParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), true, this.getX() + extraX, target.getY() + extraY, this.getZ() + extraZ, motionX, motionY, motionZ);
+            }
+        }
     }
 
 

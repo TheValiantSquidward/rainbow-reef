@@ -288,8 +288,8 @@ class RestInNemGoal extends RandomStrollGoal{
 
     public void tick() {
         //Vec3 wantedPos = new Vec3(this.mob.getMoveControl().getWantedX(), this.mob.getMoveControl().getWantedY(), this.mob.getMoveControl().getWantedZ());
-
-        if (this.fims.blockPosition() == this.fims.getNemPos()) {
+        double dist = fims.distanceToSqr(Vec3.atCenterOf(this.fims.getNemPos()));
+        if (dist < 2) {
             this.fims.setTarget(null);
             this.fims.getNavigation().stop();
             //stops the fish when it gets close enough

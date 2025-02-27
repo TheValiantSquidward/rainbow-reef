@@ -16,6 +16,7 @@ public final class RRTags {
     public static final TagKey<Block> TEMPERATE_NEMS = registerBlockTag("temperate_nems");
     public static final TagKey<Block> TROPICAL_STARS = registerBlockTag("tropical_stars");
     public static final TagKey<Block> TEMPERATE_STARS = registerBlockTag("temperate_stars");
+    public static final TagKey<Block> HOG_DIGGABLE = registerBlockTag("hogfish_diggable");
     public static final TagKey<Item> NEM_DIET = registerItemTag("nem_diet");
 
     private static TagKey<Block> registerBlockTag(String name) {
