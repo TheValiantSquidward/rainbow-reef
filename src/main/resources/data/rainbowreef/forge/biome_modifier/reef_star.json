@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes" : [
+    "minecraft:mangrove_swamp",
+    "minecraft:warm_ocean"
+  ],
+  "features": "rainbowreef:reef_star",
+  "step": "vegetal_decoration"
+}

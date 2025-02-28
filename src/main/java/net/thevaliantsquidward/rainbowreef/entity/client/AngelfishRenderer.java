@@ -22,6 +22,7 @@ public class AngelfishRenderer extends GeoEntityRenderer<AngelfishEntity> {
     private static final ResourceLocation GRAY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/gray.png");
     private static final ResourceLocation OLDWOMAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/oldwoman.png");
     private static final ResourceLocation GUINEAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/guinean.png");
+    private static final ResourceLocation QUEENSLANDYELLOWTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/queenslandyellowtail.png");
 
 
     public AngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -47,6 +48,7 @@ public class AngelfishRenderer extends GeoEntityRenderer<AngelfishEntity> {
             case 11 -> GRAY;
             case 12 -> OLDWOMAN;
             case 13 -> GUINEAN;
+            case 14 -> QUEENSLANDYELLOWTAIL;
 
             default -> QUEEN;
         };

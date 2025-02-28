@@ -148,6 +148,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     public static String getVariantName(int variant) {
         return switch (variant) {
             case 1 -> "ornate";
+            case 2 -> "cownose";
             default -> "spotted";
         };
     }
@@ -245,13 +246,10 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.20F) {
-            this.setVariant(4);
-        } else if(variantChange <= 0.40F) {
-            this.setVariant(3);
-        } else if(variantChange <= 0.60F){
+        if(variantChange <= 0.33F) {
+        } else if(variantChange <= 0.66F){
             this.setVariant(2);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.99F){
             this.setVariant(1);
         }else{
             this.setVariant(0);

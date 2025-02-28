@@ -14,13 +14,15 @@ public class RayRenderer extends GeoEntityRenderer<RayEntity> {
         super(renderManager, new RayModel());
     }
 
-    private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/spotted_eagle_ray.png");
+    private static final ResourceLocation SPOTTED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/spotted_eagle_ray.png");
     private static final ResourceLocation ORNATE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/ornate_eagle_ray.png");
+    private static final ResourceLocation COWNOSE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/cownose.png");
 
     public ResourceLocation getTextureLocation(RayEntity entity) {
         return switch (entity.getVariant()) {
             case 1 -> ORNATE;
-            default -> DEFAULT;
+            case 2 -> COWNOSE;
+            default -> SPOTTED;
         };
     }
 }

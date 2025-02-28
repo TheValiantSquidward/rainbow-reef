@@ -127,42 +127,6 @@ public class MathHelpers {
         }
     }
 
-    public static double vertAngleClamp(double angle, double lim) {
-        return Mth.clamp(angle, -lim, lim);
-    }
-
-    public static double rLerp (double A, double B, double w){
-
-        double CS = (1-w)*Math.cos(A) + w*Math.cos(B);
-        double SN = (1-w)*Math.sin(A) + w*Math.sin(B);
-
-        if (Double.isNaN(Math.atan2(SN, CS))) {
-            return 0;
-        }
-
-        return Math.atan2(SN,CS);
-    }
-
-    public static double ShortestPathCircleLerp(double pStart, double pEnd, double pDelta) {
-
-        double distFore = Mth.TWO_PI - pStart;
-        double distBack = Mth.abs((float) pStart) + Mth.abs((float) pEnd);
-
-        if (Double.isNaN(pStart) || Double.isNaN(pEnd)) {
-            //System.out.println("active");
-            return 0;
-        }
-
-        if (pDelta < 0.0) {
-            return pStart;
-        } else if (distBack < distFore){
-            //shorter to lerp back
-            return pDelta > 1.0 ? pEnd : Mth.inverseLerp(pDelta, pStart, pEnd);
-        } else {
-            return pDelta > 1.0 ? pEnd : Mth.lerp(pDelta, pStart, pEnd);
-        }
-    }
-
     public static double LerpDegrees(double start, double end, double amount)
     {
         double difference = Math.abs(end - start);
