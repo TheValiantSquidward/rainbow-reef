@@ -27,6 +27,8 @@
   "item.rainbowreef.claw_disc.desc" : "TheValiantSquidward - Claw",
 
   "item.rainbowreef.raw_goby" : "Raw Goby",
+  "item.rainbowreef.raw_ray" : "Raw Ray",
+  "item.rainbowreef.raw_small_shark" : "Raw Small Shark",
   "item.rainbowreef.raw_tang" : "Raw Tang",
   "item.rainbowreef.raw_dwarf_angelfish" : "Raw Dwarf Angelfish",
   "item.rainbowreef.raw_seahorse" : "Raw Seahorse",
@@ -38,12 +40,14 @@
   "item.rainbowreef.raw_basslet" : "Raw Basslet",
   "item.rainbowreef.raw_pipefish" : "Raw Pipefish",
   "item.rainbowreef.crab_meat" : "Raw Crab",
+  "item.rainbowreef.arrow_crab" : "Raw Arrow Crab",
   "item.rainbowreef.raw_angelfish" : "Raw Angelfish",
   "item.rainbowreef.raw_moorish_idol" : "Raw Moorish Idol",
 
   "item.rainbowreef.goby_gummy" : "Goby Gummy",
   "item.rainbowreef.boxfish_bread" : "Boxfish Bread",
   "item.rainbowreef.clownfish_cupcake" : "Clownfish Cupcake",
+  "item.rainbowreef.choco_ray_muffin" : "Choco-Ray Muffin",
   "item.rainbowreef.dried_seahorse" : "Dried Seahorse",
   "item.rainbowreef.tangy_soup" : "Tangy Soup",
   "item.rainbowreef.parrotfish_punch" : "Parrotfish Punch",
@@ -61,6 +65,7 @@
   "item.rainbowreef.idol_cookie" : "Idol Cookie",
   "item.rainbowreef.roasted_crab_meat" : "Roasted Crab Meat",
   "item.rainbowreef.crabcake" : "Crabcake",
+  "item.rainbowreef.sharkbite_salad" : "Sharkbite Salad",
   "block.rainbowreef.angelfish_cake" : "Angelfish Cake",
 
   "item.rainbowreef.goby_spawn_egg" : "Goby Spawn Egg",

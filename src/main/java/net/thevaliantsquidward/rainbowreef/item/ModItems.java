@@ -121,11 +121,16 @@ public class ModItems {
 
     public static final RegistryObject<Item> RAW_GOBY = ITEMS.register("raw_goby", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
+    public static final RegistryObject<Item> RAW_RAY = ITEMS.register("raw_ray", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
+    public static final RegistryObject<Item> RAW_SMALL_SHARK = ITEMS.register("raw_small_shark", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
+
     public static final RegistryObject<Item> RAW_ANGELFISH = ITEMS.register("raw_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
     public static final RegistryObject<Item> RAW_MOORISH_IDOL = ITEMS.register("raw_moorish_idol", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
     public static final RegistryObject<Item> RAW_CRAB_MEAT = ITEMS.register("crab_meat", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).meat().build())));
+
+    public static final RegistryObject<Item> RAW_ARROW_CRAB = ITEMS.register("arrow_crab", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).meat().build())));
 
     public static final RegistryObject<Item> RAW_TANG = ITEMS.register("raw_tang", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
@@ -161,7 +166,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> BOXFISH_BREAD = ITEMS.register("boxfish_bread", () -> new BoxfishBreadItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(9).saturationMod(0.8F).build())));
 
-    public static final RegistryObject<Item> CLOWNFISH_CUPCAKE = ITEMS.register("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(1F).effect(new MobEffectInstance(MobEffects.POISON, 200, 0), 1).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 2), 1F).build())));
+    public static final RegistryObject<Item> CLOWNFISH_CUPCAKE = ITEMS.register("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(1F).build())));
+
+    public static final RegistryObject<Item> CHOCO_RAY_MUFFIN = ITEMS.register("choco_ray_muffin", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(1).saturationMod(1F).build())));
 
     public static final RegistryObject<Item> DRIED_SEAHORSE = ITEMS.register("dried_seahorse", () -> new CleansingSnackItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().fast().alwaysEat().build())));
 
@@ -176,6 +183,7 @@ public class ModItems {
     public static final RegistryObject<Item> IDOL_COOKIE = ITEMS.register("idol_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.8F).build())));
 
     public static final RegistryObject<Item> BUTTERED_BUTTERFLYFISH_TOAST = ITEMS.register("buttered_butterflyfish", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(20).saturationMod(0F).build())));
+    public static final RegistryObject<Item> SHARKBITE_SALAD = ITEMS.register("sharkbite_salad", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(20).saturationMod(0F).build())));
 
     public static final RegistryObject<Item> HOGFISH_BACON = ITEMS.register("hogfish_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).build())));
 
