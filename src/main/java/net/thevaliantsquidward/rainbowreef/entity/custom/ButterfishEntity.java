@@ -201,7 +201,15 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
         float rare = this.getRandom().nextFloat();
         float rareVariantChange = this.getRandom().nextFloat();
         Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
-        if(rare <= 0.10) {
+        if (holder.is(Biomes.MANGROVE_SWAMP)) {
+            if(variantChange <= 0.5) {
+                this.setVariant(11);
+            }
+            else {
+                this.setVariant(20);
+            }
+        }
+        else if(rare <= 0.10) {
             if(rareVariantChange <= 0.50F){
                 this.setVariant(1);
             }else
@@ -243,8 +251,6 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
             this.setVariant(19);
         }else if(variantChange <= 0.85F){
             this.setVariant(20);
-        } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
-            this.setVariant(11);
         } else{
             this.setVariant(0);
         }

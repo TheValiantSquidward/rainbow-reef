@@ -5,7 +5,7 @@
   ],
   "spawners" : {
     "type" : "rainbowreef:butterflyfish",
-    "weight" : 15,
+    "weight" : 20,
     "minCount" : 3,
     "maxCount" : 5
   }

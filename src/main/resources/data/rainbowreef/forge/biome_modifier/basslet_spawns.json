@@ -5,7 +5,7 @@
   ],
   "spawners" : {
    "type" : "rainbowreef:basslet",
-    "weight" : 10,
+    "weight" : 15,
     "minCount" : 3,
     "maxCount" : 7
   }

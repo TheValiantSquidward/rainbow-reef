@@ -2,7 +2,13 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0.0,
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "rainbowreef:bush_coral_fan"
+        }
+      ],
       "conditions": [
         {
           "condition": "minecraft:match_tool",
@@ -17,15 +23,7 @@
             ]
           }
         }
-      ],
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "rainbowreef:bush_coral_fan"
-        }
-      ],
-      "rolls": 1.0
+      ]
     }
-  ],
-  "random_sequence": "rainbowreef:blocks/bush_coral_fan"
+  ]
 }
