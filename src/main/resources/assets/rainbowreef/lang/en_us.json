@@ -202,7 +202,7 @@
   "entity.rainbowreef.angelfish.variant_oldwoman": "Old Woman",
   "entity.rainbowreef.angelfish.variant_queenslandyellowtail": "Queensland Yellowtail",
 
-  "entity.rainbowreef.basslet.variant_fairy": "Fairy",
+  "entity.rainbowreef.basslet.variant_fairy": "Royal",
   "entity.rainbowreef.basslet.variant_brazilian": "Brazilian",
   "entity.rainbowreef.basslet.variant_accessor": "Assessor",
   "entity.rainbowreef.basslet.variant_candy": "Candy",
@@ -211,9 +211,6 @@
   "entity.rainbowreef.basslet.variant_gilded": "Gilded",
   "entity.rainbowreef.basslet.variant_swissguard": "Swissguard",
   "entity.rainbowreef.basslet.variant_yellowscissortail": "Yellow Scissortail",
-  "entity.rainbowreef.basslet.variant_sunrise": "Sunrise",
-  "entity.rainbowreef.basslet.variant_striped": "Striped",
-  "entity.rainbowreef.basslet.variant_blackstriped": "Blackstripe",
   "entity.rainbowreef.basslet.variant_midnight": "Midnight",
 
   "entity.rainbowreef.arrow_crab.variant_yellowlined": "Yellowline",
@@ -276,6 +273,10 @@
   "entity.rainbowreef.clownfish.variant_goldnugget": "Gold Nugget",
   "entity.rainbowreef.clownfish.variant_redsaddleback": "Red Saddleback",
   "entity.rainbowreef.clownfish.variant_snowstorm": "Snowstorm",
+  "entity.rainbowreef.clownfish.variant_orangeskunk": "Orange Skunk",
+  "entity.rainbowreef.clownfish.variant_domino": "Domino",
+  "entity.rainbowreef.clownfish.variant_yellowclarkii": "Yellow Clarkii",
+  "entity.rainbowreef.clownfish.variant_naked": "Naked",
 
   "entity.rainbowreef.seahorse.variant_kelpy": "Olivine",
   "entity.rainbowreef.seahorse.variant_cobalt": "Cobalt",

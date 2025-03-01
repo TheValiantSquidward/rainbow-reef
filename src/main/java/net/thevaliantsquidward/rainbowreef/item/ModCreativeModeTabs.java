@@ -97,7 +97,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.TANG_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SMALL_SHARK_SPAWN_EGG.get());
 
-
+                        pOutput.accept(ModBlocks.ANGELFISH_CAKE.get());
                         pOutput.accept(ModItems.BASSLET_COOKIE.get());
                         pOutput.accept(ModItems.BOXFISH_BREAD.get());
                         pOutput.accept(ModItems.BUTTERED_BUTTERFLYFISH_TOAST.get());
@@ -117,9 +117,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.PIPEFISH_SUSHI.get());
                         pOutput.accept(ModItems.CHOCO_RAY_MUFFIN.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
-                        pOutput.accept(ModItems.SHARKBITE_SALAD.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
-                        pOutput.accept(ModBlocks.ANGELFISH_CAKE.get());
+                        pOutput.accept(ModItems.SHARKBITE_SALAD.get());
 
                         pOutput.accept(ModItems.SEASUGAR_SORBET.get());
                         pOutput.accept(ModItems.ROCKFISH_CANDY.get());
