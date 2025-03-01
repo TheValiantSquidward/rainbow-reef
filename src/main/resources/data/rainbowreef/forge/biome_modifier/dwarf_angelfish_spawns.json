@@ -5,7 +5,7 @@
   ],
   "spawners" : {
    "type" : "rainbowreef:dwarf_angelfish",
-    "weight" : 30,
+    "weight" : 35,
     "minCount" : 3,
     "maxCount" : 5
   }
