@@ -24,7 +24,10 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
     private static final ResourceLocation GOLDNUGGET = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/goldnugget.png");
     private static final ResourceLocation REDSADDLEBACK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/redsaddleback.png");
     private static final ResourceLocation SNOWSTORM = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/snowstorm.png");
-
+    private static final ResourceLocation ORANGESKUNK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/orangeskunk.png");
+    private static final ResourceLocation DOMINO = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/domino.png");
+    private static final ResourceLocation YELLOWCLARKII = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/yellowclarkii.png");
+    private static final ResourceLocation NAKED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/naked.png");
 
 
     public ClownfishRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -52,6 +55,10 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
             case 13 -> GOLDNUGGET;
             case 14 -> REDSADDLEBACK;
             case 15 -> SNOWSTORM;
+            case 16 -> ORANGESKUNK;
+            case 17 -> DOMINO;
+            case 18 -> YELLOWCLARKII;
+            case 19 -> NAKED;
 
             default -> OCELLARIS;
         };
