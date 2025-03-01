@@ -180,13 +180,16 @@ public class ModItems {
 
     public static final RegistryObject<Item> DWARF_ANGELFISH_TARTS = ITEMS.register("dwarf_angelfish_tarts", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(1).saturationMod(1.6F).build())));
 
-    public static final RegistryObject<Item> BASSLET_COOKIE = ITEMS.register("basslet_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).build())));
+    public static final RegistryObject<Item> BASSLET_COOKIE = ITEMS.register("basslet_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1F).build())));
 
-    public static final RegistryObject<Item> IDOL_COOKIE = ITEMS.register("idol_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.8F).build())));
+    public static final RegistryObject<Item> IDOL_COOKIE = ITEMS.register("idol_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationMod(0.1F).build())));
 
     public static final RegistryObject<Item> BUTTERED_BUTTERFLYFISH_TOAST = ITEMS.register("buttered_butterflyfish", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(20).saturationMod(0F).build())));
-    public static final RegistryObject<Item> SHARKBITE_SALAD = ITEMS.register("sharkbite_salad", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(20).saturationMod(0F).build())));
-
+    public static final RegistryObject<Item> SHARKBITE_SALAD = ITEMS.register("sharkbite_salad", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(5).saturationMod(0.7F).build())));
+    public static final RegistryObject<Item> FORBIDDEN_SOUP = ITEMS.register("forbidden_soup", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(10).saturationMod(0.35F).build())));
+    public static final RegistryObject<Item> SWEET_TOOTH_SEABURGER = ITEMS.register("sweet_tooth_seaburger", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(3).saturationMod(0.3F).effect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0), 1.0F).build())));
+    public static final RegistryObject<Item> HAWAIIAN_BARBEQUE = ITEMS.register("hawaiian_barbeque", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(9).saturationMod(0.7F).build())));
+    public static final RegistryObject<Item> TROPICAL_FISHSTICKS = ITEMS.register("tropical_fishsticks", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(5).saturationMod(0.6F).build())));
     public static final RegistryObject<Item> HOGFISH_BACON = ITEMS.register("hogfish_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).build())));
 
     public static final RegistryObject<Item> COOKED_HOGFISH_BACON = ITEMS.register("cooked_hogfish_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationMod(1.2F).build())));

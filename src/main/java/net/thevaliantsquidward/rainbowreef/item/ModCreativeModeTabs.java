@@ -122,6 +122,10 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
 
                         pOutput.accept(ModItems.SEASUGAR_SORBET.get());
                         pOutput.accept(ModItems.ROCKFISH_CANDY.get());
+                        pOutput.accept(ModItems.FORBIDDEN_SOUP.get());
+                        pOutput.accept(ModItems.SWEET_TOOTH_SEABURGER.get());
+                        pOutput.accept(ModItems.HAWAIIAN_BARBEQUE.get());
+                        pOutput.accept(ModItems.TROPICAL_FISHSTICKS.get());
 
                         pOutput.accept(ModItems.CLAW_DISC.get());
                     })
