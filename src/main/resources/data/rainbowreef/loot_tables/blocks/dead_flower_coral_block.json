@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "rainbowreef:dead_flower_coral_block"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "rainbowreef:blocks/dead_flower_coral_block"
+}
