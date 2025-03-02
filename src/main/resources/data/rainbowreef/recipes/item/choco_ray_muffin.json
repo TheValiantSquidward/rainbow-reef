@@ -20,10 +20,10 @@
       "item": "minecraft:egg"
     },
     {
-      "item": "rainbowreef:raw_clownfish"
+      "item": "rainbowreef:raw_ray"
     }
   ],
   "result": {
-    "item": "rainbowreef:clownfish_cupcake"
+    "item": "rainbowreef:choco_ray_muffin"
   }
 }
