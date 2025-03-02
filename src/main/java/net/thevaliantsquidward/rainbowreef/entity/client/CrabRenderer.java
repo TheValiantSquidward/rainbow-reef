@@ -16,6 +16,7 @@ public class CrabRenderer extends GeoEntityRenderer<CrabEntity> {
     private static final ResourceLocation BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/bluecrab.png");
     private static final ResourceLocation PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/purplecrab.png");
     private static final ResourceLocation CANDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/candycrab.png");
+    private static final ResourceLocation REDGHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/redghost.png");
 
 
     public CrabRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -35,6 +36,7 @@ public class CrabRenderer extends GeoEntityRenderer<CrabEntity> {
             case 5 -> BLUE;
             case 6 -> PURPLE;
             case 7 -> CANDY;
+            case 8 -> REDGHOST;
             default -> VAMPIRE;
         };
     }
