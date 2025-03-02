@@ -164,7 +164,7 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
 
-        if (variantChange <= 0.30F) {
+        if (variantChange <= 0.10F) {
             this.setVariant(1);
         } else {
             this.setVariant(0);
