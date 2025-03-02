@@ -186,9 +186,9 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
                 this.setVariant(0);
         } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
             this.setVariant(1);
-        } else if (holder.is(Biomes.BEACH) && variantChange <= 10) {
+        } else if (holder.is(Biomes.BEACH) && variantChange <= 0.10) {
             this.setVariant(8);
-        } else if (holder.is(Biomes.BEACH) && variantChange > 10) {
+        } else if (holder.is(Biomes.BEACH) && variantChange > 0.10) {
             this.setVariant(2);
         } else if (holder.is(Biomes.STONY_SHORE)) {
             this.setVariant(3);
