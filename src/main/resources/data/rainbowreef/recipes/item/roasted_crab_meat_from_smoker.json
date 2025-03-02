@@ -1,7 +1,8 @@
 {
   "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "rainbowreef:crab_meat"
+  "ingredient":
+{
+  "tag": "rainbowreef:crab_items"
   },
   "result": "rainbowreef:roasted_crab_meat",
   "experience": 1,
