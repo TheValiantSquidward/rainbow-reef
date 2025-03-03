@@ -4,7 +4,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -35,11 +34,13 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         //moorish idol
                         //parrotfish
                         //pipefish
+                        //ray
                         //seahorse
                         //small shark
                         //tang
 
                         pOutput.accept(ModItems.RAW_ANGELFISH.get());
+                        pOutput.accept(ModItems.RAW_ARROW_CRAB.get());
                         pOutput.accept(ModItems.RAW_BASSLET.get());
                         pOutput.accept(ModItems.RAW_BOXFISH.get());
                         pOutput.accept(ModItems.RAW_BUTTERFISH.get());
@@ -52,7 +53,9 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.RAW_MOORISH_IDOL.get());
                         pOutput.accept(ModItems.RAW_PARROTFISH.get());
                         pOutput.accept(ModItems.RAW_PIPEFISH.get());
+                        pOutput.accept(ModItems.RAW_RAY.get());
                         pOutput.accept(ModItems.RAW_SEAHORSE.get());
+                        pOutput.accept(ModItems.RAW_SMALL_SHARK.get());
                         pOutput.accept(ModItems.RAW_TANG.get());
 
                         pOutput.accept(ModItems.ANGELFISH_BUCKET.get());
@@ -94,7 +97,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.TANG_SPAWN_EGG.get());
                         pOutput.accept(ModItems.SMALL_SHARK_SPAWN_EGG.get());
 
-
+                        pOutput.accept(ModBlocks.ANGELFISH_CAKE.get());
                         pOutput.accept(ModItems.BASSLET_COOKIE.get());
                         pOutput.accept(ModItems.BOXFISH_BREAD.get());
                         pOutput.accept(ModItems.BUTTERED_BUTTERFLYFISH_TOAST.get());
@@ -112,9 +115,18 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ModItems.IDOL_COOKIE.get());
                         pOutput.accept(ModItems.PARROTFISH_PUNCH.get());
                         pOutput.accept(ModItems.PIPEFISH_SUSHI.get());
+                        pOutput.accept(ModItems.CHOCO_RAY_MUFFIN.get());
                         pOutput.accept(ModItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ModItems.TANGY_SOUP.get());
-                        pOutput.accept(ModBlocks.ANGELFISH_CAKE.get());
+                        pOutput.accept(ModItems.SHARKBITE_SALAD.get());
+
+                        pOutput.accept(ModItems.SEASUGAR_SORBET.get());
+                        pOutput.accept(ModItems.ROCKFISH_CANDY.get());
+                        pOutput.accept(ModItems.FORBIDDEN_SOUP.get());
+                        pOutput.accept(ModItems.SWEET_TOOTH_SEABURGER.get());
+                        pOutput.accept(ModItems.HAWAIIAN_BARBEQUE.get());
+                        pOutput.accept(ModItems.TROPICAL_FISHSTICKS.get());
+                        pOutput.accept(ModItems.SURF_N_TURF.get());
 
                         pOutput.accept(ModItems.CLAW_DISC.get());
                     })

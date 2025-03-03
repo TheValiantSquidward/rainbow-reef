@@ -6,13 +6,13 @@
     "---"
   ],
   "key": {
-    "#": {
+    "-": {
       "item": "minecraft:wheat"
     },
     "+": {
       "item": "rainbowreef:raw_boxfish"
     },
-    "-": {
+    "#": {
       "item": "minecraft:sugar"
     }
   },

@@ -10,6 +10,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,6 +26,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.allay.Allay;
+import net.minecraft.world.entity.monster.Drowned;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -156,6 +161,7 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
             case 5 -> "blue";
             case 6 -> "purple";
             case 7 -> "candy";
+            case 8 -> "redghost";
             default -> "vampire";
         };
     }
@@ -172,17 +178,22 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
         Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
         float spookyVariantChange = this.getRandom().nextFloat();
         LocalDate currentDate = LocalDate.now();
+        float variantChange = this.getRandom().nextFloat();
         if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
 
             if (spookyVariantChange <= 0.33) {
                 this.setVariant(1);
-            } else if (spookyVariantChange <= 66) {
+            } else if (spookyVariantChange <= 0.66) {
                 this.setVariant(2);
+            } else if (spookyVariantChange <= 0.10) {
+                this.setVariant(8);
             } else
                 this.setVariant(0);
         } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
             this.setVariant(1);
-        } else if (holder.is(Biomes.BEACH)) {
+        } else if (holder.is(Biomes.BEACH) && variantChange <= 0.10) {
+            this.setVariant(8);
+        } else if (holder.is(Biomes.BEACH) && variantChange > 0.10) {
             this.setVariant(2);
         } else if (holder.is(Biomes.STONY_SHORE)) {
             this.setVariant(3);

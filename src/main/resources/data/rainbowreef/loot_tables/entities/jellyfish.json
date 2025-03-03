@@ -12,7 +12,7 @@
               "count": {
                 "type": "minecraft:uniform",
                 "max": 4,
-                "min": 1
+                "min": 2
               },
               "function": "minecraft:set_count"
             },
@@ -31,5 +31,5 @@
       "rolls": 1
     }
   ],
-  "random_sequence": "minecraft:entities/cod"
+  "random_sequence": "minecraft:entities/pig"
 }

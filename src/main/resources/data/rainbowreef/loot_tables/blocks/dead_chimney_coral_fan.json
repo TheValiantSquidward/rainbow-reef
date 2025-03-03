@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rainbowreef:bush_coral_fan"
+          "name": "rainbowreef:dead_chimney_coral_fan"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "rainbowreef:blocks/bush_coral_fan"
+  "random_sequence": "rainbowreef:dead_chimney_coral_fan"
 }

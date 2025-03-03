@@ -18,9 +18,6 @@ public class BassletRenderer extends GeoEntityRenderer<BassletEntity> {
     private static final ResourceLocation GILDED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/gilded.png");
     private static final ResourceLocation SWISSGUARD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/swissguard.png");
     private static final ResourceLocation YELLOWSCISSORTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/yellow_scissor_tail.png");
-    private static final ResourceLocation STRIPED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/striped.png");
-    private static final ResourceLocation SUNRISE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/sunrise.png");
-    private static final ResourceLocation BLACKSTRIPE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/blackstripe.png");
     private static final ResourceLocation MIDNIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/midnight.png");
 
     public BassletRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -41,10 +38,7 @@ public class BassletRenderer extends GeoEntityRenderer<BassletEntity> {
             case 6 -> GILDED;
             case 7 -> SWISSGUARD;
             case 8 -> YELLOWSCISSORTAIL;
-            case 9 -> SUNRISE;
-            case 10 -> STRIPED;
-            case 11 -> BLACKSTRIPE;
-            case 12 -> MIDNIGHT;
+            case 9 -> MIDNIGHT;
             default -> FAIRY;
         };
     }
