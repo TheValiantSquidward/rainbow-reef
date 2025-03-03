@@ -12,9 +12,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
-import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
-import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
-
 import static com.ibm.icu.text.PluralRules.Operand.v;
 
 public class RayModel extends GeoModel<RayEntity> {
