@@ -178,25 +178,25 @@ public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable 
         if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
             this.setVariant(4);
         }else
-        if(variantChange <= 0.001){
-            this.setVariant(8);
-        }else if(variantChange <= 0.10){
-            this.setVariant(1);
-        }else if(variantChange <= 0.20F){
-            this.setVariant(2);
-        }if(variantChange <= 0.30F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.40F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.50F){
+        if(variantChange <= 0.01){
             this.setVariant(5);
-        }else if(variantChange <= 0.60F){
+        } else if(variantChange <= 0.001){
             this.setVariant(6);
-        }else if(variantChange <= 0.70F){
+        }else if(variantChange <= 0.12){
+            this.setVariant(1);
+        }else if(variantChange <= 0.24){
+            this.setVariant(2);
+        }else if(variantChange <= 0.36){
+            this.setVariant(3);
+        }else if(variantChange <= 0.48){
+            this.setVariant(4);
+        }else if(variantChange <= 0.60){
             this.setVariant(7);
-        }else if(variantChange <= 0.80F){
+        }else if(variantChange <= 0.72){
+            this.setVariant(8);
+        }else if(variantChange <= 0.84){
             this.setVariant(9);
-        }else{
+        }else {
             this.setVariant(0);
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
