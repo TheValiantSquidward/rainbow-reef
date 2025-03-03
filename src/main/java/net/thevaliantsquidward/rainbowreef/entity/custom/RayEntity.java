@@ -108,7 +108,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     //y = vert offset
     //z = fore to back offset(pos is back)
 
-    public double bodyPitch;
+    public double bodyPitch = 0;
     public double currentBodyPitch = 0;
 
     public double tail1Angle;

@@ -74,8 +74,8 @@ public class RayModel extends GeoModel<RayEntity> {
 
             //System.out.println(tail1OldY - tail1Angle);
 
-            body.setRotX((float) (-3 * Interpolations.lerpYaw((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01)));
-            entity.currentBodyPitch = (float) Interpolations.lerpYaw((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01);
+            body.setRotX((float) (-3 * MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01)));
+            entity.currentBodyPitch = (float) MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01);
 
             tail1.setRotX((float) (tail1.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
             tail2.setRotX((float) (tail2.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01)));

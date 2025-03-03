@@ -56,7 +56,7 @@ public class HogfishDigGoal extends Goal {
 
             if (digTime % 5 == 0) {
                 SoundEvent sound = fims.level().getBlockState(this.fims.getDigPos()).getSoundType().getHitSound();
-                fims.playSound(sound, 1F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
+                fims.playSound(sound, 0.5F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
                 fims.setDigging(true);
                 //the fish plays sound and makes particles as long as it digs every 5 ticks(sound lasts that long)
             }

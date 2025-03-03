@@ -269,13 +269,29 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
+        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "dig", 0, this::digPredicate));
     }
 
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
+    private <E extends GeoAnimatable> PlayState predicate(AnimationState<E> event) {
+        if (this.isUnderWater()) {
+            event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.swimming", Animation.LoopType.LOOP));
+        } else {
+            event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.flopping", Animation.LoopType.LOOP));
+        }
+
         return PlayState.CONTINUE;
     }
+
+    private <E extends GeoAnimatable> PlayState digPredicate(AnimationState<E> event) {
+        if (this.isDigging()) {
+            event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.peck", Animation.LoopType.LOOP));
+        } else {
+            return PlayState.STOP;
+        }
+        return PlayState.CONTINUE;
+    }
+
     public static <T extends Mob> boolean canSpawn(EntityType<HogfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
