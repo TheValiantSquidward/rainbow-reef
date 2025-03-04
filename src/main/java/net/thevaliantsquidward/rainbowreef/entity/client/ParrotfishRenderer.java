@@ -19,6 +19,8 @@ public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
     private static final ResourceLocation YELLOWTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/yellowtail.png");
     private static final ResourceLocation BLUEBUMPHEAD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/bluebumphead.png");
     private static final ResourceLocation RED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/red.png");
+    private static final ResourceLocation YELLOWBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/yellowband.png");
+    private static final ResourceLocation OBISHIME = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/obishime.png");
 
     public ParrotfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new ParrotfishModel());
@@ -40,6 +42,9 @@ public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
             case 7 -> YELLOWTAIL;
             case 8 -> BLUEBUMPHEAD;
             case 9 -> RED;
+            case 10 -> YELLOWBAND;
+            case 11 -> OBISHIME;
+
             default -> BLUE;
         };
     }

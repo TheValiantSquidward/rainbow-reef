@@ -71,6 +71,11 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
             case 8 -> "blueneon";
             case 9 -> "yellowneon";
             case 10 -> "neonhybrid";
+            case 11 -> "bluestreak";
+            case 12 -> "leopardspotted";
+            case 13 -> "yellowclown";
+            case 14 -> "dracula";
+            case 15 -> "blackfin";
             default -> "fire";
         };
     }
@@ -189,24 +194,34 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
         float variantChange = this.getRandom().nextFloat();
         if(variantChange <= 0.001F){
             this.setVariant(10);
-        } else if(variantChange <= 0.10F){
-            this.setVariant(9);
-        } else if(variantChange <= 0.20F){
-            this.setVariant(8);
-        } else if(variantChange <= 0.30F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.40F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.50F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.70F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.80F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.90F){
+        } else if(variantChange <= 0.06F){
             this.setVariant(1);
+        } else if(variantChange <= 0.12F){
+            this.setVariant(2);
+        } else if(variantChange <= 0.18F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.24F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.30F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.36F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.42F){
+            this.setVariant(7);
+        }else if(variantChange <= 0.48F){
+            this.setVariant(8);
+        }else if(variantChange <= 0.54F){
+            this.setVariant(9);
+        }else if(variantChange <= 0.60F){
+            this.setVariant(11);
+        }else if(variantChange <= 0.66F){
+            this.setVariant(12);
+        }else if(variantChange <= 0.72F){
+            this.setVariant(13);
+        }else if(variantChange <= 0.78F){
+            this.setVariant(14);
+        }else if(variantChange <= 0.84F){
+            this.setVariant(15);
         }else{
             this.setVariant(0);
         }

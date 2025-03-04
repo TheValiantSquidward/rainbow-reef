@@ -63,6 +63,8 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
             case 7 -> "yellowtail";
             case 8 -> "bluebumphead"; //r
             case 9 -> "red"; //r
+            case 10 -> "yellowband";
+            case 11 -> "obishime"; //r
 
             default -> "blue";
         };
@@ -182,28 +184,33 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         float rare = this.getRandom().nextFloat();
         float rareVariantChange = this.getRandom().nextFloat();
         if(rare <= 0.10) {
-            if(rareVariantChange <= 0.33F){
+            if(rareVariantChange <= 0.25F){
                 this.setVariant(2);
             }else
-            if(rareVariantChange <= 0.63F){
+            if(rareVariantChange <= 0.50F){
                 this.setVariant(8);
+            }else
+            if(rareVariantChange <= 0.75F){
+                this.setVariant(11);
             }else
             {
                 this.setVariant(9);
             }
         } else
-        if(variantChange <= 0.14F) {
+        if(variantChange <= 0.11F) {
             this.setVariant(7);
-        } else if(variantChange <= 0.28F) {
+        } else if(variantChange <= 0.22F) {
             this.setVariant(6);
-        } else if(variantChange <= 0.42F){
+        } else if(variantChange <= 0.33F){
             this.setVariant(5);
-        }else if(variantChange <= 0.56F){
+        }else if(variantChange <= 0.44F){
             this.setVariant(4);
-        }else if(variantChange <= 0.70F){
+        }else if(variantChange <= 0.55F){
             this.setVariant(3);
-        }else if(variantChange <= 0.84F){
+        }else if(variantChange <= 0.66F){
             this.setVariant(1);
+        }else if(variantChange <= 0.77F){
+            this.setVariant(10);
         }else{
             this.setVariant(0);
         }

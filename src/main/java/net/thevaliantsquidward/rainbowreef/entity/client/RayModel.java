@@ -11,6 +11,7 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
+
 public class RayModel extends GeoModel<RayEntity> {
 
     @Override
