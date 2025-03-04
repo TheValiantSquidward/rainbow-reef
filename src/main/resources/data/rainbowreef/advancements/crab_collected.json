@@ -27,7 +27,8 @@
     "5": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:crab_bucket"], "nbt": "{BucketVariantTag:4}" } ] } },
     "6": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:crab_bucket"], "nbt": "{BucketVariantTag:5}" } ] } },
     "7": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:crab_bucket"], "nbt": "{BucketVariantTag:6}" } ] } },
-    "8": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:crab_bucket"], "nbt": "{BucketVariantTag:7}" } ] } }
+    "8": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:crab_bucket"], "nbt": "{BucketVariantTag:7}" } ] } },
+    "9": { "trigger": "minecraft:inventory_changed", "conditions": { "items": [ { "items": ["rainbowreef:crab_bucket"], "nbt": "{BucketVariantTag:8}" } ] } }
  },
   "requirements": [
     ["1"], ["2"], ["3"], ["4"], ["5"], ["6"], ["7"], ["8"]

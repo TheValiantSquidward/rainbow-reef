@@ -49,6 +49,8 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Random;
 
 public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
@@ -192,7 +194,10 @@ public class GobyEntity extends WaterAnimal implements GeoEntity, Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.001F){
+        LocalDate currentDate = LocalDate.now();
+        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
+            this.setVariant(14);
+        } if(variantChange <= 0.001F){
             this.setVariant(10);
         } else if(variantChange <= 0.06F){
             this.setVariant(1);
