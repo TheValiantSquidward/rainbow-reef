@@ -36,6 +36,8 @@ public final class ClientEvents {
         e.register(ModEntities.PIPEFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, PipefishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         e.register(ModEntities.RAY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, RayEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         e.register(ModEntities.BASSLET.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, BassletEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        e.register(ModEntities.CRAB.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        e.register(ModEntities.ARROW_CRAB.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ArrowCrabEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     @SubscribeEvent

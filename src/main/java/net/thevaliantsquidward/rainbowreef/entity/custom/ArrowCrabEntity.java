@@ -1,7 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -9,6 +8,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -16,19 +16,15 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.goalz.*;
@@ -44,8 +40,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
-import java.time.LocalDate;
-import java.time.Month;
 
 public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable, DancesToJukebox {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
@@ -62,6 +56,7 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }
+
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -152,7 +147,6 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
     }
 
 
-
     public static String getVariantName(int variant) {
         return switch (variant) {
             case 1 -> "red";
@@ -169,6 +163,7 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
         } else {
             this.setVariant(0);
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -302,15 +297,20 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
         return PlayState.CONTINUE;
     }
 
+    public static boolean canSpawn(EntityType<ArrowCrabEntity> arrowCrabEntityEntityType, ServerLevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos p_223364_3_, RandomSource randomSource) {
+        return !levelAccessor.getBlockState(p_223364_3_).isSolid();
+    }
+
+
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
     }
-
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return null;
     }
+
 }

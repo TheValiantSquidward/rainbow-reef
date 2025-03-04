@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -206,6 +207,7 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
         } else {
             this.setVariant(0);
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -314,6 +316,8 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
             this.getLookControl().setLookAt(getJukeboxPos().getCenter());
         }
 
+        System.out.println("spawned");
+
     }
 
     private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.crab.idle");
@@ -346,9 +350,15 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
     }
 
 
+    public static <T extends Mob> boolean canSpawn(EntityType<CrabEntity> p_223364_0_, LevelAccessor levelAccessor, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return !levelAccessor.getBlockState(p_223364_3_).isSolid();
+    }
+
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return null;
     }
+
+
 }
