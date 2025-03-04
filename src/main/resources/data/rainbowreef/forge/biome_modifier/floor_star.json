@@ -4,7 +4,8 @@
     "minecraft:mangrove_swamp",
     "minecraft:warm_ocean",
     "minecraft:lukewarm_ocean",
-    "minecraft:deep_lukewarm_ocean"
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:stony_shore"
   ],
   "features": "rainbowreef:floor_star",
   "step": "vegetal_decoration"
