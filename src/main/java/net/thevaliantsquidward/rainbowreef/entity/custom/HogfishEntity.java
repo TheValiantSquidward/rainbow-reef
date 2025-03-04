@@ -245,7 +245,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new HogfishDigGoal(this));
+        //this.goalSelector.addGoal(0, new HogfishDigGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }
