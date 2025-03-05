@@ -334,7 +334,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             tail5Point = MathHelpers.rotateAroundCenter3dDeg(tail4Point, tail4Point.subtract(tail5Offset), -MathHelpers.angleTo(tail4Point, tail5Point).y, -MathHelpers.angleTo(tail4Point, tail5Point).x);
             tail6Point = MathHelpers.rotateAroundCenter3dDeg(tail5Point, tail5Point.subtract(tail6Offset), -MathHelpers.angleTo(tail5Point, tail6Point).y, -MathHelpers.angleTo(tail5Point, tail6Point).x);
 
-            if (!this.level().isClientSide()) {
+            /*if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (nosePoint.x), (nosePoint.y), (nosePoint.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
@@ -344,7 +344,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail4Point.x), (tail4Point.y), (tail4Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail5Point.x), (tail5Point.y), (tail5Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail6Point.x), (tail6Point.y), (tail6Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }
+            }*/
 
 
             //side refs don't move vertically
