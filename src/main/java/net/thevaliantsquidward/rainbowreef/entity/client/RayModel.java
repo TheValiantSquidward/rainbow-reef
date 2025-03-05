@@ -68,8 +68,8 @@ public class RayModel extends GeoModel<RayEntity> {
             //gotta set up UNIQUE NODES FOR EACH BONE
 
             //System.out.println(tail1OldY - tail1Angle);
-
-            body.setRotX((float) (-3 * MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01)));
+            //body.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
+            body.setRotX((float) (-MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01)));
             entity.currentBodyPitch = (float) MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01);
 
             tail1.setRotX((float) (tail1.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
@@ -78,10 +78,10 @@ public class RayModel extends GeoModel<RayEntity> {
             tail4.setRotX((float) (tail4.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail4Pitch, (float) entity.tail4Pitch, 0.01)));
             tail5.setRotX((float) (tail5.getRotX() + MathHelpers.LerpDegrees((float) entity.currentTail5Pitch, (float) entity.tail5Pitch, 0.01)));
             entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01);
-            entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail2Pitch, 0.01);
-            entity.currentTail3Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail3Pitch, 0.01);
-            entity.currentTail4Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail4Pitch, 0.01);
-            entity.currentTail5Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail5Pitch, 0.01);
+            entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
+            entity.currentTail3Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail3Pitch, (float) entity.tail3Pitch, 0.01);
+            entity.currentTail4Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail4Pitch, (float) entity.tail4Pitch, 0.01);
+            entity.currentTail5Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail5Pitch, (float) entity.tail5Pitch, 0.01);
             //entity.tail5OldPitch = (Interpolations.lerpYaw((float) entity.tail5OldPitch, (float) entity.tail5Pitch, 0.01));
 
             //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head

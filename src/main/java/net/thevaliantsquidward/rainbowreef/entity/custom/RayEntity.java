@@ -127,11 +127,13 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     public double currentTail3Pitch = 0;
     public double currentTail4Pitch = 0;
     public double currentTail5Pitch = 0;
+    public double currentTail6Pitch = 0;
     public double tail1Pitch;
     public double tail2Pitch;
     public double tail3Pitch;
     public double tail4Pitch;
     public double tail5Pitch;
+    public double tail6Pitch;
 
     //END of necessary IK shit
 
@@ -314,13 +316,14 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             tail4Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail4Point, this.tail3Point, this.tail5Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
             tail5Angle = (MathHelpers.angleClamp(MathHelpers.getAngleForLinkTopDownFlat(this.tail5Point, this.tail4Point, this.tail6Point, this.leftRefPoint, this.rightRefPoint), Mth.PI*0.75));
 
-            bodyPitch = ((float) (MathHelpers.angleFromYdiff(this.nosePoint, this.position(), this.tail0Point)));
+            bodyPitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.nosePoint, this.position(), this.tail0Point)));
 
-            tail1Pitch = ((float) (MathHelpers.angleFromYdiff(this.nosePoint, this.position(), this.tail0Point)));
+            tail1Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point)));
             tail2Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point)));
             tail3Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail1Point, this.tail2Point, this.tail3Point)));
             tail4Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail2Point, this.tail3Point, this.tail4Point)));
             tail5Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail3Point, this.tail4Point, this.tail5Point)));
+            tail6Pitch = ((float) (Mth.PI * MathHelpers.angleFromYdiff(this.tail4Point, this.tail5Point, this.tail6Point)));
 
             nosePoint = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(noseOffset), -this.getYRot(), -this.getXRot());
             tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
@@ -331,7 +334,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             tail5Point = MathHelpers.rotateAroundCenter3dDeg(tail4Point, tail4Point.subtract(tail5Offset), -MathHelpers.angleTo(tail4Point, tail5Point).y, -MathHelpers.angleTo(tail4Point, tail5Point).x);
             tail6Point = MathHelpers.rotateAroundCenter3dDeg(tail5Point, tail5Point.subtract(tail6Offset), -MathHelpers.angleTo(tail5Point, tail6Point).y, -MathHelpers.angleTo(tail5Point, tail6Point).x);
 
-            /*if (!this.level().isClientSide()) {
+            if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (nosePoint.x), (nosePoint.y), (nosePoint.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
@@ -341,7 +344,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail4Point.x), (tail4Point.y), (tail4Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail5Point.x), (tail5Point.y), (tail5Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
                 llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail6Point.x), (tail6Point.y), (tail6Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }*/
+            }
 
 
             //side refs don't move vertically
