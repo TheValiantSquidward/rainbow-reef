@@ -319,7 +319,6 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
         }
 
     }
-
     private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.crab.idle");
     private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.crab.dance");
     private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.crab.walk1");
