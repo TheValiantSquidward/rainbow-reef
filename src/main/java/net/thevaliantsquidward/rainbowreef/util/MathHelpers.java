@@ -67,22 +67,22 @@ public class MathHelpers {
         double distToNextFlat = flatDist(point, trail);
         double distToPrevFlat = flatDist(lead, point);
 
-        double ThetaPrevious = Math.asin(PrevHeight/distToPrevFlat);
-        double ThetaNext = Math.asin(NextHeight/distToNextFlat);
+        double ThetaPrevious = Math.atan(PrevHeight/distToPrevFlat);
+        double ThetaNext = Math.atan(NextHeight/distToNextFlat);
 
-        if (PrevHeight/distToPrevFlat > 1){
-            ThetaPrevious = Math.asin(1);
+        /*if (PrevHeight/distToPrevFlat > 1){
+            ThetaPrevious = Math.atan(1);
         } else if (PrevHeight/distToPrevFlat < -1) {
-            ThetaPrevious = Math.asin(-1);
+            ThetaPrevious = Math.atan(-1);
         }
         if (NextHeight/distToNextFlat > 1){
-            ThetaNext = Math.asin(1);
+            ThetaNext = Math.atan(1);
         } else if (NextHeight/distToNextFlat < -1) {
-            ThetaNext = Math.asin(-1);
-        }
+            ThetaNext = Math.atan(-1);
+        }*/
 
 
-        return ThetaPrevious + ThetaNext;
+        return (ThetaPrevious + ThetaNext);
     }
 
 

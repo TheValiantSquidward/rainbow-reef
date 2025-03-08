@@ -7,23 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rainbowreef:raw_arrow_crab"
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "bonus_rolls": 0,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "minecraft:bone_meal"
-        }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:random_chance",
-          "chance": 0.05
+          "name": "rainbowreef:arrow_crab"
         }
       ]
     },
