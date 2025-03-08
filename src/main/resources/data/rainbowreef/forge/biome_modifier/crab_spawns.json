@@ -11,7 +11,8 @@
     "minecraft:cold_ocean",
     "minecraft:deep_cold_ocean",
     "minecraft:beach",
-    "minecraft:stony_shore"
+    "minecraft:stony_shore",
+    "minecraft:jungle"
   ],
   "spawners" : {
     "type" : "rainbowreef:crab",

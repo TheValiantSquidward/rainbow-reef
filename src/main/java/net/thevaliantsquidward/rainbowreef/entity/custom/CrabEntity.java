@@ -204,6 +204,8 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
             this.setVariant(5);
         } else if (holder.is(Biomes.COLD_OCEAN) || holder.is(Biomes.DEEP_COLD_OCEAN)) {
             this.setVariant(6);
+        } else if (holder.is(Biomes.WARM_OCEAN)) {
+            this.setVariant(7);
         } else {
             this.setVariant(0);
         }
@@ -315,8 +317,6 @@ public class CrabEntity extends DancingEntity implements GeoEntity, Bucketable, 
         if (this.isDancing() && this.getJukeboxPos() != null) {
             this.getLookControl().setLookAt(getJukeboxPos().getCenter());
         }
-
-        System.out.println("spawned");
 
     }
 
