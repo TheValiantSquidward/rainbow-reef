@@ -45,6 +45,12 @@
         "rainbowreef:variant": 6
       },
       "model": "rainbowreef:item/piebald"
+    },
+    {
+      "predicate": {
+        "rainbowreef:variant": 7
+      },
+      "model": "rainbowreef:item/portjackson"
     }
   ]
 }
