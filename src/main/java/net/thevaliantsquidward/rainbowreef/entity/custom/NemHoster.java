@@ -152,6 +152,10 @@ class LocateNemGoal extends Goal {
 
         BlockPos closest = null;
 
+        if (list.isEmpty()) {
+            return;
+        }
+
         for (BlockPos pos : list) {
             if (closest == null || this.clown.distanceToSqr(closest.getX(), closest.getY(), closest.getZ()) > this.clown.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())) {
                 if (this.clown.canSee(pos)) {
