@@ -67,7 +67,7 @@ public class NemHoster extends VariantSchoolingFish {
     public void tick() {
 
         if (this.getNemPos() != null) {
-            if (!(this.level().getBlockState(new BlockPos(getNemPos())).getBlock() instanceof AnemoneBlock)) {
+            if (!(this.level().getBlockState(getNemPos()).getBlock() instanceof AnemoneBlock)) {
                 this.setHasNem(false);
                 this.setNemPos(null);
             } else {
