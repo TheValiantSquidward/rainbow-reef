@@ -32,6 +32,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -183,7 +184,7 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
 
             if (schoolcount > 0 && !this.level().isClientSide()) {
                 for (int i = 0; i < schoolcount; i++) {
-                    MoorishIdolEntity urine = new MoorishIdolEntity(ModEntities.MOORISH_IDOL.get(), this.level());
+                    MoorishIdolEntity urine = new MoorishIdolEntity(ReefEntities.MOORISH_IDOL.get(), this.level());
                     urine.setVariant(this.getVariant());
                     urine.moveTo(this.getX(), this.getY(), this.getZ());
                     urine.startFollowing(this);

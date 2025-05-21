@@ -1,33 +1,33 @@
-package net.thevaliantsquidward.rainbowreef.client.models;
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class BoxfishModel extends GeoModel<BoxfishEntity> {
+public class HogfishModel extends GeoModel<HogfishEntity> {
     @Override
-    public ResourceLocation getModelResource(BoxfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "geo/boxfish.geo.json");
+    public ResourceLocation getModelResource(HogfishEntity animatable) {
+        return new ResourceLocation(RainbowReef.MOD_ID, "geo/hogfish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(BoxfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/yellowboxfish.png");
+    public ResourceLocation getTextureResource(HogfishEntity animatable) {
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/cuban.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(BoxfishEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "animations/boxfish.animation.json");
+    public ResourceLocation getAnimationResource(HogfishEntity animatable) {
+        return new ResourceLocation(RainbowReef.MOD_ID, "animations/hogfish.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(BoxfishEntity entity, long uniqueID, AnimationState<BoxfishEntity> customPredicate) {
+    public void setCustomAnimations(HogfishEntity entity, long uniqueID, AnimationState<HogfishEntity> customPredicate) {
         super.setCustomAnimations(entity, uniqueID, customPredicate);
 
         CoreGeoBone core = this.getAnimationProcessor().getBone("root");

@@ -1,33 +1,33 @@
-package net.thevaliantsquidward.rainbowreef.client.models;
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.entity.GobyEntity;
+import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.model.data.EntityModelData;
 
-public class GobyModel extends GeoModel<GobyEntity> {
+public class BoxfishModel extends GeoModel<BoxfishEntity> {
     @Override
-    public ResourceLocation getModelResource(GobyEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "geo/goby.geo.json");
+    public ResourceLocation getModelResource(BoxfishEntity animatable) {
+        return new ResourceLocation(RainbowReef.MOD_ID, "geo/boxfish.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(GobyEntity animatable) {
-       return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/firegoby.png");
+    public ResourceLocation getTextureResource(BoxfishEntity animatable) {
+        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/yellowboxfish.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(GobyEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "animations/goby.animation.json");
+    public ResourceLocation getAnimationResource(BoxfishEntity animatable) {
+        return new ResourceLocation(RainbowReef.MOD_ID, "animations/boxfish.animation.json");
     }
 
     @Override
-    public void setCustomAnimations(GobyEntity entity, long uniqueID, AnimationState<GobyEntity> customPredicate) {
+    public void setCustomAnimations(BoxfishEntity entity, long uniqueID, AnimationState<BoxfishEntity> customPredicate) {
         super.setCustomAnimations(entity, uniqueID, customPredicate);
 
         CoreGeoBone core = this.getAnimationProcessor().getBone("root");

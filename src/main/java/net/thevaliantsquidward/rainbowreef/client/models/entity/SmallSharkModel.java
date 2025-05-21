@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.client.models;
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;

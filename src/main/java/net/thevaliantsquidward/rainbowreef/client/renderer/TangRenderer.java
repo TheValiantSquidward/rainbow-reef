@@ -1,14 +1,18 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.TangModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.TangModel;
 import net.thevaliantsquidward.rainbowreef.entity.TangEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class TangRenderer extends GeoEntityRenderer<TangEntity> {
+@OnlyIn(Dist.CLIENT)
+public class TangRenderer extends MobRenderer<TangEntity, TangModel<TangEntity>> {
+
     private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blue.png");
     private static final ResourceLocation TEXTURE_POWDERBLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/powderblue.png");
     private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/yellow.png");
@@ -42,15 +46,9 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
     private static final ResourceLocation TEXTURE_WHITETAILBRISTLETOOTH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/whitetailbristletooth.png");
     private static final ResourceLocation TEXTURE_ZEBRA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/zebra.png");
 
-
-
-    public TangRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new TangModel());
+    public TangRenderer(EntityRendererProvider.Context context) {
+        super(context, new TangModel<>(context.bakeLayer(ReefModelLayers.TANG_LAYER)), 0.3F);
     }
-
-    protected void scale(TangEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    }
-
 
     public ResourceLocation getTextureLocation(TangEntity entity) {
         return switch (entity.getVariant()) {
@@ -85,7 +83,6 @@ public class TangRenderer extends GeoEntityRenderer<TangEntity> {
             case 29 -> TEXTURE_BLONDELIPSTICK;
             case 30 -> TEXTURE_WHITETAILBRISTLETOOTH;
             case 31 -> TEXTURE_ZEBRA;
-
             default -> TEXTURE_BLUE;
         };
     }

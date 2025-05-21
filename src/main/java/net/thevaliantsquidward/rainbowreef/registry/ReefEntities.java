@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity;
+package net.thevaliantsquidward.rainbowreef.registry;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -8,8 +8,9 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.entity.*;
 
-public class ModEntities {
+public class ReefEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, RainbowReef.MOD_ID);
 

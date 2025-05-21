@@ -369,7 +369,7 @@ java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent
 [04Mar2025 18:53:11.106] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
 [04Mar2025 18:53:11.108] [modloading-worker-0/DEBUG] [io.netty.util.internal.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
 [04Mar2025 18:53:11.108] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.noPreferDirect: false
-[04Mar2025 18:53:11.112] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.thevaliantsquidward.rainbowreef.events.ClientEvents to MOD
+[04Mar2025 18:53:11.112] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.thevaliantsquidward.rainbowreef.events.CommonEvents to MOD
 [04Mar2025 18:53:11.120] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.thevaliantsquidward.rainbowreef.events.ModEvents to FORGE
 [04Mar2025 18:53:11.126] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing net.thevaliantsquidward.rainbowreef.RainbowReef$ClientModEvents to MOD
 [04Mar2025 18:53:11.148] [modloading-worker-0/DEBUG] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Loading Network data for FML net version: FML3

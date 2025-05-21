@@ -31,6 +31,7 @@ import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepyLookaroundGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepySwimGoal;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -224,7 +225,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
 
                 if (schoolcount > 0 && !this.level().isClientSide()) {
                     for (int i = 0; i < schoolcount; i++) {
-                        ParrotfishEntity urine = new ParrotfishEntity(ModEntities.PARROTFISH.get(), this.level());
+                        ParrotfishEntity urine = new ParrotfishEntity(ReefEntities.PARROTFISH.get(), this.level());
                         urine.setVariant(this.getVariant());
                         urine.moveTo(this.getX(), this.getY(), this.getZ());
                         urine.startFollowing(this);

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.SmallSharkModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.SmallSharkModel;
 import net.thevaliantsquidward.rainbowreef.entity.SmallSharkEntity;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 

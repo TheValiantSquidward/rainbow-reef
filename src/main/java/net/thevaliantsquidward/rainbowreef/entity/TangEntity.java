@@ -32,25 +32,19 @@ import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
-
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class TangEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.INT);
+
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public TangEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -83,7 +77,25 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
         } else {
             super.travel(pTravelVector);
         }
+    }
 
+    public void tick() {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+        }
+        super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     public static String getVariantName(int variant) {
@@ -94,32 +106,31 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
             case 4 -> "convict";
             case 5 -> "clown";
             case 6 -> "achilles";
-            case 7 -> "purple"; //r
-            case 8 -> "black"; //r
-            case 9 -> "regalblue"; //r
-            case 10 -> "gem"; //r
-            case 11 -> "penguin"; //a
-            case 12 -> "greenspot"; //a
-            case 13 -> "rusty"; //a
-            case 14 -> "pearly"; //a
-            case 15 -> "yellowbellyblue"; //a
-            case 16 -> "muddy"; //a
+            case 7 -> "purple";
+            case 8 -> "black";
+            case 9 -> "regalblue";
+            case 10 -> "gem";
+            case 11 -> "penguin";
+            case 12 -> "greenspot";
+            case 13 -> "rusty";
+            case 14 -> "pearly";
+            case 15 -> "yellowbellyblue";
+            case 16 -> "muddy";
             case 17 -> "chocolate";
             case 18 -> "sailfin";
             case 19 -> "atlanticblue";
             case 20 -> "eyestripe";
-            case 21 -> "whitecheek"; //r
+            case 21 -> "whitecheek";
             case 22 -> "scopas";
-            case 23 -> "goth"; //a
-            case 24 -> "powderhybrid"; //a
-            case 25 -> "pastelblue"; //a
-            case 26 -> "yellowstrike"; //a
+            case 23 -> "goth";
+            case 24 -> "powderhybrid";
+            case 25 -> "pastelblue";
+            case 26 -> "yellowstrike";
             case 27 -> "blacksurgeon";
             case 28 -> "orangeband";
             case 29 -> "blondelipstick";
-            case 30 -> "whitetailbristletooth"; //r
-            case 31 -> "zebra"; //r
-
+            case 30 -> "whitetailbristletooth";
+            case 31 -> "zebra";
             default -> "bluehippo";
         };
     }
@@ -233,11 +244,10 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
                 if (variantChange <= 0.98F) {
                     this.setVariant(29);
 
-                    } else {
-                        this.setVariant(0);
+                } else {
+                    this.setVariant(0);
             }
         }
-
 
         if (this.getRandom().nextFloat() >= 0.90) {
             if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
@@ -248,31 +258,17 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
 
                 if (schoolcount > 0 && !this.level().isClientSide()) {
                     for (int i = 0; i < schoolcount; i++) {
-                        TangEntity urine = new TangEntity(ModEntities.TANG.get(), this.level());
+                        TangEntity urine = new TangEntity(ReefEntities.TANG.get(), this.level());
                         urine.setVariant(this.getVariant());
                         urine.moveTo(this.getX(), this.getY(), this.getZ());
                         urine.startFollowing(this);
                         this.level().addFreshEntity(urine);
                     }
                 }
-
             }
         }
 
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    public void tick() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
-        }
-
-        super.tick();
     }
 
     @Override
@@ -358,10 +354,6 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-
-
-
-
     public MobType getMobType() {
         return MobType.WATER;
     }
@@ -383,6 +375,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
     public static <T extends Mob> boolean canSpawn(EntityType<TangEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
+
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
@@ -395,25 +388,7 @@ public class TangEntity extends VariantSchoolingFish implements GeoEntity, Bucke
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
-
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
-
 }

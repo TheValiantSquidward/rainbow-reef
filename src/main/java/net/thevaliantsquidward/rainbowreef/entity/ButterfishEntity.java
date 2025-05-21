@@ -34,6 +34,7 @@ import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -262,7 +263,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
 
                 if (schoolcount > 0 && !this.level().isClientSide()) {
                     for (int i = 0; i < schoolcount; i++) {
-                        TangEntity urine = new TangEntity(ModEntities.BUTTERFISH.get(), this.level());
+                        TangEntity urine = new TangEntity(ReefEntities.BUTTERFISH.get(), this.level());
                         urine.setVariant(this.getVariant());
                         urine.moveTo(this.getX(), this.getY(), this.getZ());
                         urine.startFollowing(this);

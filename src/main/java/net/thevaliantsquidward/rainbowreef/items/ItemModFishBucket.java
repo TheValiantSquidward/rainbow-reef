@@ -15,6 +15,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.entity.*;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -28,7 +29,7 @@ public class ItemModFishBucket extends MobBucketItem {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
         EntityType fishType = getFishType();
-        if (fishType == ModEntities.GOBY.get()) {
+        if (fishType == ReefEntities.GOBY.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -37,7 +38,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.JELLYFISH.get()) {
+        if (fishType == ReefEntities.JELLYFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -46,7 +47,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.CRAB.get()) {
+        if (fishType == ReefEntities.CRAB.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -55,7 +56,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.ARROW_CRAB.get()) {
+        if (fishType == ReefEntities.ARROW_CRAB.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -64,7 +65,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.RAY.get()) {
+        if (fishType == ReefEntities.RAY.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -73,7 +74,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.ANGELFISH.get()) {
+        if (fishType == ReefEntities.ANGELFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -82,7 +83,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.MOORISH_IDOL.get()) {
+        if (fishType == ReefEntities.MOORISH_IDOL.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -91,7 +92,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.TANG.get()) {
+        if (fishType == ReefEntities.TANG.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -99,7 +100,7 @@ public class ItemModFishBucket extends MobBucketItem {
                 tooltip.add((Component.translatable(s)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
             }
         }
-        if (fishType == ModEntities.CLOWNFISH.get()) {
+        if (fishType == ReefEntities.CLOWNFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -108,7 +109,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.BOXFISH.get()) {
+        if (fishType == ReefEntities.BOXFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -116,7 +117,7 @@ public class ItemModFishBucket extends MobBucketItem {
                 tooltip.add((Component.translatable(s)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
             }
         }
-        if (fishType == ModEntities.SMALL_SHARK.get()) {
+        if (fishType == ReefEntities.SMALL_SHARK.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -125,7 +126,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.SEAHORSE.get()) {
+        if (fishType == ReefEntities.SEAHORSE.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -134,7 +135,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.PIPEFISH.get()) {
+        if (fishType == ReefEntities.PIPEFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -143,7 +144,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.DWARFANGEL.get()) {
+        if (fishType == ReefEntities.DWARFANGEL.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -152,7 +153,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.BUTTERFISH.get()) {
+        if (fishType == ReefEntities.BUTTERFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -161,7 +162,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.PARROTFISH.get()) {
+        if (fishType == ReefEntities.PARROTFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -170,7 +171,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.HOGFISH.get()) {
+        if (fishType == ReefEntities.HOGFISH.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");
@@ -179,7 +180,7 @@ public class ItemModFishBucket extends MobBucketItem {
             }
         }
 
-        if (fishType == ModEntities.BASSLET.get()) {
+        if (fishType == ReefEntities.BASSLET.get()) {
             CompoundTag compoundnbt = stack.getTag();
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int i = compoundnbt.getInt("BucketVariantTag");

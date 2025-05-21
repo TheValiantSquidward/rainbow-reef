@@ -2,13 +2,18 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.AngelfishModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.AngelfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.AngelfishEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class AngelfishRenderer extends GeoEntityRenderer<AngelfishEntity> {
+@OnlyIn(Dist.CLIENT)
+public class AngelfishRenderer extends MobRenderer<AngelfishEntity, AngelfishModel<AngelfishEntity>> {
+
     private static final ResourceLocation EMPEROR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/emperorangel.png");
     private static final ResourceLocation FRENCH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/frenchangel.png");
     private static final ResourceLocation QUEEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/queenangel.png");
@@ -26,14 +31,9 @@ public class AngelfishRenderer extends GeoEntityRenderer<AngelfishEntity> {
     private static final ResourceLocation QUEENSLANDYELLOWTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/queenslandyellowtail.png");
     private static final ResourceLocation CLARION = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/clarion.png");
 
-
-    public AngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new AngelfishModel());
+    public AngelfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new AngelfishModel<>(context.bakeLayer(ReefModelLayers.ANGELFISH_LAYER)), 0.3F);
     }
-
-    protected void scale(AngelfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    }
-
 
     public ResourceLocation getTextureLocation(AngelfishEntity entity) {
         return switch (entity.getVariant()) {
@@ -52,7 +52,6 @@ public class AngelfishRenderer extends GeoEntityRenderer<AngelfishEntity> {
             case 13 -> GUINEAN;
             case 14 -> QUEENSLANDYELLOWTAIL;
             case 15 -> CLARION;
-
             default -> QUEEN;
         };
     }
