@@ -39,33 +39,21 @@ public class RainbowReef
         return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
     }
 
-    public RainbowReef()
-    {
+    public RainbowReef() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modEventBus.addListener(this::commonSetup);
-
         ModCreativeModeTabs.register(modEventBus);
-
-        ModEntities.register(modEventBus);
-
-        ModItems.register(modEventBus);
-
-        ModSounds.register(modEventBus);
-
-        ModLootModifiers.register(modEventBus);
-
-        ModFeatures.FEATURES.register(modEventBus);
-
-
-
-        RRPOI.DEF_REG.register(modEventBus);
-
-        ModBlocks.BLOCKS.register(modEventBus);
-
         MinecraftForge.EVENT_BUS.register(this);
 
+        ModEntities.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModSounds.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
+        RRPOI.DEF_REG.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
