@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.thevaliantsquidward.rainbowreef.block.ModBlocks;
+import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import java.util.Optional;
@@ -36,7 +36,7 @@ public class FloorNemFeature extends Feature<NoneFeatureConfiguration> {
         } else {
             Direction[] directions = Direction.values();
             int listlength = directions.length;
-            BlockState block = nem.map(Block::defaultBlockState).orElseGet(ModBlocks.ORANGE_SEA_ANEMONE.get()::defaultBlockState).setValue(BlockStateProperties.FACING, Direction.UP);
+            BlockState block = nem.map(Block::defaultBlockState).orElseGet(ReefBlocks.ORANGE_SEA_ANEMONE.get()::defaultBlockState).setValue(BlockStateProperties.FACING, Direction.UP);
 
             for(int var6 = 0; var6 < listlength; ++var6) {
                 Direction direction = directions[var6];

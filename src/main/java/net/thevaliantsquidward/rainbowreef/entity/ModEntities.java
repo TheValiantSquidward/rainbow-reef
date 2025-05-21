@@ -8,7 +8,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.entity.custom.*;
 
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
