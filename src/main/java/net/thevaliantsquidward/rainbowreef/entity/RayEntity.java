@@ -14,6 +14,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -36,18 +37,11 @@ import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
+public class RayEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
 
     //START of necessary IK shit
     public Vec3 rightRefPoint;
@@ -62,7 +56,6 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     public Vec3 downRefPoint;
     public Vec3 downRefOffset = new Vec3(0, 1, 0);
 
-
     public Vec3 nosePoint;
     public Vec3 tail0Point;
     public Vec3 tail1Point;
@@ -71,8 +64,6 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     public Vec3 tail4Point;
     public Vec3 tail5Point;
     public Vec3 tail6Point;
-
-
 
     //Offset to the points relative to their parent point
     public Vec3 noseOffset = new Vec3(0.0, 0.0, -0.47);
@@ -116,16 +107,15 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
     public double tail6Pitch;
 
     //END of necessary IK shit
-
-
     public int animTime;
     public double animSpeed = 1;
 
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(RayEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(RayEntity.class, EntityDataSerializers.INT);
+
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -335,7 +325,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             //END of IK
 
 
-            if(this.level().isClientSide()) {
+            if (this.level().isClientSide()) {
                 if (this.animTime == (int)(8 * 20 / (this.animSpeed))) {
                     this.animTime = 0;
                     this.animSpeed = 0.5 + (1 * Math.random());
@@ -347,7 +337,17 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
             }
         }
 
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+
         super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isAlive() && this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -373,7 +373,6 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 2));
     }
 
-
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
@@ -390,29 +389,7 @@ public class RayEntity extends VariantSchoolingFish implements GeoEntity, Bucket
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        if(this.isUnderWater()) {
-            geoAnimatableAnimationState.getController().setAnimationSpeed(1);
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        } else {
-            geoAnimatableAnimationState.getController().setAnimationSpeed(1);
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("stranded", Animation.LoopType.LOOP));
-        }
-
-        return PlayState.CONTINUE;
-    }
     public static <T extends Mob> boolean canSpawn(EntityType<RayEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
-
 }

@@ -94,8 +94,8 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 
 		if (entity.isInWaterOrBubble()){
 			if (entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-7D) {
-				this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD));
-				this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD));
+				this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+				this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
 				this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
 				this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
 			}

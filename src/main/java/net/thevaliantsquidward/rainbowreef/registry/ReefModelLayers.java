@@ -13,6 +13,7 @@ public class ReefModelLayers {
     public static final ModelLayerLocation CRAB_LAYER = main("crab");
     public static final ModelLayerLocation PARROTFISH_LAYER = main("parrotfish");
     public static final ModelLayerLocation PIPEFISH_LAYER = main("pipefish");
+    public static final ModelLayerLocation RAY_LAYER = main("ray");
     public static final ModelLayerLocation SEAHORSE_LAYER = main("seahorse");
     public static final ModelLayerLocation SMALL_SHARK_LAYER = main("small_shark");
     public static final ModelLayerLocation TANG_LAYER = main("tang");

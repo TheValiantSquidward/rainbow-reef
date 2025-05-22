@@ -59,7 +59,6 @@ public class RainbowReef {
             EntityRenderers.register(ReefEntities.DWARFANGEL.get(), DwarfAngelfishRenderer:: new);
             EntityRenderers.register(ReefEntities.HOGFISH.get(), HogfishRenderer:: new);
             EntityRenderers.register(ReefEntities.BASSLET.get(), BassletRenderer:: new);
-            EntityRenderers.register(ReefEntities.RAY.get(), RayRenderer:: new);
             EntityRenderers.register(ReefEntities.MOORISH_IDOL.get(), MoorishIdolRenderer:: new);
             EntityRenderers.register(ReefEntities.ARROW_CRAB.get(), ArrowCrabRenderer:: new);
             EntityRenderers.register(ReefEntities.JELLYFISH.get(), JellyfishRenderer:: new);

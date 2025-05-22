@@ -28,6 +28,7 @@ public class ClientEvents {
         event.registerEntityRenderer(ReefEntities.CRAB.get(), CrabRenderer::new);
         event.registerEntityRenderer(ReefEntities.PARROTFISH.get(), ParrotfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.PIPEFISH.get(), PipefishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.RAY.get(), EagleRayRenderer::new);
         event.registerEntityRenderer(ReefEntities.SEAHORSE.get(), SeahorseRenderer::new);
         event.registerEntityRenderer(ReefEntities.SMALL_SHARK.get(), SmallSharkRenderer::new);
         event.registerEntityRenderer(ReefEntities.TANG.get(), TangRenderer::new);
@@ -39,6 +40,7 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.CRAB_LAYER, CrabModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.PARROTFISH_LAYER, ParrotfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.PIPEFISH_LAYER, PipefishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.RAY_LAYER, EagleRayModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.SEAHORSE_LAYER, SeahorseModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.SMALL_SHARK_LAYER, SmallSharkModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.TANG_LAYER, TangModel::createBodyLayer);
