@@ -1,15 +1,16 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ParrotfishModel;
 import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyLayer;
 import net.thevaliantsquidward.rainbowreef.entity.ParrotfishEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
+public class ParrotfishRenderer extends MobRenderer<ParrotfishEntity, ParrotfishModel<ParrotfishEntity>> {
+
     private static final ResourceLocation BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/blue.png");
     private static final ResourceLocation HUMPHEAD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/humphead.png");
     private static final ResourceLocation RAINBOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/rainbow.png");
@@ -23,14 +24,10 @@ public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
     private static final ResourceLocation YELLOWBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/yellowband.png");
     private static final ResourceLocation OBISHIME = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/obishime.png");
 
-    public ParrotfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new ParrotfishModel());
-        this.addRenderLayer(new ParrotfishEepyLayer(this));
+    public ParrotfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new ParrotfishModel<>(context.bakeLayer(ReefModelLayers.PARROTFISH_LAYER)), 0.4F);
+        this.addLayer(new ParrotfishEepyLayer(this));
     }
-
-    protected void scale(ParrotfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    }
-
 
     public ResourceLocation getTextureLocation(ParrotfishEntity entity) {
         return switch (entity.getVariant()) {
@@ -45,7 +42,6 @@ public class ParrotfishRenderer extends GeoEntityRenderer<ParrotfishEntity> {
             case 9 -> RED;
             case 10 -> YELLOWBAND;
             case 11 -> OBISHIME;
-
             default -> BLUE;
         };
     }

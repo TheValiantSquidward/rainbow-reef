@@ -10,6 +10,10 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 public class ReefModelLayers {
 
     public static final ModelLayerLocation ANGELFISH_LAYER = main("angelfish");
+    public static final ModelLayerLocation CRAB_LAYER = main("crab");
+    public static final ModelLayerLocation PARROTFISH_LAYER = main("parrotfish");
+    public static final ModelLayerLocation PIPEFISH_LAYER = main("pipefish");
+    public static final ModelLayerLocation SEAHORSE_LAYER = main("seahorse");
     public static final ModelLayerLocation TANG_LAYER = main("tang");
 
     private static ModelLayerLocation register(String id, String name) {

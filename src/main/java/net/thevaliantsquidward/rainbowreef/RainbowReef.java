@@ -4,8 +4,6 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -44,19 +42,10 @@ public class RainbowReef {
         RRPOI.DEF_REG.register(modEventBus);
         ReefBlocks.BLOCKS.register(modEventBus);
 
-        modEventBus.addListener(this::addCreative);
         modEventBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-    }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
     }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -68,13 +57,9 @@ public class RainbowReef {
             EntityRenderers.register(ReefEntities.SMALL_SHARK.get(), SmallSharkRenderer:: new);
             EntityRenderers.register(ReefEntities.CLOWNFISH.get(), ClownfishRenderer:: new);
             EntityRenderers.register(ReefEntities.BUTTERFISH.get(), ButterfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.SEAHORSE.get(), SeahorseRenderer:: new);
             EntityRenderers.register(ReefEntities.DWARFANGEL.get(), DwarfAngelfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.PARROTFISH.get(), ParrotfishRenderer:: new);
             EntityRenderers.register(ReefEntities.HOGFISH.get(), HogfishRenderer:: new);
             EntityRenderers.register(ReefEntities.BASSLET.get(), BassletRenderer:: new);
-            EntityRenderers.register(ReefEntities.PIPEFISH.get(), PipefishRenderer:: new);
-            EntityRenderers.register(ReefEntities.CRAB.get(), CrabRenderer:: new);
             EntityRenderers.register(ReefEntities.RAY.get(), RayRenderer:: new);
             EntityRenderers.register(ReefEntities.MOORISH_IDOL.get(), MoorishIdolRenderer:: new);
             EntityRenderers.register(ReefEntities.ARROW_CRAB.get(), ArrowCrabRenderer:: new);

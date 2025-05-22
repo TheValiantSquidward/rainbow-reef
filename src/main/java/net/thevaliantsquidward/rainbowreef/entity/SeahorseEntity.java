@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,26 +30,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable {
-
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class SeahorseEntity extends WaterAnimal implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.INT);
+
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -66,6 +59,7 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
             default -> "kelpy";
         };
     }
+
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -73,6 +67,19 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
+
+    public void tick() {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    }
+
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -155,23 +162,23 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.10F){
+        if (variantChange <= 0.10F){
             this.setVariant(9);
-        }else if(variantChange <= 0.20F){
+        }else if (variantChange <= 0.20F){
             this.setVariant(8);
-        }else if(variantChange <= 0.30F){
+        }else if (variantChange <= 0.30F){
             this.setVariant(7);
-        }else if(variantChange <= 0.40F){
+        }else if (variantChange <= 0.40F){
             this.setVariant(6);
-        }else if(variantChange <= 0.50F){
+        }else if (variantChange <= 0.50F){
             this.setVariant(5);
-        }else if(variantChange <= 0.60F){
+        }else if (variantChange <= 0.60F){
             this.setVariant(4);
-        }else if(variantChange <= 0.70F){
+        }else if (variantChange <= 0.70F){
             this.setVariant(3);
-        }else if(variantChange <= 0.80F){
+        }else if (variantChange <= 0.80F){
             this.setVariant(2);
-        }else if(variantChange <= 0.90F){
+        }else if (variantChange <= 0.90F){
             this.setVariant(1);
         }else{
             this.setVariant(0);
@@ -201,18 +208,17 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1D, 50, 10, 10, 2));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -230,20 +236,6 @@ public class SeahorseEntity extends WaterAnimal implements GeoEntity, Bucketable
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
+    protected void playStepSound(BlockPos pos, BlockState state) {
     }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
-
 }

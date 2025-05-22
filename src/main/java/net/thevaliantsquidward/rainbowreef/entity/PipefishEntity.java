@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,24 +30,17 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable {
-
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class PipefishEntity extends WaterAnimal implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PipefishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PipefishEntity.class, EntityDataSerializers.INT);
+
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -68,22 +60,24 @@ public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
+
     public void tick() {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
         }
-
         super.tick();
     }
 
-    public void aiStep() {
-
-        super.aiStep();
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -199,16 +193,14 @@ public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable
         return this.isInWater();
     }
 
-
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
     }
 
-
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .add(Attributes.MOVEMENT_SPEED, 0.45D)
                 .build();
     }
 
@@ -217,7 +209,6 @@ public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1D, 50, 5, 10, 2));
     }
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -234,21 +225,4 @@ public class PipefishEntity extends WaterAnimal implements GeoEntity, Bucketable
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
-
 }

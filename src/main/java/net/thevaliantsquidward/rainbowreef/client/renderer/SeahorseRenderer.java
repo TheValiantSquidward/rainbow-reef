@@ -1,14 +1,20 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.SeahorseModel;
 import net.thevaliantsquidward.rainbowreef.entity.SeahorseEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class SeahorseRenderer extends GeoEntityRenderer<SeahorseEntity> {
+@OnlyIn(Dist.CLIENT)
+public class SeahorseRenderer extends MobRenderer<SeahorseEntity, SeahorseModel<SeahorseEntity>> {
+
     private static final ResourceLocation KELPY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/kelpy.png");
     private static final ResourceLocation COBALT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/cobalt.png");
     private static final ResourceLocation GOLD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/gold.png");
@@ -20,16 +26,11 @@ public class SeahorseRenderer extends GeoEntityRenderer<SeahorseEntity> {
     private static final ResourceLocation CHERT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/chert.png");
     private static final ResourceLocation ONYX = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/onyx.png");
 
-
-
-    public SeahorseRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new SeahorseModel());
+    public SeahorseRenderer(EntityRendererProvider.Context context) {
+        super(context, new SeahorseModel<>(context.bakeLayer(ReefModelLayers.SEAHORSE_LAYER)), 0.3F);
     }
 
-    protected void scale(SeahorseEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    }
-
-
+    @Override
     public ResourceLocation getTextureLocation(SeahorseEntity entity) {
         return switch (entity.getVariant()) {
             case 1 -> COBALT;

@@ -7,10 +7,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.AngelfishModel;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.TangModel;
-import net.thevaliantsquidward.rainbowreef.client.renderer.AngelfishRenderer;
-import net.thevaliantsquidward.rainbowreef.client.renderer.TangRenderer;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.*;
+import net.thevaliantsquidward.rainbowreef.client.renderer.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItemProperties;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
@@ -27,12 +25,20 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ReefEntities.ANGELFISH.get(), AngelfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.CRAB.get(), CrabRenderer::new);
+        event.registerEntityRenderer(ReefEntities.PARROTFISH.get(), ParrotfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.PIPEFISH.get(), PipefishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.SEAHORSE.get(), SeahorseRenderer::new);
         event.registerEntityRenderer(ReefEntities.TANG.get(), TangRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ReefModelLayers.ANGELFISH_LAYER, AngelfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.CRAB_LAYER, CrabModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.PARROTFISH_LAYER, ParrotfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.PIPEFISH_LAYER, PipefishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.SEAHORSE_LAYER, SeahorseModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.TANG_LAYER, TangModel::createBodyLayer);
     }
 }

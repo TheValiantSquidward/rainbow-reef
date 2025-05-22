@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -33,39 +32,32 @@ import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepyLookaroun
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepySwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
-
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ParrotfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ParrotfishEntity.class, EntityDataSerializers.INT);
 
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
+    public final AnimationState eepyAnimationState = new AnimationState();
+
     public static String getVariantName(int variant) {
         return switch (variant) {
             case 1 -> "humphead";
-            case 2 -> "rainbow"; //r
+            case 2 -> "rainbow";
             case 3 -> "midnight";
             case 4 -> "stoplight";
             case 5 -> "mediterranean";
             case 6 -> "princess";
             case 7 -> "yellowtail";
-            case 8 -> "bluebumphead"; //r
-            case 9 -> "red"; //r
+            case 8 -> "bluebumphead";
+            case 9 -> "red";
             case 10 -> "yellowband";
-            case 11 -> "obishime"; //r
-
+            case 11 -> "obishime";
             default -> "blue";
         };
     }
@@ -84,16 +76,29 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
     }
 
     public void tick() {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
         }
-
         super.tick();
+    }
+
+    private void setupAnimationStates() {
+        long roundedTime = this.level().getDayTime() % 24000;
+        boolean night = roundedTime >= 13000 && roundedTime <= 22000;
+
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.eepyAnimationState.animateWhen(this.isInWaterOrBubble() && night, this.tickCount);
+        if (night) {
+            this.swimAnimationState.stop();
+        }
     }
 
     @Override
@@ -272,7 +277,6 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 0.8, 1));
     }
 
-
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
@@ -285,27 +289,11 @@ public class ParrotfishEntity extends VariantSchoolingFish implements GeoEntity,
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
-
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
     public static <T extends Mob> boolean canSpawn(EntityType<ParrotfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
-
 }

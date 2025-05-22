@@ -1,14 +1,15 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.CrabModel;
 import net.thevaliantsquidward.rainbowreef.entity.CrabEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class CrabRenderer extends GeoEntityRenderer<CrabEntity> {
+public class CrabRenderer extends MobRenderer<CrabEntity, CrabModel<CrabEntity>> {
+
     private static final ResourceLocation VAMPIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/vampire.png");
     private static final ResourceLocation HALLOWEEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/halloween.png");
     private static final ResourceLocation GHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/ghost.png");
@@ -19,14 +20,9 @@ public class CrabRenderer extends GeoEntityRenderer<CrabEntity> {
     private static final ResourceLocation CANDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/candycrab.png");
     private static final ResourceLocation REDGHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/redghost.png");
 
-
-    public CrabRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new CrabModel());
+    public CrabRenderer(EntityRendererProvider.Context context) {
+        super(context, new CrabModel<>(context.bakeLayer(ReefModelLayers.CRAB_LAYER)), 0.3F);
     }
-
-    protected void scale(CrabEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    }
-
 
     public ResourceLocation getTextureLocation(CrabEntity entity) {
         return switch (entity.getVariant()) {
