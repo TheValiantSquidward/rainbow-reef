@@ -66,27 +66,27 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 
 	@Override
 	public void setupAnim(SmallSharkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-//		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
-//		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
+		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
+		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
-		// todo: update to work without geckolib
-//		if (entity.isInWaterOrBubble()) {
-//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
-//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
-//			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
-//			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
-//
-//			core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-//			this.tail.xRot = ((float) (this.tail.xRot - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
-//			this.tail_fin.xRot = ((float) (this.tail_fin.xRot - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
-//			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
-//			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
-//		}
+		if (entity.isInWaterOrBubble()) {
+			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
+			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
+			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
+			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
+
+			core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+			this.tail.xRot = ((float) (this.tail.xRot - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
+			this.tail_fin.xRot = ((float) (this.tail_fin.xRot - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
+			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
+			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
+		}
 	}
 
 	public List<ModelPart> getAllParts() {
-		return ImmutableList.of(this.root, this.core, this.body, this.top_fin, this.l_fin, this.r_fin, this.tail, this.tail_l_fin, this.tail_fin);
+		return ImmutableList.of(this.root, this.core, this.body, this.top_fin, this.l_fin, this.r_fin, this.tail, this.tail_l_fin, this.tail_r_fin, this.tail_fin);
 	}
 
 	@Override

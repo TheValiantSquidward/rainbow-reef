@@ -81,32 +81,32 @@ public class SmallSharkEntity extends WaterAnimal implements Bucketable {
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
-//        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
-//        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
-//        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
-//        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
-//
-//        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
-//        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
-//        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+
+        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
+        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
+        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
     }
 
     public void tick() {
         super.tick();
-//        tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
-//        tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
-//        tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
-//
-//        tail1Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail0Point, this.position(), this.tail1Point, this.leftRefPoint, this.rightRefPoint);
-//        tail2Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint);
-//
-//        tail1Pitch = MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point);
-//        tail2Pitch = MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point);
-//
-//        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
-//        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
-//        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
-//        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+        tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
+        tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
+        tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
+
+        tail1Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail0Point, this.position(), this.tail1Point, this.leftRefPoint, this.rightRefPoint);
+        tail2Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint);
+
+        tail1Pitch = MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point);
+        tail2Pitch = MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point);
+
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
 
         /*if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();
@@ -273,12 +273,8 @@ public class SmallSharkEntity extends WaterAnimal implements Bucketable {
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 7D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8D)
-                .build();
+        return Animal.createMobAttributes().add(Attributes.MAX_HEALTH, 7D).add(Attributes.MOVEMENT_SPEED, 0.8D).build();
     }
 
     @Override
@@ -298,7 +294,6 @@ public class SmallSharkEntity extends WaterAnimal implements Bucketable {
     protected SoundEvent getHurtSound(DamageSource p_28281_) {
         return SoundEvents.TROPICAL_FISH_HURT;
     }
-
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
