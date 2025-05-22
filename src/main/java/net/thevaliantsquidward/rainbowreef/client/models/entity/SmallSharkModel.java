@@ -26,9 +26,11 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 	private final ModelPart top_fin;
 	private final ModelPart l_fin;
 	private final ModelPart r_fin;
+	private final ModelPart tailRot;
 	private final ModelPart tail;
 	private final ModelPart tail_l_fin;
 	private final ModelPart tail_r_fin;
+	private final ModelPart tailFinRot;
 	private final ModelPart tail_fin;
 
 	public SmallSharkModel(ModelPart root) {
@@ -38,10 +40,12 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 		this.top_fin = this.body.getChild("top_fin");
 		this.l_fin = this.core.getChild("l_fin");
 		this.r_fin = this.core.getChild("r_fin");
-		this.tail = this.core.getChild("tail");
+		this.tailRot = this.core.getChild("tailRot");
+		this.tail = this.tailRot.getChild("tail");
 		this.tail_l_fin = this.tail.getChild("tail_l_fin");
 		this.tail_r_fin = this.tail.getChild("tail_r_fin");
-		this.tail_fin = this.tail.getChild("tail_fin");
+		this.tailFinRot = this.tail.getChild("tailFinRot");
+		this.tail_fin = this.tailFinRot.getChild("tail_fin");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -55,12 +59,14 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 		PartDefinition l_fin_r1 = l_fin.addOrReplaceChild("l_fin_r1", CubeListBuilder.create().texOffs(14, 4).addBox(0.0F, 0.0F, -1.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1309F));
 		PartDefinition r_fin = core.addOrReplaceChild("r_fin", CubeListBuilder.create(), PartPose.offset(-2.0F, 2.0F, -3.0F));
 		PartDefinition r_fin_r1 = r_fin.addOrReplaceChild("r_fin_r1", CubeListBuilder.create().texOffs(14, 4).mirror().addBox(-4.0F, 0.0F, -1.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1309F));
-		PartDefinition tail = core.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 12).addBox(0.0F, -3.0F, 0.0F, 0.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 3.0F));
+		PartDefinition tailRot = core.addOrReplaceChild("tailRot", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 3.0F));
+		PartDefinition tail = tailRot.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 12).addBox(0.0F, -3.0F, 0.0F, 0.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		PartDefinition tail_l_fin = tail.addOrReplaceChild("tail_l_fin", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 1.0F));
 		PartDefinition tail_l_fin_r1 = tail_l_fin.addOrReplaceChild("tail_l_fin_r1", CubeListBuilder.create().texOffs(13, 20).addBox(0.0F, 0.0F, -1.0F, 3.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1309F));
 		PartDefinition tail_r_fin = tail.addOrReplaceChild("tail_r_fin", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 1.0F));
 		PartDefinition tail_r_fin_r1 = tail_r_fin.addOrReplaceChild("tail_r_fin_r1", CubeListBuilder.create().texOffs(13, 20).mirror().addBox(-3.0F, 0.0F, -1.0F, 3.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1309F));
-		PartDefinition tail_fin = tail.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(0, 4).addBox(0.0F, -5.0F, 0.0F, 0.0F, 6.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 8.0F));
+		PartDefinition tailFinRot = tail.addOrReplaceChild("tailFinRot", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 8.0F));
+		PartDefinition tail_fin = tailFinRot.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(0, 4).addBox(0.0F, -5.0F, 0.0F, 0.0F, 6.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 
@@ -68,25 +74,36 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 	public void setupAnim(SmallSharkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
+		core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+
+		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 8.0f);
 		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
-		if (entity.isInWaterOrBubble()) {
-			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
-			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
-			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
-			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
+//		if (entity.isInWaterOrBubble()) {
+//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
+//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
+//			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
+//			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
+//
+//			core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+//			this.tail.xRot = ((float) (this.tail.xRot - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
+//			this.tail_fin.xRot = ((float) (this.tail_fin.xRot - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
+//			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
+//			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
+//		}
 
-			core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-			this.tail.xRot = ((float) (this.tail.xRot - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
-			this.tail_fin.xRot = ((float) (this.tail_fin.xRot - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
-			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
-			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
+		if (entity.isInWaterOrBubble()){
+			if (entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-7D) {
+				this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD));
+				this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD));
+				this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+				this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+			}
 		}
 	}
 
 	public List<ModelPart> getAllParts() {
-		return ImmutableList.of(this.root, this.core, this.body, this.top_fin, this.l_fin, this.r_fin, this.tail, this.tail_l_fin, this.tail_r_fin, this.tail_fin);
+		return ImmutableList.of(this.root, this.core, this.body, this.top_fin, this.l_fin, this.r_fin, this.tailRot, this.tail, this.tail_l_fin, this.tail_r_fin, this.tailFinRot, this.tail_fin);
 	}
 
 	@Override

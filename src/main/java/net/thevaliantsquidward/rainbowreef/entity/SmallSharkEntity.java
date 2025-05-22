@@ -70,6 +70,9 @@ public class SmallSharkEntity extends WaterAnimal implements Bucketable {
     public double currentTail1Pitch = 0;
     public double currentTail2Pitch = 0;
 
+    public float prevTilt;
+    public float tilt;
+
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.INT);
 
@@ -107,6 +110,27 @@ public class SmallSharkEntity extends WaterAnimal implements Bucketable {
         rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
         upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
         downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+
+
+        prevTilt = tilt;
+        if (this.isInWater()) {
+            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+            if (Math.abs(v) > 1) {
+                if (Math.abs(tilt) < 25) {
+                    tilt -= Math.signum(v);
+                }
+            } else {
+                if (Math.abs(tilt) > 0) {
+                    final float tiltSign = Math.signum(tilt);
+                    tilt -= tiltSign * 0.85F;
+                    if (tilt * tiltSign < 0) {
+                        tilt = 0;
+                    }
+                }
+            }
+        } else{
+            tilt = 0;
+        }
 
         /*if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();

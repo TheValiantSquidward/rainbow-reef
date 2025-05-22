@@ -1,8 +1,11 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
@@ -37,5 +40,11 @@ public class SmallSharkRenderer extends MobRenderer<SmallSharkEntity, SmallShark
             case 7 -> TEXTURE_PORTJACKSON;
             default -> TEXTURE_EPAULETTE;
         };
+    }
+
+    @Override
+    protected void setupRotations(SmallSharkEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+        super.setupRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
+        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTick, -animatable.prevTilt, -animatable.tilt)));
     }
 }
