@@ -34,18 +34,11 @@ import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.*;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class SmallSharkEntity extends WaterAnimal implements Bucketable {
 
     public Vec3 rightRefPoint;
     public Vec3 rightRefOffset = new Vec3(1, 0, 0);
@@ -58,8 +51,6 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
 
     public Vec3 downRefPoint;
     public Vec3 downRefOffset = new Vec3(0, 1, 0);
-
-
 
     public Vec3 tail0Point;
     public Vec3 tail1Point;
@@ -74,53 +65,48 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     public double currentTail1Yaw = Mth.PI;
     public double currentTail2Yaw = Mth.PI;
 
-
-
     public double tail1Pitch;
     public double tail2Pitch;
     public double currentTail1Pitch = 0;
     public double currentTail2Pitch = 0;
 
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
-
-
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.INT);
+
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
 
     public SmallSharkEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
-
-        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
-        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
-        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
+//        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+//        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+//        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+//        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
+//
+//        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
+//        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
+//        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
     }
 
     public void tick() {
-        //START of IK
-        //the entity rotations must be negativized because we want the points to be transformed relative to the entity
-        tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
-        tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
-        tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
-        //side refs don't move vertically
-
-        tail1Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail0Point, this.position(), this.tail1Point, this.leftRefPoint, this.rightRefPoint);
-        tail2Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint);
-
-        tail1Pitch = MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point);
-        tail2Pitch = MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point);
-
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
-        //END of IK
+        super.tick();
+//        tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
+//        tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
+//        tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
+//
+//        tail1Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail0Point, this.position(), this.tail1Point, this.leftRefPoint, this.rightRefPoint);
+//        tail2Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint);
+//
+//        tail1Pitch = MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point);
+//        tail2Pitch = MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point);
+//
+//        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
+//        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
+//        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
+//        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
 
         /*if (!this.level().isClientSide()) {
                 ServerLevel llel = (ServerLevel) this.level();
@@ -131,8 +117,14 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
                 //DEBUG STUFF
             }*/
 
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
 
-        super.tick();
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     public void travel(Vec3 pTravelVector) {
@@ -141,9 +133,6 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
         } else if (this.isUnderWater()) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.01, 0.0));
         }
-        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
-        //must be applied independently to each fish
-
         super.travel(pTravelVector);
     }
 
@@ -165,7 +154,6 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
             case 5 -> "albino";
             case 6 -> "piebald";
             case 7 -> "portjackson";
-
             default -> "epaulette";
         };
     }
@@ -295,13 +283,9 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
 
     @Override
     protected void registerGoals() {
-        //this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        //this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
-        //so it's entity, speed, and then frequency
     }
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -319,32 +303,4 @@ public class SmallSharkEntity extends WaterAnimal implements GeoEntity, Bucketab
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 ) {
-            {
-                geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            }
-        } else {
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("iddling", Animation.LoopType.LOOP));
-            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
-        }
-
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
-
 }

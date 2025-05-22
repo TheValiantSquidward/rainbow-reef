@@ -1,60 +1,101 @@
 package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.thevaliantsquidward.rainbowreef.client.animations.SmallSharkAnimations;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.SmallSharkEntity;
-import net.minecraft.resources.ResourceLocation;
-
-import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.model.data.EntityModelData;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
-public class SmallSharkModel extends GeoModel<SmallSharkEntity> {
-    @Override
-    public ResourceLocation getModelResource(SmallSharkEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "geo/small_shark.geo.json");
-    }
+import java.util.List;
 
-    @Override
-    public ResourceLocation getTextureResource(SmallSharkEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/epauletteshark.png");
-    }
+@OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
+public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 
-    @Override
-    public ResourceLocation getAnimationResource(SmallSharkEntity animatable) {
-        return new ResourceLocation(RainbowReef.MOD_ID, "animations/small_shark.animation.json");
-    }
+	private final ModelPart root;
+	private final ModelPart core;
+	private final ModelPart body;
+	private final ModelPart top_fin;
+	private final ModelPart l_fin;
+	private final ModelPart r_fin;
+	private final ModelPart tail;
+	private final ModelPart tail_l_fin;
+	private final ModelPart tail_r_fin;
+	private final ModelPart tail_fin;
 
-    @Override
-    public void setCustomAnimations(SmallSharkEntity entity, long uniqueID, AnimationState<SmallSharkEntity> customPredicate) {
-        super.setCustomAnimations(entity, uniqueID, customPredicate);
+	public SmallSharkModel(ModelPart root) {
+		this.root = root.getChild("root");
+		this.core = this.root.getChild("core");
+		this.body = this.core.getChild("body");
+		this.top_fin = this.body.getChild("top_fin");
+		this.l_fin = this.core.getChild("l_fin");
+		this.r_fin = this.core.getChild("r_fin");
+		this.tail = this.core.getChild("tail");
+		this.tail_l_fin = this.tail.getChild("tail_l_fin");
+		this.tail_r_fin = this.tail.getChild("tail_r_fin");
+		this.tail_fin = this.tail.getChild("tail_fin");
+	}
 
-        CoreGeoBone core = this.getAnimationProcessor().getBone("core");
-        EntityModelData extraData = customPredicate.getData(DataTickets.ENTITY_MODEL_DATA);
+	public static LayerDefinition createBodyLayer() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 22.0F, -4.5F));
+		PartDefinition core = root.addOrReplaceChild("core", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 4.0F));
+		PartDefinition body = core.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -1.0F, 4.0F, 4.0F, 10.0F, new CubeDeformation(0.0F)).texOffs(22, 25).addBox(2.0F, -3.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.001F)).texOffs(22, 25).mirror().addBox(-2.0F, -3.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(0.0F, 0.0F, -6.0F));
+		PartDefinition top_fin = body.addOrReplaceChild("top_fin", CubeListBuilder.create().texOffs(0, 18).addBox(0.0F, -3.0F, -1.0F, 0.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 5.0F));
+		PartDefinition l_fin = core.addOrReplaceChild("l_fin", CubeListBuilder.create(), PartPose.offset(2.0F, 2.0F, -3.0F));
+		PartDefinition l_fin_r1 = l_fin.addOrReplaceChild("l_fin_r1", CubeListBuilder.create().texOffs(14, 4).addBox(0.0F, 0.0F, -1.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1309F));
+		PartDefinition r_fin = core.addOrReplaceChild("r_fin", CubeListBuilder.create(), PartPose.offset(-2.0F, 2.0F, -3.0F));
+		PartDefinition r_fin_r1 = r_fin.addOrReplaceChild("r_fin_r1", CubeListBuilder.create().texOffs(14, 4).mirror().addBox(-4.0F, 0.0F, -1.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1309F));
+		PartDefinition tail = core.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 12).addBox(0.0F, -3.0F, 0.0F, 0.0F, 4.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 3.0F));
+		PartDefinition tail_l_fin = tail.addOrReplaceChild("tail_l_fin", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 1.0F));
+		PartDefinition tail_l_fin_r1 = tail_l_fin.addOrReplaceChild("tail_l_fin_r1", CubeListBuilder.create().texOffs(13, 20).addBox(0.0F, 0.0F, -1.0F, 3.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.1309F));
+		PartDefinition tail_r_fin = tail.addOrReplaceChild("tail_r_fin", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, 1.0F));
+		PartDefinition tail_r_fin_r1 = tail_r_fin.addOrReplaceChild("tail_r_fin_r1", CubeListBuilder.create().texOffs(13, 20).mirror().addBox(-3.0F, 0.0F, -1.0F, 3.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.1309F));
+		PartDefinition tail_fin = tail.addOrReplaceChild("tail_fin", CubeListBuilder.create().texOffs(0, 4).addBox(0.0F, -5.0F, 0.0F, 0.0F, 6.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 8.0F));
+		return LayerDefinition.create(meshdefinition, 32, 32);
+	}
 
-        //ik stuff START
-        if (entity.isInWater()) {
-            CoreGeoBone tail1 = this.getAnimationProcessor().getBone("tail");
-            CoreGeoBone tail2 = this.getAnimationProcessor().getBone("tail_fin");
+	@Override
+	public void setupAnim(SmallSharkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
-            tail1.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
-            tail1.setRotY((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
-            entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
-            entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
-            //No deg to rad because the arccos function used to return the angle
-            //gotta set up UNIQUE NODES FOR EACH BONE
+//		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
+//		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
-            core.setRotX(extraData.headPitch() * (Mth.DEG_TO_RAD));
-            tail1.setRotX((float) (tail1.getRotX() - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
-            tail2.setRotX((float) (tail2.getRotX() - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
-            entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
-            entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
-            //positive RotX is DOWNWARDS, and increasing angle swings it forwards towards the head
-        }
-        //ik stuff END
-    }
+		// todo: update to work without geckolib
+//		if (entity.isInWaterOrBubble()) {
+//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
+//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
+//			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
+//			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
+//
+//			core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+//			this.tail.xRot = ((float) (this.tail.xRot - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
+//			this.tail_fin.xRot = ((float) (this.tail_fin.xRot - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
+//			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
+//			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
+//		}
+	}
 
+	public List<ModelPart> getAllParts() {
+		return ImmutableList.of(this.root, this.core, this.body, this.top_fin, this.l_fin, this.r_fin, this.tail, this.tail_l_fin, this.tail_fin);
+	}
+
+	@Override
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
+
+	@Override
+	public ModelPart root() {
+		return this.root;
+	}
 }

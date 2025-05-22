@@ -1,14 +1,18 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.SmallSharkModel;
 import net.thevaliantsquidward.rainbowreef.entity.SmallSharkEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class SmallSharkRenderer extends GeoEntityRenderer<SmallSharkEntity> {
+@OnlyIn(Dist.CLIENT)
+public class SmallSharkRenderer extends MobRenderer<SmallSharkEntity, SmallSharkModel<SmallSharkEntity>> {
+
     private static final ResourceLocation TEXTURE_EPAULETTE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/epauletteshark.png");
     private static final ResourceLocation TEXTURE_PAJAMA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/pajama.png");
     private static final ResourceLocation TEXTURE_NURSE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/nurse.png");
@@ -18,13 +22,9 @@ public class SmallSharkRenderer extends GeoEntityRenderer<SmallSharkEntity> {
     private static final ResourceLocation TEXTURE_PIEBALD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/piebald_horned.png");
     private static final ResourceLocation TEXTURE_PORTJACKSON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/portjackson.png");
 
-    public SmallSharkRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new SmallSharkModel());
+    public SmallSharkRenderer(EntityRendererProvider.Context context) {
+        super(context, new SmallSharkModel<>(context.bakeLayer(ReefModelLayers.SMALL_SHARK_LAYER)), 0.4F);
     }
-
-    protected void scale(SmallSharkEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
-    }
-
 
     public ResourceLocation getTextureLocation(SmallSharkEntity entity) {
         return switch (entity.getVariant()) {

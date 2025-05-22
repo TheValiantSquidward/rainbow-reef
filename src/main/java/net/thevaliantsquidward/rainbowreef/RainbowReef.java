@@ -54,7 +54,6 @@ public class RainbowReef {
         public static void onClientSetup(FMLClientSetupEvent event) {
             EntityRenderers.register(ReefEntities.GOBY.get(), GobyRenderer:: new);
             EntityRenderers.register(ReefEntities.BOXFISH.get(), BoxfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.SMALL_SHARK.get(), SmallSharkRenderer:: new);
             EntityRenderers.register(ReefEntities.CLOWNFISH.get(), ClownfishRenderer:: new);
             EntityRenderers.register(ReefEntities.BUTTERFISH.get(), ButterfishRenderer:: new);
             EntityRenderers.register(ReefEntities.DWARFANGEL.get(), DwarfAngelfishRenderer:: new);
