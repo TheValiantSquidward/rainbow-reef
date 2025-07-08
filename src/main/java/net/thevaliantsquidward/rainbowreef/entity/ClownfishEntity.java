@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
@@ -22,8 +21,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -31,10 +28,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster;
+import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.LocateNemGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.MoveToNemGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.NemHoster;
+import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.RestInNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRPOI;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -45,11 +44,6 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable, VariantEntity {
 
@@ -62,7 +56,8 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
     int nemSearchCooldown;
 
     public ClownfishEntity(EntityType<? extends NemHoster> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, 200, 4, 600, 200);
+
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 60, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
@@ -293,47 +288,11 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
             }
         }
 
-        List<BlockPos> list = this.findNems();
-
-        BlockPos target = new BlockPos(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
-
-        if (!list.isEmpty()) {
-            Iterator var2 = list.iterator();
-
-            while(var2.hasNext()) {
-                BlockPos blockpos = (BlockPos)var2.next();
-
-
-                if (this.distanceToSqr(target.getX(), target.getY(), target.getZ()) < this.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) ) {
-                    target = blockpos;
-                }
-            }
-
-            this.setNemPos(target);
-            this.setHasNem(true);
-
-        } else {
-            this.setNemPos(null);
-            this.setHasNem(false);
-
-        }
+        findAndSetNems();
 
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-
-    private List<BlockPos> findNems() {
-        BlockPos blockpos = this.blockPosition();
-        PoiManager poimanager = ((ServerLevel)this.level()).getPoiManager();
-
-        Stream<PoiRecord> stream = poimanager.getInRange((p_218130_) -> {
-            return p_218130_.is(RRPOI.GREEN_NEM.getKey()) || p_218130_.is(RRPOI.ORANGE_NEM.getKey()) || p_218130_.is(RRPOI.YELLOW_NEM.getKey());
-        }, blockpos, 50, PoiManager.Occupancy.ANY);
-
-        return (List)stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((p_148811_) -> {
-            return p_148811_.distSqr(blockpos);
-        })).collect(Collectors.toList());
-    }
 
     public MobType getMobType() {
         return MobType.WATER;
@@ -351,6 +310,10 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
         super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 0.8D, 40));
+
+        this.goalSelector.addGoal(0, new LocateNemGoal(this, 200));
+        this.goalSelector.addGoal(0, new MoveToNemGoal(this, 1, 4));
+        this.goalSelector.addGoal(5, new RestInNemGoal(this, 3, 600, 200));
         //Anemone seeker goal plan:
         //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
         //Pathfinds back to home nem and makes it hide for 3 - 5 secs
