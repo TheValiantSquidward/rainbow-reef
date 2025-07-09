@@ -32,12 +32,13 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SeahorseEntity extends WaterAnimal implements Bucketable {
+public class SeahorseEntity extends RRMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.INT);

@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -43,7 +44,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BoxfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class BoxfishEntity extends RRMob implements GeoEntity, Bucketable {
 
     public static <T extends Mob> boolean canSpawn(EntityType<BoxfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);

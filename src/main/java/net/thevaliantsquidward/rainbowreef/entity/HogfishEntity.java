@@ -20,6 +20,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
@@ -297,22 +298,12 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
         return cache;
     }
 
-    public void spawnEffectsAtBlock(BlockPos target) {
-        //this method is only called serverside(in a goal) so you have to use sendParticles
-
-        float radius = 0.3F;
-        for (int i1 = 0; i1 < 3; i1++) {
-            double motionX = getRandom().nextGaussian() * 0.07D;
-            double motionY = getRandom().nextGaussian() * 0.07D;
-            double motionZ = getRandom().nextGaussian() * 0.07D;
-            float angle = (float) ((0.0174532925 * this.yBodyRot) + i1);
-            double extraX = radius * Mth.sin(Mth.PI + angle);
-            double extraY = 0.8F;
-            double extraZ = radius * Mth.cos(angle);
-            BlockState state = this.level().getBlockState(target);
-            if (state.isSolid()) {
-                ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + extraX, target.getY() + extraY, this.getZ() + extraZ, 1, motionX, motionY, motionZ, 1);
-            }
+    public MoveControl getMoveControl() {
+        Entity entity = this.getControlledVehicle();
+        if (entity instanceof Mob mob) {
+            return mob.getMoveControl();
+        } else {
+            return this.moveControl;
         }
     }
 

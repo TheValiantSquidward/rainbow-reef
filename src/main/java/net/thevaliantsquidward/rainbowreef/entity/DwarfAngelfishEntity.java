@@ -29,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -41,7 +42,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class DwarfAngelfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class DwarfAngelfishEntity extends RRMob implements GeoEntity, Bucketable {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);

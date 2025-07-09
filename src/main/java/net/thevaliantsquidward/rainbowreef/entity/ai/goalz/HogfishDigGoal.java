@@ -63,11 +63,11 @@ public class HogfishDigGoal extends Goal {
             if (digTime % 5 == 0) {
                 SoundEvent sound = fims.level().getBlockState(this.fims.getDigPos()).getSoundType().getHitSound();
 
-                fims.spawnEffectsAtBlock(this.fims.getDigPos());
+                spawnEffectsAtBlock(this.fims.getDigPos());
 
                 fims.playSound(sound, 0.5F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
                 fims.setDigging(true);
-                System.out.println(true);
+                //System.out.println(true);
                 //the fish plays sound and makes particles as long as it digs every 5 ticks(sound lasts that long)
             }
 
@@ -131,5 +131,24 @@ public class HogfishDigGoal extends Goal {
             }
         }
         return null;
+    }
+
+    public void spawnEffectsAtBlock(BlockPos target) {
+        //this method is only called serverside(in a goal) so you have to use sendParticles
+
+        float radius = 0.3F;
+        for (int i1 = 0; i1 < 3; i1++) {
+            double motionX = this.fims.getRandom().nextGaussian() * 0.07D;
+            double motionY = this.fims.getRandom().nextGaussian() * 0.07D;
+            double motionZ = this.fims.getRandom().nextGaussian() * 0.07D;
+            float angle = (float) ((0.0174532925 * this.fims.yBodyRot) + i1);
+            double extraX = radius * Mth.sin(Mth.PI + angle);
+            double extraY = 0.8F;
+            double extraZ = radius * Mth.cos(angle);
+            BlockState state = this.fims.level().getBlockState(target);
+            if (state.isSolid()) {
+                ((ServerLevel) this.fims.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + extraX, target.getY() + extraY, target.getZ() + extraZ, 1, motionX, motionY, motionZ, 1);
+            }
+        }
     }
 }

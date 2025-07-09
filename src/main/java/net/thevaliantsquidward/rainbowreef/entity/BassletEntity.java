@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -44,7 +45,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.Month;
 
-public class BassletEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class BassletEntity extends RRMob implements GeoEntity, Bucketable {
 
 
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);

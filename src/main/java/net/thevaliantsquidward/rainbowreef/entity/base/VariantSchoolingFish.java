@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class VariantSchoolingFish extends WaterAnimal implements VariantEntity {
+public abstract class VariantSchoolingFish extends RRMob implements VariantEntity {
     @Nullable
     private VariantSchoolingFish leader;
     private int schoolSize = 1;

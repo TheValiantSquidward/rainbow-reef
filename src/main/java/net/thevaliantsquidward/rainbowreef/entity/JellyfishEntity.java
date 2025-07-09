@@ -30,6 +30,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -44,7 +45,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class JellyfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
 
     public float xBodyRot;
     public float xBodyRotO;

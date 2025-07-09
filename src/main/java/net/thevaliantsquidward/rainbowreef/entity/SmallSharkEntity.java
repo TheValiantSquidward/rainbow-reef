@@ -32,13 +32,14 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallSharkEntity extends WaterAnimal implements Bucketable {
+public class SmallSharkEntity extends RRMob implements Bucketable {
 
     public Vec3 rightRefPoint;
     public Vec3 rightRefOffset = new Vec3(1, 0, 0);

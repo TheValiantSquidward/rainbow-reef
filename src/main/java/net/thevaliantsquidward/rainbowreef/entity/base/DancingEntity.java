@@ -10,6 +10,7 @@ import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
@@ -19,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
-public class DancingEntity extends Animal implements DancesToJukebox{
+public class DancingEntity extends RRMob implements DancesToJukebox{
 
     private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> JX = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.INT);
@@ -30,7 +31,7 @@ public class DancingEntity extends Animal implements DancesToJukebox{
     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
     private final VibrationSystem.User vibrationUser;
 
-    public DancingEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public DancingEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.vibrationUser = new VibrationUser();
         this.dynamicJukeboxListener = new DynamicGameEventListener(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
@@ -52,12 +53,6 @@ public class DancingEntity extends Animal implements DancesToJukebox{
         this.entityData.define(JX, 0);
         this.entityData.define(JY, 0);
         this.entityData.define(JZ, 0);
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return null;
     }
 
     public void tick() {
