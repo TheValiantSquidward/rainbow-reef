@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.HogfishDigGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -207,6 +209,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
         }else{
             this.setVariant(0);
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -218,8 +221,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
         super(pEntityType, pLevel);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-        //this.setCD(500 + this.getRandom().nextInt(500));
-        this.setCD(0);
+        this.setCD(500 + this.getRandom().nextInt(500));
     }
 
     @Override
@@ -240,7 +242,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
 
     @Override
     protected void registerGoals() {
-        //this.goalSelector.addGoal(0, new HogfishDigGoal(this));
+        this.goalSelector.addGoal(0, new HogfishDigGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }
@@ -296,6 +298,8 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
     }
 
     public void spawnEffectsAtBlock(BlockPos target) {
+        //this method is only called serverside(in a goal) so you have to use sendParticles
+
         float radius = 0.3F;
         for (int i1 = 0; i1 < 3; i1++) {
             double motionX = getRandom().nextGaussian() * 0.07D;
@@ -307,7 +311,7 @@ public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable 
             double extraZ = radius * Mth.cos(angle);
             BlockState state = this.level().getBlockState(target);
             if (state.isSolid()) {
-                level().addAlwaysVisibleParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), true, this.getX() + extraX, target.getY() + extraY, this.getZ() + extraZ, motionX, motionY, motionZ);
+                ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), this.getX() + extraX, target.getY() + extraY, this.getZ() + extraZ, 1, motionX, motionY, motionZ, 1);
             }
         }
     }

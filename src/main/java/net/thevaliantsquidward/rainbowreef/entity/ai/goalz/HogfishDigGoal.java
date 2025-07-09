@@ -1,5 +1,9 @@
 package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
 
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -8,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
@@ -15,7 +20,7 @@ import net.thevaliantsquidward.rainbowreef.util.RRTags;
 public class HogfishDigGoal extends Goal {
     private HogfishEntity fims;
     private int digTime = 0;
-    private int timeOut = 800;
+    private int timeOut = 400;
 
     public HogfishDigGoal(HogfishEntity fisdh) {
         this.fims = fisdh;
@@ -40,23 +45,29 @@ public class HogfishDigGoal extends Goal {
 
     public void tick() {
 
-        double dist = fims.distanceToSqr(Vec3.atCenterOf(this.fims.getDigPos().above()));
-        double d0 = this.fims.getDigPos().getX() + 0.5 - this.fims.getX();
-        double d2 = this.fims.getDigPos().getZ() + 0.5 - this.fims.getZ();
-        float f = (float) (Mth.atan2(d2, d0) * 57.2957763671875D) - 90.0F;
+        double dist = fims.distanceToSqr(Vec3.atCenterOf(this.fims.getDigPos()));
+        double dy = this.fims.getDigPos().getY() + 0.5 - this.fims.getY();
+        double dx = this.fims.getDigPos().getX() + 0.5 - this.fims.getX();
+        double dz = this.fims.getDigPos().getZ() + 0.5 - this.fims.getZ();
+        float yaw = (float) (Mth.atan2(dz, dx) * 57.2957763671875D) - 90.0F;
+        float pitch = (float) -(Mth.atan2(dy, Math.hypot(dx, dz)) * 57.2957763671875D);
         this.timeOut --;
 
         if (dist < 2) {
-            fims.setDeltaMovement(fims.getDeltaMovement().add(0, -0.01F, 0));
             fims.getNavigation().stop();
-            fims.setYRot(f);
+            fims.setYRot(yaw);
+            fims.setXRot(pitch);
             digTime++;
-            //stop the fish and start digging when it is close enough
+            //stop the fish and start digging when it is close enough, also makes it look at the blocks
 
             if (digTime % 5 == 0) {
                 SoundEvent sound = fims.level().getBlockState(this.fims.getDigPos()).getSoundType().getHitSound();
+
+                fims.spawnEffectsAtBlock(this.fims.getDigPos());
+
                 fims.playSound(sound, 0.5F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
                 fims.setDigging(true);
+                System.out.println(true);
                 //the fish plays sound and makes particles as long as it digs every 5 ticks(sound lasts that long)
             }
 
@@ -69,7 +80,7 @@ public class HogfishDigGoal extends Goal {
 
         } else {
             fims.setDigging(false);
-            fims.getNavigation().moveTo(this.fims.getDigPos().getX(), this.fims.getDigPos().getY() + 1, this.fims.getDigPos().getZ(), 1.2);
+            fims.getNavigation().moveTo(this.fims.getDigPos().getX() + 0.5, this.fims.getDigPos().getY() + 0.5, this.fims.getDigPos().getZ() + 0.5, 1.2);
             //fims.setYRot(f);
             //if the fish isn't close enough keep it moving
         }

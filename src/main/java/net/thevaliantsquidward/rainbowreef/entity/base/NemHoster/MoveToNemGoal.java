@@ -33,9 +33,9 @@ public class MoveToNemGoal extends Goal {
         if (this.fims.hasNem()) {
 
             Vec3 nempos = new Vec3(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F);
-            System.out.println(this.fims.position().distanceTo(nempos) > this.radius && fims.isInWater());
-            System.out.println(this.fims.position().distanceTo(nempos));
-            System.out.println(this.radius);
+            //System.out.println(this.fims.position().distanceTo(nempos) > this.radius && fims.isInWater());
+            //System.out.println(this.fims.position().distanceTo(nempos));
+            //System.out.println(this.radius);
             return (this.fims.position().distanceTo(nempos) > radius) && fims.isInWater();
 
         } else {
@@ -48,7 +48,7 @@ public class MoveToNemGoal extends Goal {
     public void tick() {
         this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 4F);
 
-        Vec3 nempos = new Vec3(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F);
+        //Vec3 nempos = new Vec3(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F);
         //System.out.println(this.fims.position().distanceTo(nempos));
     }
 
