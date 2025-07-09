@@ -79,27 +79,26 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 8.0f);
 		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
-//		if (entity.isInWaterOrBubble()) {
-//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
-//			this.tail.yRot = ((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
-//			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
-//			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
-//
-//			core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-//			this.tail.xRot = ((float) (this.tail.xRot - MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
-//			this.tail_fin.xRot = ((float) (this.tail_fin.xRot - MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
-//			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
-//			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
-//		}
+		if (entity.isInWaterOrBubble()) {
+			this.tail.yRot = ((float) (this.tail.yRot + Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
+			this.tail_fin.yRot = ((float) (this.tail_fin.yRot + Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
+			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
+			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
 
-		if (entity.isInWaterOrBubble()){
-			if (entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-7D) {
-				this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
-				this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
-				this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
-				this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
-			}
+			this.tail.xRot = ((float) (this.tail.xRot + MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
+			this.tail_fin.xRot = ((float) (this.tail_fin.xRot + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
+			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
+			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
 		}
+
+//		if (entity.isInWaterOrBubble()){
+//			if (entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-7D) {
+//				this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+//				this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
+//				this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+//				this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
+//			}
+//		}
 	}
 
 	public List<ModelPart> getAllParts() {
