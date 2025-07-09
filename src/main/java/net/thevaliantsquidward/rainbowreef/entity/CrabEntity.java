@@ -294,10 +294,4 @@ public class CrabEntity extends DancingEntity implements Bucketable, DancesToJuk
     public static <T extends Mob> boolean canSpawn(EntityType<CrabEntity> p_223364_0_, LevelAccessor levelAccessor, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return !levelAccessor.getBlockState(p_223364_3_).isSolid();
     }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
-    }
 }

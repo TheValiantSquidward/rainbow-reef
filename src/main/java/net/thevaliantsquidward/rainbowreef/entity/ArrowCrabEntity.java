@@ -307,10 +307,4 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
         return cache;
     }
 
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
-        return null;
-    }
-
 }

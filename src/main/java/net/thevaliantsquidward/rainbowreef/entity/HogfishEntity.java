@@ -37,6 +37,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.HogfishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -49,7 +50,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class HogfishEntity extends WaterAnimal implements GeoEntity, Bucketable {
+public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
 
     private boolean isDigging;
     private int digCooldown;
