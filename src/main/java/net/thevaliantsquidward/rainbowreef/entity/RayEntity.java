@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -252,7 +253,7 @@ public class RayEntity extends VariantSchoolingFish implements Bucketable, Varia
     }
 
     public RayEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 360, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
@@ -372,6 +373,7 @@ public class RayEntity extends VariantSchoolingFish implements Bucketable, Varia
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 2));
     }
+
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;

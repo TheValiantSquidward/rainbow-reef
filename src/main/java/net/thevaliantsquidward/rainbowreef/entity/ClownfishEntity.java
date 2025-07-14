@@ -32,6 +32,7 @@ import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.LocateNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.MoveToNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.NemHoster;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.RestInNemGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -126,16 +127,6 @@ public class ClownfishEntity extends NemHoster implements GeoEntity, Bucketable,
         }
 
         super.tick();
-    }
-
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-        }
-        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
-        //must be applied independently to each fish
-
-        super.travel(pTravelVector);
     }
 
     @Override

@@ -47,7 +47,7 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
     public final AnimationState flopAnimationState = new AnimationState();
 
     public TangEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }

@@ -28,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
@@ -256,8 +257,8 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
         return MobType.WATER;
     }
 
-    public AngelfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+    public AngelfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
 
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);

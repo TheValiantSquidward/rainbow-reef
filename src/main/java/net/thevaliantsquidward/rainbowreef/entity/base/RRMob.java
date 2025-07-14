@@ -4,25 +4,58 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class RRMob extends WaterAnimal {
 
+    public int feedCDLim = 0;
+    public int feedCD = 0;
 
-    protected RRMob(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
+
+    protected RRMob(EntityType<? extends WaterAnimal> pEntityType, Level pLevel, int feedCooldown) {
         super(pEntityType, pLevel);
+
+
+        this.feedCDLim = feedCooldown;
+        this.setFeedCD(this.feedCDLim + this.getRandom().nextInt(this.feedCDLim));
     }
 
     public void setMoveControl(MoveControl newControl) {
-            this.setMoveControl(newControl);
+            this.moveControl = newControl;
+    }
 
+    public void setFeedCD(int set){
+        this.feedCD = set;
+    }
+
+    public int getFeedCD(){
+        return feedCD;
+    }
+
+    public void tick() {
+        super.tick();
+
+        this.feedCD --;
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding() && checkFloat(this.blockPosition())) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005 * this.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.0));
+            //checks if the fish is stuck underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
+        }
+        super.travel(pTravelVector);
     }
 
     public void spawnEffectsAtBlock(BlockPos target) {
@@ -39,8 +72,33 @@ public class RRMob extends WaterAnimal {
             double extraZ = radius * Mth.cos(angle);
             BlockState state = this.level().getBlockState(target);
             if (state.isSolid()) {
-                ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + extraX, target.getY() + extraY, target.getZ() + extraZ, 1, motionX, motionY, motionZ, 1);
+                ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + 0.5 + extraX, target.getY() + 0.5 + extraY, target.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+                //((ServerLevel) this.level()).sendParticles(ParticleTypes.BUBBLE_COLUMN_UP, target.getX() + 0.5, target.getY() + 1.1, target.getZ() + 0.5, 1, 0.0D, 0.0D, 0.0D, 0);
             }
         }
+    }
+
+    private int findSeafloorDist(BlockPos selfpos) {
+        int depth = 0;
+
+        if (!this.level().isEmptyBlock(selfpos) && !this.level().getFluidState(selfpos).is(FluidTags.WATER)) {
+            return Integer.MAX_VALUE;
+        }
+
+        while (this.level().getFluidState(selfpos).is(FluidTags.WATER) && selfpos.getY() > 1) {
+            selfpos = selfpos.below();
+            depth ++;
+        }
+
+        return depth;
+    }
+
+    private boolean checkFloat(BlockPos selfpos) {
+        int north = findSeafloorDist(selfpos.above().north());
+        int south = findSeafloorDist(selfpos.above().south());
+        int east = findSeafloorDist(selfpos.above().east());
+        int west = findSeafloorDist(selfpos.above().west());
+
+        return north <= (1) || south <= (1) || east <= (1) || west <= (1);
     }
 }

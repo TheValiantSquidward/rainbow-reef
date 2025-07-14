@@ -1,12 +1,109 @@
 package net.thevaliantsquidward.rainbowreef.util;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3d;
 
-import static java.lang.Float.NaN;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class MathHelpers {
+
+    public static Vec3 quickReturn (Level level, Vec3 anchor, Vec3 point, float angleY, float perTickRate) {
+
+        if (angleY >= 0 && angleY < 180) {
+            point = MathHelpers.rotateAroundCenterFlatDeg(anchor, point, (double) -perTickRate);
+        } else if (angleY < 0 && angleY >= -180) {
+            point = MathHelpers.rotateAroundCenterFlatDeg(anchor, point, (double) perTickRate);
+        }
+
+        if (level.getBlockState(new BlockPos((int) point.x(), (int) (point.y() - 0.02), (int) point.z())).isAir() ||
+                !level.getBlockState(new BlockPos((int) point.x(), (int) (point.y() - 0.02), (int) point.z())).isSolid()) {
+            point = point.subtract(0, 0.02, 0);
+        }
+
+        return point;
+
+    }
+
+    public static Vec3 distConstraintSingle(Vec3 anchor, Vec3 point, double distLim, boolean flat){
+        double dist = anchor.distanceTo(point);
+        Vec3 diff = anchor.subtract(point);
+
+        Vec3 returnVec = point;
+
+        if (dist > distLim) {
+            returnVec = point.add(diff.normalize().scale(dist - distLim));
+        }
+
+        double flatDist = MathHelpers.flatDist(anchor, point);
+
+        if (flatDist < distLim*0.95) {
+            double dX = diff.x();
+            double dZ = diff.z();
+            double dY = diff.y();
+            returnVec = point.add(0, dY*(dist - distLim), 0);
+        }
+
+        return returnVec;
+    }
+
+    public static Vec3 driveAway(Vec3 anchor, Vec3 point, double hitboxRad, boolean flat) {
+        double dist = anchor.distanceTo(point);
+        Vec3 diff = anchor.subtract(point);
+
+        Vec3 returnVec = point;
+
+        if (dist < hitboxRad) {
+            returnVec = point.subtract(diff.normalize().multiply((hitboxRad - dist), hitboxRad - dist, (hitboxRad - dist)));
+        }
+
+        double flatDist = MathHelpers.flatDist(anchor, point);
+
+        return returnVec;
+    }
+
+    public static Vec3 distConstraint(ArrayList<Vec3> prevChain, Vec3 point, double nodeRadius) {
+        Vec3 anchor = prevChain.get(prevChain.size() - 1);
+
+        Vec3 returnStuff = anchor.add((point.subtract(anchor)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
+
+        for (Vec3 nextNode : prevChain) {
+            if (returnStuff.distanceTo(nextNode) < nodeRadius) {
+                returnStuff = anchor.add((returnStuff.subtract(nextNode)).normalize().multiply(nodeRadius, nodeRadius, nodeRadius));
+            }
+
+        }
+
+        return returnStuff;
+    }
+
+    // Constrain the angle to be within a certain range of the anchor(Constraint entered must be positive)
+    // works with both rad and deg
+    public static double constrainAngle(double angle, double constraint) {
+        //System.out.println("ang");
+        //System.out.println(angle);
+
+        if (angle < 0){
+            angle = (360 - (angle % 360));
+        }
+
+        if (angle < 0 && angle < -constraint) {
+            //System.out.println("yea");
+            return -constraint;
+        }
+
+        if (angle > 0 && angle > constraint) {
+            return constraint;
+        }
+
+        return angle;
+    }
 
     public static Vec2 angleTo(Vec3 target, Vec3 mePos) {
         double d0 = target.x - mePos.x;
@@ -14,11 +111,12 @@ public class MathHelpers {
         double d2 = target.z - mePos.z;
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
 
-        double XAngle = (Mth.wrapDegrees((float)(-(Mth.atan2(d1, d3) * 57.2957763671875))));
-        double YAngle = (Mth.wrapDegrees((float)(Mth.atan2(d2, d0) * 57.2957763671875) - 90.0F));
+        double XAngle = (((float)(-(Mth.atan2(d1, d3) * 57.2957763671875))));
+        double YAngle = (((float)(Mth.atan2(d2, d0) * 57.2957763671875) - 90.0F));
 
         return new Vec2((float) XAngle, (float) YAngle);
-        //returns the y and x angle from the source location(mePos) to the target location(target)
+        //returns the y and x angle from the source location(mePos) to the target location(target) WITH RESPECT TO THE WORLD AXIS
+        //try to not use this
         //Y is yaw, X is pitch
     }
 
@@ -41,6 +139,7 @@ public class MathHelpers {
 
     public static Vec3 rotateAroundCenter3dDeg(Vec3 center, Vec3 me, float yRot, float xRot) {
         //Rotates me around center in 3 dimensions. The intake is in degrees.
+        //the intake is in WORLD ROTATION - the reference plane is the serverlevel, not in relation to smthing else
 
         yRot = -(Mth.DEG_TO_RAD*yRot);
         xRot = -(Mth.DEG_TO_RAD*xRot);
@@ -60,29 +159,29 @@ public class MathHelpers {
         return new Vec3(newMeX, newMeY, newMeZ);
     }
 
-    public static double angleFromYdiff(Vec3 lead, Vec3 point, Vec3 trail) {
-        double NextHeight = trail.y - point.y;
-        double PrevHeight = lead.y - point.y;
+    public static float pitchProcess(Vec3 head, Vec3 tail) {
 
-        double distToNextFlat = flatDist(point, trail);
-        double distToPrevFlat = flatDist(lead, point);
-
-        double ThetaPrevious = Math.atan(PrevHeight/distToPrevFlat);
-        double ThetaNext = Math.atan(NextHeight/distToNextFlat);
-
-        /*if (PrevHeight/distToPrevFlat > 1){
-            ThetaPrevious = Math.atan(1);
-        } else if (PrevHeight/distToPrevFlat < -1) {
-            ThetaPrevious = Math.atan(-1);
+        if (!head.equals(tail)) {
+            double ground = tail.distanceTo(head);
+            double height = head.y() - tail.y();
+            return (float) Math.asin(height / ground);
         }
-        if (NextHeight/distToNextFlat > 1){
-            ThetaNext = Math.atan(1);
-        } else if (NextHeight/distToNextFlat < -1) {
-            ThetaNext = Math.atan(-1);
-        }*/
+
+        return 0;
+    }
+
+    public static double angleFromYdiff(Vec3 lead, Vec3 point, Vec3 trail) {
+        double backHeight = point.y - trail.y;
+        double frontHeight = lead.y - point.y;
+
+        double backDist = point.distanceTo(trail);
+        double frontDist = lead.distanceTo(point);
+
+        double angFront = Math.atan(frontHeight/frontDist);
+        double angBack = Math.atan(backHeight/backDist);
 
 
-        return (ThetaPrevious + ThetaNext);
+        return (angBack - angFront);
     }
 
 
@@ -125,6 +224,49 @@ public class MathHelpers {
         } else {
             return Mth.clamp(angle, -(Mth.TWO_PI - poslim), -poslim);
         }
+    }
+
+    public static double LerpDegreesConstantSpeed(double start, double end, double amount)
+    {
+        double difference = Math.abs(end - start);
+        //System.out.println("guh");
+        //System.out.println(Math.abs(end - start));
+
+        if (difference > Mth.PI)
+        {
+            // We need to add on to one of the values.
+            if (end > start)
+            {
+                // We'll add it on to start...
+                start += Mth.TWO_PI;
+            }
+            else
+            {
+                // Add it on to end.
+                end += Mth.TWO_PI;
+            }
+        }
+
+        double value;
+        // Interpolate it.
+
+        if (start < end) {
+            value = Math.max(end, (start + (amount)));
+        } else {
+            value = Math.min(end, (start + (amount)));
+        }
+
+        //System.out.println(value);
+
+        // Wrap it..
+        float rangeZero = Mth.TWO_PI;
+
+        if (value >= 0 && value <= Mth.TWO_PI) {
+            //System.out.println(value);
+            return value;
+        }
+
+        return (value % rangeZero);
     }
 
     public static double LerpDegrees(double start, double end, double amount)

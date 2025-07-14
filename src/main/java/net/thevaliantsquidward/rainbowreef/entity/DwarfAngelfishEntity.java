@@ -228,7 +228,7 @@ public class DwarfAngelfishEntity extends RRMob implements GeoEntity, Bucketable
     }
 
     public DwarfAngelfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }

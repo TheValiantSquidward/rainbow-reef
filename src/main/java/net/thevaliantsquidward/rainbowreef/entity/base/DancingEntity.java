@@ -32,7 +32,7 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
     private final VibrationSystem.User vibrationUser;
 
     public DancingEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.vibrationUser = new VibrationUser();
         this.dynamicJukeboxListener = new DynamicGameEventListener(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
     }

@@ -52,7 +52,7 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 22.0F, -4.5F));
-		PartDefinition core = root.addOrReplaceChild("core", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 4.0F));
+		PartDefinition core = root.addOrReplaceChild("core", CubeListBuilder.create(), PartPose.offset(0.0F, -1.5F, 4.0F));
 		PartDefinition body = core.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -2.0F, -1.0F, 4.0F, 4.0F, 10.0F, new CubeDeformation(0.0F)).texOffs(22, 25).addBox(2.0F, -3.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.001F)).texOffs(22, 25).mirror().addBox(-2.0F, -3.0F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.001F)).mirror(false), PartPose.offset(0.0F, 0.0F, -6.0F));
 		PartDefinition top_fin = body.addOrReplaceChild("top_fin", CubeListBuilder.create().texOffs(0, 18).addBox(0.0F, -3.0F, -1.0F, 0.0F, 4.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -2.0F, 5.0F));
 		PartDefinition l_fin = core.addOrReplaceChild("l_fin", CubeListBuilder.create(), PartPose.offset(2.0F, 2.0F, -3.0F));
@@ -80,15 +80,16 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
 
 		if (entity.isInWaterOrBubble()) {
-			this.tail.yRot = ((float) (this.tail.yRot + Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1))));
-			this.tail_fin.yRot = ((float) (this.tail_fin.yRot + Mth.PI + (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1))));
-			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Yaw, 0.1);
-			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Yaw, 0.1);
+			this.tail.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1))));
+			this.tail_fin.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1))));
+			entity.TailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[0], (float) entity.TailKinematics.getTailYaws()[0], 0.1);
+			entity.TailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailYaws()[1], (float) entity.TailKinematics.getTailYaws()[1], 0.1);
 
-			this.tail.xRot = ((float) (this.tail.xRot + MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1)));
-			this.tail_fin.xRot = ((float) (this.tail_fin.xRot + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1)));
-			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.1);
-			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.1);
+			this.tail.xRot = this.tail.xRot - ((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1))));
+			this.tail_fin.xRot = this.tail_fin.xRot - ((float) ((MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[1], (float) entity.TailKinematics.getTailPitches()[1], 0.1))));
+			entity.TailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[0], (float) entity.TailKinematics.getTailPitches()[0], 0.1);
+			entity.TailKinematics.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees((float) entity.TailKinematics.getCurrentTailPitches()[1], (float) entity.TailKinematics.getTailPitches()[1], 0.1);
+
 		}
 
 //		if (entity.isInWaterOrBubble()){

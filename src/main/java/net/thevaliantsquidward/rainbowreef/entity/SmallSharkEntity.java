@@ -1,10 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
@@ -41,35 +44,7 @@ import javax.annotation.Nullable;
 
 public class SmallSharkEntity extends RRMob implements Bucketable {
 
-    public Vec3 rightRefPoint;
-    public Vec3 rightRefOffset = new Vec3(1, 0, 0);
-
-    public Vec3 leftRefPoint;
-    public Vec3 leftRefOffset = new Vec3(-1, 0, 0);
-
-    public Vec3 upRefPoint;
-    public Vec3 upRefOffset = new Vec3(0, -1, 0);
-
-    public Vec3 downRefPoint;
-    public Vec3 downRefOffset = new Vec3(0, 1, 0);
-
-    public Vec3 tail0Point;
-    public Vec3 tail1Point;
-    public Vec3 tail2Point;
-
-    public Vec3 tail0Offset = new Vec3(0.0, 0.0, 0.125);
-    public Vec3 tail1Offset = new Vec3(0.0, 0.0, 0.625-0.125);
-    public Vec3 tail2Offset = new Vec3(0.0, 0.0, 1.0625-0.625);
-
-    public double tail1Yaw;
-    public double tail2Yaw;
-    public double currentTail1Yaw = Mth.PI;
-    public double currentTail2Yaw = Mth.PI;
-
-    public double tail1Pitch;
-    public double tail2Pitch;
-    public double currentTail1Pitch = 0;
-    public double currentTail2Pitch = 0;
+    public IKSolver TailKinematics;
 
     public float prevTilt;
     public float tilt;
@@ -81,37 +56,16 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     public final AnimationState idleAnimationState = new AnimationState();
 
     public SmallSharkEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
-        super(entityType, level);
+        super(entityType, level, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
-
-        tail0Point = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(tail0Offset), (double) -this.getYRot());
-        tail1Point = MathHelpers.rotateAroundCenterFlatDeg(tail0Point, tail0Point.subtract(tail1Offset), (double) -this.getYRot());
-        tail2Point = MathHelpers.rotateAroundCenterFlatDeg(tail1Point, tail1Point.subtract(tail2Offset), (double) -this.getYRot());
+        this.TailKinematics = new IKSolver(this, 2, 0.3);
     }
 
     public void tick() {
         super.tick();
-        tail0Point = MathHelpers.rotateAroundCenter3dDeg(this.position(), this.position().subtract(tail0Offset), -this.getYRot(), -this.getXRot());
-        tail1Point = MathHelpers.rotateAroundCenter3dDeg(tail0Point, tail0Point.subtract(tail1Offset), -MathHelpers.angleTo(tail0Point, tail1Point).y, -MathHelpers.angleTo(tail0Point, tail1Point).x);
-        tail2Point = MathHelpers.rotateAroundCenter3dDeg(tail1Point, tail1Point.subtract(tail2Offset), -MathHelpers.angleTo(tail1Point, tail2Point).y, -MathHelpers.angleTo(tail1Point, tail2Point).x);
-
-        tail1Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail0Point, this.position(), this.tail1Point, this.leftRefPoint, this.rightRefPoint);
-        tail2Yaw = MathHelpers.getAngleForLinkTopDownFlat(this.tail1Point, this.tail0Point, this.tail2Point, this.leftRefPoint, this.rightRefPoint);
-
-        tail1Pitch = MathHelpers.angleFromYdiff(this.position(), this.tail0Point, this.tail1Point);
-        tail2Pitch = MathHelpers.angleFromYdiff(this.tail0Point, this.tail1Point, this.tail2Point);
-
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(leftRefOffset), (double) -this.getYRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(rightRefOffset), (double) -this.getYRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(upRefOffset), (double) -this.getYRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(this.position(), this.position().subtract(downRefOffset), (double) -this.getYRot());
-
+        this.TailKinematics.TakePerTickAction(this);
 
         prevTilt = tilt;
         if (this.isInWater()) {
@@ -133,15 +87,6 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
             tilt = 0;
         }
 
-        /*if (!this.level().isClientSide()) {
-                ServerLevel llel = (ServerLevel) this.level();
-
-                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail0Point.x), (tail0Point.y), (tail0Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail1Point.x), (tail1Point.y), (tail1Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                llel.sendParticles(ParticleTypes.BUBBLE_POP, (tail2Point.x), (tail2Point.y), (tail2Point.z), 1, 0.0D, 0.0D, 0.0D, 0.0D);
-                //DEBUG STUFF
-            }*/
-
         if (this.level().isClientSide()){
             this.setupAnimationStates();
         }
@@ -153,9 +98,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     }
 
     public void travel(Vec3 pTravelVector) {
-        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-        } else if (this.isUnderWater()) {
+        if (this.isEyeInFluid(FluidTags.WATER) && !this.isPathFinding()) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.01, 0.0));
         }
         super.travel(pTravelVector);
@@ -295,6 +238,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
         }else{
             this.setVariant(0);
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 

@@ -97,16 +97,6 @@ public class GobyEntity extends RRMob implements GeoEntity, Bucketable {
         super.tick();
     }
 
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005, 0.0));
-        }
-        //checks if the fish is moving underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
-        //must be applied independently to each fish
-
-        super.travel(pTravelVector);
-    }
-
 
     @Override
     protected void defineSynchedData() {
@@ -232,7 +222,7 @@ public class GobyEntity extends RRMob implements GeoEntity, Bucketable {
     }
 
     public GobyEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }

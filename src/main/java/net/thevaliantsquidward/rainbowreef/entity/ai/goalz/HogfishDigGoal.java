@@ -3,6 +3,8 @@ package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
@@ -11,28 +13,48 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 public class HogfishDigGoal extends Goal {
-    private HogfishEntity fims;
-    private int digTime = 0;
-    private int timeOut = 400;
+    private RRMob fims;
 
-    public HogfishDigGoal(HogfishEntity fisdh) {
+    private int digTime = 0;
+    private int digTimeLim;
+
+    private int timeOut = 0;
+    private int timeOutLim;
+
+    public BlockPos digPos = null;
+
+    public MoveControl originalMoveControl;
+
+    public TagKey<Block> foodWhitelist;
+
+    public HogfishDigGoal(RRMob fisdh, int digtime, TagKey<Block> whitelist) {
+        this.foodWhitelist = whitelist;
         this.fims = fisdh;
+
+        this.digTime = digtime;
+        this.digTimeLim = digtime;
+
+        this.timeOut = 400;
+        this.timeOutLim = 400;
     }
 
     @Override
     public boolean canUse() {
-        if(fims.getCD() <= 0 && fims.isInWater() && this.fims.getDigPos() == null){
-            this.fims.setCD(600 + fims.getRandom().nextInt(600));
-            this.fims.setDigPos(genDigPos());
+
+        if(fims.getFeedCD() <= 0 && fims.isInWater()){
+            this.fims.setFeedCD(600 + fims.getRandom().nextInt(600));
+            this.digPos = genDigPos();
             this.timeOut = 800;
-            return this.fims.getDigPos() != null;
+            return this.digPos != null;
         }
 
         return false;
@@ -40,58 +62,64 @@ public class HogfishDigGoal extends Goal {
     }
 
     public boolean canContinueToUse() {
-        return fims.getTarget() == null && fims.getLastHurtByMob() == null && this.fims.getDigPos() != null && fims.level().getBlockState(this.fims.getDigPos()).is(RRTags.HOG_DIGGABLE) && fims.level().getFluidState(this.fims.getDigPos().above()).is(FluidTags.WATER) && this.timeOut >= 0;
+        return fims.getTarget() == null && fims.getLastHurtByMob() == null && this.digPos != null && fims.level().getBlockState(this.digPos).is(RRTags.HOG_DIGGABLE) && fims.level().getFluidState(this.digPos.above()).is(FluidTags.WATER) && this.timeOut >= 0;
+    }
+
+    public void start() {
+        this.originalMoveControl = fims.getMoveControl();
+        this.fims.setMoveControl(fims.feedingController);
+
     }
 
     public void tick() {
 
-        double dist = fims.distanceToSqr(Vec3.atCenterOf(this.fims.getDigPos()));
-        double dy = this.fims.getDigPos().getY() + 0.5 - this.fims.getY();
-        double dx = this.fims.getDigPos().getX() + 0.5 - this.fims.getX();
-        double dz = this.fims.getDigPos().getZ() + 0.5 - this.fims.getZ();
+        double dist = this.fims.distanceToSqr(Vec3.atCenterOf(this.digPos));
+        double dy = this.digPos.getY() + 0.5 - this.fims.getY();
+        double dx = this.digPos.getX() + 0.5 - this.fims.getX();
+        double dz = this.digPos.getZ() + 0.5 - this.fims.getZ();
         float yaw = (float) (Mth.atan2(dz, dx) * 57.2957763671875D) - 90.0F;
         float pitch = (float) -(Mth.atan2(dy, Math.hypot(dx, dz)) * 57.2957763671875D);
         this.timeOut --;
 
-        if (dist < 2) {
-            fims.getNavigation().stop();
-            fims.setYRot(yaw);
-            fims.setXRot(pitch);
-            digTime++;
+        if (dist < 1) {
+            this.fims.getNavigation().stop();
+            this.fims.setYRot(yaw);
+            this.fims.setXRot(pitch);
+            this.digTime--;
             //stop the fish and start digging when it is close enough, also makes it look at the blocks
 
-            if (digTime % 5 == 0) {
-                SoundEvent sound = fims.level().getBlockState(this.fims.getDigPos()).getSoundType().getHitSound();
 
-                fims.spawnEffectsAtBlock(this.fims.getDigPos());
-
-                fims.playSound(sound, 0.5F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
-                fims.setDigging(true);
-                //System.out.println(true);
+            if (this.digTime % 5 == 0) {
+                SoundEvent sound = fims.level().getBlockState(this.digPos).getSoundType().getHitSound();
+                this.fims.spawnEffectsAtBlock(this.digPos);
+                this.fims.playSound(sound, 0.5F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
                 //the fish plays sound and makes particles as long as it digs every 5 ticks(sound lasts that long)
             }
 
-            if (digTime >= 50) {
-                fims.setDigging(false);
-                this.fims.setDigPos(null);
-                digTime = 0;
+            if (this.digTime <= 0) {
+                this.digPos = null;
                 //the fish stops digging after a time
             }
 
         } else {
-            fims.setDigging(false);
-            fims.getNavigation().moveTo(this.fims.getDigPos().getX() + 0.5, this.fims.getDigPos().getY() + 0.5, this.fims.getDigPos().getZ() + 0.5, 1.2);
+            this.fims.getNavigation().moveTo(this.digPos.getX() + 0.5, this.digPos.getY() + 0.5, this.digPos.getZ() + 0.5, 1.2);
             //fims.setYRot(f);
             //if the fish isn't close enough keep it moving
+
+            if (this.timeOut <= 0) {
+                this.digPos = null;
+            }
         }
 
     }
 
     public void stop() {
-        this.fims.setCD(600 + fims.getRandom().nextInt(600));
-        fims.setDigging(false);
-        this.fims.setDigPos(null);
-        digTime = 0;
+        //this.fims.setFeedCD(0);
+        this.fims.setFeedCD(this.fims.feedCDLim + fims.getRandom().nextInt(this.fims.feedCDLim));
+        this.fims.setMoveControl(this.originalMoveControl);
+        this.digPos = null;
+        this.digTime = this.digTimeLim;
+        this.timeOut = this.timeOutLim;
     }
 
     private BlockPos genSeafloorPos(BlockPos parent) {
@@ -104,7 +132,7 @@ public class HogfishDigGoal extends Goal {
                 seafloor = seafloor.below();
             }
             BlockState state = world.getBlockState(seafloor);
-            if (state.is(RRTags.HOG_DIGGABLE)) {
+            if (state.is(this.foodWhitelist)) {
                 return seafloor;
             }
         }
@@ -124,7 +152,7 @@ public class HogfishDigGoal extends Goal {
                 }
                 if (this.fims.level().getFluidState(blockpos1).is(FluidTags.WATER)) {
                     BlockPos pos3 = genSeafloorPos(blockpos1);
-                    if (pos3 != null) {
+                    if (pos3 != null && pos3.getY() < this.fims.getY()) {
                         return pos3;
                     }
                 }

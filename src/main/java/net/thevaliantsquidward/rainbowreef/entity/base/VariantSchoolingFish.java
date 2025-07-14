@@ -20,8 +20,8 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
     private VariantSchoolingFish leader;
     private int schoolSize = 1;
 
-    public VariantSchoolingFish(EntityType<? extends VariantSchoolingFish> p_27523_, Level p_27524_) {
-        super(p_27523_, p_27524_);
+    public VariantSchoolingFish(EntityType<? extends WaterAnimal> p_27523_, Level p_27524_, int feedCooldown) {
+        super(p_27523_, p_27524_, feedCooldown);
     }
 
     protected void registerGoals() {

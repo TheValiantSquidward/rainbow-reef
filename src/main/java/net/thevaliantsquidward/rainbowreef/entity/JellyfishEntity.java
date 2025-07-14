@@ -65,7 +65,7 @@ public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
 
     public JellyfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 50, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
         this.random.setSeed((long)this.getId());

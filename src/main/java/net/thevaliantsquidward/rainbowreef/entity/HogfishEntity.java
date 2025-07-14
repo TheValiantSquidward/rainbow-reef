@@ -39,6 +39,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.HogfishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -52,9 +53,6 @@ import javax.annotation.Nullable;
 
 public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
 
-    private boolean isDigging;
-    private int digCooldown;
-    private BlockPos digPos;
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(HogfishEntity.class, EntityDataSerializers.BOOLEAN);
@@ -82,15 +80,8 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
-            this.isDigging = false;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
             //use this stuff for fish flopping
-        }
-
-        this.setCD(this.getCD() - 1);
-
-        if (isDigging()) {
-            spawnEffectsAtBlock(this.getDigPos());
         }
 
         super.tick();
@@ -145,29 +136,6 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
         this.entityData.set(VARIANT, Integer.valueOf(variant));
     }
 
-    public void setDigging(boolean dig) {
-        this.isDigging = dig;
-    }
-
-    public boolean isDigging() {
-        return this.isDigging;
-    }
-
-    public void setCD(int cd) {
-        this.digCooldown = cd;
-    }
-
-    public int getCD() {
-        return this.digCooldown;
-    }
-
-    public void setDigPos(BlockPos cd) {
-        this.digPos = cd;
-    }
-
-    public BlockPos getDigPos() {
-        return this.digPos;
-    }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
@@ -220,10 +188,10 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
     }
 
     public HogfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+        super(pEntityType, pLevel, 400);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-        this.setCD(500 + this.getRandom().nextInt(500));
+
     }
 
     @Override
@@ -244,7 +212,7 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new HogfishDigGoal(this));
+        this.goalSelector.addGoal(0, new HogfishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
     }
@@ -269,7 +237,7 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "dig", 0, this::digPredicate));
+        //controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "dig", 0, this::digPredicate));
     }
 
     private <E extends GeoAnimatable> PlayState predicate(AnimationState<E> event) {
@@ -282,14 +250,14 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
         return PlayState.CONTINUE;
     }
 
-    private <E extends GeoAnimatable> PlayState digPredicate(AnimationState<E> event) {
-        if (this.isDigging()) {
+    /*private <E extends GeoAnimatable> PlayState digPredicate(AnimationState<E> event) {
+        if (this.goalSelector.getRunningGoals().distinct()) {
             event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.peck", Animation.LoopType.LOOP));
         } else {
             return PlayState.STOP;
         }
         return PlayState.CONTINUE;
-    }
+    }*/
 
     public static <T extends Mob> boolean canSpawn(EntityType<HogfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
