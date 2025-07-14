@@ -81,35 +81,32 @@ public class EagleRayModel<T extends RayEntity> extends ReefModel<T> {
 		this.animate(entity.flopAnimationState, EagleRayAnimations.FLOP, ageInTicks, 1.0f);
 
 		if (entity.isInWaterOrBubble()) {
-			double rollOldZ = this.onlyBody.zRot;
-			this.onlyBody.zRot = ((float) (MathHelpers.LerpDegrees(rollOldZ, Mth.PI - MathHelpers.getAngleForLinkTopDownFlat(entity.tail1Point, entity.tail0Point, entity.tail2Point, entity.leftRefPoint, entity.rightRefPoint) * 1.2, 0.01)));
+			this.tail.yRot = this.tail.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.01));
+			this.tail_tip.yRot = this.tail_tip.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[1], entity.tailKinematics.getTailYaws()[1], 0.01));
+			this.tail_tip2.yRot = this.tail_tip2.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[2], entity.tailKinematics.getTailYaws()[2], 0.01));
+			this.tail_tip3.yRot = this.tail_tip3.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[3], entity.tailKinematics.getTailYaws()[3], 0.01));
+			this.tail_tip4.yRot = this.tail_tip4.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[4], entity.tailKinematics.getTailYaws()[4], 0.01));
+			entity.tailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.01);
+			entity.tailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[1], entity.tailKinematics.getTailYaws()[1], 0.01);
+			entity.tailKinematics.getCurrentTailYaws()[2] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[2], entity.tailKinematics.getTailYaws()[2], 0.01);
+			entity.tailKinematics.getCurrentTailYaws()[3] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[3], entity.tailKinematics.getTailYaws()[3], 0.01);
+			entity.tailKinematics.getCurrentTailYaws()[4] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[4], entity.tailKinematics.getTailYaws()[4], 0.01);
 
-			this.tail.yRot = -((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Angle, 0.01))));
-			this.tail_tip.yRot = -((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Angle, 0.01))));
-			this.tail_tip2.yRot = -((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail3Yaw, (float) entity.tail3Angle, 0.01))));
-			this.tail_tip3.yRot = -((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail4Yaw, (float) entity.tail4Angle, 0.01))));
-			this.tail_tip4.yRot = -((float) (Mth.PI - (MathHelpers.LerpDegrees((float) entity.currentTail5Yaw, (float) entity.tail5Angle, 0.01))));
-			entity.currentTail1Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Yaw, (float) entity.tail1Angle, 0.01);
-			entity.currentTail2Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Yaw, (float) entity.tail2Angle, 0.01);
-			entity.currentTail3Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail3Yaw, (float) entity.tail3Angle, 0.01);
-			entity.currentTail4Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail4Yaw, (float) entity.tail4Angle, 0.01);
-			entity.currentTail5Yaw = (float) MathHelpers.LerpDegrees((float) entity.currentTail5Yaw, (float) entity.tail5Angle, 0.01);
+			this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-			this.body.xRot = ((float) (-MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01)));
-			entity.currentBodyPitch = (float) MathHelpers.LerpDegrees((float) entity.currentBodyPitch, (float) entity.bodyPitch, 0.01);
-
-			this.tail.xRot = -((float) (this.tail.xRot + MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01)));
-			this.tail_tip.xRot = -((float) (this.tail_tip.xRot + MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01)));
-			this.tail_tip2.xRot = -((float) (this.tail_tip2.xRot + MathHelpers.LerpDegrees((float) entity.currentTail3Pitch, (float) entity.tail3Pitch, 0.01)));
-			this.tail_tip3.xRot = -((float) (this.tail_tip3.xRot + MathHelpers.LerpDegrees((float) entity.currentTail4Pitch, (float) entity.tail4Pitch, 0.01)));
-			this.tail_tip4.xRot = -((float) (this.tail_tip4.xRot + MathHelpers.LerpDegrees((float) entity.currentTail5Pitch, (float) entity.tail5Pitch, 0.01)));
-			entity.currentTail1Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail1Pitch, (float) entity.tail1Pitch, 0.01);
-			entity.currentTail2Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail2Pitch, (float) entity.tail2Pitch, 0.01);
-			entity.currentTail3Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail3Pitch, (float) entity.tail3Pitch, 0.01);
-			entity.currentTail4Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail4Pitch, (float) entity.tail4Pitch, 0.01);
-			entity.currentTail5Pitch = (float) MathHelpers.LerpDegrees((float) entity.currentTail5Pitch, (float) entity.tail5Pitch, 0.01);
+			this.tail.xRot = -((float) (this.tail.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[0], (float) entity.tailKinematics.getTailPitches()[0], 0.01)));
+			this.tail_tip.xRot = -((float) (this.tail_tip.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[1], (float) entity.tailKinematics.getTailPitches()[1], 0.01)));
+			this.tail_tip2.xRot = -((float) (this.tail_tip2.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[2], (float) entity.tailKinematics.getTailPitches()[2], 0.01)));
+			this.tail_tip3.xRot = -((float) (this.tail_tip3.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[3], (float) entity.tailKinematics.getTailPitches()[3], 0.01)));
+			this.tail_tip4.xRot = -((float) (this.tail_tip4.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[4], (float) entity.tailKinematics.getTailPitches()[4], 0.01)));
+			entity.tailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[0], (float) entity.tailKinematics.getTailPitches()[0], 0.01);
+			entity.tailKinematics.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[1], (float) entity.tailKinematics.getTailPitches()[1], 0.01);
+			entity.tailKinematics.getCurrentTailPitches()[2] = (float) MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[2], (float) entity.tailKinematics.getTailPitches()[2], 0.01);
+			entity.tailKinematics.getCurrentTailPitches()[3] = (float) MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[3], (float) entity.tailKinematics.getTailPitches()[3], 0.01);
+			entity.tailKinematics.getCurrentTailPitches()[4] = (float) MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[4], (float) entity.tailKinematics.getTailPitches()[4], 0.01);
 		}
 	}
+
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {

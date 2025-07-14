@@ -19,6 +19,9 @@ import net.minecraft.world.phys.Vec3;
 
 public class RRMob extends WaterAnimal {
 
+    public float prevTilt;
+    public float tilt;
+
     public int feedCDLim = 0;
     public int feedCD = 0;
 
@@ -46,6 +49,26 @@ public class RRMob extends WaterAnimal {
 
     public void tick() {
         super.tick();
+
+        prevTilt = tilt;
+        if (this.isInWater()) {
+            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
+            if (Math.abs(v) > 1) {
+                if (Math.abs(tilt) < 25) {
+                    tilt -= Math.signum(v);
+                }
+            } else {
+                if (Math.abs(tilt) > 0) {
+                    final float tiltSign = Math.signum(tilt);
+                    tilt -= tiltSign * 0.85F;
+                    if (tilt * tiltSign < 0) {
+                        tilt = 0;
+                    }
+                }
+            }
+        } else{
+            tilt = 0;
+        }
 
         this.feedCD --;
     }

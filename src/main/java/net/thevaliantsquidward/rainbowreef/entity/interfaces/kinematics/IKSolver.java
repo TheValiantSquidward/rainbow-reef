@@ -259,7 +259,7 @@ public class IKSolver {
         torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), Mth.RAD_TO_DEG * this.pitch);
         torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), Mth.RAD_TO_DEG *this.prevPitch);
 
-        visualizeNodes(entity.level());
+        //visualizeNodes(entity.level());
 
 /*        System.out.println("guh");
         System.out.println(torsoFront);

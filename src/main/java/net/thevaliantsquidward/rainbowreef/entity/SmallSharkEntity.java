@@ -44,10 +44,7 @@ import javax.annotation.Nullable;
 
 public class SmallSharkEntity extends RRMob implements Bucketable {
 
-    public IKSolver TailKinematics;
-
-    public float prevTilt;
-    public float tilt;
+    public IKSolver tailKinematics;
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.INT);
@@ -60,32 +57,12 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
-        this.TailKinematics = new IKSolver(this, 2, 0.3);
+        this.tailKinematics = new IKSolver(this, 2, 0.3);
     }
 
     public void tick() {
         super.tick();
-        this.TailKinematics.TakePerTickAction(this);
-
-        prevTilt = tilt;
-        if (this.isInWater()) {
-            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
-            if (Math.abs(v) > 1) {
-                if (Math.abs(tilt) < 25) {
-                    tilt -= Math.signum(v);
-                }
-            } else {
-                if (Math.abs(tilt) > 0) {
-                    final float tiltSign = Math.signum(tilt);
-                    tilt -= tiltSign * 0.85F;
-                    if (tilt * tiltSign < 0) {
-                        tilt = 0;
-                    }
-                }
-            }
-        } else{
-            tilt = 0;
-        }
+        this.tailKinematics.TakePerTickAction(this);
 
         if (this.level().isClientSide()){
             this.setupAnimationStates();

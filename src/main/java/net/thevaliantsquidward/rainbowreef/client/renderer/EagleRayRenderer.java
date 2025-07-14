@@ -1,11 +1,15 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.EagleRayModel;
 import net.thevaliantsquidward.rainbowreef.entity.RayEntity;
+import net.thevaliantsquidward.rainbowreef.entity.SmallSharkEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 public class EagleRayRenderer extends MobRenderer<RayEntity, EagleRayModel<RayEntity>> {
@@ -24,5 +28,11 @@ public class EagleRayRenderer extends MobRenderer<RayEntity, EagleRayModel<RayEn
             case 2 -> COWNOSE;
             default -> SPOTTED;
         };
+    }
+
+    @Override
+    protected void setupRotations(RayEntity animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+        super.setupRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
+        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTick, -animatable.prevTilt, -animatable.tilt)));
     }
 }
