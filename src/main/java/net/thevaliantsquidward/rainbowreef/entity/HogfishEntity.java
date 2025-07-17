@@ -51,12 +51,14 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class HogfishEntity extends RRMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(HogfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(HogfishEntity.class, EntityDataSerializers.INT);
+
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState digAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -85,6 +87,15 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
         }
 
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -234,38 +245,11 @@ public class HogfishEntity extends RRMob implements GeoEntity, Bucketable {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 5, this::predicate));
-        //controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "dig", 0, this::digPredicate));
-    }
-
-    private <E extends GeoAnimatable> PlayState predicate(AnimationState<E> event) {
-        if (this.isUnderWater()) {
-            event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.swimming", Animation.LoopType.LOOP));
-        } else {
-            event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.flopping", Animation.LoopType.LOOP));
-        }
-
-        return PlayState.CONTINUE;
-    }
-
-    /*private <E extends GeoAnimatable> PlayState digPredicate(AnimationState<E> event) {
-        if (this.goalSelector.getRunningGoals().distinct()) {
-            event.getController().setAnimation(RawAnimation.begin().then("animation.hogfish.peck", Animation.LoopType.LOOP));
-        } else {
-            return PlayState.STOP;
-        }
-        return PlayState.CONTINUE;
-    }*/
 
     public static <T extends Mob> boolean canSpawn(EntityType<HogfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
+
 
     public MoveControl getMoveControl() {
         Entity entity = this.getControlledVehicle();

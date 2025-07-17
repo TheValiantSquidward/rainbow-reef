@@ -49,10 +49,10 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity {
+public class ButterfishEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
 
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ButterfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ButterfishEntity.class, EntityDataSerializers.INT);
@@ -108,6 +108,15 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
         }
 
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -341,21 +350,5 @@ public class ButterfishEntity extends VariantSchoolingFish implements GeoEntity,
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
 
 }

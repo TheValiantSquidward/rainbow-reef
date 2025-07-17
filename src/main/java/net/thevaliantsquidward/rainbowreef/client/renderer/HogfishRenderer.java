@@ -2,13 +2,20 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.EelModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.HogfishModel;
+import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
 import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class HogfishRenderer extends GeoEntityRenderer<HogfishEntity> {
+@OnlyIn(Dist.CLIENT)
+public class HogfishRenderer extends MobRenderer<HogfishEntity, HogfishModel<HogfishEntity>> {
     private static final ResourceLocation CUBAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/cuban.png");
     private static final ResourceLocation SPANISH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/spanish.png");
     private static final ResourceLocation CORAL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/coral.png");
@@ -16,8 +23,8 @@ public class HogfishRenderer extends GeoEntityRenderer<HogfishEntity> {
     private static final ResourceLocation PEPPERMINT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/peppermint.png");
 
 
-    public HogfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new HogfishModel());
+    public HogfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new HogfishModel<>(context.bakeLayer(ReefModelLayers.HOGFISH_LAYER)), 0.4F);
     }
 
     protected void scale(HogfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

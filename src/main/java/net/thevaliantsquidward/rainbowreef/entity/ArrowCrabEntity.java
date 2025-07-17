@@ -41,12 +41,15 @@ import software.bernie.geckolib.core.object.PlayState;
 
 import javax.annotation.Nonnull;
 
-public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable, DancesToJukebox {
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class ArrowCrabEntity extends CrabEntity implements Bucketable, DancesToJukebox {
 
     //crabbing about
     //the crabby beast
     //crabbed to meet you
+
+    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState danceAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState walkAnimationState = new net.minecraft.world.entity.AnimationState();
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ArrowCrabEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ArrowCrabEntity.class, EntityDataSerializers.INT);
@@ -260,11 +263,6 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 10, this::predicate));
-    }
-
-    @Override
     public void tick() {
         super.tick();
 
@@ -272,39 +270,20 @@ public class ArrowCrabEntity extends CrabEntity implements GeoEntity, Bucketable
             this.getLookControl().setLookAt(getJukeboxPos().getCenter());
         }
 
-    }
-
-    private static final RawAnimation CRAB_IDLE = RawAnimation.begin().thenLoop("animation.arrow_crab.idle");
-    private static final RawAnimation CRAB_DANCE = RawAnimation.begin().thenLoop("animation.arrow_crab.dance");
-    private static final RawAnimation CRAB_WALK = RawAnimation.begin().thenLoop("animation.arrow_crab.walk");
-    private static final RawAnimation CRAB_FEED = RawAnimation.begin().thenLoop("animation.arrow_crab.feed");
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        if (this.isDancing()) {
-            geoAnimatableAnimationState.setAndContinue(CRAB_DANCE);
-            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
-            return PlayState.CONTINUE;
-        } else if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6) {
-            {
-                geoAnimatableAnimationState.setAndContinue(CRAB_WALK);
-                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            }
-        } else {
-            geoAnimatableAnimationState.setAndContinue(CRAB_IDLE);
-            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
         }
-        return PlayState.CONTINUE;
     }
+
+    private void setupAnimationStates() {
+        this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving(), this.tickCount);
+        this.walkAnimationState.animateWhen(this.isAlive() && this.walkAnimation.isMoving(), this.tickCount);
+        this.danceAnimationState.animateWhen(this.isAlive() && (this.isDancing() && this.getJukeboxPos() != null), this.tickCount);
+    }
+
 
     public static boolean canSpawn(EntityType<ArrowCrabEntity> arrowCrabEntityEntityType, ServerLevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos p_223364_3_, RandomSource randomSource) {
         return !levelAccessor.getBlockState(p_223364_3_).isSolid();
-    }
-
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
     }
 
 }

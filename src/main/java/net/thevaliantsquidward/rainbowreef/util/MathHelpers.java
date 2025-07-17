@@ -14,24 +14,28 @@ import java.util.Iterator;
 
 public class MathHelpers {
 
-    public static Vec3 quickReturn (Level level, Vec3 anchor, Vec3 point, float angleY, float perTickRate) {
+    public static Vec3 quickReturn (Level level, Vec3 anchor, Vec3 point, float angleY, float perTickRate, boolean gravity, boolean returning) {
 
-        if (angleY >= 0 && angleY < 180) {
-            point = MathHelpers.rotateAroundCenterFlatDeg(anchor, point, (double) -perTickRate);
-        } else if (angleY < 0 && angleY >= -180) {
-            point = MathHelpers.rotateAroundCenterFlatDeg(anchor, point, (double) perTickRate);
+        if (returning) {
+            if (angleY >= 0 && angleY < 180) {
+                point = MathHelpers.rotateAroundCenterFlatDeg(anchor, point, (double) -perTickRate);
+            } else if (angleY < 0 && angleY >= -180) {
+                point = MathHelpers.rotateAroundCenterFlatDeg(anchor, point, (double) perTickRate);
+            }
         }
 
-        if (level.getBlockState(new BlockPos((int) point.x(), (int) (point.y() - 0.02), (int) point.z())).isAir() ||
-                !level.getBlockState(new BlockPos((int) point.x(), (int) (point.y() - 0.02), (int) point.z())).isSolid()) {
-            point = point.subtract(0, 0.02, 0);
+        if (gravity) {
+            if (level.getBlockState(new BlockPos((int) point.x(), (int) (point.y() - 0.02), (int) point.z())).isAir() ||
+                    !level.getBlockState(new BlockPos((int) point.x(), (int) (point.y() - 0.02), (int) point.z())).isSolid()) {
+                point = point.subtract(0, 0.02, 0);
+            }
         }
 
         return point;
 
     }
 
-    public static Vec3 distConstraintSingle(Vec3 anchor, Vec3 point, double distLim, boolean flat){
+    public static Vec3 distConstraintSingle(Vec3 anchor, Vec3 point, double distLim, double VertLimPercentage){
         double dist = anchor.distanceTo(point);
         Vec3 diff = anchor.subtract(point);
 
@@ -43,7 +47,7 @@ public class MathHelpers {
 
         double flatDist = MathHelpers.flatDist(anchor, point);
 
-        if (flatDist < distLim*0.95) {
+        if (flatDist < distLim*VertLimPercentage) {
             double dX = diff.x();
             double dZ = diff.z();
             double dY = diff.y();

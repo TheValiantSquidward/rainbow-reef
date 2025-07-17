@@ -21,6 +21,7 @@
   "item.rainbowreef.angelfish_bucket" : "Bucket of Angelfish",
   "item.rainbowreef.moorish_idol_bucket" : "Bucket of Moorish Idol",
   "item.rainbowreef.arrow_crab_bucket" : "Bucket of Arrow Crab",
+  "item.rainbowreef.eel_bucket" : "Bucket of Eel",
 
   "item.rainbowreef.claw_disc" : "Music Disc",
   "item.rainbowreef.claw_disc.desc" : "TheValiantSquidward - Claw",
@@ -42,6 +43,7 @@
   "item.rainbowreef.arrow_crab" : "Raw Arrow Crab",
   "item.rainbowreef.raw_angelfish" : "Raw Angelfish",
   "item.rainbowreef.raw_moorish_idol" : "Raw Moorish Idol",
+  "item.rainbowreef.raw_eel" : "Raw Eel",
 
   "item.rainbowreef.goby_gummy" : "Goby Gummy",
   "item.rainbowreef.boxfish_bread" : "Boxfish Bread",
@@ -66,6 +68,8 @@
   "item.rainbowreef.idol_cookie" : "Idol Cookie",
   "item.rainbowreef.roasted_crab_meat" : "Roasted Crab Meat",
   "item.rainbowreef.crabcake" : "Crabcake",
+  "item.rainbowreef.eelini_spaghetti" : "Eelini Spaghetti",
+
   "item.rainbowreef.sharkbite_salad" : "Sharkbite Salad",
   "block.rainbowreef.angelfish_cake" : "Angelfish Cake",
   "item.rainbowreef.forbidden_soup" : "Forbidden Soup",
@@ -93,6 +97,7 @@
   "item.rainbowreef.arrow_crab_spawn_egg" : "Arrow Crab Spawn Egg",
   "item.rainbowreef.moorish_idol_spawn_egg" : "Moorish Idol Spawn Egg",
   "item.rainbowreef.jellyfish_spawn_egg" : "Jellyfish Spawn Egg",
+  "item.rainbowreef.eel_spawn_egg" : "Eel Spawn Egg",
 
   "block.rainbowreef.cerulean_starfish" : "Cerulean Starfish",
   "block.rainbowreef.umber_starfish" : "Umber Starfish",
@@ -401,6 +406,14 @@
   "entity.rainbowreef.crab.variant_purple": "Purple",
   "entity.rainbowreef.crab.variant_candy": "Candy",
 
+  "entity.rainbowreef.eel.variant_green": "Green Moray",
+  "entity.rainbowreef.eel.variant_dragon": "Dragon Moray",
+  "entity.rainbowreef.eel.variant_laced": "Laced Moray",
+  "entity.rainbowreef.eel.variant_fimbriated": "Fimbriated Moray",
+  "entity.rainbowreef.eel.variant_japanese_dragon": "Japanese Dragon Moray",
+  "entity.rainbowreef.eel.variant_mud": "Mud Moray",
+  "entity.rainbowreef.eel.variant_fresh": "Freshwater Moray",
+
   "entity.rainbowreef.goby" : "Goby",
   "entity.rainbowreef.tang" : "Tang",
   "entity.rainbowreef.boxfish" : "Boxfish",
@@ -419,7 +432,7 @@
   "entity.rainbowreef.moorish_idol" : "Moorish Idol",
   "entity.rainbowreef.ray" : "Ray",
   "entity.rainbowreef.jellyfish" : "Jellyfish",
-
+  "entity.rainbowreef.eel" : "Eel",
 
   "advancements.husbandry.collect_all.title" : "The Rainbow Connection",
   "advancements.husbandry.collect_all.description" : "Collect Every Single Fish Variant",
@@ -477,5 +490,8 @@
   "advancements.husbandry.collect_jellyfish.description" : "Collect all Jellyfish Variants",
 
   "advancements.husbandry.collect_moorish_idol.title" : "All Drains Lead to the Ocean",
-  "advancements.husbandry.collect_moorish_idol.description" : "Collect all Moorish Idol Variants"
+  "advancements.husbandry.collect_moorish_idol.description" : "Collect all Moorish Idol Variants",
+
+  "advancements.husbandry.collect_eel.title" : "Cave Diver Supreme",
+  "advancements.husbandry.collect_eel.description" : "Collect all Eel Variants... Without telling Val about any of them."
 }

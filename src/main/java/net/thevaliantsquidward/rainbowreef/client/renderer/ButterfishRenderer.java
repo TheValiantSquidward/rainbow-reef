@@ -2,13 +2,19 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ButterfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
+
+@OnlyIn(Dist.CLIENT)
+public class ButterfishRenderer extends MobRenderer<ButterfishEntity, ButterfishModel<ButterfishEntity>> {
+
     private static final ResourceLocation COPPERBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/copperband.png");
     private static final ResourceLocation EASTERISLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/easterisle.png");
     private static final ResourceLocation THREADFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/threadfin.png");
@@ -32,8 +38,8 @@ public class ButterfishRenderer extends GeoEntityRenderer<ButterfishEntity> {
     private static final ResourceLocation FOUREYE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/foureye.png");
 
 
-    public ButterfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new ButterfishModel());
+    public ButterfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new ButterfishModel<>(context.bakeLayer(ReefModelLayers.BUTTERFISH_LAYER)), 0.4F);
     }
 
     protected void scale(ButterfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

@@ -2,13 +2,21 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.BassletModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.BoxfishModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.BassletEntity;
+import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class BassletRenderer extends GeoEntityRenderer<BassletEntity> {
+@OnlyIn(Dist.CLIENT)
+public class BassletRenderer extends MobRenderer<BassletEntity, BassletModel<BassletEntity>> {
     private static final ResourceLocation FAIRY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/fairy.png");
     private static final ResourceLocation BRAZILIAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/brazilian.png");
     private static final ResourceLocation ACCESSOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/accessor.png");
@@ -20,8 +28,9 @@ public class BassletRenderer extends GeoEntityRenderer<BassletEntity> {
     private static final ResourceLocation YELLOWSCISSORTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/yellow_scissor_tail.png");
     private static final ResourceLocation MIDNIGHT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/basslet/midnight.png");
 
-    public BassletRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new BassletModel());
+
+    public BassletRenderer(EntityRendererProvider.Context context) {
+        super(context, new BassletModel<>(context.bakeLayer(ReefModelLayers.BASSLET_LAYER)), 0.4F);
     }
 
     protected void scale(BassletEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

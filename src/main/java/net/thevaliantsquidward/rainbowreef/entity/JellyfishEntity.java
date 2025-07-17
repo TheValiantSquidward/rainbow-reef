@@ -45,7 +45,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
+public class JellyfishEntity extends RRMob implements Bucketable {
 
     public float xBodyRot;
     public float xBodyRotO;
@@ -61,6 +61,10 @@ public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
     private float tx;
     private float ty;
     private float tz;
+
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
 
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
 
@@ -123,7 +127,6 @@ public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
 
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
@@ -202,8 +205,17 @@ public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
         }
 
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
     }
 
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    }
     public void aiStep() {
         super.aiStep();
 
@@ -457,21 +469,6 @@ public class JellyfishEntity extends RRMob implements GeoEntity, Bucketable {
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("animation.jellyfish.swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
     }
 
 }

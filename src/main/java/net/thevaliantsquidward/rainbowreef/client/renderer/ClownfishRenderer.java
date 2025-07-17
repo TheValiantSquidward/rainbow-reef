@@ -2,13 +2,22 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ClownfishModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.ParrotfishModel;
+import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyLayer;
 import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.ParrotfishEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
+@OnlyIn(Dist.CLIENT)
+public class ClownfishRenderer extends MobRenderer<ClownfishEntity, ClownfishModel<ClownfishEntity>> {
+
     private static final ResourceLocation BLACKANDWHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blackandwhite.png");
     private static final ResourceLocation OCELLARIS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/ocellaris.png");
     private static final ResourceLocation MAROON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/maroon.png");
@@ -30,9 +39,8 @@ public class ClownfishRenderer extends GeoEntityRenderer<ClownfishEntity> {
     private static final ResourceLocation YELLOWCLARKII = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/yellowclarkii.png");
     private static final ResourceLocation NAKED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/naked.png");
 
-
-    public ClownfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new ClownfishModel());
+    public ClownfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new ClownfishModel<>(context.bakeLayer(ReefModelLayers.CLOWNFISH_LAYER)), 0.4F);
     }
 
     protected void scale(ClownfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

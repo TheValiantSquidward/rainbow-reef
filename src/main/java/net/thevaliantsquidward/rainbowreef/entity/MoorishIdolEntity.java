@@ -45,13 +45,13 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity, Bucketable, VariantEntity{
-
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketable, VariantEntity{
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MoorishIdolEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MoorishIdolEntity.class, EntityDataSerializers.INT);
+
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -82,6 +82,15 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
         }
 
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -251,23 +260,9 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements GeoEntity
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
 
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
     public static <T extends Mob> boolean canSpawn(EntityType<MoorishIdolEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
 
 }

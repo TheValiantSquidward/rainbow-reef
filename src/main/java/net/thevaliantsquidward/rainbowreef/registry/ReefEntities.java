@@ -141,6 +141,14 @@ public class ReefEntities {
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "angelfish").toString()));
 
 
+    public static final RegistryObject<EntityType<EelEntity>> EEL =
+            ENTITY_TYPES.register("eel",
+                    () -> EntityType.Builder.of(EelEntity::new, MobCategory.WATER_AMBIENT)
+                            .sized(0.6f, 0.4f)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "eel").toString()));
+
+
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
     }

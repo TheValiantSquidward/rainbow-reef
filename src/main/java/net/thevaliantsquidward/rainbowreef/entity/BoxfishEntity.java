@@ -44,12 +44,14 @@ import software.bernie.geckolib.core.object.PlayState;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BoxfishEntity extends RRMob implements GeoEntity, Bucketable {
+public class BoxfishEntity extends RRMob implements Bucketable {
 
     public static <T extends Mob> boolean canSpawn(EntityType<BoxfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(BoxfishEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(BoxfishEntity.class, EntityDataSerializers.INT);
@@ -86,7 +88,17 @@ public class BoxfishEntity extends RRMob implements GeoEntity, Bucketable {
         }
 
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
     }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isAlive() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
+    }
+
 
     @Override
     protected void defineSynchedData() {
@@ -240,20 +252,6 @@ public class BoxfishEntity extends RRMob implements GeoEntity, Bucketable {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 0, this::predicate));
-    }
-
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-        geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
 
 
 }

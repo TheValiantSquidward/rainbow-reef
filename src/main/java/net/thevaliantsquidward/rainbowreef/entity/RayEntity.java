@@ -196,7 +196,7 @@ public class RayEntity extends VariantSchoolingFish implements Bucketable, Varia
         this.moveControl = new SmoothSwimmingMoveControl(this, 360, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
-        this.tailKinematics = new IKSolver(this, 5, 0.5);
+        this.tailKinematics = new IKSolver(this, 5, 0.5, 0.75,false, false);
     }
 
     public void tick() {

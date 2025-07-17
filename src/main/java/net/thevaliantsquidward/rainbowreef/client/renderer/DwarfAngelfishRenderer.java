@@ -2,13 +2,21 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.ButterfishModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishModel;
+import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
 import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfishEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEntity> {
+@OnlyIn(Dist.CLIENT)
+public class DwarfAngelfishRenderer extends MobRenderer<DwarfAngelfishEntity, DwarfAngelfishModel<DwarfAngelfishEntity>> {
+
     private static final ResourceLocation BICOLOR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/bicolor.png");
     private static final ResourceLocation CORAL_BEAUTY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/coralbeauty.png");
     private static final ResourceLocation PEPPERMINT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/peppermint.png");
@@ -27,9 +35,11 @@ public class DwarfAngelfishRenderer extends GeoEntityRenderer<DwarfAngelfishEnti
     private static final ResourceLocation YELLOWTAIL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/dwarfangelfish/yellowtail.png");
 
 
-    public DwarfAngelfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new DwarfAngelfishModel());
+
+    public DwarfAngelfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new DwarfAngelfishModel<>(context.bakeLayer(ReefModelLayers.DWARF_ANGELFISH_LAYER)), 0.4F);
     }
+
 
     protected void scale(DwarfAngelfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }

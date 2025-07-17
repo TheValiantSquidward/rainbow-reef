@@ -26,23 +26,45 @@ public class ClientEvents {
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ReefEntities.ANGELFISH.get(), AngelfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.CRAB.get(), CrabRenderer::new);
+        event.registerEntityRenderer(ReefEntities.CLOWNFISH.get(), ClownfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.PARROTFISH.get(), ParrotfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.PIPEFISH.get(), PipefishRenderer::new);
         event.registerEntityRenderer(ReefEntities.RAY.get(), EagleRayRenderer::new);
         event.registerEntityRenderer(ReefEntities.SEAHORSE.get(), SeahorseRenderer::new);
         event.registerEntityRenderer(ReefEntities.SMALL_SHARK.get(), SmallSharkRenderer::new);
         event.registerEntityRenderer(ReefEntities.TANG.get(), TangRenderer::new);
+        event.registerEntityRenderer(ReefEntities.BUTTERFISH.get(), ButterfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.ARROW_CRAB.get(), ArrowCrabRenderer::new);
+        event.registerEntityRenderer(ReefEntities.DWARFANGEL.get(), DwarfAngelfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.BOXFISH.get(), BoxfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.BASSLET.get(), BassletRenderer::new);
+        event.registerEntityRenderer(ReefEntities.MOORISH_IDOL.get(), MoorishIdolRenderer::new);
+        event.registerEntityRenderer(ReefEntities.JELLYFISH.get(), JellyfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.HOGFISH.get(), HogfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.GOBY.get(), GobyRenderer::new);
+        event.registerEntityRenderer(ReefEntities.EEL.get(), EelRenderer::new);
     }
 
     @SubscribeEvent
     public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(ReefModelLayers.ANGELFISH_LAYER, AngelfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.CRAB_LAYER, CrabModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.CLOWNFISH_LAYER, ClownfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.PARROTFISH_LAYER, ParrotfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.PIPEFISH_LAYER, PipefishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.RAY_LAYER, EagleRayModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.SEAHORSE_LAYER, SeahorseModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.SMALL_SHARK_LAYER, SmallSharkModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.TANG_LAYER, TangModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.BUTTERFISH_LAYER, ButterfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.ARROWCRAB_LAYER, ArrowCrabModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.DWARF_ANGELFISH_LAYER, DwarfAngelfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.BOXFISH_LAYER, BoxfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.BASSLET_LAYER, BassletModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.IDOL_LAYER, MoorishIdolModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.JELLYFISH_LAYER, JellyfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.HOGFISH_LAYER, HogfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.GOBY_LAYER, GobyModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.EEL_LAYER, EelModel::createBodyLayer);
     }
 }

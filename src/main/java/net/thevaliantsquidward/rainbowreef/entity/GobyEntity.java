@@ -47,13 +47,15 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.Month;
 
-public class GobyEntity extends RRMob implements GeoEntity, Bucketable {
-
-
-    private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+public class GobyEntity extends RRMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.INT);
+
+
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -95,8 +97,17 @@ public class GobyEntity extends RRMob implements GeoEntity, Bucketable {
         }
 
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
     }
 
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -271,34 +282,9 @@ public class GobyEntity extends RRMob implements GeoEntity, Bucketable {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<GeoAnimatable>(this, "controller", 10, this::predicate));
-        //transitiontick is the ticks of interpolation between animations
-    }
 
-    private <T extends GeoAnimatable> PlayState predicate(AnimationState<GeoAnimatable> geoAnimatableAnimationState) {
-
-        if (this.getDeltaMovement().horizontalDistanceSqr() > 1.0E-6 ) {
-            {
-                geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("swimming", Animation.LoopType.LOOP));
-                geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
-                return PlayState.CONTINUE;
-            }
-        } else {
-            geoAnimatableAnimationState.getController().setAnimation(RawAnimation.begin().then("iddling", Animation.LoopType.LOOP));
-            geoAnimatableAnimationState.getController().setAnimationSpeed(1.0D);
-        }
-
-        return PlayState.CONTINUE;
-    }
     public static <T extends Mob> boolean canSpawn(EntityType<GobyEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
-
 
 }

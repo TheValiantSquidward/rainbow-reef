@@ -57,7 +57,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
-        this.tailKinematics = new IKSolver(this, 2, 0.3);
+        this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
     }
 
     public void tick() {

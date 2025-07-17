@@ -33,6 +33,7 @@ public class CommonEvents {
         entity.register(ReefEntities.ANGELFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, AngelfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.MOORISH_IDOL.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, MoorishIdolEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.JELLYFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, JellyfishEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        entity.register(ReefEntities.EEL.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.WORLD_SURFACE, EelEntity::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     @SubscribeEvent
@@ -55,5 +56,6 @@ public class CommonEvents {
         event.put(ReefEntities.ANGELFISH.get(), AngelfishEntity.setAttributes());
         event.put(ReefEntities.ARROW_CRAB.get(), ArrowCrabEntity.setAttributes());
         event.put(ReefEntities.JELLYFISH.get(), JellyfishEntity.setAttributes());
+        event.put(ReefEntities.EEL.get(), EelEntity.setAttributes());
     }
 }

@@ -18,6 +18,8 @@ public final class RRTags {
     public static final TagKey<Block> TEMPERATE_STARS = registerBlockTag("temperate_stars");
     public static final TagKey<Block> HOG_DIGGABLE = registerBlockTag("hogfish_diggable");
     public static final TagKey<Item> NEM_DIET = registerItemTag("nem_diet");
+    public static final TagKey<Biome> EEL_FRESH = registerBiomeTag("eel_fresh");
+    public static final TagKey<Biome> EEL_SALT = registerBiomeTag("eel_salt");
 
     private static TagKey<Block> registerBlockTag(String name) {
         return TagKey.create(Registries.BLOCK, new ResourceLocation(RainbowReef.MOD_ID, name));

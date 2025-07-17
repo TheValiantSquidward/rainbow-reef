@@ -21,6 +21,11 @@ public class IKSolver {
     public float prevPitch = 0;
     public float pitch = 0;
 
+    public boolean tailHasGravity = false;
+
+    public boolean canReturnToCenter = false;
+
+    public double vertLimPercentage;
 
     public double prevYHeadRot = 0;
     public double deltaYHeadRot = 0;
@@ -64,7 +69,7 @@ public class IKSolver {
 
     private Boolean shiftNodes = false;
 
-    public IKSolver(LivingEntity entity, int nodeCount, double nodeDist) {
+    public IKSolver(LivingEntity entity, int nodeCount, double nodeDist, double VertLimPercentage, boolean tailHasGravity, boolean returnToCenter) {
 
         this.entity = entity;
         this.nodeCount = nodeCount;
@@ -73,6 +78,13 @@ public class IKSolver {
         //distance between each node^
         this.nodeHitboxRadius = nodeDist * 0.9;
         //size of the hitbox of each node
+        this.tailHasGravity = tailHasGravity;
+        //whether this chain is affected by gravity
+        this.canReturnToCenter = returnToCenter;
+        //whether this chain automatically returns to 0 rotation
+
+        this.vertLimPercentage = VertLimPercentage;
+        //how close the memebrs of this chain can get to each other on a 2d plane
 
         //this.bodyLength = Math.min(nodeDist, (int) (entity.getBoundingBox().getXsize()/2));
         //Length of the body used to calculate body hitbox
@@ -99,7 +111,7 @@ public class IKSolver {
         initTailPoints();
     }
 
-    public IKSolver(LivingEntity entity, int nodeCount, int nodeDist, boolean shiftNodes) {
+    public IKSolver(LivingEntity entity, int nodeCount, int nodeDist, boolean shiftNodes, boolean tailHasGravity) {
 
         this.entity = entity;
         this.nodeCount = nodeCount;
@@ -171,25 +183,27 @@ public class IKSolver {
      * Fully update the IK angles and re-calculate the rotated positions.
      */
     public void calculateTailAngles(LivingEntity entity) {
+
+
         // torsoFront corresponds to the start of the body, torsoBack correspond to the back of the body(start of the tail).
         torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), -entity.getXRot());
         torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), -entity.getXRot());
         //adds the chain that represents the creature's body first
 
-        nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], this.nodeDist, false);
+        nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], this.nodeDist, this.vertLimPercentage);
         float angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoFront, torsoBack, nodes[0], this.leftRefPoint, this.rightRefPoint));
         //float angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(torsoFront, torsoBack, nodes[0]));
-        nodes[0] = MathHelpers.quickReturn(entity.level(), torsoBack, nodes[0], angleY, 1);
+        nodes[0] = MathHelpers.quickReturn(entity.level(), torsoBack, nodes[0], angleY, 1, this.tailHasGravity, this.canReturnToCenter);
         //return to center for first node
         nodes[0] = MathHelpers.driveAway(torsoFront, nodes[0], entity.getBoundingBox().getXsize(), false);
         nodes[0] = MathHelpers.driveAway(entity.position(), nodes[0], entity.getBoundingBox().getXsize(), false);
         nodes[0] = MathHelpers.driveAway(torsoBack, nodes[0], nodeHitboxRadius, false);
         //collision
 
-        nodes[1] = MathHelpers.distConstraintSingle(nodes[0], nodes[1], this.nodeDist, false);
+        nodes[1] = MathHelpers.distConstraintSingle(nodes[0], nodes[1], this.nodeDist, this.vertLimPercentage);
         angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(torsoBack, nodes[0], nodes[1], this.leftRefPoint, this.rightRefPoint));
         //angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(torsoBack, nodes[0], nodes[1]));
-        nodes[1] = MathHelpers.quickReturn(entity.level(), nodes[0], nodes[1], angleY, 2);
+        nodes[1] = MathHelpers.quickReturn(entity.level(), nodes[0], nodes[1], angleY, 2, this.tailHasGravity, this.canReturnToCenter);
         //return to center
         nodes[1] = MathHelpers.driveAway(torsoFront, nodes[1], entity.getBoundingBox().getXsize(), false);
         nodes[1] = MathHelpers.driveAway(entity.position(), nodes[1], entity.getBoundingBox().getXsize(), false);
@@ -201,11 +215,11 @@ public class IKSolver {
         // Chain-update subsequent tail points after no longer needing torso segments.
         for (int i = 2; i < nodeCount; i++) {
             nodes[i] = shiftNodes ? nodes[i] = nodes[i].subtract(0, -1, 0) : nodes[i];
-            nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], this.nodeDist, false);
+            nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], this.nodeDist, this.vertLimPercentage);
 
             angleY = (float) (Mth.RAD_TO_DEG*MathHelpers.getAngleForLinkTopDownFlat(nodes[i - 2], nodes[i - 1], nodes[i], this.leftRefPoint, this.rightRefPoint));
             //angleX = (float) (Mth.RAD_TO_DEG*MathHelpers.angleFromYdiff(nodes[i - 2], nodes[i - 1], nodes[i]));
-            nodes[i] = MathHelpers.quickReturn(entity.level(), nodes[i - 1], nodes[i], angleY, 2);
+            nodes[i] = MathHelpers.quickReturn(entity.level(), nodes[i - 1], nodes[i], angleY, 2, this.tailHasGravity, this.canReturnToCenter);
             //return to center
 
             nodes[i] = MathHelpers.driveAway(torsoFront, nodes[i], entity.getBoundingBox().getXsize(), false);
@@ -219,7 +233,7 @@ public class IKSolver {
         }
 
 
-        visualizeNodes(entity.level());
+        //visualizeNodes(entity.level());
 
 
 
@@ -270,16 +284,16 @@ public class IKSolver {
         System.out.println(entity.level().isClientSide());*/
 
         // Chain-update subsequent tail points after no longer needing torso segments.
-        nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], nodeDist, false);
+        nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], nodeDist, this.vertLimPercentage);
         for (int i = 1; i < nodeCount; i++) {
-            nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], nodeDist, false);
+            nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], nodeDist, this.vertLimPercentage);
         }
 
-        System.out.println("---------------------------------------------------");
+        //System.out.println("---------------------------------------------------");
         for (int x = nodeCount - 1; x >= 0; x--) {
             //ensures that points do not overlap
-            System.out.println("guh");
-            System.out.println(x);
+            //System.out.println("guh");
+            //System.out.println(x);
 
             if (x == 0) {
                 nodes[x] = MathHelpers.driveAway(torsoFront, nodes[x], entity.getBoundingBox().getXsize(), false);
@@ -293,16 +307,16 @@ public class IKSolver {
             nodes[x] = MathHelpers.driveAway(entity.position(), nodes[x], entity.getBoundingBox().getXsize(), false);
             nodes[x] = MathHelpers.driveAway(torsoBack, nodes[x], nodeHitboxRadius, false);
             for (int i = 0; i < x; i++) {
-                System.out.println(i);
+                //System.out.println(i);
                 nodes[x] = MathHelpers.driveAway(nodes[i], nodes[x], nodeHitboxRadius, false);
             }
             //check against all previous nodes
 
         }
 
-        nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], nodeDist, false);
+        nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], nodeDist, this.vertLimPercentage);
         for (int i = 1; i < nodeCount; i++) {
-            nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], nodeDist, false);
+            nodes[i] = MathHelpers.distConstraintSingle(nodes[i - 1], nodes[i], nodeDist, this.vertLimPercentage);
         }
 
 

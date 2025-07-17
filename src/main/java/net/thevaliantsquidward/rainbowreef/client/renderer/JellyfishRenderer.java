@@ -2,13 +2,21 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.EelModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.MoorishIdolModel;
+import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
 import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class JellyfishRenderer extends GeoEntityRenderer<JellyfishEntity> {
+@OnlyIn(Dist.CLIENT)
+public class JellyfishRenderer extends MobRenderer<JellyfishEntity, JellyfishModel<JellyfishEntity>> {
     private static final ResourceLocation TEXTURE_PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_1.png");
     private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_0.png");
     private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_2.png");
@@ -20,8 +28,8 @@ public class JellyfishRenderer extends GeoEntityRenderer<JellyfishEntity> {
     private static final ResourceLocation TEXTURE_AZURE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_8.png");
     private static final ResourceLocation TEXTURE_RED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_9.png");
 
-    public JellyfishRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new JellyfishModel());
+    public JellyfishRenderer(EntityRendererProvider.Context context) {
+        super(context, new JellyfishModel<>(context.bakeLayer(ReefModelLayers.JELLYFISH_LAYER)), 0.4F);
     }
 
     protected void scale(JellyfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

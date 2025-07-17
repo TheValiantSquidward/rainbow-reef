@@ -38,6 +38,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         //seahorse
                         //small shark
                         //tang
+                        //eel
 
                         pOutput.accept(ReefItems.ANGELFISH_SPAWN_EGG.get());
                         pOutput.accept(ReefItems.ARROW_CRAB_SPAWN_EGG.get());
@@ -57,6 +58,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ReefItems.SEAHORSE_SPAWN_EGG.get());
                         pOutput.accept(ReefItems.SMALL_SHARK_SPAWN_EGG.get());
                         pOutput.accept(ReefItems.TANG_SPAWN_EGG.get());
+                        pOutput.accept(ReefItems.EEL_SPAWN_EGG.get());
 
                         pOutput.accept(ReefItems.RAW_ANGELFISH.get());
                         pOutput.accept(ReefItems.RAW_ARROW_CRAB.get());
@@ -76,6 +78,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ReefItems.RAW_SEAHORSE.get());
                         pOutput.accept(ReefItems.RAW_SMALL_SHARK.get());
                         pOutput.accept(ReefItems.RAW_TANG.get());
+                        pOutput.accept(ReefItems.RAW_EEL.get());
 
                         pOutput.accept(ReefItems.ANGELFISH_BUCKET.get());
                         pOutput.accept(ReefItems.ARROW_CRAB_BUCKET.get());
@@ -95,6 +98,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ReefItems.TANG_BUCKET.get());
                         pOutput.accept(ReefItems.SHARK_BUCKET.get());
                         pOutput.accept(ReefItems.SPOTTED_EAGLE_RAY_BUCKET.get());
+                        pOutput.accept(ReefItems.EEL_BUCKET.get());
 
                         pOutput.accept(ReefBlocks.ANGELFISH_CAKE.get());
                         pOutput.accept(ReefItems.BASSLET_COOKIE.get());
@@ -118,6 +122,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ReefItems.DRIED_SEAHORSE.get());
                         pOutput.accept(ReefItems.TANGY_SOUP.get());
                         pOutput.accept(ReefItems.SHARKBITE_SALAD.get());
+                        pOutput.accept(ReefItems.EELINI_SPAGHETTI.get());
 
                         pOutput.accept(ReefItems.SEASUGAR_SORBET.get());
                         pOutput.accept(ReefItems.ROCKFISH_CANDY.get());

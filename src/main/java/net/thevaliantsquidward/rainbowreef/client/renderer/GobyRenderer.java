@@ -2,13 +2,21 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.GobyModel;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.GobyEntity;
+import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
+import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
-public class GobyRenderer extends GeoEntityRenderer<GobyEntity> {
+@OnlyIn(Dist.CLIENT)
+public class GobyRenderer extends MobRenderer<GobyEntity, GobyModel<GobyEntity>> {
     private static final ResourceLocation TEXTURE_FIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/firegoby.png");
     private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/purplefiregoby.png");
     private static final ResourceLocation TEXTURE_CANDYCANE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/candycanegoby.png");
@@ -27,10 +35,10 @@ public class GobyRenderer extends GeoEntityRenderer<GobyEntity> {
     private static final ResourceLocation TEXTURE_BLACKFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/blackfin.png");
 
 
-    public GobyRenderer(EntityRendererProvider.Context renderManagerIn) {
-        super(renderManagerIn, new GobyModel());
-    }
 
+    public GobyRenderer(EntityRendererProvider.Context context) {
+        super(context, new GobyModel<>(context.bakeLayer(ReefModelLayers.GOBY_LAYER)), 0.4F);
+    }
     protected void scale(GobyEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
