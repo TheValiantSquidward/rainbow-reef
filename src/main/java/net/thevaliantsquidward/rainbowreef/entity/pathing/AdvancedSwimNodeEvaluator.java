@@ -107,8 +107,8 @@ public class AdvancedSwimNodeEvaluator extends NodeEvaluator {
                     node.costMalus += 8.0F;
                 }
 
-                System.out.println(node.costMalus);
-                System.out.println(pX + " " + pY + " " + pZ);
+                //System.out.println(node.costMalus);
+                //System.out.println(pX + " " + pY + " " + pZ);
             }
         }
 
