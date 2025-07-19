@@ -30,8 +30,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedSwimNodeEvaluator;
+import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
@@ -217,7 +220,6 @@ public class BassletEntity extends RRMob implements Bucketable {
         super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
@@ -226,8 +228,9 @@ public class BassletEntity extends RRMob implements Bucketable {
         return this.isInWater();
     }
 
+    @Override
     protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
     }
 
     public static AttributeSupplier setAttributes() {
@@ -240,7 +243,7 @@ public class BassletEntity extends RRMob implements Bucketable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, true));
     }
 
 

@@ -15,12 +15,15 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
     int height;
     int prox;
 
-    public CustomizableRandomSwimGoal(PathfinderMob fi, double spdmultiplier, int interval, int radius, int height, int proximity) {
+    boolean preferCrevices;
+
+    public CustomizableRandomSwimGoal(PathfinderMob fi, double spdmultiplier, int interval, int radius, int height, int proximity, boolean preferCrevices) {
         super(fi, spdmultiplier, interval);
         this.fims = fi;
         this.radius = radius;
         this.height = height;
         this.prox = proximity;
+        this.preferCrevices = preferCrevices;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     @Nullable
     protected Vec3 getPosition() {
-        return GoalUtils.getRandomSwimmablePosThatIsntTheSameDepth(this.mob, radius, height);
+        return GoalUtils.getRandomSwimmablePosThatIsntTheSameDepth(this.mob, radius, height, this.preferCrevices);
     }
     //previously 32 and 12
 }

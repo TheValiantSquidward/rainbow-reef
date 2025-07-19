@@ -252,7 +252,7 @@ public class RayEntity extends VariantSchoolingFish implements Bucketable, Varia
         super.registerGoals();
         this.goalSelector.addGoal(0, new FishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 2));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 2, false));
     }
 
 

@@ -312,7 +312,7 @@ public class ButterfishEntity extends VariantSchoolingFish implements Bucketable
         super.registerGoals();
         this.goalSelector.addGoal(0, new FishDigGoal(this, 15, RRTags.BUTTERFLY_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.9, 1, 20, 20, 3));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.9, 1, 20, 20, 3, false));
     }
 
     public void travel(Vec3 pTravelVector) {

@@ -37,6 +37,7 @@ import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
+import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
@@ -88,8 +89,9 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
         return this.isInWater();
     }
 
+    @Override
     protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
     }
 
     public static String getVariantName(int variant) {

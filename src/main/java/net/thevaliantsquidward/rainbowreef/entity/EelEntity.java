@@ -31,9 +31,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
+import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
@@ -89,8 +91,9 @@ public class EelEntity extends RRMob implements Bucketable {
         return this.isInWater();
     }
 
+    @Override
     protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
     }
 
     public static String getVariantName(int variant) {
@@ -235,7 +238,7 @@ public class EelEntity extends RRMob implements Bucketable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 200, 10, 10, 0.01));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 200, 10, 10, 3, true));
     }
 
     protected SoundEvent getAmbientSound() {

@@ -288,7 +288,7 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
         super.registerGoals();
         this.goalSelector.addGoal(0, new FishDigGoal(this, 20, RRTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
     }
 
     protected SoundEvent getAmbientSound() {

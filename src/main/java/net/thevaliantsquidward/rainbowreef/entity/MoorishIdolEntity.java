@@ -241,7 +241,7 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
         super.registerGoals();
         this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.MOORISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8D, 1, 20, 20, 2));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8D, 1, 20, 20, 2, false));
     }
 
 

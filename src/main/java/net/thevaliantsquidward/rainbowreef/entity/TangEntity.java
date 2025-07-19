@@ -372,7 +372,7 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
         super.registerGoals();
         this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.TANG_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
     }
 
     public static <T extends Mob> boolean canSpawn(EntityType<TangEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {

@@ -265,7 +265,7 @@ public class DwarfAngelfishEntity extends RRMob implements Bucketable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FishDigGoal(this, 30, RRTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
     }
 
 
