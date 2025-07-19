@@ -29,8 +29,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -237,7 +239,7 @@ public class DwarfAngelfishEntity extends RRMob implements Bucketable {
     }
 
     public DwarfAngelfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        super(pEntityType, pLevel, 120);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
@@ -261,6 +263,7 @@ public class DwarfAngelfishEntity extends RRMob implements Bucketable {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 30, RRTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3));
     }

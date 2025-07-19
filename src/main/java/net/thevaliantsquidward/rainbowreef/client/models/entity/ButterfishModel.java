@@ -96,7 +96,7 @@ public class ButterfishModel<T extends ButterfishEntity> extends ReefModel<T> {
 
 		this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, ButterfishAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
+		this.animate(entity.swimAnimationState, ButterfishAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
 		this.animate(entity.landAnimationState, ButterfishAnimations.FLOP, ageInTicks, 1);
 	}
 

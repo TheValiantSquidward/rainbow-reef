@@ -35,7 +35,7 @@ public class NemHoster extends VariantSchoolingFish {
 
 
     public NemHoster(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel, int searchCD, int homeRadius, int restInterval, int restTime) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        super(pEntityType, pLevel, 200);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 60, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 

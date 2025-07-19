@@ -29,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -216,6 +217,8 @@ public class BassletEntity extends RRMob implements Bucketable {
         super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
+
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     @Override

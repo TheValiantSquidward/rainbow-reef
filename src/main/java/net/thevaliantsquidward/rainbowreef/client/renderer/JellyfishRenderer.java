@@ -1,9 +1,11 @@
 package net.thevaliantsquidward.rainbowreef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
@@ -35,6 +37,16 @@ public class JellyfishRenderer extends MobRenderer<JellyfishEntity, JellyfishMod
     protected void scale(JellyfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
+    @Override
+    protected void setupRotations(JellyfishEntity pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
+        float f = Mth.lerp(pPartialTicks, pEntityLiving.xBodyRotO, pEntityLiving.xBodyRot);
+        float f1 = Mth.lerp(pPartialTicks, pEntityLiving.zBodyRotO, pEntityLiving.zBodyRot);
+        pPoseStack.translate(0.0F, 0.5F, 0.0F);
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(180.0F - pRotationYaw));
+        pPoseStack.mulPose(Axis.XP.rotationDegrees(f));
+        pPoseStack.mulPose(Axis.YP.rotationDegrees(f1));
+        pPoseStack.translate(0.0F, -1.2F, 0.0F);
+    }
 
     public ResourceLocation getTextureLocation(JellyfishEntity entity) {
         return switch (entity.getVariant()) {

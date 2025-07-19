@@ -32,7 +32,7 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
     private final VibrationSystem.User vibrationUser;
 
     public DancingEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        super(pEntityType, pLevel, 260);
         this.vibrationUser = new VibrationUser();
         this.dynamicJukeboxListener = new DynamicGameEventListener(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
     }
@@ -94,9 +94,11 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
     public boolean isDancing() {
         return this.entityData.get(DANCING);
     }
+
     public void setDancing(boolean dancing) {
         this.entityData.set(DANCING, Boolean.valueOf(dancing));
     }
+
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("Dancing", this.isDancing());

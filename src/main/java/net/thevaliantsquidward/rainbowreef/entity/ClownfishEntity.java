@@ -28,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.LocateNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.MoveToNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.NemHoster;
@@ -35,6 +36,7 @@ import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.RestInNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -309,6 +311,7 @@ public class ClownfishEntity extends NemHoster implements Bucketable, VariantEnt
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.CLOWNFISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 0.8D, 40));
 

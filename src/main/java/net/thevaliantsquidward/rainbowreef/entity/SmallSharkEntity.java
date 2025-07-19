@@ -33,11 +33,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,7 +55,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     public final AnimationState idleAnimationState = new AnimationState();
 
     public SmallSharkEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
-        super(entityType, level, Integer.MAX_VALUE);
+        super(entityType, level, 400);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
 
@@ -225,6 +227,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
     }

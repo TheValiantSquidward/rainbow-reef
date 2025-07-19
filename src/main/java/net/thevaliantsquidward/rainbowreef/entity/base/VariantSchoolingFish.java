@@ -24,6 +24,7 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
         super(p_27523_, p_27524_, feedCooldown);
     }
 
+
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
     }

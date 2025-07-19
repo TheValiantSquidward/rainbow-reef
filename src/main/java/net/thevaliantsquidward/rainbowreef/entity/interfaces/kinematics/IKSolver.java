@@ -101,12 +101,12 @@ public class IKSolver {
         this.torsoFrontOffset = this.torsoFrontOffset.multiply(1, 1, nodeDist);
         this.torsoBackOffset = this.torsoBackOffset.multiply(1, 1, nodeDist);
 
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
-        torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYHeadRot());
-        torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYHeadRot());
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(leftRefOffset), (double) -entity.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(rightRefOffset), (double) -entity.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(upRefOffset), (double) -entity.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYRot());
+        torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYRot());
+        torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYRot());
 
         initTailPoints();
     }
@@ -134,12 +134,12 @@ public class IKSolver {
         this.currentTailYaws = new double[nodeCount];
         this.currentTailPitches = new double[nodeCount];
 
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
-        torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYHeadRot());
-        torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYHeadRot());
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(leftRefOffset), (double) -entity.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(rightRefOffset), (double) -entity.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(upRefOffset), (double) -entity.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(downRefOffset), (double) -entity.getYRot());
+        torsoFront = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoFrontOffset), (double) -entity.getYRot());
+        torsoBack = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), entity.position().subtract(torsoBackOffset), (double) -entity.getYRot());
 
         if (shiftNodes == true) {
             torsoFrontOffset = new Vec3(0, -1, -1);;
@@ -165,8 +165,8 @@ public class IKSolver {
     public void initTailPoints() {
 
         // Initialize the first tail point (tail0) relative to the entity and the nose point
-        torsoFront = MathHelpers.rotateAroundCenter3dDeg(this.nowPos, this.nowPos.subtract(torsoFrontOffset), -this.entity.getYHeadRot(), -this.pitch);
-        torsoBack = MathHelpers.rotateAroundCenter3dDeg(this.nowPos, this.nowPos.subtract(torsoBackOffset), -this.entity.getYHeadRot(), this.prevPitch);
+        torsoFront = MathHelpers.rotateAroundCenter3dDeg(this.nowPos, this.nowPos.subtract(torsoFrontOffset), -this.entity.getYRot(), -this.pitch);
+        torsoBack = MathHelpers.rotateAroundCenter3dDeg(this.nowPos, this.nowPos.subtract(torsoBackOffset), -this.entity.getYRot(), this.prevPitch);
 
         Vec3 diff = torsoBack.subtract(torsoFront);
 
@@ -186,8 +186,8 @@ public class IKSolver {
 
 
         // torsoFront corresponds to the start of the body, torsoBack correspond to the back of the body(start of the tail).
-        torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), -entity.getXRot());
-        torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), -entity.getXRot());
+        torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYRot(), -entity.getXRot());
+        torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYRot(), -entity.getXRot());
         //adds the chain that represents the creature's body first
 
         nodes[0] = MathHelpers.distConstraintSingle(torsoBack, nodes[0], this.nodeDist, this.vertLimPercentage);
@@ -255,10 +255,10 @@ public class IKSolver {
 
 
         //side refs don't move vertically
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(upRefOffset), (double) -entity.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYRot());
         //END of IK
 
 
@@ -270,8 +270,8 @@ public class IKSolver {
         this.prevPitch = this.pitch;
         this.pitch = MathHelpers.pitchProcess(this.nowPos, this.prevPos);
 
-        torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYHeadRot(), Mth.RAD_TO_DEG * this.pitch);
-        torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYHeadRot(), Mth.RAD_TO_DEG *this.prevPitch);
+        torsoFront = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoFrontOffset), -entity.getYRot(), Mth.RAD_TO_DEG * this.pitch);
+        torsoBack = MathHelpers.rotateAroundCenter3dDeg(entity.position(), entity.position().subtract(torsoBackOffset), -entity.getYRot(), Mth.RAD_TO_DEG *this.prevPitch);
 
         //visualizeNodes(entity.level());
 
@@ -341,10 +341,10 @@ public class IKSolver {
 
 
         //side refs don't move vertically
-        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYHeadRot());
-        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYHeadRot());
-        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(upRefOffset), (double) -entity.getYHeadRot());
-        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYHeadRot());
+        leftRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(leftRefOffset), (double) -entity.getYRot());
+        rightRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(rightRefOffset), (double) -entity.getYRot());
+        upRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(upRefOffset), (double) -entity.getYRot());
+        downRefPoint = MathHelpers.rotateAroundCenterFlatDeg(entity.position(), this.entity.position().subtract(downRefOffset), (double) -entity.getYRot());
         //END of IK
     }
 

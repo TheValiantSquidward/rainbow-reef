@@ -94,10 +94,8 @@ public class RRMob extends WaterAnimal {
             double extraY = 0.8F;
             double extraZ = radius * Mth.cos(angle);
             BlockState state = this.level().getBlockState(target);
-            if (state.isSolid()) {
-                ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + 0.5 + extraX, target.getY() + 0.5 + extraY, target.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
-                //((ServerLevel) this.level()).sendParticles(ParticleTypes.BUBBLE_COLUMN_UP, target.getX() + 0.5, target.getY() + 1.1, target.getZ() + 0.5, 1, 0.0D, 0.0D, 0.0D, 0);
-            }
+
+            ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + 0.5 + extraX, target.getY() + 0.5 + extraY, target.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
         }
     }
 
@@ -124,4 +122,6 @@ public class RRMob extends WaterAnimal {
 
         return north <= (1) || south <= (1) || east <= (1) || west <= (1);
     }
+
+
 }

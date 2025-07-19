@@ -26,12 +26,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepyLookaroundGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepySwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -248,7 +250,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
     }
 
     public ParrotfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        super(pEntityType, pLevel, 180);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
@@ -272,6 +274,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.PARROTFISH_DIET));
         this.goalSelector.addGoal(4, new RandomSleepyLookaroundGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 0.8, 1));

@@ -45,7 +45,7 @@ public class JellyfishModel<T extends JellyfishEntity> extends ReefModel<T> {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 15.0F, 0.0F));
 
 		PartDefinition bell = root.addOrReplaceChild("bell", CubeListBuilder.create().texOffs(0, 0).addBox(-8.0F, -5.25F, -8.0F, 16.0F, 11.0F, 16.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -6.75F, 0.0F));
 
@@ -82,10 +82,7 @@ public class JellyfishModel<T extends JellyfishEntity> extends ReefModel<T> {
 	public void setupAnim(JellyfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.bell.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, JellyfishAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
-		this.animate(entity.idleAnimationState, JellyfishAnimations.IDLE, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, JellyfishAnimations.SWIM, ageInTicks, 1);
 		this.animate(entity.landAnimationState, JellyfishAnimations.FLOP, ageInTicks, 1);
 	}
 

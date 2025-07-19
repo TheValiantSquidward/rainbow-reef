@@ -5,7 +5,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -15,13 +14,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.CrabEntity;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
-public class HogfishDigGoal extends Goal {
+public class FishDigGoal extends Goal {
     private RRMob fims;
 
     private int digTime = 0;
@@ -36,7 +35,7 @@ public class HogfishDigGoal extends Goal {
 
     public TagKey<Block> foodWhitelist;
 
-    public HogfishDigGoal(RRMob fisdh, int digtime, TagKey<Block> whitelist) {
+    public FishDigGoal(RRMob fisdh, int digtime, TagKey<Block> whitelist) {
         this.foodWhitelist = whitelist;
         this.fims = fisdh;
 
@@ -62,32 +61,47 @@ public class HogfishDigGoal extends Goal {
     }
 
     public boolean canContinueToUse() {
-        return fims.getTarget() == null && fims.getLastHurtByMob() == null && this.digPos != null && fims.level().getBlockState(this.digPos).is(RRTags.HOG_DIGGABLE) && fims.level().getFluidState(this.digPos.above()).is(FluidTags.WATER) && this.timeOut >= 0;
+        return fims.getTarget() == null && fims.getLastHurtByMob() == null && this.digPos != null && fims.level().getBlockState(this.digPos).is(this.foodWhitelist) && fims.level().getFluidState(this.digPos.above()).is(FluidTags.WATER) && this.timeOut >= 0;
     }
 
     public void start() {
+        this.digTime += fims.getRandom().nextInt(10);
         this.originalMoveControl = fims.getMoveControl();
-        this.fims.setMoveControl(fims.feedingController);
-
+        if (!(this.fims instanceof CrabEntity)) {
+            this.fims.setMoveControl(fims.feedingController);
+        }
+        this.fims.getNavigation().moveTo(((float) this.digPos.getX()) + 0.5D, this.digPos.getY(), ((float) this.digPos.getZ()) + 0.5D, 1.2);
+        //System.out.println("start");
     }
 
     public void tick() {
 
-        double dist = this.fims.distanceToSqr(Vec3.atCenterOf(this.digPos));
+        double dist = fims.position().distanceTo(Vec3.atCenterOf(this.digPos));
         double dy = this.digPos.getY() + 0.5 - this.fims.getY();
         double dx = this.digPos.getX() + 0.5 - this.fims.getX();
         double dz = this.digPos.getZ() + 0.5 - this.fims.getZ();
         float yaw = (float) (Mth.atan2(dz, dx) * 57.2957763671875D) - 90.0F;
         float pitch = (float) -(Mth.atan2(dy, Math.hypot(dx, dz)) * 57.2957763671875D);
+
+        //System.out.println(fims.getNavigation().getPath().isDone());
+        //((ServerLevel) this.fims.level()).sendParticles(ParticleTypes.BUBBLE_COLUMN_UP, this.digPos.getX() + 0.5, this.digPos.getY() + 0.5, this.digPos.getZ() + 0.5, 1, 0, 1, 0, 0);
         this.timeOut --;
 
-        if (dist < 1) {
+        if (this.fims instanceof CrabEntity && this.fims.blockPosition().below().equals(this.digPos)) {
+            this.fims.setDeltaMovement(Vec3.ZERO);
             this.fims.getNavigation().stop();
+        }
+
+        if (dist < this.fims.getBoundingBox().getXsize() + 1) {
             this.fims.setYRot(yaw);
             this.fims.setXRot(pitch);
             this.digTime--;
-            //stop the fish and start digging when it is close enough, also makes it look at the blocks
+            //start digging when it is close enough, also makes it look at the blocks
 
+            if (dist < this.fims.getBoundingBox().getXsize()) {
+                this.fims.getNavigation().stop();
+                //stop the fish before it starts spinning
+            }
 
             if (this.digTime % 5 == 0) {
                 SoundEvent sound = fims.level().getBlockState(this.digPos).getSoundType().getHitSound();
@@ -102,8 +116,7 @@ public class HogfishDigGoal extends Goal {
             }
 
         } else {
-            this.fims.getNavigation().moveTo(this.digPos.getX() + 0.5, this.digPos.getY() + 0.5, this.digPos.getZ() + 0.5, 1.2);
-            //fims.setYRot(f);
+            this.fims.getNavigation().moveTo(((float) this.digPos.getX()) + 0.5D, this.digPos.getY(), ((float) this.digPos.getZ()) + 0.5D, 1.2);
             //if the fish isn't close enough keep it moving
 
             if (this.timeOut <= 0) {
@@ -120,15 +133,20 @@ public class HogfishDigGoal extends Goal {
         this.digPos = null;
         this.digTime = this.digTimeLim;
         this.timeOut = this.timeOutLim;
+        //System.out.println("stop");
     }
 
     private BlockPos genSeafloorPos(BlockPos parent) {
         LevelAccessor world = fims.level();
         final RandomSource random = this.fims.getRandom();
         int range = 15;
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 25; i++) {
             BlockPos seafloor = parent.offset(random.nextInt(range) - range / 2, 0, random.nextInt(range) - range / 2);
             while (world.getFluidState(seafloor).is(FluidTags.WATER) && seafloor.getY() > 1) {
+                BlockState state = world.getBlockState(seafloor);
+                if (state.is(this.foodWhitelist)) {
+                    return seafloor;
+                }
                 seafloor = seafloor.below();
             }
             BlockState state = world.getBlockState(seafloor);
@@ -145,7 +163,7 @@ public class HogfishDigGoal extends Goal {
         if (fims.isInWater()) {
             return genSeafloorPos(this.fims.blockPosition());
         } else {
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 25; i++) {
                 BlockPos blockpos1 = this.fims.blockPosition().offset(random.nextInt(range) - range / 2, 3, random.nextInt(range) - range / 2);
                 while (this.fims.level().isEmptyBlock(blockpos1) && blockpos1.getY() > 1) {
                     blockpos1 = blockpos1.below();
