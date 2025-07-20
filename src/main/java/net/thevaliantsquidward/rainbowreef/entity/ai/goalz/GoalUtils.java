@@ -74,7 +74,11 @@ public class GoalUtils {
             }
         }
 
-        return currentPos.getCenter();
+        if (currentPos == null) {
+            return null;
+        } else {
+            return currentPos.getCenter();
+        }
     }
 
     public static int countSolidSides(Level level, double x, double y, double z) {
