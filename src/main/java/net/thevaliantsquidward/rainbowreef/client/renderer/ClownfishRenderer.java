@@ -13,7 +13,6 @@ import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyL
 import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
 import net.thevaliantsquidward.rainbowreef.entity.ParrotfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class ClownfishRenderer extends MobRenderer<ClownfishEntity, ClownfishModel<ClownfishEntity>> {

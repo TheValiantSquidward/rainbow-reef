@@ -11,7 +11,7 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.ArrowCrabModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.BoxfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+
 
 @OnlyIn(Dist.CLIENT)
 public class BoxfishRenderer extends MobRenderer<BoxfishEntity, BoxfishModel<BoxfishEntity>> {

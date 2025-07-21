@@ -12,7 +12,6 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishMo
 import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
 import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class DwarfAngelfishRenderer extends MobRenderer<DwarfAngelfishEntity, DwarfAngelfishModel<DwarfAngelfishEntity>> {

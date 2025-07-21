@@ -123,15 +123,15 @@ public class EelEntity extends RRMob implements Bucketable {
         this.entityData.define(FROM_BUCKET, false);
     }
 
-    @Override
-    @Nonnull
-    public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.EEL_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
-        }
-        return stack;
-    }
+ //   @Override
+ //   @Nonnull
+ //   public ItemStack getBucketItemStack() {
+ //       ItemStack stack = new ItemStack(ReefItems.EEL_BUCKET.get());
+ //       if (this.hasCustomName()) {
+ //           stack.setHoverName(this.getCustomName());
+ //       }
+ //       return stack;
+ //   }
 
     @Override
     public void saveToBucketTag(@Nonnull ItemStack bucket) {
@@ -149,6 +149,11 @@ public class EelEntity extends RRMob implements Bucketable {
         if (compound.contains("BucketVariantTag", 3)) {
             this.setVariant(compound.getInt("BucketVariantTag"));
         }
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return null;
     }
 
     @Override

@@ -13,7 +13,6 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.GobyEntity;
 import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class GobyRenderer extends MobRenderer<GobyEntity, GobyModel<GobyEntity>> {

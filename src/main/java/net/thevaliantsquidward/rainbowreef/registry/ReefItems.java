@@ -85,8 +85,8 @@ public class ReefItems {
     public static final RegistryObject<Item> JELLYFISH_SPAWN_EGG = ITEMS.register("jellyfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ReefEntities.JELLYFISH, 0xf6b7dd, 0xef8298, new Item.Properties()));
 
-    public static final RegistryObject<Item> EEL_SPAWN_EGG = ITEMS.register("eel_spawn_egg",
-            () -> new ForgeSpawnEggItem(ReefEntities.EEL, 0x4f7523, 0xa6a926, new Item.Properties()));
+  //  public static final RegistryObject<Item> EEL_SPAWN_EGG = ITEMS.register("eel_spawn_egg",
+  //          () -> new ForgeSpawnEggItem(ReefEntities.EEL, 0x4f7523, 0xa6a926, new Item.Properties()));
 
     public static final RegistryObject<Item> CLAW_DISC = ITEMS.register("claw_disc",
             () -> new RecordItem(2, ReefSounds.CLAW, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2240));
@@ -128,7 +128,7 @@ public class ReefItems {
 
     public static final RegistryObject<Item> SPOTTED_EAGLE_RAY_BUCKET = ITEMS.register("spotted_eagle_ray_bucket", () -> new ItemModFishBucket(ReefEntities.RAY, Fluids.WATER, new Item.Properties()));
 
-    public static final RegistryObject<Item> EEL_BUCKET = ITEMS.register("eel_bucket", () -> new ItemModFishBucket(ReefEntities.EEL, Fluids.WATER, new Item.Properties()));
+  //  public static final RegistryObject<Item> EEL_BUCKET = ITEMS.register("eel_bucket", () -> new ItemModFishBucket(ReefEntities.EEL, Fluids.WATER, new Item.Properties()));
 
 
     // Raw
@@ -166,7 +166,7 @@ public class ReefItems {
 
     public static final RegistryObject<Item> RAW_DWARF_ANGELFISH = ITEMS.register("raw_dwarf_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
 
-    public static final RegistryObject<Item> RAW_EEL = ITEMS.register("raw_eel", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5F).meat().build())));
+  //  public static final RegistryObject<Item> RAW_EEL = ITEMS.register("raw_eel", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5F).meat().build())));
 
     public static final RegistryObject<Item> GLOB_OF_JELLY = ITEMS.register("glob_of_jelly", () -> new Item(new Item.Properties()));
 
@@ -215,7 +215,7 @@ public class ReefItems {
 
     public static final RegistryObject<Item> ULTRA_BACON_SANDWICH = ITEMS.register("bacon_sandwich", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(14).saturationMod(0.7F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, 0), 1.0F).build())));
 
-    public static final RegistryObject<Item> EELINI_SPAGHETTI = ITEMS.register("eelini_spaghetti", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(1.0F).effect(new MobEffectInstance(MobEffects.DIG_SPEED, 2400, 1), 1.0F).build())));
+   // public static final RegistryObject<Item> EELINI_SPAGHETTI = ITEMS.register("eelini_spaghetti", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(1.0F).effect(new MobEffectInstance(MobEffects.DIG_SPEED, 2400, 1), 1.0F).build())));
 
 
     // Special Meals

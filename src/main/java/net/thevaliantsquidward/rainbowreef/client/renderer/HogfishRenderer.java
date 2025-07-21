@@ -12,7 +12,7 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.HogfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
 import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+
 
 @OnlyIn(Dist.CLIENT)
 public class HogfishRenderer extends MobRenderer<HogfishEntity, HogfishModel<HogfishEntity>> {

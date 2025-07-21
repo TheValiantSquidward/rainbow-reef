@@ -13,7 +13,6 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishMo
 import net.thevaliantsquidward.rainbowreef.entity.BassletEntity;
 import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class BassletRenderer extends MobRenderer<BassletEntity, BassletModel<BassletEntity>> {

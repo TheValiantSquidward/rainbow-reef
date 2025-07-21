@@ -12,7 +12,6 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.ButterfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.ArrowCrabEntity;
 import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class ArrowCrabRenderer extends MobRenderer<ArrowCrabEntity, ArrowCrabModel<ArrowCrabEntity>> {

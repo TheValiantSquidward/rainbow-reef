@@ -15,7 +15,6 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.MoorishIdolModel
 import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
 import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class JellyfishRenderer extends MobRenderer<JellyfishEntity, JellyfishModel<JellyfishEntity>> {
