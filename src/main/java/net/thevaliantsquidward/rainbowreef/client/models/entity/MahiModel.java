@@ -11,9 +11,12 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.MahiEntity;
+import net.thevaliantsquidward.rainbowreef.entity.MoorishIdolEntity;
 
 public class MahiModel<T extends MahiEntity> extends ReefModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "mahi_mahi"), "main");
@@ -82,13 +85,18 @@ public class MahiModel<T extends MahiEntity> extends ReefModel<T> {
 		Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
+
+	public void setupAnim(MahiEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+
+		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+
+		this.animate(entity.swimAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
+	}
+
 	@Override
 	public ModelPart root() {
 		return Root;
 	}
 
-	@Override
-	public void setupAnim(T t, float v, float v1, float v2, float v3, float v4) {
-
-	}
 }
