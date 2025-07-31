@@ -29,6 +29,7 @@ public class ReefModelLayers {
     public static final ModelLayerLocation GOBY_LAYER = main("goby");
     public static final ModelLayerLocation EEL_LAYER = main("eel");
     public static final ModelLayerLocation LIONFISH_LAYER = main("lionfish");
+    public static final ModelLayerLocation MAHI_LAYER = main("mahi_mahi");
 
     private static ModelLayerLocation register(String id, String name) {
         return new ModelLayerLocation(new ResourceLocation(RainbowReef.MOD_ID, id), name);
