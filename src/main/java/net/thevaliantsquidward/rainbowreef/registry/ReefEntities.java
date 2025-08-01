@@ -152,9 +152,16 @@ public class ReefEntities {
     public static final RegistryObject<EntityType<MahiEntity>> MAHI_MAHI =
             ENTITY_TYPES.register("mahi_mahi",
                     () -> EntityType.Builder.of(MahiEntity::new, MobCategory.WATER_AMBIENT)
-                            .sized(1.5f, 1.5f)
+                            .sized(1.2f, 1.2f)
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "mahi_mahi").toString()));
+
+    public static final RegistryObject<EntityType<BillfishEntity>> BILLFISH =
+            ENTITY_TYPES.register("billfish",
+                    () -> EntityType.Builder.of(BillfishEntity::new, MobCategory.WATER_AMBIENT)
+                            .sized(1.2f, 1.2f)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "billfish").toString()));
 
 
     public static void register(IEventBus eventBus) {

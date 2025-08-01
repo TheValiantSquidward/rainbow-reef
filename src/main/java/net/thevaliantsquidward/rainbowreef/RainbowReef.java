@@ -64,6 +64,7 @@ public class RainbowReef {
             EntityRenderers.register(ReefEntities.JELLYFISH.get(), JellyfishRenderer:: new);
             EntityRenderers.register(ReefEntities.LIONFISH.get(), LionfishRenderer:: new);
             EntityRenderers.register(ReefEntities.MAHI_MAHI.get(), MahiRenderer:: new);
+            EntityRenderers.register(ReefEntities.BILLFISH.get(), BillfishRenderer:: new);
         }
     }
 }
