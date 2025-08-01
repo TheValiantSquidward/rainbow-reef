@@ -13,6 +13,7 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.thevaliantsquidward.rainbowreef.client.animations.MaoriWrasseAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.BillfishEntity;
@@ -85,8 +86,8 @@ public class MaoriWrasseModel<T extends MaoriWrasseEntity> extends ReefModel<T> 
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
+		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, MaoriWrasseAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
 	}
 
 	@Override

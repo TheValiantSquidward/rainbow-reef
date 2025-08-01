@@ -14,6 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.thevaliantsquidward.rainbowreef.client.animations.DwarfAngelfishAnimations;
+import net.thevaliantsquidward.rainbowreef.client.animations.LionfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
 import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfishEntity;
@@ -92,8 +93,7 @@ public class LionfishModel<T extends LionfishEntity> extends ReefModel<T> {
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, DwarfAngelfishAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
-		this.animate(entity.landAnimationState, DwarfAngelfishAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, LionfishAnimations.swimming, ageInTicks, limbSwingAmount * 4.0f);
 	}
 
 	@Override
