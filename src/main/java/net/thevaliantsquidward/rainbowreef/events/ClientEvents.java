@@ -72,5 +72,6 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.MAHI_LAYER, MahiModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.BILLFISH_LAYER, BillfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.MAORI_WRASSE_LAYER, MaoriWrasseModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.FROGFISH_LAYER, FrogfishModel::createBodyLayer);
     }
 }
