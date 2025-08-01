@@ -163,6 +163,12 @@ public class ReefEntities {
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "billfish").toString()));
 
+    public static final RegistryObject<EntityType<MaoriWrasseEntity>> MAORI_WRASSE =
+            ENTITY_TYPES.register("maori_wrasse",
+                    () -> EntityType.Builder.of(MaoriWrasseEntity::new, MobCategory.WATER_AMBIENT)
+                            .sized(1.2f, 1.2f)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "maori_wrasse").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

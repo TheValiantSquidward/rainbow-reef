@@ -58,5 +58,6 @@ public class CommonEvents {
         event.put(ReefEntities.LIONFISH.get(), LionfishEntity.setAttributes());
         event.put(ReefEntities.MAHI_MAHI.get(), MahiEntity.setAttributes());
         event.put(ReefEntities.BILLFISH.get(), BillfishEntity.setAttributes());
+        event.put(ReefEntities.MAORI_WRASSE.get(), MaoriWrasseEntity.setAttributes());
     }
 }

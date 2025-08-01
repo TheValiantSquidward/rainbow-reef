@@ -7,7 +7,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.MaoriWrasseModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.*;
 import net.thevaliantsquidward.rainbowreef.client.renderer.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
@@ -72,5 +71,6 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.LIONFISH_LAYER, LionfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.MAHI_LAYER, MahiModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.BILLFISH_LAYER, BillfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.MAORI_WRASSE_LAYER, MaoriWrasseModel::createBodyLayer);
     }
 }
