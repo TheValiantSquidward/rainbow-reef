@@ -20,7 +20,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -29,42 +28,47 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
-import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
-
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.Month;
 
-public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketable, VariantEntity{
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MoorishIdolEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MoorishIdolEntity.class, EntityDataSerializers.INT);
+public class Basslet extends RRMob implements Bucketable {
 
     public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
     public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Basslet.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Basslet.class, EntityDataSerializers.INT);
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "silver";
-            default -> "default";
+            case 1 -> "brazilian";
+            case 2 -> "accessor";
+            case 3 -> "blackcap";
+            case 4 -> "candy";
+            case 5 -> "gold";
+            case 6 -> "gilded";
+            case 7 -> "swissguard";
+            case 8 -> "yellowscissortail";
+            case 9 -> "midnight";
+            default -> "fairy";
         };
     }
+
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
 
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
-    }
-    @Override
-    public int getMaxSchoolSize() {
-        return 20;
     }
 
     public void tick() {
@@ -85,13 +89,9 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
     }
 
     private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
-    @Override
-    public int variant() {
-        return getVariant();
+        this.swimAnimationState.animateWhen(this.isAlive() && this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isAlive() && !this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -101,11 +101,10 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
         this.entityData.define(FROM_BUCKET, false);
     }
 
-
-    @Override
+   @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.MOORISH_IDOL_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.BASSLET_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -175,29 +174,31 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.001F){
+        LocalDate currentDate = LocalDate.now();
+        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
+            this.setVariant(4);
+        }else
+        if(variantChange <= 0.01){
+            this.setVariant(5);
+        } else if(variantChange <= 0.001){
+            this.setVariant(6);
+        }else if(variantChange <= 0.12){
             this.setVariant(1);
-        }else{
+        }else if(variantChange <= 0.24){
+            this.setVariant(2);
+        }else if(variantChange <= 0.36){
+            this.setVariant(3);
+        }else if(variantChange <= 0.48){
+            this.setVariant(4);
+        }else if(variantChange <= 0.60){
+            this.setVariant(7);
+        }else if(variantChange <= 0.72){
+            this.setVariant(8);
+        }else if(variantChange <= 0.84){
+            this.setVariant(9);
+        }else {
             this.setVariant(0);
         }
-
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
-                //|| reason == MobSpawnType.SPAWN_EGG
-        ) {
-            float schoolsize = this.getRandom().nextFloat();
-            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-
-            if (schoolcount > 0 && !this.level().isClientSide()) {
-                for (int i = 0; i < schoolcount; i++) {
-                    MoorishIdolEntity urine = new MoorishIdolEntity(ReefEntities.MOORISH_IDOL.get(), this.level());
-                    urine.setVariant(this.getVariant());
-                    urine.moveTo(this.getX(), this.getY(), this.getZ());
-                    urine.startFollowing(this);
-                    this.level().addFreshEntity(urine);
-                }
-            }
-        }
-
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -205,11 +206,11 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
         return MobType.WATER;
     }
 
-    public MoorishIdolEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 500);
-
+    public Basslet(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     @Override
@@ -217,27 +218,23 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
         return this.isInWater();
     }
 
-
+    @Override
     protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
     }
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8D)
-                .add(Attributes.MOVEMENT_SPEED, 1D)
+                .add(Attributes.MAX_HEALTH, 4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.6D)
                 .build();
     }
 
-
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.MOORISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8D, 1, 20, 20, 2, false));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, true));
     }
-
 
 
     protected SoundEvent getAmbientSound() {
@@ -258,8 +255,9 @@ public class MoorishIdolEntity extends VariantSchoolingFish implements Bucketabl
     }
 
 
-    public static <T extends Mob> boolean canSpawn(EntityType<MoorishIdolEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+    public static <T extends Mob> boolean canSpawn(EntityType<Basslet> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
+
 
 }

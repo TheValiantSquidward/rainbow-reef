@@ -10,11 +10,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.ParrotfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ParrotfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Parrotfish;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class ParrotfishModel<T extends ParrotfishEntity> extends ReefModel<T> {
+public class ParrotfishModel<T extends Parrotfish> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -61,7 +61,7 @@ public class ParrotfishModel<T extends ParrotfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(ParrotfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Parrotfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, ParrotfishAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0F);

@@ -5,7 +5,6 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -14,10 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.BillfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.MahiEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Billfish;
 
-public class BillfishModel<T extends BillfishEntity> extends ReefModel<T> {
+public class BillfishModel<T extends Billfish> extends ReefModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "billfish"), "main");
 	private final ModelPart Root;
@@ -87,7 +85,7 @@ public class BillfishModel<T extends BillfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(BillfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Billfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));

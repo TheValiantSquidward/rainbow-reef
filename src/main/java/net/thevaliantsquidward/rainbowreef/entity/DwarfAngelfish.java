@@ -28,27 +28,43 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.Blocks;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
-import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
-import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class AngelfishEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
+public class DwarfAngelfish extends RRMob implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(AngelfishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(AngelfishEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(DwarfAngelfish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(DwarfAngelfish.class, EntityDataSerializers.INT);
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
+    public static String getVariantName(int variant) {
+        return switch (variant) {
+            case 1 -> "coralbeauty";
+            case 2 -> "candycane"; //r
+            case 3 -> "flame";
+            case 4 -> "spotted";
+            case 5 -> "masked";
+            case 6 -> "cherub";
+            case 7 -> "japanese"; //r
+            case 8 -> "blacknox";
+            case 9 -> "lamarck";
+            case 10 -> "lemonpeel";
+            case 11 -> "yellow";
+            case 12 -> "orangepeel"; //ab
+            case 13 -> "pearlscale";
+            case 14 -> "resplendent";
+            case 15 -> "yellowtail"; //r
+            default -> "bicolor";
+        };
+    }
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -56,56 +72,26 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
-
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "french";
-            case 2 -> "emperor";
-            case 3 -> "yellowband";
-            case 4 -> "bluering";
-            case 5 -> "rockbeauty";
-            case 6 -> "bluequeen";
-            case 7 -> "majestic";
-            case 8 -> "king";
-            case 9 -> "semicircle";
-            case 10 -> "banded";
-            case 11 -> "gray";
-            case 12 -> "oldwoman";
-            case 13 -> "guinean";
-            case 14 -> "queenslandyellowtail";
-            case 15 -> "clarion";
-
-            default -> "queen";
-        };
-    }
-
-    @Override
-    public int getMaxSchoolSize() {
-        return 3;
-    }
-
-    @Override
-    public int variant() {
-        return getVariant();
-    }
-
     public void tick() {
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            //use this stuff for fish flopping
         }
+
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
     }
 
     private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -118,7 +104,7 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.ANGELFISH_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.DWARF_ANGELFISH_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -188,69 +174,54 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
+        float aberrant = this.getRandom().nextFloat();
+        float rare = this.getRandom().nextFloat();
+        float aberrantVariantChange = this.getRandom().nextFloat();
+        float rareVariantChange = this.getRandom().nextFloat();
 
-        if(variantChange <= 0.001){
-            this.setVariant(6);
+        if(aberrant <= 0.001) {
+            if(aberrantVariantChange <= 1F){
+                this.setVariant(12);
+
+            }
+
         } else
-        if(variantChange <= 0.06){
+        if(rare <= 0.10) {
+            if(rareVariantChange <= 0.33F){
+                this.setVariant(2);
+            }else
+            if(rareVariantChange <= 0.66F){
+                this.setVariant(7);
+            }else
+            {
+                this.setVariant(15);
+            }
+        } else
+
+        if(variantChange <= 0.08F){
             this.setVariant(1);
-        } else
-        if(variantChange <= 0.12){
-            this.setVariant(2);
-        } else
-        if (variantChange <= 0.18F) {
+        }else if(variantChange <= 0.16F){
             this.setVariant(3);
-        }else
-        if(variantChange <= 0.24F){
+        }else if(variantChange <= 0.24F){
             this.setVariant(4);
-        }else
-        if(variantChange <= 0.30F){
+        }else if(variantChange <= 0.30F){
             this.setVariant(5);
-        }else
-        if(variantChange <= 0.36F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.42F){
+        }else if(variantChange <= 0.38F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.46F){
             this.setVariant(8);
-        }else
-        if(variantChange <= 0.48F){
+        }else if(variantChange <= 0.54F){
             this.setVariant(9);
-        }else
-        if(variantChange <= 0.54F){
+        }else if(variantChange <= 0.62F){
             this.setVariant(10);
-        }else
-        if(variantChange <= 0.60F){
+        }else if(variantChange <= 0.70F){
             this.setVariant(11);
-        }else
-        if(variantChange <= 0.66F){
-            this.setVariant(12);
-        }else
-        if(variantChange <= 0.72F){
+        }else if(variantChange <= 0.78F){
             this.setVariant(13);
-        }else
-        if(variantChange <= 0.78F){
+        }else if(variantChange <= 0.86F){
             this.setVariant(14);
-        }else
-        if(variantChange <= 0.84F){
-            this.setVariant(15);
         } else{
             this.setVariant(0);
-        }
-
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
-                //|| reason == MobSpawnType.SPAWN_EGG
-        ) {
-            float schoolsize = this.getRandom().nextFloat();
-            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-
-            if (schoolcount > 0 && !this.level().isClientSide()) {
-                for (int i = 0; i < schoolcount; i++) {
-                    AngelfishEntity urine = new AngelfishEntity(ReefEntities.ANGELFISH.get(), this.level());
-                    urine.setVariant(this.getVariant());
-                    urine.moveTo(this.getX(), this.getY(), this.getZ());
-                    urine.startFollowing(this);
-                    this.level().addFreshEntity(urine);
-                }
-            }
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
@@ -260,10 +231,9 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
         return MobType.WATER;
     }
 
-    public AngelfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 300);
-
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
+    public DwarfAngelfish(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, 120);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -271,6 +241,7 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
     public boolean isNoGravity() {
         return this.isInWater();
     }
+
 
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
@@ -285,11 +256,11 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 20, RRTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 30, RRTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
     }
+
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -307,7 +278,10 @@ public class AngelfishEntity extends VariantSchoolingFish implements Bucketable,
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<AngelfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+
+    public static <T extends Mob> boolean canSpawn(EntityType<DwarfAngelfish> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
+
+
 }

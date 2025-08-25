@@ -11,14 +11,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.SmallSharkAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.SmallSharkEntity;
+import net.thevaliantsquidward.rainbowreef.entity.SmallShark;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
+public class SmallSharkModel<T extends SmallShark> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -71,7 +71,7 @@ public class SmallSharkModel<T extends SmallSharkEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(SmallSharkEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(SmallShark entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		core.xRot = (headPitch * (Mth.DEG_TO_RAD));

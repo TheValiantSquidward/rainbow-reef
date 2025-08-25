@@ -7,11 +7,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.AngelfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.AngelfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Angelfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class AngelfishRenderer extends MobRenderer<AngelfishEntity, AngelfishModel<AngelfishEntity>> {
+public class AngelfishRenderer extends MobRenderer<Angelfish, AngelfishModel<Angelfish>> {
 
     private static final ResourceLocation EMPEROR = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/emperorangel.png");
     private static final ResourceLocation FRENCH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/angelfish/frenchangel.png");
@@ -34,7 +34,7 @@ public class AngelfishRenderer extends MobRenderer<AngelfishEntity, AngelfishMod
         super(context, new AngelfishModel<>(context.bakeLayer(ReefModelLayers.ANGELFISH_LAYER)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(AngelfishEntity entity) {
+    public ResourceLocation getTextureLocation(Angelfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> FRENCH;
             case 2 -> EMPEROR;

@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,7 +20,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -31,43 +29,76 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
+import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.time.LocalDate;
-import java.time.Month;
 
-public class GobyEntity extends RRMob implements Bucketable {
+public class SmallShark extends RRMob implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(GobyEntity.class, EntityDataSerializers.INT);
+    public IKSolver tailKinematics;
 
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallShark.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallShark.class, EntityDataSerializers.INT);
 
-    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+
+    public SmallShark(EntityType<? extends WaterAnimal> entityType, Level level) {
+        super(entityType, level, 400);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+
+        this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
+    }
+
+    public void tick() {
+        super.tick();
+        this.tailKinematics.TakePerTickAction(this);
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && !this.isPathFinding()) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.01, 0.0));
+        }
+        super.travel(pTravelVector);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level p_27480_) {
+        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
+    }
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "purplefire";
-            case 2 -> "candycane";
-            case 3 -> "mandarin";
-            case 4 -> "yellowwatchman";
-            case 5 -> "catalina";
-            case 6 -> "blackray";
-            case 7 -> "helfrichi";
-            case 8 -> "blueneon";
-            case 9 -> "yellowneon";
-            case 10 -> "neonhybrid";
-            case 11 -> "bluestreak";
-            case 12 -> "leopardspotted";
-            case 13 -> "yellowclown";
-            case 14 -> "dracula";
-            case 15 -> "blackfin";
-            default -> "fire";
+            case 1 -> "pajama";
+            case 2 -> "horned";
+            case 3 -> "nurse";
+            case 4 -> "zebra";
+            case 5 -> "albino";
+            case 6 -> "piebald";
+            case 7 -> "portjackson";
+            default -> "epaulette";
         };
     }
     public boolean requiresCustomPersistence() {
@@ -77,30 +108,6 @@ public class GobyEntity extends RRMob implements Bucketable {
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
-    public void tick() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
-        } else {
-            this.setSprinting(true);
-        }
-
-        super.tick();
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
 
     @Override
     protected void defineSynchedData() {
@@ -109,10 +116,10 @@ public class GobyEntity extends RRMob implements Bucketable {
         this.entityData.define(FROM_BUCKET, false);
     }
 
-   @Override
+    @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.GOBY_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.SHARK_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -147,8 +154,8 @@ public class GobyEntity extends RRMob implements Bucketable {
         return this.entityData.get(VARIANT);
     }
 
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
+    private void setVariant(int variant) {
+        this.entityData.set(VARIANT, variant);
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -172,7 +179,9 @@ public class GobyEntity extends RRMob implements Bucketable {
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
-
+    public static <T extends Mob> boolean canSpawn(EntityType<SmallShark> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
     @Override
     @Nonnull
     public SoundEvent getPickupSound() {
@@ -182,82 +191,43 @@ public class GobyEntity extends RRMob implements Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        LocalDate currentDate = LocalDate.now();
-        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
-            this.setVariant(14);
-        } if(variantChange <= 0.001F){
-            this.setVariant(10);
-        } else if(variantChange <= 0.06F){
+        float aberrant = this.getRandom().nextFloat();
+        float aberrantVariantChange = this.getRandom().nextFloat();
+        if(aberrant <= 0.01) {
+            if(aberrantVariantChange <= 0.50F){
+                this.setVariant(5);
+            }else
+            {
+                this.setVariant(6);
+            }
+        } else
+        if(variantChange <= 0.15F) {
             this.setVariant(1);
-        } else if(variantChange <= 0.12F){
+        } else if(variantChange <= 0.30F) {
             this.setVariant(2);
-        } else if(variantChange <= 0.18F){
+        } else if(variantChange <= 0.45F){
             this.setVariant(3);
-        }else if(variantChange <= 0.24F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.30F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.36F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.42F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(8);
-        }else if(variantChange <= 0.54F){
-            this.setVariant(9);
         }else if(variantChange <= 0.60F){
-            this.setVariant(11);
-        }else if(variantChange <= 0.66F){
-            this.setVariant(12);
-        }else if(variantChange <= 0.72F){
-            this.setVariant(13);
-        }else if(variantChange <= 0.78F){
-            this.setVariant(14);
-        }else if(variantChange <= 0.84F){
-            this.setVariant(15);
+            this.setVariant(4);
+        }else if(variantChange <= 0.75F){
+            this.setVariant(7);
         }else{
             this.setVariant(0);
         }
+
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    public GobyEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
-    }
-
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 100.0D)
-                .build();
-    }
-
-    @Override
-    public void setSprinting(boolean pSprinting) {
-        super.setSprinting(pSprinting);
+        return Animal.createMobAttributes().add(Attributes.MAX_HEALTH, 7D).add(Attributes.MOVEMENT_SPEED, 0.8D).build();
     }
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 75, 5, 10, 0.01));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
     }
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -274,10 +244,4 @@ public class GobyEntity extends RRMob implements Bucketable {
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
-
-    public static <T extends Mob> boolean canSpawn(EntityType<GobyEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
-
 }

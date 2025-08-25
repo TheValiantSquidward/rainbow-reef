@@ -7,15 +7,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.EelModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.HogfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
-import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Hogfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 
 @OnlyIn(Dist.CLIENT)
-public class HogfishRenderer extends MobRenderer<HogfishEntity, HogfishModel<HogfishEntity>> {
+public class HogfishRenderer extends MobRenderer<Hogfish, HogfishModel<Hogfish>> {
     private static final ResourceLocation CUBAN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/cuban.png");
     private static final ResourceLocation SPANISH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/spanish.png");
     private static final ResourceLocation CORAL = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/hogfish/coral.png");
@@ -27,11 +25,11 @@ public class HogfishRenderer extends MobRenderer<HogfishEntity, HogfishModel<Hog
         super(context, new HogfishModel<>(context.bakeLayer(ReefModelLayers.HOGFISH_LAYER)), 0.4F);
     }
 
-    protected void scale(HogfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Hogfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(HogfishEntity entity) {
+    public ResourceLocation getTextureLocation(Hogfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> SPANISH;
             case 2 -> PEPPERMINT;

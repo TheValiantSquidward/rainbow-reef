@@ -8,14 +8,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ClownfishModel;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.ParrotfishModel;
-import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyLayer;
-import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.ParrotfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Clownfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class ClownfishRenderer extends MobRenderer<ClownfishEntity, ClownfishModel<ClownfishEntity>> {
+public class ClownfishRenderer extends MobRenderer<Clownfish, ClownfishModel<Clownfish>> {
 
     private static final ResourceLocation BLACKANDWHITE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/blackandwhite.png");
     private static final ResourceLocation OCELLARIS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/clownfish/ocellaris.png");
@@ -42,11 +39,11 @@ public class ClownfishRenderer extends MobRenderer<ClownfishEntity, ClownfishMod
         super(context, new ClownfishModel<>(context.bakeLayer(ReefModelLayers.CLOWNFISH_LAYER)), 0.4F);
     }
 
-    protected void scale(ClownfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Clownfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(ClownfishEntity entity) {
+    public ResourceLocation getTextureLocation(Clownfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> BLACKANDWHITE;
             case 2 -> MAROON;

@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -28,77 +29,32 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MahiEntity extends VariantSchoolingFish implements Bucketable {
+public class MoorishIdol extends VariantSchoolingFish implements Bucketable, VariantEntity{
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MahiEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MoorishIdol.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MoorishIdol.class, EntityDataSerializers.INT);
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
-    public MahiEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+    public static String getVariantName(int variant) {
+        return switch (variant) {
+            case 1 -> "silver";
+            default -> "default";
+        };
     }
-
-    @Override
-    public int getMaxSchoolSize() {
-        return 20;
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
-    }
-
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), pTravelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
-            }
-        } else {
-            super.travel(pTravelVector);
-        }
-    }
-
-    public void tick() {
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-        }
-        super.tick();
-    }
-
-    private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -106,42 +62,50 @@ public class MahiEntity extends VariantSchoolingFish implements Bucketable {
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-
-        if (this.getRandom().nextFloat() >= 0.90) {
-            if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
-                //|| reason == MobSpawnType.SPAWN_EGG
-            ) {
-                float schoolsize = this.getRandom().nextFloat();
-                int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-
-                if (schoolcount > 0 && !this.level().isClientSide()) {
-                    for (int i = 0; i < schoolcount; i++) {
-                        MahiEntity urine = new MahiEntity(ReefEntities.TANG.get(), this.level());
-                        urine.moveTo(this.getX(), this.getY(), this.getZ());
-                        urine.startFollowing(this);
-                        this.level().addFreshEntity(urine);
-                    }
-                }
-            }
-        }
-
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    @Override
+    public int getMaxSchoolSize() {
+        return 20;
     }
 
+    public void tick() {
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            //use this stuff for fish flopping
+        }
+
+        super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    }
+
+    @Override
+    public int variant() {
+        return getVariant();
+    }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
     }
+
 
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.TANG_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.MOORISH_IDOL_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -155,11 +119,15 @@ public class MahiEntity extends VariantSchoolingFish implements Bucketable {
         }
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundnbt = bucket.getOrCreateTag();
+        compoundnbt.putInt("BucketVariantTag", this.getVariant());
     }
 
     @Override
     public void loadFromBucketTag(@Nonnull CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
+        if (compound.contains("BucketVariantTag", 3)) {
+            this.setVariant(compound.getInt("BucketVariantTag"));
+        }
     }
 
     @Override
@@ -168,14 +136,23 @@ public class MahiEntity extends VariantSchoolingFish implements Bucketable {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
+    public int getVariant() {
+        return this.entityData.get(VARIANT);
+    }
+
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, Integer.valueOf(variant));
+    }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+        compound.putInt("Variant", this.getVariant());
         compound.putBoolean("FromBucket", this.fromBucket());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
+        this.setVariant(compound.getInt("Variant"));
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
@@ -195,27 +172,73 @@ public class MahiEntity extends VariantSchoolingFish implements Bucketable {
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+        float variantChange = this.getRandom().nextFloat();
+        if(variantChange <= 0.001F){
+            this.setVariant(1);
+        }else{
+            this.setVariant(0);
+        }
+
+        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
+                //|| reason == MobSpawnType.SPAWN_EGG
+        ) {
+            float schoolsize = this.getRandom().nextFloat();
+            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
+
+            if (schoolcount > 0 && !this.level().isClientSide()) {
+                for (int i = 0; i < schoolcount; i++) {
+                    MoorishIdol urine = new MoorishIdol(ReefEntities.MOORISH_IDOL.get(), this.level());
+                    urine.setVariant(this.getVariant());
+                    urine.moveTo(this.getX(), this.getY(), this.getZ());
+                    urine.startFollowing(this);
+                    this.level().addFreshEntity(urine);
+                }
+            }
+        }
+
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    }
+
     public MobType getMobType() {
         return MobType.WATER;
     }
 
+    public MoorishIdol(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, 500);
+
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
+    }
+
+
+    protected PathNavigation createNavigation(Level p_27480_) {
+        return new WaterBoundPathNavigation(this, p_27480_);
+    }
+
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6D)
+                .add(Attributes.MAX_HEALTH, 8D)
                 .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
     }
 
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.MOORISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8D, 1, 20, 20, 2, false));
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<MahiEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
+
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -229,7 +252,14 @@ public class MahiEntity extends VariantSchoolingFish implements Bucketable {
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
+
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
+
+
+    public static <T extends Mob> boolean canSpawn(EntityType<MoorishIdol> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
+
 }

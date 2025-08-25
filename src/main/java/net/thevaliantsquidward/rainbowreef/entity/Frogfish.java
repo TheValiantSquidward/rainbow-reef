@@ -1,16 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +17,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -32,80 +30,36 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
-import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallSharkEntity extends RRMob implements Bucketable {
+public class Frogfish extends RRMob implements Bucketable {
 
-    public IKSolver tailKinematics;
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SmallSharkEntity.class, EntityDataSerializers.INT);
+    public static <T extends Mob> boolean canSpawn(EntityType<Frogfish> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
 
     public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState landAnimationState = new AnimationState();
 
-    public SmallSharkEntity(EntityType<? extends WaterAnimal> entityType, Level level) {
-        super(entityType, level, 400);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
-
-        this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
-    }
-
-    public void tick() {
-        super.tick();
-        this.tailKinematics.TakePerTickAction(this);
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
-    }
-
-    public void travel(Vec3 pTravelVector) {
-        if (this.isEyeInFluid(FluidTags.WATER) && !this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.01, 0.0));
-        }
-        super.travel(pTravelVector);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    @Override
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
-    }
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Frogfish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Frogfish.class, EntityDataSerializers.INT);
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "pajama";
-            case 2 -> "horned";
-            case 3 -> "nurse";
-            case 4 -> "zebra";
-            case 5 -> "albino";
-            case 6 -> "piebald";
-            case 7 -> "portjackson";
-            default -> "epaulette";
+            case 1 -> "orangeocellated";
+            case 2 -> "pinkocellated";
+            case 3 -> "psychedelic";
+            case 4 -> "redlonglure";
+            case 5 -> "sargassum";
+            case 6 -> "yellowlonglure";
+            default -> "clown";
         };
     }
+
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -113,6 +67,29 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
+
+    public void tick() {
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            //use this stuff for fish flopping
+        }
+
+        super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isAlive() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
+    }
+
 
     @Override
     protected void defineSynchedData() {
@@ -124,7 +101,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.SHARK_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.BOXFISH_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -159,8 +136,8 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
         return this.entityData.get(VARIANT);
     }
 
-    private void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
+    public void setVariant(int variant) {
+        this.entityData.set(VARIANT, Integer.valueOf(variant));
     }
 
     public void addAdditionalSaveData(CompoundTag compound) {
@@ -184,9 +161,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     public void setFromBucket(boolean p_203706_1_) {
         this.entityData.set(FROM_BUCKET, p_203706_1_);
     }
-    public static <T extends Mob> boolean canSpawn(EntityType<SmallSharkEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
+
     @Override
     @Nonnull
     public SoundEvent getPickupSound() {
@@ -196,43 +171,58 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        float aberrant = this.getRandom().nextFloat();
-        float aberrantVariantChange = this.getRandom().nextFloat();
-        if(aberrant <= 0.01) {
-            if(aberrantVariantChange <= 0.50F){
-                this.setVariant(5);
-            }else
-            {
-                this.setVariant(6);
-            }
-        } else
-        if(variantChange <= 0.15F) {
+        if(variantChange <= 0.12F){
             this.setVariant(1);
-        } else if(variantChange <= 0.30F) {
+        }else if(variantChange <= 0.24F){
             this.setVariant(2);
-        } else if(variantChange <= 0.45F){
+        }else if(variantChange <= 0.36F){
             this.setVariant(3);
-        }else if(variantChange <= 0.60F){
+        }else if(variantChange <= 0.48F){
             this.setVariant(4);
-        }else if(variantChange <= 0.75F){
+        }else if(variantChange <= 0.60F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.72F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.84F){
             this.setVariant(7);
         }else{
             this.setVariant(0);
         }
-
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
+
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+
+    public Frogfish(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+    }
+
+
+    protected PathNavigation createNavigation(Level p_27480_) {
+        return new WaterBoundPathNavigation(this, p_27480_);
+    }
+
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes().add(Attributes.MAX_HEALTH, 7D).add(Attributes.MOVEMENT_SPEED, 0.8D).build();
+        return Animal.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 7D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2D)
+                .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(10, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
+        //this.goalSelector.addGoal(8, new CrabBottomWander(this, 1.0D, 5, 0));
+
     }
+
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -249,4 +239,7 @@ public class SmallSharkEntity extends RRMob implements Bucketable {
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
+
+
+
 }

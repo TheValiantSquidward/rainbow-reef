@@ -10,13 +10,10 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.thevaliantsquidward.rainbowreef.client.animations.CrabAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.CrabEntity;
-import net.thevaliantsquidward.rainbowreef.entity.FrogfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Frogfish;
 
-public class FrogfishModel<T extends FrogfishEntity> extends ReefModel<T> {
+public class FrogfishModel<T extends Frogfish> extends ReefModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "frogfish"), "main");
 	private final ModelPart Root;
 	private final ModelPart Core;
@@ -76,7 +73,7 @@ public class FrogfishModel<T extends FrogfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(FrogfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Frogfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 	}

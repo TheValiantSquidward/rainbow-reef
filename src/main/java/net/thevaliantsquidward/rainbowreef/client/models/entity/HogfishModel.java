@@ -16,10 +16,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.HogfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.HogfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Hogfish;
 
 @OnlyIn(Dist.CLIENT)
-public class HogfishModel<T extends HogfishEntity> extends ReefModel<T> {
+public class HogfishModel<T extends Hogfish> extends ReefModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "hogfish"), "main");
 	private final ModelPart root;
@@ -82,7 +82,7 @@ public class HogfishModel<T extends HogfishEntity> extends ReefModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 	@Override
-	public void setupAnim(HogfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Hogfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

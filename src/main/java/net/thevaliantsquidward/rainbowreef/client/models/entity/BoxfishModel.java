@@ -14,13 +14,11 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.BoxfishAnimations;
-import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Boxfish;
 
 @OnlyIn(Dist.CLIENT)
-public class BoxfishModel<T extends BoxfishEntity> extends ReefModel<T> {
+public class BoxfishModel<T extends Boxfish> extends ReefModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "boxfish"), "main");
 	private final ModelPart root;
@@ -73,7 +71,7 @@ public class BoxfishModel<T extends BoxfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(BoxfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Boxfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

@@ -8,12 +8,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ButterfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Butterfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 
 @OnlyIn(Dist.CLIENT)
-public class ButterfishRenderer extends MobRenderer<ButterfishEntity, ButterfishModel<ButterfishEntity>> {
+public class ButterfishRenderer extends MobRenderer<Butterfish, ButterfishModel<Butterfish>> {
 
     private static final ResourceLocation COPPERBAND = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/copperband.png");
     private static final ResourceLocation EASTERISLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/butterflyfish/easterisle.png");
@@ -42,11 +42,11 @@ public class ButterfishRenderer extends MobRenderer<ButterfishEntity, Butterfish
         super(context, new ButterfishModel<>(context.bakeLayer(ReefModelLayers.BUTTERFISH_LAYER)), 0.4F);
     }
 
-    protected void scale(ButterfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Butterfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(ButterfishEntity entity) {
+    public ResourceLocation getTextureLocation(Butterfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> EASTERISLE;
             case 2 -> THREADFIN;

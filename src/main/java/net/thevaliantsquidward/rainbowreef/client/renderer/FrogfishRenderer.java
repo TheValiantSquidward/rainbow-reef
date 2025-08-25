@@ -7,15 +7,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.BoxfishModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.FrogfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.FrogfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Frogfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 
 @OnlyIn(Dist.CLIENT)
-public class FrogfishRenderer extends MobRenderer<FrogfishEntity, FrogfishModel<FrogfishEntity>> {
+public class FrogfishRenderer extends MobRenderer<Frogfish, FrogfishModel<Frogfish>> {
     private static final ResourceLocation CLOWN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/frogfish/clown.png");
     private static final ResourceLocation ORANGE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/frogfish/orangeocellated.png");
     private static final ResourceLocation PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/frogfish/pinkocellated.png");
@@ -29,11 +27,11 @@ public class FrogfishRenderer extends MobRenderer<FrogfishEntity, FrogfishModel<
         super(context, new FrogfishModel<>(context.bakeLayer(ReefModelLayers.FROGFISH_LAYER)), 0.4F);
     }
 
-    protected void scale(FrogfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Frogfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(FrogfishEntity entity) {
+    public ResourceLocation getTextureLocation(Frogfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> ORANGE;
             case 2 -> PINK;

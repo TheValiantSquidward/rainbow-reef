@@ -6,20 +6,18 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.client.animations.EelAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Eel;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
 import java.util.List;
 
-public class EelModel<T extends EelEntity> extends ReefModel<T> {
+public class EelModel<T extends Eel> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -101,7 +99,7 @@ public class EelModel<T extends EelEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(EelEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Eel entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, EelAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);

@@ -10,11 +10,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.SeahorseAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.SeahorseEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Seahorse;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class SeahorseModel<T extends SeahorseEntity> extends ReefModel<T> {
+public class SeahorseModel<T extends Seahorse> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -46,7 +46,7 @@ public class SeahorseModel<T extends SeahorseEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(SeahorseEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Seahorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, SeahorseAnimations.SWIM, ageInTicks, 0.7f + (limbSwingAmount * 4.0f + 0.4f));

@@ -19,8 +19,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
@@ -33,13 +31,13 @@ import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSounds;
-
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class JellyfishEntity extends RRMob implements Bucketable {
+public class Jellyfish extends RRMob implements Bucketable {
 
     public float xBodyRot;
     public float xBodyRotO;
@@ -56,26 +54,28 @@ public class JellyfishEntity extends RRMob implements Bucketable {
     private float ty;
     private float tz;
 
-    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState landAnimationState = new AnimationState();
 
-    private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
-    public JellyfishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
+    public Jellyfish(EntityType<? extends WaterAnimal> entityType, Level level) {
+        super(entityType, level, Integer.MAX_VALUE);
         this.random.setSeed(this.getId());
-        this.tentacleSpeed = 4.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
+        this.tentacleSpeed = 2.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
         //        this number ^ deterimnes how often the jelly boosts
     }
 
     @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
+    public void travel(@NotNull Vec3 travelVector) {
+        if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
+            this.move(MoverType.SELF, this.getDeltaMovement());
+        }
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new JelRandomMovementGoal(this));
+        this.goalSelector.addGoal(0, new JellyfishRandomMovementGoal(this));
     }
 
     public static AttributeSupplier setAttributes() {
@@ -85,25 +85,24 @@ public class JellyfishEntity extends RRMob implements Bucketable {
                 .build();
     }
 
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
-        if (SCALE.equals(pKey)) {
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        if (SCALE.equals(key)) {
             this.refreshDimensions();
         }
-
-        super.onSyncedDataUpdated(pKey);
+        super.onSyncedDataUpdated(key);
     }
 
-    public EntityDimensions getDimensions(Pose pPose) {
-        return super.getDimensions(pPose).scale(getScale(this.getModelScale()));
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        return super.getDimensions(pose).scale(getScale(this.getModelScale()));
     }
 
     private static float getScale(int scale) {
-        switch (scale) {
-            case 1:
-                return 1.8F;
-            default:
-                return 0.9F;
+        if (scale == 1) {
+            return 1.8F;
         }
+        return 0.9F;
     }
 
     public int getModelScale() {
@@ -114,13 +113,12 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         this.entityData.set(SCALE, scale);
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<JellyfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    public static boolean canSpawn(EntityType<Jellyfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(JellyfishEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -136,54 +134,52 @@ public class JellyfishEntity extends RRMob implements Bucketable {
             default -> "pink";
         };
     }
+
+    @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
 
+    @Override
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
+
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         float variantChange = this.getRandom().nextFloat();
         float rare = this.getRandom().nextFloat();
         float rareVariantChange = this.getRandom().nextFloat();
-        if(rare <= 0.10) {
-            if(rareVariantChange <= 0.20F){
+        if (rare <= 0.10) {
+            if (rareVariantChange <= 0.20F) {
                 this.setVariant(4);
-            }else
-            if(rareVariantChange <= 0.40F){
+            } else if (rareVariantChange <= 0.40F) {
                 this.setVariant(5);
-            }else
-            if(rareVariantChange <= 0.60F){
+            } else if(rareVariantChange <= 0.60F) {
                 this.setVariant(6);
-            }else
-            if(rareVariantChange <= 0.80F){
+            } else if (rareVariantChange <= 0.80F) {
                 this.setVariant(7);
-            }else
-            {
+            } else {
                 this.setVariant(8);
             }
-        } else
-
-        if(variantChange <= 0.20F){
+        } else if (variantChange <= 0.20F) {
             this.setVariant(9);
-        }else if(variantChange <= 0.40F){
+        } else if(variantChange <= 0.40F) {
             this.setVariant(3);
-        }else if(variantChange <= 0.60F){
+        } else if(variantChange <= 0.60F) {
             this.setVariant(2);
-        }else if(variantChange <= 0.80F){
+        } else if(variantChange <= 0.80F) {
             this.setVariant(1);
-        } else{
+        } else {
             this.setVariant(0);
         }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
-
 
     @Override
     public void tick() {
-
+        super.tick();
         if (!this.hasCustomName()) {
             this.setScale(0);
         } else {
@@ -196,12 +192,9 @@ public class JellyfishEntity extends RRMob implements Bucketable {
             }
         }
 
-        super.tick();
-
         if (this.level().isClientSide()){
             this.setupAnimationStates();
         }
-
     }
 
     private void setupAnimationStates() {
@@ -209,6 +202,7 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         this.xBodyRotO = this.xBodyRot;
@@ -224,16 +218,15 @@ public class JellyfishEntity extends RRMob implements Bucketable {
                 if (this.random.nextInt(10) == 0) {
                     this.tentacleSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
                 }
-
-                this.level().broadcastEntityEvent(this, (byte)19);
+                this.level().broadcastEntityEvent(this, (byte) 19);
             }
         }
 
         if (this.isInWaterOrBubble()) {
-            if (this.tentacleMovement < (float)Math.PI) {
-                float f = this.tentacleMovement / (float)Math.PI;
-                this.tentacleAngle = Mth.sin(f * f * (float)Math.PI) * (float)Math.PI * 0.25F;
-                if ((double)f > 0.75D) {
+            if (this.tentacleMovement < (float) Math.PI) {
+                float f = this.tentacleMovement / (float) Math.PI;
+                this.tentacleAngle = Mth.sin(f * f * (float) Math.PI) * (float) Math.PI * 0.25F;
+                if ((double) f > 0.75D) {
                     this.speed = 1.0F;
                     this.rotateSpeed = 1.0F;
                 } else {
@@ -246,17 +239,17 @@ public class JellyfishEntity extends RRMob implements Bucketable {
             }
 
             if (!this.level().isClientSide) {
-                this.setDeltaMovement((double)(this.tx * this.speed), (double)(this.ty * this.speed), (double)(this.tz * this.speed));
+                this.setDeltaMovement(this.tx * this.speed, this.ty * this.speed, this.tz * this.speed);
             }
 
             Vec3 vec3 = this.getDeltaMovement();
             double d0 = vec3.horizontalDistance();
-            this.yBodyRot += (-((float)Mth.atan2(vec3.x, vec3.z)) * (180F / (float)Math.PI) - this.yBodyRot) * 0.1F;
+            this.yBodyRot += (-((float)Mth.atan2(vec3.x, vec3.z)) * (180F / (float) Math.PI) - this.yBodyRot) * 0.1F;
             this.setYRot(this.yBodyRot);
-            this.zBodyRot += (float)Math.PI * this.rotateSpeed * 1.5F;
-            this.xBodyRot += (-((float)Mth.atan2(d0, vec3.y)) * (180F / (float)Math.PI) - this.xBodyRot) * 0.1F;
+            this.zBodyRot += (float) Math.PI * this.rotateSpeed * 1.5F;
+            this.xBodyRot += (-((float) Mth.atan2(d0, vec3.y)) * (180F / (float) Math.PI) - this.xBodyRot) * 0.1F;
         } else {
-            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float)Math.PI * 0.25F;
+            this.tentacleAngle = Mth.abs(Mth.sin(this.tentacleMovement)) * (float) Math.PI * 0.25F;
             if (!this.level().isClientSide) {
                 double d1 = this.getDeltaMovement().y;
                 if (this.hasEffect(MobEffects.LEVITATION)) {
@@ -264,17 +257,10 @@ public class JellyfishEntity extends RRMob implements Bucketable {
                 } else if (!this.isNoGravity()) {
                     d1 -= 0.08D;
                 }
-
                 this.setDeltaMovement(0.0D, d1 * (double)0.98F, 0.0D);
             }
-
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
-
-    }
-    private Vec3 rotateVector(Vec3 pVector) {
-        Vec3 vec3 = pVector.xRot(this.xBodyRotO * ((float)Math.PI / 180F));
-        return vec3.yRot(-this.yBodyRotO * ((float)Math.PI / 180F));
     }
 
     @Override
@@ -285,7 +271,6 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         this.entityData.define(SCALE, 0);
     }
 
-
     @Nonnull
     public ItemStack getBucketItemStack() {
         ItemStack stack = new ItemStack(ReefItems.JELLYFISH_BUCKET.get());
@@ -295,7 +280,7 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         return stack;
     }
 
-
+    @Override
     public void saveToBucketTag(@Nonnull ItemStack bucket) {
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
@@ -305,7 +290,7 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         compoundnbt.putInt("BucketVariantTag", this.getVariant());
     }
 
-
+    @Override
     public void loadFromBucketTag(@Nonnull CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
         if (compound.contains("BucketVariantTag", 3)) {
@@ -330,24 +315,23 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
-    public void playerTouch(Player pEntity) {
-
-        if (pEntity instanceof ServerPlayer && pEntity.hurt(this.damageSources().mobAttack(this), (float)(2))) {
+    @Override
+    public void playerTouch(@NotNull Player player) {
+        if (player instanceof ServerPlayer && player.hurt(this.damageSources().mobAttack(this), (float) (2))) {
             this.playSound(ReefSounds.JELLYZAP.get(), 1.0F, 1.0F);
-            pEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
+            player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
         }
-
     }
-
 
     public int getVariant() {
         return this.entityData.get(VARIANT);
     }
 
     public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
+        this.entityData.set(VARIANT, variant);
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("Variant", this.getVariant());
@@ -355,6 +339,7 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         compound.putInt("scale", this.getModelScale());
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setVariant(compound.getInt("Variant"));
@@ -375,14 +360,8 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-
-
-    public MobType getMobType() {
+    public @NotNull MobType getMobType() {
         return MobType.WATER;
-    }
-
-    public void travel(Vec3 pTravelVector) {
-        this.move(MoverType.SELF, this.getDeltaMovement());
     }
 
     public void setMovementVector(float pTx, float pTy, float pTz) {
@@ -395,17 +374,12 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         return this.tx != 0.0F || this.ty != 0.0F || this.tz != 0.0F;
     }
 
+    static class JellyfishRandomMovementGoal extends Goal {
 
+        private final Jellyfish jellyfish;
 
-
-
-
-
-    class JelRandomMovementGoal extends Goal {
-        private final JellyfishEntity squid;
-
-        public JelRandomMovementGoal(JellyfishEntity pSquid) {
-            this.squid = pSquid;
+        public JellyfishRandomMovementGoal(Jellyfish pSquid) {
+            this.jellyfish = pSquid;
         }
 
         public boolean canUse() {
@@ -413,51 +387,36 @@ public class JellyfishEntity extends RRMob implements Bucketable {
         }
 
         public void tick() {
-            int pauseTime = this.squid.getNoActionTime();
-            if (pauseTime > 100) {
-                this.squid.setMovementVector(0.0F, 0.0F, 0.0F);
-            } else if (this.squid.getRandom().nextInt(reducedTickDelay(50)) == 0 || !this.squid.wasTouchingWater || !this.squid.hasMovementVector()) {
-                float randomMotion = this.squid.getRandom().nextFloat() * 6.2831855F;
-                float randX = Mth.cos(randomMotion) * 0.2F;
-                float randY = -0.1F + this.squid.getRandom().nextFloat() * 0.2F;
-                float randZ = Mth.sin(randomMotion) * 0.2F;
-                this.squid.setMovementVector(randX, randY, randZ);
-                //the goal modifies the angle of the squid, using setMovementVector to set the direction of the jelly by scaling each dimension's movement vector
+            if (this.jellyfish.getRandom().nextInt(reducedTickDelay(60)) == 0 || !this.jellyfish.isInWater() || !this.jellyfish.hasMovementVector()) {
+                var f = this.jellyfish.getRandom().nextFloat() * (float) (Math.PI * 2);
+                var tx = Mth.cos(f) * 0.2F;
+                var ty = -0.1F + this.jellyfish.getRandom().nextFloat() * 0.18F;
+                var tz = Mth.sin(f) * 0.2F;
+                this.jellyfish.setMovementVector(tx, ty, tz);
             }
-
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    @Nullable
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
 
+    @Override
+    @Nullable
     protected SoundEvent getDeathSound() {
         return SoundEvents.TROPICAL_FISH_DEATH;
     }
 
-    protected SoundEvent getHurtSound(DamageSource p_28281_) {
+    @Override
+    @Nullable
+    protected SoundEvent getHurtSound(DamageSource source) {
         return ReefSounds.JELLYHIT.get();
     }
 
-
+    @Nullable
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
 }

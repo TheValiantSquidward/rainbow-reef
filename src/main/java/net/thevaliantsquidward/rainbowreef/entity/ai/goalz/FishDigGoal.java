@@ -1,8 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
 
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -15,10 +12,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.CrabEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Crab;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
-import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 public class FishDigGoal extends Goal {
     private RRMob fims;
@@ -67,7 +62,7 @@ public class FishDigGoal extends Goal {
     public void start() {
         this.digTime += fims.getRandom().nextInt(10);
         this.originalMoveControl = fims.getMoveControl();
-        if (!(this.fims instanceof CrabEntity)) {
+        if (!(this.fims instanceof Crab)) {
             this.fims.setMoveControl(fims.feedingController);
         }
         this.fims.getNavigation().moveTo(((float) this.digPos.getX()) + 0.5D, this.digPos.getY(), ((float) this.digPos.getZ()) + 0.5D, 1.2);
@@ -87,7 +82,7 @@ public class FishDigGoal extends Goal {
         //((ServerLevel) this.fims.level()).sendParticles(ParticleTypes.BUBBLE_COLUMN_UP, this.digPos.getX() + 0.5, this.digPos.getY() + 0.5, this.digPos.getZ() + 0.5, 1, 0, 1, 0, 0);
         this.timeOut --;
 
-        if (this.fims instanceof CrabEntity && this.fims.blockPosition().below().equals(this.digPos)) {
+        if (this.fims instanceof Crab && this.fims.blockPosition().below().equals(this.digPos)) {
             this.fims.setDeltaMovement(Vec3.ZERO);
             this.fims.getNavigation().stop();
         }

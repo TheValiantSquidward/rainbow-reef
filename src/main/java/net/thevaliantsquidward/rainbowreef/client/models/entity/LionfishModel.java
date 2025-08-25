@@ -5,22 +5,17 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.thevaliantsquidward.rainbowreef.client.animations.DwarfAngelfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.LionfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.LionfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Lionfish;
 
-public class LionfishModel<T extends LionfishEntity> extends ReefModel<T> {
+public class LionfishModel<T extends Lionfish> extends ReefModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "lionfish"), "main");
 	private final ModelPart root;
 	private final ModelPart core;
@@ -88,7 +83,7 @@ public class LionfishModel<T extends LionfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(LionfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netheadYaw, float headPitch) {
+	public void setupAnim(Lionfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netheadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

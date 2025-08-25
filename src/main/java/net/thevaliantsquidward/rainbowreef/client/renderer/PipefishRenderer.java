@@ -7,11 +7,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.PipefishModel;
-import net.thevaliantsquidward.rainbowreef.entity.PipefishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Pipefish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class PipefishRenderer extends MobRenderer<PipefishEntity, PipefishModel<PipefishEntity>> {
+public class PipefishRenderer extends MobRenderer<Pipefish, PipefishModel<Pipefish>> {
 
     private static final ResourceLocation GREEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/greenpipe.png");
     private static final ResourceLocation JANNS = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/jannspipe.png");
@@ -24,7 +24,7 @@ public class PipefishRenderer extends MobRenderer<PipefishEntity, PipefishModel<
         super(context, new PipefishModel<>(context.bakeLayer(ReefModelLayers.PIPEFISH_LAYER)), 0.4F);
     }
 
-    public ResourceLocation getTextureLocation(PipefishEntity entity) {
+    public ResourceLocation getTextureLocation(Pipefish entity) {
         return switch (entity.getVariant()) {
             case 1 -> JANNS;
             case 2 -> MULTIBANDED;

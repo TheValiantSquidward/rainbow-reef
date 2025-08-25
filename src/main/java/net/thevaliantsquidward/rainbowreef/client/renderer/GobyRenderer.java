@@ -7,15 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.GobyModel;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.GobyEntity;
-import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Goby;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class GobyRenderer extends MobRenderer<GobyEntity, GobyModel<GobyEntity>> {
+public class GobyRenderer extends MobRenderer<Goby, GobyModel<Goby>> {
     private static final ResourceLocation TEXTURE_FIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/firegoby.png");
     private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/purplefiregoby.png");
     private static final ResourceLocation TEXTURE_CANDYCANE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/goby/candycanegoby.png");
@@ -38,11 +35,11 @@ public class GobyRenderer extends MobRenderer<GobyEntity, GobyModel<GobyEntity>>
     public GobyRenderer(EntityRendererProvider.Context context) {
         super(context, new GobyModel<>(context.bakeLayer(ReefModelLayers.GOBY_LAYER)), 0.4F);
     }
-    protected void scale(GobyEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Goby entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(GobyEntity entity) {
+    public ResourceLocation getTextureLocation(Goby entity) {
         return switch (entity.getVariant()) {
             case 1 -> TEXTURE_PURPLE;
             case 2 -> TEXTURE_CANDYCANE;

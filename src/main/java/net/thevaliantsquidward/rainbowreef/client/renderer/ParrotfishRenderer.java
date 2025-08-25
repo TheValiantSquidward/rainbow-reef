@@ -6,10 +6,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ParrotfishModel;
 import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyLayer;
-import net.thevaliantsquidward.rainbowreef.entity.ParrotfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Parrotfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class ParrotfishRenderer extends MobRenderer<ParrotfishEntity, ParrotfishModel<ParrotfishEntity>> {
+public class ParrotfishRenderer extends MobRenderer<Parrotfish, ParrotfishModel<Parrotfish>> {
 
     private static final ResourceLocation BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/blue.png");
     private static final ResourceLocation HUMPHEAD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/humphead.png");
@@ -29,7 +29,7 @@ public class ParrotfishRenderer extends MobRenderer<ParrotfishEntity, Parrotfish
         this.addLayer(new ParrotfishEepyLayer(this));
     }
 
-    public ResourceLocation getTextureLocation(ParrotfishEntity entity) {
+    public ResourceLocation getTextureLocation(Parrotfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> HUMPHEAD;
             case 2 -> RAINBOW;

@@ -11,13 +11,13 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.PipefishAnimations;
-import net.thevaliantsquidward.rainbowreef.entity.PipefishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Pipefish;
 
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class PipefishModel<T extends PipefishEntity> extends HierarchicalModel<T> {
+public class PipefishModel<T extends Pipefish> extends HierarchicalModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -51,7 +51,7 @@ public class PipefishModel<T extends PipefishEntity> extends HierarchicalModel<T
 	}
 
 	@Override
-	public void setupAnim(PipefishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Pipefish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, PipefishAnimations.SWIM, ageInTicks, 1.25f * (limbSwingAmount * 4.0f + 0.8f));

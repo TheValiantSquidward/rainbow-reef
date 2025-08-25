@@ -7,15 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.ClownfishModel;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.EelModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.MoorishIdolModel;
-import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
-import net.thevaliantsquidward.rainbowreef.entity.MoorishIdolEntity;
+import net.thevaliantsquidward.rainbowreef.entity.MoorishIdol;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class MoorishIdolRenderer extends MobRenderer<MoorishIdolEntity, MoorishIdolModel<MoorishIdolEntity>> {
+public class MoorishIdolRenderer extends MobRenderer<MoorishIdol, MoorishIdolModel<MoorishIdol>> {
     private static final ResourceLocation DEFAULT = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/moorishidol/defaultmoorishidol.png");
     private static final ResourceLocation SILVER = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/moorishidol/silvermoorishidol.png");
 
@@ -25,11 +22,11 @@ public class MoorishIdolRenderer extends MobRenderer<MoorishIdolEntity, MoorishI
         super(context, new MoorishIdolModel<>(context.bakeLayer(ReefModelLayers.IDOL_LAYER)), 0.4F);
     }
 
-    protected void scale(MoorishIdolEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(MoorishIdol entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(MoorishIdolEntity entity) {
+    public ResourceLocation getTextureLocation(MoorishIdol entity) {
         return switch (entity.getVariant()) {
             case 1 -> SILVER;
             default -> DEFAULT;

@@ -10,11 +10,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.TangAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.TangEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Tang;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class TangModel<T extends TangEntity> extends ReefModel<T> {
+public class TangModel<T extends Tang> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -55,7 +55,7 @@ public class TangModel<T extends TangEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(TangEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Tang entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, TangAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0F);

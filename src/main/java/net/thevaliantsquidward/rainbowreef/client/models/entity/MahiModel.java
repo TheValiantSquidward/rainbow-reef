@@ -5,20 +5,17 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.MahiEntity;
-import net.thevaliantsquidward.rainbowreef.entity.MoorishIdolEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Mahi;
 
-public class MahiModel<T extends MahiEntity> extends ReefModel<T> {
+public class MahiModel<T extends Mahi> extends ReefModel<T> {
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "mahi_mahi"), "main");
 	private final ModelPart Root;
 	private final ModelPart Core;
@@ -86,7 +83,7 @@ public class MahiModel<T extends MahiEntity> extends ReefModel<T> {
 	}
 
 
-	public void setupAnim(MahiEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Mahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));

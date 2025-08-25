@@ -7,14 +7,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.ArrowCrabModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.BoxfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.BoxfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Boxfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 
 @OnlyIn(Dist.CLIENT)
-public class BoxfishRenderer extends MobRenderer<BoxfishEntity, BoxfishModel<BoxfishEntity>> {
+public class BoxfishRenderer extends MobRenderer<Boxfish, BoxfishModel<Boxfish>> {
     private static final ResourceLocation TEXTURE_GOLD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/yellowboxfish.png");
     private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/whitespottedboxfish.png");
     private static final ResourceLocation TEXTURE_STRIPE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/boxfish/whitebarredboxfish.png");
@@ -29,11 +28,11 @@ public class BoxfishRenderer extends MobRenderer<BoxfishEntity, BoxfishModel<Box
         super(context, new BoxfishModel<>(context.bakeLayer(ReefModelLayers.BOXFISH_LAYER)), 0.4F);
     }
 
-    protected void scale(BoxfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Boxfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(BoxfishEntity entity) {
+    public ResourceLocation getTextureLocation(Boxfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> TEXTURE_PURPLE;
             case 2 -> TEXTURE_STRIPE;

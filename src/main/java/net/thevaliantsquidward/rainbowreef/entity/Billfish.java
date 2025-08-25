@@ -37,15 +37,15 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MaoriWrasseEntity extends RRMob implements Bucketable, VariantEntity {
+public class Billfish extends RRMob implements Bucketable, VariantEntity {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MaoriWrasseEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MaoriWrasseEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Billfish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Billfish.class, EntityDataSerializers.INT);
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public MaoriWrasseEntity(EntityType<? extends RRMob> pEntityType, Level pLevel) {
+    public Billfish(EntityType<? extends RRMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, 180);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
@@ -204,7 +204,7 @@ public class MaoriWrasseEntity extends RRMob implements Bucketable, VariantEntit
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6D)
-                .add(Attributes.MOVEMENT_SPEED, 0.6D)
+                .add(Attributes.MOVEMENT_SPEED, 1.3D)
                 .build();
     }
 
@@ -215,7 +215,7 @@ public class MaoriWrasseEntity extends RRMob implements Bucketable, VariantEntit
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<MaoriWrasseEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+    public static <T extends Mob> boolean canSpawn(EntityType<Billfish> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
 

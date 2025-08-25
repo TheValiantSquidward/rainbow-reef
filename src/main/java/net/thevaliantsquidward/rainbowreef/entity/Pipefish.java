@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -29,40 +28,29 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
-import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedSwimNodeEvaluator;
-import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.time.LocalDate;
-import java.time.Month;
 
-public class BassletEntity extends RRMob implements Bucketable {
+public class Pipefish extends RRMob implements Bucketable {
 
-    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Pipefish.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Pipefish.class, EntityDataSerializers.INT);
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(BassletEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(BassletEntity.class, EntityDataSerializers.INT);
+    public final AnimationState swimAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "brazilian";
-            case 2 -> "accessor";
-            case 3 -> "blackcap";
-            case 4 -> "candy";
-            case 5 -> "gold";
-            case 6 -> "gilded";
-            case 7 -> "swissguard";
-            case 8 -> "yellowscissortail";
-            case 9 -> "midnight";
-            default -> "fairy";
+            case 1 -> "janns";
+            case 2 -> "multibanded";
+            case 3 -> "orangestriped";
+            case 4 -> "bluestriped";
+            case 5 -> "pink";
+            default -> "green";
         };
     }
 
@@ -75,26 +63,22 @@ public class BassletEntity extends RRMob implements Bucketable {
     }
 
     public void tick() {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-            //use this stuff for fish flopping
         }
-
         super.tick();
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
     }
 
     private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive() && this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.idleAnimationState.animateWhen(this.isAlive() && !this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -107,7 +91,7 @@ public class BassletEntity extends RRMob implements Bucketable {
    @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.BASSLET_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.PIPEFISH_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -131,7 +115,9 @@ public class BassletEntity extends RRMob implements Bucketable {
             this.setVariant(compound.getInt("BucketVariantTag"));
         }
     }
-
+    public static <T extends Mob> boolean canSpawn(EntityType<Pipefish> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    }
     @Override
     @Nonnull
     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -177,29 +163,17 @@ public class BassletEntity extends RRMob implements Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        LocalDate currentDate = LocalDate.now();
-        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
-            this.setVariant(4);
-        }else
-        if(variantChange <= 0.01){
+        if(variantChange <= 0.16F){
             this.setVariant(5);
-        } else if(variantChange <= 0.001){
-            this.setVariant(6);
-        }else if(variantChange <= 0.12){
-            this.setVariant(1);
-        }else if(variantChange <= 0.24){
-            this.setVariant(2);
-        }else if(variantChange <= 0.36){
-            this.setVariant(3);
-        }else if(variantChange <= 0.48){
+        }else if(variantChange <= 0.32F){
             this.setVariant(4);
-        }else if(variantChange <= 0.60){
-            this.setVariant(7);
-        }else if(variantChange <= 0.72){
-            this.setVariant(8);
-        }else if(variantChange <= 0.84){
-            this.setVariant(9);
-        }else {
+        }else if(variantChange <= 0.48F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.64F){
+            this.setVariant(2);
+        }else if(variantChange <= 0.80F){
+            this.setVariant(1);
+        }else{
             this.setVariant(0);
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
@@ -209,11 +183,10 @@ public class BassletEntity extends RRMob implements Bucketable {
         return MobType.WATER;
     }
 
-    public BassletEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public Pipefish(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     @Override
@@ -221,24 +194,22 @@ public class BassletEntity extends RRMob implements Bucketable {
         return this.isInWater();
     }
 
-    @Override
     protected PathNavigation createNavigation(Level p_27480_) {
-        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
+        return new WaterBoundPathNavigation(this, p_27480_);
     }
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.6D)
+                .add(Attributes.MOVEMENT_SPEED, 0.45D)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, true));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1D, 50, 5, 10, 2));
     }
-
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -252,15 +223,7 @@ public class BassletEntity extends RRMob implements Bucketable {
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
-
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
-
-    public static <T extends Mob> boolean canSpawn(EntityType<BassletEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
-
-
 }

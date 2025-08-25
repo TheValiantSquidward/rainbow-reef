@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 // Paste this class into your mod and generate all required imports
 
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,16 +11,12 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.thevaliantsquidward.rainbowreef.client.animations.ButterfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.DwarfAngelfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfishEntity;
-
-import java.util.List;
+import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfish;
 
 @OnlyIn(Dist.CLIENT)
-public class DwarfAngelfishModel<T extends DwarfAngelfishEntity> extends ReefModel<T> {
+public class DwarfAngelfishModel<T extends DwarfAngelfish> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -77,7 +72,7 @@ public class DwarfAngelfishModel<T extends DwarfAngelfishEntity> extends ReefMod
 	}
 
 	@Override
-	public void setupAnim(DwarfAngelfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(DwarfAngelfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

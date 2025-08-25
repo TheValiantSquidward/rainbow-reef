@@ -29,26 +29,22 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
+import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TangEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
+public class Mahi extends VariantSchoolingFish implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(TangEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Mahi.class, EntityDataSerializers.BOOLEAN);
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public TangEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
+    public Mahi(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, 180);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
@@ -100,43 +96,6 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "powderblue";
-            case 2 -> "yellow";
-            case 3 -> "unicorn";
-            case 4 -> "convict";
-            case 5 -> "clown";
-            case 6 -> "achilles";
-            case 7 -> "purple";
-            case 8 -> "black";
-            case 9 -> "regalblue";
-            case 10 -> "gem";
-            case 11 -> "penguin";
-            case 12 -> "greenspot";
-            case 13 -> "rusty";
-            case 14 -> "pearly";
-            case 15 -> "yellowbellyblue";
-            case 16 -> "muddy";
-            case 17 -> "chocolate";
-            case 18 -> "sailfin";
-            case 19 -> "atlanticblue";
-            case 20 -> "eyestripe";
-            case 21 -> "whitecheek";
-            case 22 -> "scopas";
-            case 23 -> "goth";
-            case 24 -> "powderhybrid";
-            case 25 -> "pastelblue";
-            case 26 -> "yellowstrike";
-            case 27 -> "blacksurgeon";
-            case 28 -> "orangeband";
-            case 29 -> "blondelipstick";
-            case 30 -> "whitetailbristletooth";
-            case 31 -> "zebra";
-            default -> "bluehippo";
-        };
-    }
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -147,109 +106,6 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float aberrant = this.getRandom().nextFloat();
-        float rare = this.getRandom().nextFloat();
-        float variantChange = this.getRandom().nextFloat();
-        float aberrantVariantChange = this.getRandom().nextFloat();
-        float rareVariantChange = this.getRandom().nextFloat();
-
-        if(aberrant <= 0.001){
-            if (aberrantVariantChange <= 0.11F) {
-                this.setVariant(11);
-            } else
-            if (aberrantVariantChange <= 0.22F) {
-                this.setVariant(12);
-            } else
-            if (aberrantVariantChange <= 0.33F) {
-                this.setVariant(13);
-            } else
-            if (aberrantVariantChange <= 0.44F) {
-                this.setVariant(14);
-            } else
-            if (aberrantVariantChange <= 0.55F) {
-                this.setVariant(15);
-            } else if (aberrantVariantChange <= 0.66F) {
-                this.setVariant(16);
-            } else if (aberrantVariantChange <= 0.77F) {
-                this.setVariant(23);
-            } else if (aberrantVariantChange <= 0.88F) {
-                this.setVariant(24);
-            } else if (aberrantVariantChange <= 0.99F) {
-                this.setVariant(26);
-            } else {
-                this.setVariant(25);
-            }
-
-        }
-        if(rare <= 0.15){
-            if (rareVariantChange <= 0.16F) {
-                this.setVariant(7);
-            } else
-            if (rareVariantChange <= 0.32F) {
-                this.setVariant(8);
-            } else
-            if (rareVariantChange <= 0.48F) {
-                this.setVariant(9);
-            } else
-            if (rareVariantChange <= 0.64F) {
-                this.setVariant(10);
-            } else
-            if (rareVariantChange <= 0.80F) {
-                this.setVariant(21);
-            } else
-            if (rareVariantChange <= 0.96F) {
-                this.setVariant(30);
-            } else {
-                this.setVariant(31);
-        }
-        }
-        else {
-            if (variantChange <= 0.07F) {
-                this.setVariant(1);
-            } else
-                if (variantChange <= 0.14F) {
-                this.setVariant(2);
-            } else
-                if (variantChange <= 0.21F) {
-                    this.setVariant(3);
-                } else
-                if (variantChange <= 0.28F) {
-                    this.setVariant(4);
-                } else
-                if (variantChange <= 0.35F) {
-                    this.setVariant(5);
-                } else
-                if (variantChange <= 0.42F) {
-                    this.setVariant(6);
-                } else
-                if (variantChange <= 0.49F) {
-                    this.setVariant(17);
-                } else
-                if (variantChange <= 0.56F) {
-                    this.setVariant(18);
-                } else
-                if (variantChange <= 0.63F) {
-                    this.setVariant(19);
-                } else
-                if (variantChange <= 0.70F) {
-                    this.setVariant(20);
-                } else
-                if (variantChange <= 0.77F) {
-                    this.setVariant(22);
-                } else
-                if (variantChange <= 0.84F) {
-                    this.setVariant(27);
-                } else
-                if (variantChange <= 0.91F) {
-                    this.setVariant(28);
-                } else
-                if (variantChange <= 0.98F) {
-                    this.setVariant(29);
-
-                } else {
-                    this.setVariant(0);
-            }
-        }
 
         if (this.getRandom().nextFloat() >= 0.90) {
             if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
@@ -260,8 +116,7 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
 
                 if (schoolcount > 0 && !this.level().isClientSide()) {
                     for (int i = 0; i < schoolcount; i++) {
-                        TangEntity urine = new TangEntity(ReefEntities.TANG.get(), this.level());
-                        urine.setVariant(this.getVariant());
+                        Mahi urine = new Mahi(ReefEntities.TANG.get(), this.level());
                         urine.moveTo(this.getX(), this.getY(), this.getZ());
                         urine.startFollowing(this);
                         this.level().addFreshEntity(urine);
@@ -273,15 +128,10 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    @Override
-    public int variant() {
-        return getVariant();
-    }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
     }
 
@@ -300,18 +150,13 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
-
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("BucketVariantTag", this.getVariant());
     }
 
     @Override
     public void loadFromBucketTag(@Nonnull CompoundTag compound) {
         Bucketable.loadDefaultDataFromBucketTag(this, compound);
-        if (compound.contains("BucketVariantTag", 3)) {
-            this.setVariant(compound.getInt("BucketVariantTag"));
-        }
     }
 
     @Override
@@ -320,23 +165,14 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Integer.valueOf(variant));
-    }
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
         compound.putBoolean("FromBucket", this.fromBucket());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
         this.setFromBucket(compound.getBoolean("FromBucket"));
     }
 
@@ -370,12 +206,11 @@ public class TangEntity extends VariantSchoolingFish implements Bucketable, Vari
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.TANG_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<TangEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+    public static <T extends Mob> boolean canSpawn(EntityType<Mahi> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
 

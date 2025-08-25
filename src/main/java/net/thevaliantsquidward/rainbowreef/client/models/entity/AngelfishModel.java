@@ -10,11 +10,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.AngelfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.AngelfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Angelfish;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class AngelfishModel<T extends AngelfishEntity> extends ReefModel<T> {
+public class AngelfishModel<T extends Angelfish> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -64,7 +64,7 @@ public class AngelfishModel<T extends AngelfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(AngelfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Angelfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, AngelfishAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0F);

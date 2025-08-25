@@ -1,23 +1,19 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.JellyfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Jellyfish;
 
-public class JellyfishModel<T extends JellyfishEntity> extends ReefModel<T> {
+@OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
+public class JellyfishModel<T extends Jellyfish> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart bell;
@@ -79,7 +75,7 @@ public class JellyfishModel<T extends JellyfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(JellyfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Jellyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, JellyfishAnimations.SWIM, ageInTicks, 1);

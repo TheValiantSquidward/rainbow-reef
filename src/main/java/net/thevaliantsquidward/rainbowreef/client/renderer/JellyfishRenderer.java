@@ -9,15 +9,12 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.EelModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.MoorishIdolModel;
-import net.thevaliantsquidward.rainbowreef.entity.EelEntity;
-import net.thevaliantsquidward.rainbowreef.entity.JellyfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Jellyfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class JellyfishRenderer extends MobRenderer<JellyfishEntity, JellyfishModel<JellyfishEntity>> {
+public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jellyfish>> {
     private static final ResourceLocation TEXTURE_PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_1.png");
     private static final ResourceLocation TEXTURE_ORANGE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_0.png");
     private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_2.png");
@@ -33,11 +30,11 @@ public class JellyfishRenderer extends MobRenderer<JellyfishEntity, JellyfishMod
         super(context, new JellyfishModel<>(context.bakeLayer(ReefModelLayers.JELLYFISH_LAYER)), 0.4F);
     }
 
-    protected void scale(JellyfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Jellyfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
     @Override
-    protected void setupRotations(JellyfishEntity pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
+    protected void setupRotations(Jellyfish pEntityLiving, PoseStack pPoseStack, float pAgeInTicks, float pRotationYaw, float pPartialTicks) {
         float f = Mth.lerp(pPartialTicks, pEntityLiving.xBodyRotO, pEntityLiving.xBodyRot);
         float f1 = Mth.lerp(pPartialTicks, pEntityLiving.zBodyRotO, pEntityLiving.zBodyRot);
         pPoseStack.translate(0.0F, 0.5F, 0.0F);
@@ -47,7 +44,7 @@ public class JellyfishRenderer extends MobRenderer<JellyfishEntity, JellyfishMod
         pPoseStack.translate(0.0F, -1.2F, 0.0F);
     }
 
-    public ResourceLocation getTextureLocation(JellyfishEntity entity) {
+    public ResourceLocation getTextureLocation(Jellyfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> TEXTURE_ORANGE;
             case 2 -> TEXTURE_WHITE;

@@ -5,22 +5,19 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.ArrowCrabAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ArrowCrabEntity;
+import net.thevaliantsquidward.rainbowreef.entity.ArrowCrab;
 
 
 @OnlyIn(Dist.CLIENT)
-public class ArrowCrabModel<T extends ArrowCrabEntity> extends ReefModel<T> {
+public class ArrowCrabModel<T extends ArrowCrab> extends ReefModel<T> {
 
 
 	private final ModelPart root;
@@ -128,7 +125,7 @@ public class ArrowCrabModel<T extends ArrowCrabEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(ArrowCrabEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(ArrowCrab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));

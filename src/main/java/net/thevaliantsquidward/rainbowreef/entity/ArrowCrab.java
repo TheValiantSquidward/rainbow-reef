@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -30,11 +29,10 @@ import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.DancingEntity;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.DancesToJukebox;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
-public class ArrowCrabEntity extends CrabEntity implements Bucketable, DancesToJukebox {
+public class ArrowCrab extends Crab implements Bucketable, DancesToJukebox {
 
     //crabbing about
     //the crabby beast
@@ -44,10 +42,10 @@ public class ArrowCrabEntity extends CrabEntity implements Bucketable, DancesToJ
     public final net.minecraft.world.entity.AnimationState danceAnimationState = new net.minecraft.world.entity.AnimationState();
     public final net.minecraft.world.entity.AnimationState walkAnimationState = new net.minecraft.world.entity.AnimationState();
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ArrowCrabEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ArrowCrabEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ArrowCrab.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ArrowCrab.class, EntityDataSerializers.INT);
 
-    public ArrowCrabEntity(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
+    public ArrowCrab(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -194,14 +192,14 @@ public class ArrowCrabEntity extends CrabEntity implements Bucketable, DancesToJ
         this.targetSelector.addGoal(0, new ConditionalStopGoal(this) {
             @Override
             public boolean canUse() {
-                ArrowCrabEntity crab = (ArrowCrabEntity) getCreatura();
+                ArrowCrab crab = (ArrowCrab) getCreatura();
                 //System.out.println(crab.isDancing());
                 return crab.isDancing();
             }
 
             @Override
             public boolean canContinueToUse() {
-                ArrowCrabEntity crab = (ArrowCrabEntity) getCreatura();
+                ArrowCrab crab = (ArrowCrab) getCreatura();
                 return crab.isDancing();
             }
         });
@@ -275,7 +273,7 @@ public class ArrowCrabEntity extends CrabEntity implements Bucketable, DancesToJ
     }
 
 
-    public static boolean canSpawn(EntityType<ArrowCrabEntity> arrowCrabEntityEntityType, ServerLevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos p_223364_3_, RandomSource randomSource) {
+    public static boolean canSpawn(EntityType<ArrowCrab> arrowCrabEntityEntityType, ServerLevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos p_223364_3_, RandomSource randomSource) {
         return !levelAccessor.getBlockState(p_223364_3_).isSolid();
     }
 

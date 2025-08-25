@@ -5,10 +5,10 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.CrabModel;
-import net.thevaliantsquidward.rainbowreef.entity.CrabEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Crab;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class CrabRenderer extends MobRenderer<CrabEntity, CrabModel<CrabEntity>> {
+public class CrabRenderer extends MobRenderer<Crab, CrabModel<Crab>> {
 
     private static final ResourceLocation VAMPIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/vampire.png");
     private static final ResourceLocation HALLOWEEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/halloween.png");
@@ -24,7 +24,7 @@ public class CrabRenderer extends MobRenderer<CrabEntity, CrabModel<CrabEntity>>
         super(context, new CrabModel<>(context.bakeLayer(ReefModelLayers.CRAB_LAYER)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(CrabEntity entity) {
+    public ResourceLocation getTextureLocation(Crab entity) {
         return switch (entity.getVariant()) {
             case 1 -> HALLOWEEN;
             case 2 -> GHOST;

@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -40,19 +39,19 @@ import javax.annotation.Nonnull;
 import java.time.LocalDate;
 import java.time.Month;
 
-public class CrabEntity extends DancingEntity implements Bucketable, DancesToJukebox {
+public class Crab extends DancingEntity implements Bucketable, DancesToJukebox {
 
     // crabbing about
     // the crabby beast
     // crabbed to meet you
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Crab.class, EntityDataSerializers.INT);
 
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState danceAnimationState = new AnimationState();
 
-    public CrabEntity(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
+    public Crab(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
@@ -232,13 +231,13 @@ public class CrabEntity extends DancingEntity implements Bucketable, DancesToJuk
         this.targetSelector.addGoal(0, new ConditionalStopGoal(this) {
         @Override
         public boolean canUse() {
-            CrabEntity crab = (CrabEntity) getCreatura();
+            Crab crab = (Crab) getCreatura();
             return crab.isDancing();
         }
 
         @Override
         public boolean canContinueToUse() {
-            CrabEntity crab = (CrabEntity) getCreatura();
+            Crab crab = (Crab) getCreatura();
             return crab.isDancing();
         }
         });
@@ -293,7 +292,7 @@ public class CrabEntity extends DancingEntity implements Bucketable, DancesToJuk
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<CrabEntity> p_223364_0_, LevelAccessor levelAccessor, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+    public static <T extends Mob> boolean canSpawn(EntityType<Crab> p_223364_0_, LevelAccessor levelAccessor, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return !levelAccessor.getBlockState(p_223364_3_).isSolid();
     }
 }

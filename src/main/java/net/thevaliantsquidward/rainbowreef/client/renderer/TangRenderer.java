@@ -7,11 +7,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.TangModel;
-import net.thevaliantsquidward.rainbowreef.entity.TangEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Tang;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class TangRenderer extends MobRenderer<TangEntity, TangModel<TangEntity>> {
+public class TangRenderer extends MobRenderer<Tang, TangModel<Tang>> {
 
     private static final ResourceLocation TEXTURE_BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/blue.png");
     private static final ResourceLocation TEXTURE_POWDERBLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/powderblue.png");
@@ -50,7 +50,7 @@ public class TangRenderer extends MobRenderer<TangEntity, TangModel<TangEntity>>
         super(context, new TangModel<>(context.bakeLayer(ReefModelLayers.TANG_LAYER)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(TangEntity entity) {
+    public ResourceLocation getTextureLocation(Tang entity) {
         return switch (entity.getVariant()) {
             case 1 ->  TEXTURE_POWDERBLUE;
             case 2 ->  TEXTURE_YELLOW;

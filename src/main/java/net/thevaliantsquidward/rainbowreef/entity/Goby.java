@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -20,50 +21,53 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepyLookaroundGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepySwimGoal;
-import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.Month;
 
-public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable, VariantEntity {
+public class Goby extends RRMob implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ParrotfishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ParrotfishEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Goby.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Goby.class, EntityDataSerializers.INT);
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
-    public final AnimationState eepyAnimationState = new AnimationState();
+
+    public final net.minecraft.world.entity.AnimationState swimAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final net.minecraft.world.entity.AnimationState landAnimationState = new net.minecraft.world.entity.AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "humphead";
-            case 2 -> "rainbow";
-            case 3 -> "midnight";
-            case 4 -> "stoplight";
-            case 5 -> "mediterranean";
-            case 6 -> "princess";
-            case 7 -> "yellowtail";
-            case 8 -> "bluebumphead";
-            case 9 -> "red";
-            case 10 -> "yellowband";
-            case 11 -> "obishime";
-            default -> "blue";
+            case 1 -> "purplefire";
+            case 2 -> "candycane";
+            case 3 -> "mandarin";
+            case 4 -> "yellowwatchman";
+            case 5 -> "catalina";
+            case 6 -> "blackray";
+            case 7 -> "helfrichi";
+            case 8 -> "blueneon";
+            case 9 -> "yellowneon";
+            case 10 -> "neonhybrid";
+            case 11 -> "bluestreak";
+            case 12 -> "leopardspotted";
+            case 13 -> "yellowclown";
+            case 14 -> "dracula";
+            case 15 -> "blackfin";
+            default -> "fire";
         };
     }
-
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
@@ -71,41 +75,29 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
     public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
         return !this.fromBucket() && !this.hasCustomName();
     }
-
-    @Override
-    public int getMaxSchoolSize() {
-        return 5;
-    }
-
     public void tick() {
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
         if (!this.isInWater() && this.onGround() && this.verticalCollision) {
             this.setDeltaMovement(0,0,0);
             this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
             this.setOnGround(false);
             this.hasImpulse = true;
             this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+            //use this stuff for fish flopping
+        } else {
+            this.setSprinting(true);
         }
+
         super.tick();
+
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
     }
 
     private void setupAnimationStates() {
-        long roundedTime = this.level().getDayTime() % 24000;
-        boolean night = roundedTime >= 13000 && roundedTime <= 22000;
-
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-        this.eepyAnimationState.animateWhen(this.isInWaterOrBubble() && night, this.tickCount);
-        if (night) {
-            this.swimAnimationState.stop();
-        }
-    }
-
-    @Override
-    public int variant() {
-        return getVariant();
+        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
+        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override
@@ -118,7 +110,7 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
    @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.PARROTFISH_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.GOBY_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -188,60 +180,42 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        float rare = this.getRandom().nextFloat();
-        float rareVariantChange = this.getRandom().nextFloat();
-        if(rare <= 0.10) {
-            if(rareVariantChange <= 0.25F){
-                this.setVariant(2);
-            }else
-            if(rareVariantChange <= 0.50F){
-                this.setVariant(8);
-            }else
-            if(rareVariantChange <= 0.75F){
-                this.setVariant(11);
-            }else
-            {
-                this.setVariant(9);
-            }
-        } else
-        if(variantChange <= 0.11F) {
-            this.setVariant(7);
-        } else if(variantChange <= 0.22F) {
-            this.setVariant(6);
-        } else if(variantChange <= 0.33F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.44F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.55F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.66F){
-            this.setVariant(1);
-        }else if(variantChange <= 0.77F){
+        LocalDate currentDate = LocalDate.now();
+        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
+            this.setVariant(14);
+        } if(variantChange <= 0.001F){
             this.setVariant(10);
+        } else if(variantChange <= 0.06F){
+            this.setVariant(1);
+        } else if(variantChange <= 0.12F){
+            this.setVariant(2);
+        } else if(variantChange <= 0.18F){
+            this.setVariant(3);
+        }else if(variantChange <= 0.24F){
+            this.setVariant(4);
+        }else if(variantChange <= 0.30F){
+            this.setVariant(5);
+        }else if(variantChange <= 0.36F){
+            this.setVariant(6);
+        }else if(variantChange <= 0.42F){
+            this.setVariant(7);
+        }else if(variantChange <= 0.48F){
+            this.setVariant(8);
+        }else if(variantChange <= 0.54F){
+            this.setVariant(9);
+        }else if(variantChange <= 0.60F){
+            this.setVariant(11);
+        }else if(variantChange <= 0.66F){
+            this.setVariant(12);
+        }else if(variantChange <= 0.72F){
+            this.setVariant(13);
+        }else if(variantChange <= 0.78F){
+            this.setVariant(14);
+        }else if(variantChange <= 0.84F){
+            this.setVariant(15);
         }else{
             this.setVariant(0);
         }
-
-
-        if (this.getRandom().nextFloat() >= 0.75) {
-            if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
-                //|| reason == MobSpawnType.SPAWN_EGG
-            ) {
-                float schoolsize = this.getRandom().nextFloat();
-                int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-
-                if (schoolcount > 0 && !this.level().isClientSide()) {
-                    for (int i = 0; i < schoolcount; i++) {
-                        ParrotfishEntity urine = new ParrotfishEntity(ReefEntities.PARROTFISH.get(), this.level());
-                        urine.setVariant(this.getVariant());
-                        urine.moveTo(this.getX(), this.getY(), this.getZ());
-                        urine.startFollowing(this);
-                        this.level().addFreshEntity(urine);
-                    }
-                }
-            }
-        }
-
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
@@ -249,10 +223,10 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
         return MobType.WATER;
     }
 
-    public ParrotfishEntity(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+    public Goby(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000000, 10, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     @Override
@@ -267,18 +241,21 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0D)
+                .add(Attributes.MOVEMENT_SPEED, 100.0D)
                 .build();
     }
 
     @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.PARROTFISH_DIET));
-        this.goalSelector.addGoal(4, new RandomSleepyLookaroundGoal(this));
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 0.8, 1));
+    public void setSprinting(boolean pSprinting) {
+        super.setSprinting(pSprinting);
     }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 0.8D, 75, 5, 10, 0.01));
+    }
+
 
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
@@ -296,7 +273,9 @@ public class ParrotfishEntity extends VariantSchoolingFish implements Bucketable
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<ParrotfishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+
+    public static <T extends Mob> boolean canSpawn(EntityType<Goby> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
+
 }

@@ -7,13 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishModel;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.LionfishModel;
-import net.thevaliantsquidward.rainbowreef.entity.LionfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Lionfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class LionfishRenderer extends MobRenderer<LionfishEntity, LionfishModel<LionfishEntity>> {
+public class LionfishRenderer extends MobRenderer<Lionfish, LionfishModel<Lionfish>> {
 
     private static final ResourceLocation RED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/lionfish/red.png");
     private static final ResourceLocation CLEARFIN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/lionfish/clearfin.png");
@@ -25,11 +24,11 @@ public class LionfishRenderer extends MobRenderer<LionfishEntity, LionfishModel<
     }
 
 
-    protected void scale(LionfishEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(Lionfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(LionfishEntity entity) {
+    public ResourceLocation getTextureLocation(Lionfish entity) {
         return switch (entity.getVariant()) {
             case 1 -> CLEARFIN;
             default -> RED;

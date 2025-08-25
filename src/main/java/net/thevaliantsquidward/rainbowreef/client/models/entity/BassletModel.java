@@ -5,22 +5,18 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.BassletAnimations;
-import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.BassletEntity;
-import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Basslet;
 
 @OnlyIn(Dist.CLIENT)
-public class BassletModel<T extends BassletEntity> extends ReefModel<T> {
+public class BassletModel<T extends Basslet> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -75,7 +71,7 @@ public class BassletModel<T extends BassletEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(BassletEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Basslet entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

@@ -11,14 +11,12 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.MoorishIdolEntity;
+import net.thevaliantsquidward.rainbowreef.entity.MoorishIdol;
 
 @OnlyIn(Dist.CLIENT)
-public class MoorishIdolModel<T extends MoorishIdolEntity> extends ReefModel<T> {
+public class MoorishIdolModel<T extends MoorishIdol> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -86,7 +84,7 @@ public class MoorishIdolModel<T extends MoorishIdolEntity> extends ReefModel<T> 
 	}
 
 	@Override
-	public void setupAnim(MoorishIdolEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(MoorishIdol entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

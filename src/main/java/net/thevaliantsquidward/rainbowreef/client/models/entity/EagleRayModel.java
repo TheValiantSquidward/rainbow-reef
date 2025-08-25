@@ -10,12 +10,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.EagleRayAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.RayEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Ray;
 import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class EagleRayModel<T extends RayEntity> extends ReefModel<T> {
+public class EagleRayModel<T extends Ray> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -73,7 +73,7 @@ public class EagleRayModel<T extends RayEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(RayEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Ray entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.animate(entity.swimAnimationState, EagleRayAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);

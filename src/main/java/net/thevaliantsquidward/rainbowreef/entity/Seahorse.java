@@ -17,6 +17,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -28,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -35,22 +38,26 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PipefishEntity extends RRMob implements Bucketable {
+public class Seahorse extends RRMob implements Bucketable {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(PipefishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(PipefishEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Seahorse.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Seahorse.class, EntityDataSerializers.INT);
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "janns";
-            case 2 -> "multibanded";
-            case 3 -> "orangestriped";
-            case 4 -> "bluestriped";
-            case 5 -> "pink";
-            default -> "green";
+            case 1 -> "cobalt";
+            case 2 -> "gold";
+            case 3 -> "amber";
+            case 4 -> "silver";
+            case 5 -> "garnet";
+            case 6 -> "ruby";
+            case 7 -> "spinel";
+            case 8 -> "chert";
+            case 9 -> "onyx";
+            default -> "kelpy";
         };
     }
 
@@ -65,13 +72,6 @@ public class PipefishEntity extends RRMob implements Bucketable {
     public void tick() {
         if (this.level().isClientSide()){
             this.setupAnimationStates();
-        }
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
         }
         super.tick();
     }
@@ -91,7 +91,7 @@ public class PipefishEntity extends RRMob implements Bucketable {
    @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.PIPEFISH_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.SEAHORSE_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -115,7 +115,7 @@ public class PipefishEntity extends RRMob implements Bucketable {
             this.setVariant(compound.getInt("BucketVariantTag"));
         }
     }
-    public static <T extends Mob> boolean canSpawn(EntityType<PipefishEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+    public static <T extends Mob> boolean canSpawn(EntityType<Seahorse> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
     @Override
@@ -163,15 +163,23 @@ public class PipefishEntity extends RRMob implements Bucketable {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.16F){
+        if (variantChange <= 0.10F){
+            this.setVariant(9);
+        }else if (variantChange <= 0.20F){
+            this.setVariant(8);
+        }else if (variantChange <= 0.30F){
+            this.setVariant(7);
+        }else if (variantChange <= 0.40F){
+            this.setVariant(6);
+        }else if (variantChange <= 0.50F){
             this.setVariant(5);
-        }else if(variantChange <= 0.32F){
+        }else if (variantChange <= 0.60F){
             this.setVariant(4);
-        }else if(variantChange <= 0.48F){
+        }else if (variantChange <= 0.70F){
             this.setVariant(3);
-        }else if(variantChange <= 0.64F){
+        }else if (variantChange <= 0.80F){
             this.setVariant(2);
-        }else if(variantChange <= 0.80F){
+        }else if (variantChange <= 0.90F){
             this.setVariant(1);
         }else{
             this.setVariant(0);
@@ -183,7 +191,7 @@ public class PipefishEntity extends RRMob implements Bucketable {
         return MobType.WATER;
     }
 
-    public PipefishEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public Seahorse(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, Integer.MAX_VALUE);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
@@ -201,14 +209,16 @@ public class PipefishEntity extends RRMob implements Bucketable {
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.45D)
+                .add(Attributes.MOVEMENT_SPEED, 0.3D)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1D, 50, 5, 10, 2));
+        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1D, 50, 10, 10, 2));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
 
     protected SoundEvent getAmbientSound() {
@@ -225,5 +235,8 @@ public class PipefishEntity extends RRMob implements Bucketable {
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
+    }
+
+    protected void playStepSound(BlockPos pos, BlockState state) {
     }
 }

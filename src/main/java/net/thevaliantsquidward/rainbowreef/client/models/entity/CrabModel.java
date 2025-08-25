@@ -9,11 +9,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.CrabAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.CrabEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Crab;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class CrabModel<T extends CrabEntity> extends ReefModel<T> {
+public class CrabModel<T extends Crab> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -85,7 +85,7 @@ public class CrabModel<T extends CrabEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(CrabEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Crab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		animateWalk(CrabAnimations.WALK, limbSwing, limbSwingAmount, 3.0f, 3.5f);

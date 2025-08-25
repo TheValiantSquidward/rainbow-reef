@@ -13,10 +13,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.GobyAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.GobyEntity;
+import net.thevaliantsquidward.rainbowreef.entity.Goby;
 
 @OnlyIn(Dist.CLIENT)
-public class GobyModel<T extends GobyEntity> extends ReefModel<T> {
+public class GobyModel<T extends Goby> extends ReefModel<T> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -74,7 +74,7 @@ public class GobyModel<T extends GobyEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(GobyEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Goby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));

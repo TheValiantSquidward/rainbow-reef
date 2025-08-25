@@ -17,8 +17,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
@@ -30,34 +28,73 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
+import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SeahorseEntity extends RRMob implements Bucketable {
+public class MaoriWrasse extends RRMob implements Bucketable, VariantEntity {
 
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(SeahorseEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(MaoriWrasse.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(MaoriWrasse.class, EntityDataSerializers.INT);
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
+    public MaoriWrasse(EntityType<? extends RRMob> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, 180);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+    }
+
+    @Override
+    public boolean isNoGravity() {
+        return this.isInWater();
+    }
+
+    protected PathNavigation createNavigation(Level p_27480_) {
+        return new WaterBoundPathNavigation(this, p_27480_);
+    }
+
+    public void travel(Vec3 pTravelVector) {
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.moveRelative(this.getSpeed(), pTravelVector);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
+            if (this.getTarget() == null) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
+            }
+        } else {
+            super.travel(pTravelVector);
+        }
+    }
+
+    public void tick() {
+        if (this.level().isClientSide()){
+            this.setupAnimationStates();
+        }
+        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
+            this.setDeltaMovement(0,0,0);
+            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
+            this.setOnGround(false);
+            this.hasImpulse = true;
+            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
+        }
+        super.tick();
+    }
+
+    private void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    }
+
     public static String getVariantName(int variant) {
         return switch (variant) {
-            case 1 -> "cobalt";
-            case 2 -> "gold";
-            case 3 -> "amber";
-            case 4 -> "silver";
-            case 5 -> "garnet";
-            case 6 -> "ruby";
-            case 7 -> "spinel";
-            case 8 -> "chert";
-            case 9 -> "onyx";
-            default -> "kelpy";
+            default -> "sailfish";
         };
     }
 
@@ -69,16 +106,17 @@ public class SeahorseEntity extends RRMob implements Bucketable {
         return !this.fromBucket() && !this.hasCustomName();
     }
 
-    public void tick() {
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-        super.tick();
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+
+        this.setVariant(0);
+
+        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-    private void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+    @Override
+    public int variant() {
+        return getVariant();
     }
 
     @Override
@@ -88,10 +126,10 @@ public class SeahorseEntity extends RRMob implements Bucketable {
         this.entityData.define(FROM_BUCKET, false);
     }
 
-   @Override
+    @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.SEAHORSE_BUCKET.get());
+        ItemStack stack = new ItemStack(ReefItems.TANG_BUCKET.get());
         if (this.hasCustomName()) {
             stack.setHoverName(this.getCustomName());
         }
@@ -103,6 +141,7 @@ public class SeahorseEntity extends RRMob implements Bucketable {
         if (this.hasCustomName()) {
             bucket.setHoverName(this.getCustomName());
         }
+
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
         CompoundTag compoundnbt = bucket.getOrCreateTag();
         compoundnbt.putInt("BucketVariantTag", this.getVariant());
@@ -115,9 +154,7 @@ public class SeahorseEntity extends RRMob implements Bucketable {
             this.setVariant(compound.getInt("BucketVariantTag"));
         }
     }
-    public static <T extends Mob> boolean canSpawn(EntityType<SeahorseEntity> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
-    }
+
     @Override
     @Nonnull
     protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
@@ -160,65 +197,26 @@ public class SeahorseEntity extends RRMob implements Bucketable {
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if (variantChange <= 0.10F){
-            this.setVariant(9);
-        }else if (variantChange <= 0.20F){
-            this.setVariant(8);
-        }else if (variantChange <= 0.30F){
-            this.setVariant(7);
-        }else if (variantChange <= 0.40F){
-            this.setVariant(6);
-        }else if (variantChange <= 0.50F){
-            this.setVariant(5);
-        }else if (variantChange <= 0.60F){
-            this.setVariant(4);
-        }else if (variantChange <= 0.70F){
-            this.setVariant(3);
-        }else if (variantChange <= 0.80F){
-            this.setVariant(2);
-        }else if (variantChange <= 0.90F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
-        }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
     public MobType getMobType() {
         return MobType.WATER;
     }
 
-    public SeahorseEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
-    }
-
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .add(Attributes.MAX_HEALTH, 6D)
+                .add(Attributes.MOVEMENT_SPEED, 0.6D)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1D, 50, 10, 10, 2));
-        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
+    }
+
+    public static <T extends Mob> boolean canSpawn(EntityType<MaoriWrasse> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -235,8 +233,5 @@ public class SeahorseEntity extends RRMob implements Bucketable {
 
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
-    }
-
-    protected void playStepSound(BlockPos pos, BlockState state) {
     }
 }

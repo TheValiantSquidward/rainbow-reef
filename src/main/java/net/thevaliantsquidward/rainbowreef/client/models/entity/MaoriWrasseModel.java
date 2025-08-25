@@ -5,21 +5,18 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.thevaliantsquidward.rainbowreef.client.animations.MaoriWrasseAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.BillfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.MaoriWrasseEntity;
+import net.thevaliantsquidward.rainbowreef.entity.MaoriWrasse;
 
-public class MaoriWrasseModel<T extends MaoriWrasseEntity> extends ReefModel<T> {
+public class MaoriWrasseModel<T extends MaoriWrasse> extends ReefModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "maori_wrasse"), "main");
 	private final ModelPart Root;
@@ -82,7 +79,7 @@ public class MaoriWrasseModel<T extends MaoriWrasseEntity> extends ReefModel<T> 
 	}
 
 	@Override
-	public void setupAnim(MaoriWrasseEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(MaoriWrasse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));

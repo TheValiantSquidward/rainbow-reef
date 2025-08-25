@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Bl
 // Paste this class into your mod and generate all required imports
 
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -14,16 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.thevaliantsquidward.rainbowreef.client.animations.ButterfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.ButterfishEntity;
-import net.thevaliantsquidward.rainbowreef.entity.ClownfishEntity;
-
-import java.util.List;
+import net.thevaliantsquidward.rainbowreef.entity.Clownfish;
 
 @OnlyIn(Dist.CLIENT)
-public class ClownfishModel<T extends ClownfishEntity> extends ReefModel<T> {
+public class ClownfishModel<T extends Clownfish> extends ReefModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "clownfish"), "main");
 	private final ModelPart root;
@@ -86,7 +81,7 @@ public class ClownfishModel<T extends ClownfishEntity> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(ClownfishEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Clownfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
