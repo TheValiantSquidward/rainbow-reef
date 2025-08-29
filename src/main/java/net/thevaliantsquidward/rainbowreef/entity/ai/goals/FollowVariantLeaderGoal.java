@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
+package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
 import com.mojang.datafixers.DataFixUtils;
 import net.minecraft.world.entity.ai.goal.Goal;

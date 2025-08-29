@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
+package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;

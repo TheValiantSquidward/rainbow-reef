@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
+package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
 import java.util.EnumSet;
 import net.minecraft.world.entity.Mob;

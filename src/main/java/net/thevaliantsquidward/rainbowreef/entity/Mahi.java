@@ -29,7 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -53,11 +53,6 @@ public class Mahi extends VariantSchoolingFish implements Bucketable {
     @Override
     public int getMaxSchoolSize() {
         return 20;
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {

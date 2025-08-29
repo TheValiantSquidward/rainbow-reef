@@ -28,13 +28,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,11 +48,13 @@ public class Angelfish extends VariantSchoolingFish implements Bucketable, Varia
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
+    @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.fromBucket();
     }
 
-    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
+    @Override
+    public boolean removeWhenFarAway(double distance) {
         return !this.fromBucket() && !this.hasCustomName();
     }
 
@@ -87,6 +90,7 @@ public class Angelfish extends VariantSchoolingFish implements Bucketable, Varia
         return getVariant();
     }
 
+    @Override
     public void tick() {
         if (this.level().isClientSide()){
             this.setupAnimationStates();
@@ -253,25 +257,20 @@ public class Angelfish extends VariantSchoolingFish implements Bucketable, Varia
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
     }
 
-
-    public MobType getMobType() {
+    @Override
+    public @NotNull MobType getMobType() {
         return MobType.WATER;
     }
 
     public Angelfish(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, 300);
-
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+    protected PathNavigation createNavigation(Level level) {
+        return new WaterBoundPathNavigation(this, level);
     }
 
     public static AttributeSupplier setAttributes() {
@@ -289,23 +288,30 @@ public class Angelfish extends VariantSchoolingFish implements Bucketable, Varia
         this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
     }
 
+    @Override
+    @Nullable
     protected SoundEvent getAmbientSound() {
         return SoundEvents.TROPICAL_FISH_AMBIENT;
     }
 
+    @Override
+    @Nullable
     protected SoundEvent getDeathSound() {
         return SoundEvents.TROPICAL_FISH_DEATH;
     }
 
-    protected SoundEvent getHurtSound(DamageSource p_28281_) {
+    @Override
+    @Nullable
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return SoundEvents.TROPICAL_FISH_HURT;
     }
 
+    @Nullable
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<Angelfish> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    public static boolean canSpawn(EntityType<Angelfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

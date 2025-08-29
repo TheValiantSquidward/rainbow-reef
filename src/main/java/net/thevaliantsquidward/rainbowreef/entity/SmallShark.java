@@ -29,8 +29,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.GroundseekingRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
@@ -52,9 +52,8 @@ public class SmallShark extends RRMob implements Bucketable {
 
     public SmallShark(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level, 400);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-
         this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
     }
 
@@ -80,13 +79,8 @@ public class SmallShark extends RRMob implements Bucketable {
     }
 
     @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    @Override
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
+    protected PathNavigation createNavigation(Level level) {
+        return new AdvancedWaterboundPathNavigation(this, level, true, false);
     }
 
     public static String getVariantName(int variant) {

@@ -201,13 +201,8 @@ public class Boxfish extends RRMob implements Bucketable {
 
     public Boxfish(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
     }
 
     protected PathNavigation createNavigation(Level p_27480_) {

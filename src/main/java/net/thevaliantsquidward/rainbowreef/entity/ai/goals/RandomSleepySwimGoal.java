@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.ai.goalz;
+package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
 import javax.annotation.Nullable;
 import net.minecraft.world.entity.PathfinderMob;

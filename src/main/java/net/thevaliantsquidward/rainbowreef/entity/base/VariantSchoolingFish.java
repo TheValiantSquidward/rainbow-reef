@@ -8,7 +8,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FollowVariantLeaderGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 
 import javax.annotation.Nullable;
@@ -16,19 +16,21 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class VariantSchoolingFish extends RRMob implements VariantEntity {
+
     @Nullable
     private VariantSchoolingFish leader;
     private int schoolSize = 1;
 
-    public VariantSchoolingFish(EntityType<? extends WaterAnimal> p_27523_, Level p_27524_, int feedCooldown) {
-        super(p_27523_, p_27524_, feedCooldown);
+    public VariantSchoolingFish(EntityType<? extends WaterAnimal> entityType, Level level, int feedCooldown) {
+        super(entityType, level, feedCooldown);
     }
 
-
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
     }
 
+    @Override
     public int getMaxSpawnClusterSize() {
         return this.getMaxSchoolSize();
     }
@@ -45,10 +47,9 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
         return this.leader != null && this.leader.isAlive();
     }
 
-    public VariantSchoolingFish startFollowing(VariantSchoolingFish p_27526_) {
-        this.leader = p_27526_;
-        p_27526_.addFollower();
-        return p_27526_;
+    public void startFollowing(VariantSchoolingFish fish) {
+        this.leader = fish;
+        fish.addFollower();
     }
 
     public void stopFollowing() {
@@ -68,6 +69,7 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
         return this.hasFollowers() && this.schoolSize < this.getMaxSchoolSize();
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.hasFollowers() && this.level().random.nextInt(200) == 1) {
@@ -97,26 +99,25 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
         return 0;
     }
 
-    public void addFollowers(Stream<? extends VariantSchoolingFish> p_27534_) {
-        p_27534_.limit(this.getMaxSchoolSize() - this.schoolSize).filter((p_27538_) -> {
-            return p_27538_ != this;
-        }).forEach((p_27536_) -> {
-            if (this.variant() == p_27536_.variant()) {
-                p_27536_.startFollowing(this);
+    public void addFollowers(Stream<? extends VariantSchoolingFish> fish) {
+        fish.limit(this.getMaxSchoolSize() - this.schoolSize).filter((fish1) -> fish1 != this).forEach((fish2) -> {
+            if (this.variant() == fish2.variant()) {
+                fish2.startFollowing(this);
             }
         });
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_27528_, DifficultyInstance p_27529_, MobSpawnType p_27530_, @Nullable SpawnGroupData p_27531_, @Nullable CompoundTag p_27532_) {
-        super.finalizeSpawn(p_27528_, p_27529_, p_27530_, p_27531_, p_27532_);
-        if (p_27531_ == null) {
-            p_27531_ = new SchoolSpawnGroupData(this);
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        if (spawnData == null) {
+            spawnData = new SchoolSpawnGroupData(this);
         } else {
-            this.startFollowing(((SchoolSpawnGroupData)p_27531_).leader);
+            this.startFollowing(((SchoolSpawnGroupData) spawnData).leader);
         }
 
-        return p_27531_;
+        return spawnData;
     }
 
     public static class SchoolSpawnGroupData implements SpawnGroupData {
@@ -126,5 +127,4 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
             this.leader = p_27553_;
         }
     }
-
 }

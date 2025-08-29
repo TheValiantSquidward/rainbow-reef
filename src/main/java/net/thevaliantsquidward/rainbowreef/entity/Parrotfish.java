@@ -26,11 +26,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepyLookaroundGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.RandomSleepySwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.RandomSleepyLookaroundGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.RandomSleepySwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.util.RRTags;
@@ -251,17 +251,12 @@ public class Parrotfish extends VariantSchoolingFish implements Bucketable, Vari
 
     public Parrotfish(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
-    }
-
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new WaterBoundPathNavigation(this, p_27480_);
+    protected PathNavigation createNavigation(Level level) {
+        return new WaterBoundPathNavigation(this, level);
     }
 
     public static AttributeSupplier setAttributes() {
@@ -296,7 +291,7 @@ public class Parrotfish extends VariantSchoolingFish implements Bucketable, Vari
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
-    public static <T extends Mob> boolean canSpawn(EntityType<Parrotfish> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
+    public static boolean canSpawn(EntityType<Parrotfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

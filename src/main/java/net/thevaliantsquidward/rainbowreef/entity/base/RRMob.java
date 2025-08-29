@@ -6,20 +6,13 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.PathFinder;
-import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 
 public class RRMob extends WaterAnimal {
@@ -27,15 +20,13 @@ public class RRMob extends WaterAnimal {
     public float prevTilt;
     public float tilt;
 
-    public int feedCDLim = 0;
+    public int feedCDLim;
     public int feedCD = 0;
 
     public SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
 
-    protected RRMob(EntityType<? extends WaterAnimal> pEntityType, Level pLevel, int feedCooldown) {
-        super(pEntityType, pLevel);
-
-
+    protected RRMob(EntityType<? extends WaterAnimal> entityType, Level level, int feedCooldown) {
+        super(entityType, level);
         this.feedCDLim = feedCooldown;
         this.setFeedCD(this.feedCDLim + this.getRandom().nextInt(this.feedCDLim));
     }
@@ -52,6 +43,7 @@ public class RRMob extends WaterAnimal {
         return feedCD;
     }
 
+    @Override
     public void tick() {
         super.tick();
 
@@ -78,6 +70,7 @@ public class RRMob extends WaterAnimal {
         this.feedCD --;
     }
 
+    @Override
     public void travel(Vec3 pTravelVector) {
         if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding() && checkFloat(this.blockPosition())) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005 * this.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.0));
@@ -127,7 +120,4 @@ public class RRMob extends WaterAnimal {
 
         return north <= (1) || south <= (1) || east <= (1) || west <= (1);
     }
-
-
-
 }

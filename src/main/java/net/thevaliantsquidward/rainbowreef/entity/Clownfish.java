@@ -26,7 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goalz.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.LocateNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.MoveToNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.NemHoster;
@@ -52,20 +52,14 @@ public class Clownfish extends NemHoster implements Bucketable, VariantEntity {
     public Clownfish(EntityType<? extends NemHoster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, 200, 4, 600, 200);
 
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 60, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 60, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-    }
-
-    @Override
-    public boolean isNoGravity() {
-        return this.isInWater();
     }
 
     @Override
     public int getMaxSchoolSize() {
         return 5;
     }
-
 
     protected PathNavigation createNavigation(Level p_27480_) {
         return new WaterBoundPathNavigation(this, p_27480_);
