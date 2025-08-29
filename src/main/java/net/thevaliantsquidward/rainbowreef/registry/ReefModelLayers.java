@@ -27,7 +27,6 @@ public class ReefModelLayers {
     public static final ModelLayerLocation JELLYFISH_LAYER = main("jellyfish");
     public static final ModelLayerLocation HOGFISH_LAYER = main("hogfish");
     public static final ModelLayerLocation GOBY_LAYER = main("goby");
-    public static final ModelLayerLocation EEL_LAYER = main("eel");
     public static final ModelLayerLocation LIONFISH_LAYER = main("lionfish");
     public static final ModelLayerLocation MAHI_LAYER = main("mahi_mahi");
     public static final ModelLayerLocation BILLFISH_LAYER = main("billfish");

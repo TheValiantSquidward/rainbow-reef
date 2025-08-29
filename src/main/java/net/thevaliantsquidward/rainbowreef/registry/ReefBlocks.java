@@ -270,7 +270,7 @@ public class ReefBlocks {
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN)
                     .strength(0.5F, 0.0F)
                     .sound(SoundType.LANTERN)
-                    .lightLevel((p_152677_) -> {return 15;})
+                    .lightLevel((state) -> 15)
                     .noOcclusion()
                     .pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
@@ -278,17 +278,13 @@ public class ReefBlocks {
                             ));
 
     public static final RegistryObject<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> {
-                return 15;
-            }).noOcclusion().pushReaction(PushReaction.DESTROY),
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
             ));
 
     public static final RegistryObject<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> {
-                return 15;
-            }).noOcclusion().pushReaction(PushReaction.DESTROY),
+            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.copy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((p_152677_) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
                     ));
@@ -385,8 +381,6 @@ public class ReefBlocks {
     private static <T extends Block> Supplier<T> create(String key, Supplier<T> block, CreativeModeTab tab) {
         return create(key, block, entry -> new BlockItem(entry.get(), new Item.Properties()));
     }
-
-
 
     private static <T extends Block> Supplier<T> create(String key, Supplier<T> block) {
         return BLOCKS.register(key, block);
