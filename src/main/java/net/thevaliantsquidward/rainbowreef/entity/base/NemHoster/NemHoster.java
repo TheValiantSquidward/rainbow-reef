@@ -23,16 +23,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class NemHoster extends VariantSchoolingFish {
-    private static final EntityDataAccessor<BlockPos> HOME = SynchedEntityData.defineId(NemHoster.class, EntityDataSerializers.BLOCK_POS);
+public abstract class NemHoster extends VariantSchoolingFish {
 
+    private static final EntityDataAccessor<BlockPos> HOME = SynchedEntityData.defineId(NemHoster.class, EntityDataSerializers.BLOCK_POS);
 
     int nemSearchCooldown = 0;
     int maxNemSearchCD;
     int homeRadius;
     int restInterval;
     int restTime;
-
 
     public NemHoster(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel, int searchCD, int homeRadius, int restInterval, int restTime) {
         super(pEntityType, pLevel, 200);

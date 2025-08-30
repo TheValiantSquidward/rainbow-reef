@@ -32,9 +32,6 @@ public class AdvancedSwimNodeEvaluator extends NodeEvaluator {
         this.pathTypesByPosCache.clear();
     }
 
-    /**
-     * This method is called when all nodes have been processed and PathEntity is created.
-     */
     public void done() {
         super.done();
         this.pathTypesByPosCache.clear();
@@ -116,14 +113,9 @@ public class AdvancedSwimNodeEvaluator extends NodeEvaluator {
     }
 
     protected BlockPathTypes getCachedBlockType(int pX, int pY, int pZ) {
-        return this.pathTypesByPosCache.computeIfAbsent(BlockPos.asLong(pX, pY, pZ), (p_192957_) -> {
-            return this.getBlockPathType(this.level, pX, pY, pZ);
-        });
+        return this.pathTypesByPosCache.computeIfAbsent(BlockPos.asLong(pX, pY, pZ), (p_192957_) -> this.getBlockPathType(this.level, pX, pY, pZ));
     }
 
-    /**
-     * Returns the node type at the specified postion taking the block below into account
-     */
     public BlockPathTypes getBlockPathType(BlockGetter pLevel, int pX, int pY, int pZ) {
         return this.getBlockPathType(pLevel, pX, pY, pZ, this.mob);
     }
@@ -191,6 +183,4 @@ public class AdvancedSwimNodeEvaluator extends NodeEvaluator {
     public void setPreferCrevices(boolean pAllow) {
         this.preferCrevices = pAllow;
     }
-
-
 }

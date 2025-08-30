@@ -9,13 +9,12 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Stream;
 
-public abstract class VariantSchoolingFish extends RRMob implements VariantEntity {
+public abstract class VariantSchoolingFish extends ReefMob {
 
     @Nullable
     private VariantSchoolingFish leader;
@@ -37,10 +36,6 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
 
     public int getMaxSchoolSize() {
         return super.getMaxSpawnClusterSize();
-    }
-
-    protected boolean canRandomSwim() {
-        return !this.isFollower();
     }
 
     public boolean isFollower() {
@@ -94,14 +89,9 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
         }
     }
 
-    @Override
-    public int variant() {
-        return 0;
-    }
-
     public void addFollowers(Stream<? extends VariantSchoolingFish> fish) {
         fish.limit(this.getMaxSchoolSize() - this.schoolSize).filter((fish1) -> fish1 != this).forEach((fish2) -> {
-            if (this.variant() == fish2.variant()) {
+            if (this.getVariant() == fish2.getVariant()) {
                 fish2.startFollowing(this);
             }
         });
@@ -123,8 +113,8 @@ public abstract class VariantSchoolingFish extends RRMob implements VariantEntit
     public static class SchoolSpawnGroupData implements SpawnGroupData {
         public final VariantSchoolingFish leader;
 
-        public SchoolSpawnGroupData(VariantSchoolingFish p_27553_) {
-            this.leader = p_27553_;
+        public SchoolSpawnGroupData(VariantSchoolingFish fish) {
+            this.leader = fish;
         }
     }
 }

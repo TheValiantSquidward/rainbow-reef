@@ -13,10 +13,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.Crab;
-import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 
 public class FishDigGoal extends Goal {
-    private RRMob fims;
+    private ReefMob fims;
 
     private int digTime = 0;
     private int digTimeLim;
@@ -30,7 +30,7 @@ public class FishDigGoal extends Goal {
 
     public TagKey<Block> foodWhitelist;
 
-    public FishDigGoal(RRMob fisdh, int digtime, TagKey<Block> whitelist) {
+    public FishDigGoal(ReefMob fisdh, int digtime, TagKey<Block> whitelist) {
         this.foodWhitelist = whitelist;
         this.fims = fisdh;
 
@@ -44,8 +44,8 @@ public class FishDigGoal extends Goal {
     @Override
     public boolean canUse() {
 
-        if(fims.getFeedCD() <= 0 && fims.isInWater()){
-            this.fims.setFeedCD(600 + fims.getRandom().nextInt(600));
+        if(fims.getFeedCooldown() <= 0 && fims.isInWater()){
+            this.fims.setFeedCooldown(600 + fims.getRandom().nextInt(600));
             this.digPos = genDigPos();
             this.timeOut = 800;
             return this.digPos != null;
@@ -123,7 +123,7 @@ public class FishDigGoal extends Goal {
 
     public void stop() {
         //this.fims.setFeedCD(0);
-        this.fims.setFeedCD(this.fims.feedCDLim + fims.getRandom().nextInt(this.fims.feedCDLim));
+        this.fims.setFeedCooldown(this.fims.feedColldownLimit + fims.getRandom().nextInt(this.fims.feedColldownLimit));
         this.fims.setMoveControl(this.originalMoveControl);
         this.digPos = null;
         this.digTime = this.digTimeLim;

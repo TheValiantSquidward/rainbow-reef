@@ -31,7 +31,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.GroundseekingRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -40,7 +40,7 @@ import net.thevaliantsquidward.rainbowreef.util.RRTags;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class SmallShark extends RRMob implements Bucketable {
+public class SmallShark extends ReefMob implements Bucketable {
 
     public IKSolver tailKinematics;
 
@@ -144,44 +144,10 @@ public class SmallShark extends RRMob implements Bucketable {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    private void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putBoolean("FromBucket", this.fromBucket());
-    }
-
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-    }
-
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    @Override
-    public void setFromBucket(boolean p_203706_1_) {
-        this.entityData.set(FROM_BUCKET, p_203706_1_);
-    }
     public static <T extends Mob> boolean canSpawn(EntityType<SmallShark> p_223364_0_, LevelAccessor p_223364_1_, MobSpawnType reason, BlockPos p_223364_3_, RandomSource p_223364_4_) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_223364_0_, p_223364_1_, reason, p_223364_3_, p_223364_4_);
     }
-    @Override
-    @Nonnull
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
-    }
-
+    
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();

@@ -1,15 +1,21 @@
 package net.thevaliantsquidward.rainbowreef;
 
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.thevaliantsquidward.rainbowreef.data.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.client.renderer.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
@@ -20,9 +26,11 @@ import net.thevaliantsquidward.rainbowreef.util.RRPOI;
 import net.thevaliantsquidward.rainbowreef.registry.ReefFeatures;
 
 import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 @Mod(RainbowReef.MOD_ID)
 public class RainbowReef {
+
     public static final String MOD_ID = "rainbowreef";
 
     public static ResourceLocation prefix(String name) {
@@ -31,7 +39,7 @@ public class RainbowReef {
 
     public RainbowReef() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ReefCreativeTabs.register(modEventBus);
+        RainbowReefTab.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
 
         ReefEntities.register(modEventBus);
@@ -43,6 +51,7 @@ public class RainbowReef {
         ReefBlocks.BLOCKS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::dataSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -68,5 +77,18 @@ public class RainbowReef {
             EntityRenderers.register(ReefEntities.MAORI_WRASSE.get(), MaoriWrasseRenderer:: new);
             EntityRenderers.register(ReefEntities.FROGFISH.get(), FrogfishRenderer:: new);
         }
+    }
+
+    private void dataSetup(GatherDataEvent data) {
+        DataGenerator generator = data.getGenerator();
+        PackOutput output = generator.getPackOutput();
+        CompletableFuture<HolderLookup.Provider> provider = data.getLookupProvider();
+        ExistingFileHelper helper = data.getExistingFileHelper();
+
+        boolean server = data.includeServer();
+
+        boolean client = data.includeClient();
+        generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
+//        generator.addProvider(client, new ReefLanguageProvider(data));
     }
 }

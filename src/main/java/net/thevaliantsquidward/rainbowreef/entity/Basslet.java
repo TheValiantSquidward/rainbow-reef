@@ -11,7 +11,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,7 +28,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 
@@ -38,7 +37,7 @@ import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.Month;
 
-public class Basslet extends RRMob implements Bucketable {
+public class Basslet extends ReefMob {
 
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState landAnimationState = new AnimationState();
@@ -46,6 +45,31 @@ public class Basslet extends RRMob implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Basslet.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Basslet.class, EntityDataSerializers.INT);
+
+    public Basslet(EntityType<? extends ReefMob> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel, Integer.MAX_VALUE);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new AdvancedWaterboundPathNavigation(this, level, true, false);
+    }
+
+    public static AttributeSupplier setAttributes() {
+        return Animal.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4D)
+                .add(Attributes.MOVEMENT_SPEED, 0.6D)
+                .build();
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, true));
+    }
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -63,33 +87,7 @@ public class Basslet extends RRMob implements Bucketable {
     }
 
     @Override
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket();
-    }
-
-    @Override
-    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
-        return !this.fromBucket() && !this.hasCustomName();
-    }
-
-    @Override
-    public void tick() {
-        if (!this.isInWater() && this.onGround() && this.verticalCollision) {
-            this.setDeltaMovement(0,0,0);
-            this.setDeltaMovement(this.getDeltaMovement().add(((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F), 0.4F, ((this.random.nextFloat() * 2.0F - 1.0F) * 0.05F)));
-            this.setOnGround(false);
-            this.hasImpulse = true;
-            this.playSound(SoundEvents.COD_FLOP, this.getSoundVolume(), this.getVoicePitch());
-        }
-
-        super.tick();
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
-    }
-
-    private void setupAnimationStates() {
+    public void setupAnimationStates() {
         this.swimAnimationState.animateWhen(this.isAlive() && this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
         this.idleAnimationState.animateWhen(this.isAlive() && !this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
         this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
@@ -103,75 +101,6 @@ public class Basslet extends RRMob implements Bucketable {
             stack.setHoverName(this.getCustomName());
         }
         return stack;
-    }
-
-    @Override
-    public void saveToBucketTag(@Nonnull ItemStack bucket) {
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("BucketVariantTag", this.getVariant());
-    }
-
-    @Override
-    public void loadFromBucketTag(@Nonnull CompoundTag compound) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compound);
-        if (compound.contains("BucketVariantTag", 3)) {
-            this.setVariant(compound.getInt("BucketVariantTag"));
-        }
-    }
-
-    @Override
-    @Nonnull
-    protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
-    }
-
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putBoolean("FromBucket", this.fromBucket());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-    }
-
-    @Override
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    @Override
-    public void setFromBucket(boolean p_203706_1_) {
-        this.entityData.set(FROM_BUCKET, p_203706_1_);
-    }
-
-    @Override
-    @Nonnull
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     @Nullable
@@ -203,59 +132,6 @@ public class Basslet extends RRMob implements Bucketable {
             this.setVariant(0);
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    @Override
-    public MobType getMobType() {
-        return MobType.WATER;
-    }
-
-    public Basslet(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-    }
-
-    @Override
-    protected PathNavigation createNavigation(Level p_27480_) {
-        return new AdvancedWaterboundPathNavigation(this, p_27480_, true, false);
-    }
-
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.6D)
-                .build();
-    }
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, true));
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.TROPICAL_FISH_AMBIENT;
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.TROPICAL_FISH_DEATH;
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.TROPICAL_FISH_HURT;
-    }
-
-    @Nullable
-    protected SoundEvent getFlopSound() {
-        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
     public static boolean canSpawn(EntityType<Basslet> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {

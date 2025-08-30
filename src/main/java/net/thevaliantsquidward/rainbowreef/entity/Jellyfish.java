@@ -28,7 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.base.RRMob;
+import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSounds;
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class Jellyfish extends RRMob implements Bucketable {
+public class Jellyfish extends ReefMob {
 
     public float xBodyRot;
     public float xBodyRotO;
@@ -59,7 +59,7 @@ public class Jellyfish extends RRMob implements Bucketable {
 
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
-    public Jellyfish(EntityType<? extends WaterAnimal> entityType, Level level) {
+    public Jellyfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level, Integer.MAX_VALUE);
         this.random.setSeed(this.getId());
         this.tentacleSpeed = 2.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
@@ -116,9 +116,6 @@ public class Jellyfish extends RRMob implements Bucketable {
     public static boolean canSpawn(EntityType<Jellyfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
-
-    private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
     public static String getVariantName(int variant) {
         return switch (variant) {
@@ -191,13 +188,10 @@ public class Jellyfish extends RRMob implements Bucketable {
                 }
             }
         }
-
-        if (this.level().isClientSide()){
-            this.setupAnimationStates();
-        }
     }
 
-    private void setupAnimationStates() {
+    @Override
+    public void setupAnimationStates() {
         this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
         this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
@@ -266,8 +260,6 @@ public class Jellyfish extends RRMob implements Bucketable {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
         this.entityData.define(SCALE, 0);
     }
 
@@ -278,24 +270,6 @@ public class Jellyfish extends RRMob implements Bucketable {
             stack.setHoverName(this.getCustomName());
         }
         return stack;
-    }
-
-    @Override
-    public void saveToBucketTag(@Nonnull ItemStack bucket) {
-        if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
-        }
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("BucketVariantTag", this.getVariant());
-    }
-
-    @Override
-    public void loadFromBucketTag(@Nonnull CompoundTag compound) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compound);
-        if (compound.contains("BucketVariantTag", 3)) {
-            this.setVariant(compound.getInt("BucketVariantTag"));
-        }
     }
 
     @Override
@@ -323,45 +297,16 @@ public class Jellyfish extends RRMob implements Bucketable {
         }
     }
 
-    public int getVariant() {
-        return this.entityData.get(VARIANT);
-    }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
-    }
-
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putBoolean("FromBucket", this.fromBucket());
-        compound.putInt("scale", this.getModelScale());
+        compound.putInt("Scale", this.getModelScale());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setFromBucket(compound.getBoolean("FromBucket"));
-        this.setScale(Math.min(compound.getInt("scale"), 0));
-    }
-
-    public boolean fromBucket() {
-        return this.entityData.get(FROM_BUCKET);
-    }
-
-    public void setFromBucket(boolean p_203706_1_) {
-        this.entityData.set(FROM_BUCKET, p_203706_1_);
-    }
-
-    @Nonnull
-    public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_FISH;
-    }
-
-    public @NotNull MobType getMobType() {
-        return MobType.WATER;
+        this.setScale(Math.min(compound.getInt("Scale"), 0));
     }
 
     public void setMovementVector(float pTx, float pTy, float pTz) {
@@ -399,24 +344,7 @@ public class Jellyfish extends RRMob implements Bucketable {
 
     @Override
     @Nullable
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.TROPICAL_FISH_AMBIENT;
-    }
-
-    @Override
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.TROPICAL_FISH_DEATH;
-    }
-
-    @Override
-    @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
         return ReefSounds.JELLYHIT.get();
-    }
-
-    @Nullable
-    protected SoundEvent getFlopSound() {
-        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 }

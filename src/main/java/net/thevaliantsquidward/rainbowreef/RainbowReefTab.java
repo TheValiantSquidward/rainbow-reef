@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 
-public class ReefCreativeTabs {
+public class RainbowReefTab {
 public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
         DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RainbowReef.MOD_ID);
 

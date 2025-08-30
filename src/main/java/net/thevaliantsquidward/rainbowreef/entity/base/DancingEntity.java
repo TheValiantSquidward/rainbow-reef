@@ -9,8 +9,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.GameEventTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
@@ -20,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BiConsumer;
 
-public class DancingEntity extends RRMob implements DancesToJukebox{
+public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
 
     private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> JX = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.INT);
@@ -31,7 +29,7 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
     private final VibrationSystem.User vibrationUser;
 
-    public DancingEntity(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
+    public DancingEntity(EntityType<? extends ReefMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel, 260);
         this.vibrationUser = new VibrationUser();
         this.dynamicJukeboxListener = new DynamicGameEventListener(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
@@ -42,9 +40,7 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
         if (level instanceof ServerLevel serverlevel) {
             pListenerConsumer.accept(this.dynamicJukeboxListener, serverlevel);
         }
-
     }
-
 
     @Override
     protected void defineSynchedData() {
@@ -53,6 +49,18 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
         this.entityData.define(JX, 0);
         this.entityData.define(JY, 0);
         this.entityData.define(JZ, 0);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putBoolean("Dancing", this.isDancing());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setDancing(compound.getBoolean("Dancing"));
     }
 
     public void tick() {
@@ -65,7 +73,6 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
                 this.setDancing(true);
             }
         }
-
     }
 
     @Override
@@ -96,19 +103,8 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
     }
 
     public void setDancing(boolean dancing) {
-        this.entityData.set(DANCING, Boolean.valueOf(dancing));
+        this.entityData.set(DANCING, dancing);
     }
-
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("Dancing", this.isDancing());
-    }
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setDancing(compound.getBoolean("Dancing"));
-    }
-
-
 
     public void setJukeboxPlaying(BlockPos jukepos, boolean playing) {
         if (playing) {
@@ -121,10 +117,7 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
             this.setJukeboxPos(null);
             this.setDancing(false);
         }
-
     }
-
-
 
     class VibrationUser implements VibrationSystem.User {
         private static final int VIBRATION_EVENT_LISTENER_RANGE = 16;
@@ -156,10 +149,6 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
             return GameEventTags.ALLAY_CAN_LISTEN;
         }
     }
-
-
-
-
 
     class JukeboxListener implements GameEventListener {
         private final PositionSource listenerSource;
@@ -194,5 +183,4 @@ public class DancingEntity extends RRMob implements DancesToJukebox{
         }
         //listens to the event and send info to serverside crab
     }
-
 }
