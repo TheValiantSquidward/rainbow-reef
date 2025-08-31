@@ -24,7 +24,7 @@ public class FrogfishRenderer extends MobRenderer<Frogfish, FrogfishModel<Frogfi
 
 
     public FrogfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new FrogfishModel<>(context.bakeLayer(ReefModelLayers.FROGFISH_LAYER)), 0.4F);
+        super(context, new FrogfishModel<>(context.bakeLayer(ReefModelLayers.FROGFISH)), 0.4F);
     }
 
     protected void scale(Frogfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

@@ -10,14 +10,14 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.loot.ItemLootModifier;
 
 public class ReefLootModifiers {
-    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIER_SERIALIZERS =
+    public static final DeferredRegister<Codec<? extends IGlobalLootModifier>> LOOT_MODIFIERS =
             DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, RainbowReef.MOD_ID);
 
     public static final RegistryObject<Codec<? extends IGlobalLootModifier>> ADD_ITEM =
-            LOOT_MODIFIER_SERIALIZERS.register("add_item", ItemLootModifier.CODEC);
+            LOOT_MODIFIERS.register("add_item", ItemLootModifier.CODEC);
 
 
     public static void register(IEventBus eventBus) {
-        LOOT_MODIFIER_SERIALIZERS.register(eventBus);
+        LOOT_MODIFIERS.register(eventBus);
     }
 }

@@ -1,18 +1,11 @@
 package net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
-
-import java.util.ArrayList;
-
-import static java.lang.Math.PI;
+import net.thevaliantsquidward.rainbowreef.utils.MathHelpers;
 
 public class IKSolver {
 

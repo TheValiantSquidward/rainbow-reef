@@ -1,27 +1,27 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,25 +31,27 @@ public class Tang extends VariantSchoolingFish {
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public Tang(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 180);
+    public Tang(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
+        super(entityType, level, 180);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6D)
-                .add(Attributes.MOVEMENT_SPEED, 1D)
+                .add(Attributes.MAX_HEALTH, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.TANG_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, RRTags.TANG_DIET));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -98,14 +100,6 @@ public class Tang extends VariantSchoolingFish {
             case 31 -> "zebra";
             default -> "bluehippo";
         };
-    }
-
-    public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.fromBucket();
-    }
-
-    public boolean removeWhenFarAway(double pDistanceToClosestPlayer) {
-        return !this.fromBucket() && !this.hasCustomName();
     }
 
     @Nullable
@@ -244,9 +238,5 @@ public class Tang extends VariantSchoolingFish {
             stack.setHoverName(this.getCustomName());
         }
         return stack;
-    }
-
-    public static boolean canSpawn(EntityType<Tang> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

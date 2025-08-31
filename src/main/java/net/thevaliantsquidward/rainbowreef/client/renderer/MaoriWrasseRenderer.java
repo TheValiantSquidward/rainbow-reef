@@ -14,7 +14,7 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 public class MaoriWrasseRenderer extends MobRenderer<MaoriWrasse, MaoriWrasseModel<MaoriWrasse>> {
 
     public MaoriWrasseRenderer(EntityRendererProvider.Context context) {
-        super(context, new MaoriWrasseModel<>(context.bakeLayer(ReefModelLayers.MAORI_WRASSE_LAYER)), 0.6F);
+        super(context, new MaoriWrasseModel<>(context.bakeLayer(ReefModelLayers.MAORI_WRASSE)), 0.6F);
     }
 
     private static final ResourceLocation MAORI = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/maoriwrasse/maori_wrasse.png");

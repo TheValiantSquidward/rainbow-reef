@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class AdvancedWaterboundPathNavigation extends PathNavigation {
     private boolean allowBreaching;
@@ -26,7 +27,7 @@ public class AdvancedWaterboundPathNavigation extends PathNavigation {
         }
     }
 
-    protected PathFinder createPathFinder(int pMaxVisitedNodes) {
+    protected @NotNull PathFinder createPathFinder(int pMaxVisitedNodes) {
         //System.out.println("create " + this.preferCrevices);
         this.nodeEvaluator = new AdvancedSwimNodeEvaluator(this.allowBreaching, this.preferCrevices);
         return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
@@ -44,7 +45,7 @@ public class AdvancedWaterboundPathNavigation extends PathNavigation {
         return this.allowBreaching || this.isInLiquid();
     }
 
-    protected Vec3 getTempMobPos() {
+    protected @NotNull Vec3 getTempMobPos() {
         return new Vec3(this.mob.getX(), this.mob.getY(0.5D), this.mob.getZ());
     }
 

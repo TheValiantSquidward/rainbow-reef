@@ -26,6 +26,12 @@ public class ReefSoundEvents {
     public static final RegistryObject<SoundEvent> CRAB_DEATH = registerSoundEvent("crab_death");
     public static final RegistryObject<SoundEvent> CRAB_FLOP = registerSoundEvent("crab_flop");
 
+    public static final RegistryObject<SoundEvent> JELLYZAP = registerSoundEvent("jellyzap");
+    public static final RegistryObject<SoundEvent> JELLYHIT = registerSoundEvent("jellyhit");
+    public static final RegistryObject<SoundEvent> JELLYBOUNCE = registerSoundEvent("jellybounce");
+
+    public static final RegistryObject<SoundEvent> CLAW = registerSoundEvent("claw");
+
     private static RegistryObject<SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(RainbowReef.MOD_ID, soundName)));
     }

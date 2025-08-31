@@ -21,7 +21,7 @@ public class PipefishRenderer extends MobRenderer<Pipefish, PipefishModel<Pipefi
     private static final ResourceLocation PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/pipefish/pink.png");
 
     public PipefishRenderer(EntityRendererProvider.Context context) {
-        super(context, new PipefishModel<>(context.bakeLayer(ReefModelLayers.PIPEFISH_LAYER)), 0.4F);
+        super(context, new PipefishModel<>(context.bakeLayer(ReefModelLayers.PIPEFISH)), 0.4F);
     }
 
     public ResourceLocation getTextureLocation(Pipefish entity) {

@@ -1,11 +1,8 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
-
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,13 +10,11 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.ButterfishAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.Butterfish;
-
-import java.util.List;
+import net.thevaliantsquidward.rainbowreef.entity.Butterflyfish;
 
 @OnlyIn(Dist.CLIENT)
-public class ButterfishModel<T extends Butterfish> extends ReefModel<T> {
+@SuppressWarnings("FieldCanBeLocal, unused")
+public class ButterflyfishModel extends HierarchicalModel<Butterflyfish> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -32,7 +27,7 @@ public class ButterfishModel<T extends Butterfish> extends ReefModel<T> {
 	private final ModelPart r_fin;
 	private final ModelPart Tail;
 
-	public ButterfishModel(ModelPart root) {
+	public ButterflyfishModel(ModelPart root) {
 		this.root = root.getChild("root");
 		this.core = this.root.getChild("core");
 		this.body = this.core.getChild("body");
@@ -87,22 +82,18 @@ public class ButterfishModel<T extends Butterfish> extends ReefModel<T> {
 	}
 
 	@Override
-	public void setupAnim(Butterfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(Butterflyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, ButterfishAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
-		this.animate(entity.landAnimationState, ButterfishAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, ButterfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.flopAnimationState, ButterfishAnimations.FLOP, ageInTicks, 1);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
-
-	public List<ModelPart> getAllParts() {
-		return ImmutableList.of(this.root, this.core, this.body, this.LowerFinTip, this.TopFinTip, this.l_bottom_fin, this.r_bottom_fin, this.l_fin, this.r_fin, this.Tail);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

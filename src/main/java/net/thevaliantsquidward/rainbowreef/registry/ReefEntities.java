@@ -70,9 +70,9 @@ public class ReefEntities {
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "clownfish").toString()));
 
-    public static final RegistryObject<EntityType<Butterfish>> BUTTERFISH =
+    public static final RegistryObject<EntityType<Butterflyfish>> BUTTERFLYFISH =
             ENTITY_TYPES.register("butterflyfish",
-                    () -> EntityType.Builder.of(Butterfish::new, MobCategory.WATER_AMBIENT)
+                    () -> EntityType.Builder.of(Butterflyfish::new, MobCategory.WATER_AMBIENT)
                             .sized(0.5f, 0.5f)
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "butterflyfish").toString()));

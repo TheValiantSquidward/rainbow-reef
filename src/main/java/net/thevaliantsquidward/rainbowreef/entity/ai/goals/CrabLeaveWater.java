@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.SemiAquatic;
+import net.thevaliantsquidward.rainbowreef.utils.ReefBlockPos;
 
 import java.util.EnumSet;
 
@@ -70,7 +71,7 @@ public class CrabLeaveWater extends Goal {
             if (waterDetected) {
                 vector3d = LandRandomPos.getPos(this.creature, 23, 7);
             } else {
-                return ModBlockPos.fromVec3(vector3d);
+                return ReefBlockPos.fromVec3(vector3d);
             }
             tries++;
         }

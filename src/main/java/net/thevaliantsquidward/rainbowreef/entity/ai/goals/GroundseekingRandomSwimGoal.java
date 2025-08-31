@@ -3,6 +3,7 @@ package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.utils.GoalUtils;
 
 import javax.annotation.Nullable;
 

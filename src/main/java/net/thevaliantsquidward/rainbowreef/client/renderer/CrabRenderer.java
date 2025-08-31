@@ -21,7 +21,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabModel<Crab>> {
     private static final ResourceLocation REDGHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/redghost.png");
 
     public CrabRenderer(EntityRendererProvider.Context context) {
-        super(context, new CrabModel<>(context.bakeLayer(ReefModelLayers.CRAB_LAYER)), 0.3F);
+        super(context, new CrabModel<>(context.bakeLayer(ReefModelLayers.CRAB)), 0.3F);
     }
 
     public ResourceLocation getTextureLocation(Crab entity) {

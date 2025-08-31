@@ -27,7 +27,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel<Jel
     private static final ResourceLocation TEXTURE_RED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/jellyfish/jellyfish_9.png");
 
     public JellyfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new JellyfishModel<>(context.bakeLayer(ReefModelLayers.JELLYFISH_LAYER)), 0.4F);
+        super(context, new JellyfishModel<>(context.bakeLayer(ReefModelLayers.JELLYFISH)), 0.4F);
     }
 
     protected void scale(Jellyfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

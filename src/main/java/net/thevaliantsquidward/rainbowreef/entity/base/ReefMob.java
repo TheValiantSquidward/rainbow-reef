@@ -12,13 +12,14 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
@@ -219,23 +221,20 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     @Override
     public void travel(Vec3 travelVector) {
-        // checks if the fish is stuck underwater, and gives it a little lift to prevent it from getting stuck at the ledges of blocks
-        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding() && checkFloat(this.blockPosition())) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005 * this.getAttributeValue(Attributes.MOVEMENT_SPEED), 0.0));
+        if (this.isEffectiveAi() && this.isInWater()) {
+            this.fishTravel(travelVector);
+        } else {
+            super.travel(travelVector);
         }
-        this.fishTravel(travelVector);
-        super.travel(travelVector);
     }
 
     // here so we don't need to keep copying travel everywhere
     public void fishTravel(Vec3 travelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
-            this.moveRelative(this.getSpeed(), travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.9));
-            if (this.getTarget() == null) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
-            }
+        this.moveRelative(this.getSpeed(), travelVector);
+        this.move(MoverType.SELF, this.getDeltaMovement());
+        this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
+        if (this.getTarget() == null) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
         }
     }
 
@@ -303,5 +302,9 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     protected SoundEvent getFlopSound() {
         return ReefSoundEvents.FISH_FLOP.get();
+    }
+
+    public static boolean canSpawn(EntityType<? extends ReefMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

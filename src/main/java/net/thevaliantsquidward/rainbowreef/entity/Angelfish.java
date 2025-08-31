@@ -1,73 +1,54 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.IntFunction;
 
 public class Angelfish extends VariantSchoolingFish {
 
-    public Angelfish(EntityType<? extends WaterAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 300);
+    public Angelfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
+        super(entityType, level, 300);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.7D)
+    public static AttributeSupplier createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 6.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 20, RRTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
-    }
-
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "french";
-            case 2 -> "emperor";
-            case 3 -> "yellowband";
-            case 4 -> "bluering";
-            case 5 -> "rockbeauty";
-            case 6 -> "bluequeen";
-            case 7 -> "majestic";
-            case 8 -> "king";
-            case 9 -> "semicircle";
-            case 10 -> "banded";
-            case 11 -> "gray";
-            case 12 -> "oldwoman";
-            case 13 -> "guinean";
-            case 14 -> "queenslandyellowtail";
-            case 15 -> "clarion";
-            default -> "queen";
-        };
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 20, RRTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -76,86 +57,58 @@ public class Angelfish extends VariantSchoolingFish {
     }
 
     @Override
-    @Nonnull
+    @NotNull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.ANGELFISH_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+        return new ItemStack(ReefItems.ANGELFISH_BUCKET.get());
+    }
+
+    public enum AngelfishVariant implements StringRepresentable {
+        QUEEN(0, "queen"),
+        FRENCH(1, "french"),
+        EMPEROR(2, "emperor"),
+        YELLOWBAND(3, "yellowband"),
+        BLUERING(4, "bluering"),
+        ROCK_BEAUTY(5, "rock_beauty"),
+        BLUE_QUEEN(6, "blue_queen"),
+        MAJESTIC(7, "majestic"),
+        KING(8, "king"),
+        SEMICIRCLE(9, "semicircle"),
+        BANDED(10, "banded"),
+        GRAY(11, "gray"),
+        OLD_WOMAN(12, "old_woman"),
+        GUINEAN(13, "guinean"),
+        QUEENSLAND_YELLOWTAIL(14, "queensland_yellowtail"),
+        CLARION(15, "clarion");
+
+        private final int variant;
+        private final String name;
+
+        AngelfishVariant(int variant, String name) {
+            this.variant = variant;
+            this.name = name;
         }
-        return stack;
+
+        public int getVariant() {
+            return this.variant;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+
+        private static final IntFunction<AngelfishVariant> VARIANT_ID = ByIdMap.sparse(AngelfishVariant::getVariant, AngelfishVariant.values(), QUEEN);
+
+        public static AngelfishVariant variantId(int id) {
+            return VARIANT_ID.apply(id);
+        }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-
-        if(variantChange <= 0.001){
-            this.setVariant(6);
-        } else
-        if(variantChange <= 0.06){
-            this.setVariant(1);
-        } else
-        if(variantChange <= 0.12){
-            this.setVariant(2);
-        } else
-        if (variantChange <= 0.18F) {
-            this.setVariant(3);
-        }else
-        if(variantChange <= 0.24F){
-            this.setVariant(4);
-        }else
-        if(variantChange <= 0.30F){
-            this.setVariant(5);
-        }else
-        if(variantChange <= 0.36F){
-            this.setVariant(7);
-        }else if(variantChange <= 0.42F){
-            this.setVariant(8);
-        }else
-        if(variantChange <= 0.48F){
-            this.setVariant(9);
-        }else
-        if(variantChange <= 0.54F){
-            this.setVariant(10);
-        }else
-        if(variantChange <= 0.60F){
-            this.setVariant(11);
-        }else
-        if(variantChange <= 0.66F){
-            this.setVariant(12);
-        }else
-        if(variantChange <= 0.72F){
-            this.setVariant(13);
-        }else
-        if(variantChange <= 0.78F){
-            this.setVariant(14);
-        }else
-        if(variantChange <= 0.84F){
-            this.setVariant(15);
-        } else{
-            this.setVariant(0);
-        }
-
-        if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
-                //|| reason == MobSpawnType.SPAWN_EGG
-        ) {
-            float schoolsize = this.getRandom().nextFloat();
-            int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-
-            if (schoolcount > 0 && !this.level().isClientSide()) {
-                for (int i = 0; i < schoolcount; i++) {
-                    Angelfish urine = new Angelfish(ReefEntities.ANGELFISH.get(), this.level());
-                    urine.setVariant(this.getVariant());
-                    urine.moveTo(this.getX(), this.getY(), this.getZ());
-                    urine.startFollowing(this);
-                    this.level().addFreshEntity(urine);
-                }
-            }
-        }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    public static boolean canSpawn(EntityType<Angelfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        AngelfishVariant variant = Util.getRandom(AngelfishVariant.values(), this.random);
+        this.setVariant(variant.getVariant());
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

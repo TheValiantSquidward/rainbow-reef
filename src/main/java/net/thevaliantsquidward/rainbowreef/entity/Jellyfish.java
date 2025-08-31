@@ -30,6 +30,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSounds;
 import org.jetbrains.annotations.NotNull;
 
@@ -111,10 +112,6 @@ public class Jellyfish extends ReefMob {
 
     public void setScale(int scale) {
         this.entityData.set(SCALE, scale);
-    }
-
-    public static boolean canSpawn(EntityType<Jellyfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 
     public static String getVariantName(int variant) {
@@ -292,7 +289,7 @@ public class Jellyfish extends ReefMob {
     @Override
     public void playerTouch(@NotNull Player player) {
         if (player instanceof ServerPlayer && player.hurt(this.damageSources().mobAttack(this), (float) (2))) {
-            this.playSound(ReefSounds.JELLYZAP.get(), 1.0F, 1.0F);
+            this.playSound(ReefSoundEvents.JELLYZAP.get(), 1.0F, 1.0F);
             player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
         }
     }
@@ -345,6 +342,6 @@ public class Jellyfish extends ReefMob {
     @Override
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ReefSounds.JELLYHIT.get();
+        return ReefSoundEvents.JELLYHIT.get();
     }
 }

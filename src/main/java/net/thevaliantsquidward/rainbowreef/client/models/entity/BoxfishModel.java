@@ -1,26 +1,20 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.BoxfishAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Boxfish;
 
 @OnlyIn(Dist.CLIENT)
-public class BoxfishModel<T extends Boxfish> extends ReefModel<T> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "boxfish"), "main");
+public class BoxfishModel extends HierarchicalModel<Boxfish> {
+
 	private final ModelPart root;
 	private final ModelPart core;
 	private final ModelPart l_fin;
@@ -82,7 +76,7 @@ public class BoxfishModel<T extends Boxfish> extends ReefModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

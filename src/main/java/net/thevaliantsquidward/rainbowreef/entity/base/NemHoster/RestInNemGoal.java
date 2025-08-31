@@ -5,7 +5,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class RestInNemGoal extends RandomStrollGoal {
 
-    NemHoster fims;
+    private final NemHoster fims;
 
     double spd;
 
@@ -63,7 +63,7 @@ public class RestInNemGoal extends RandomStrollGoal {
 
     public void start() {
         this.fims.getNavigation().stop();
-        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.2F, this.fims.getNemPos().getZ() + 0.5F, 3F);
-        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.2F, this.fims.getNemPos().getZ() + 0.5F, 3F);
+        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.2F, this.fims.getNemPos().getZ() + 0.5F, 1F);
+        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.2F, this.fims.getNemPos().getZ() + 0.5F, 1F);
     }
 }

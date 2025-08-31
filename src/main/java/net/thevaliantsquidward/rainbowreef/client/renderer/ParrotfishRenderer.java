@@ -25,7 +25,7 @@ public class ParrotfishRenderer extends MobRenderer<Parrotfish, ParrotfishModel<
     private static final ResourceLocation OBISHIME = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/parrotfish/obishime.png");
 
     public ParrotfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new ParrotfishModel<>(context.bakeLayer(ReefModelLayers.PARROTFISH_LAYER)), 0.4F);
+        super(context, new ParrotfishModel<>(context.bakeLayer(ReefModelLayers.PARROTFISH)), 0.4F);
         this.addLayer(new ParrotfishEepyLayer(this));
     }
 

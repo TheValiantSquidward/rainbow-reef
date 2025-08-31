@@ -34,7 +34,7 @@ public class DwarfAngelfishRenderer extends MobRenderer<DwarfAngelfish, DwarfAng
 
 
     public DwarfAngelfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new DwarfAngelfishModel<>(context.bakeLayer(ReefModelLayers.DWARF_ANGELFISH_LAYER)), 0.4F);
+        super(context, new DwarfAngelfishModel<>(context.bakeLayer(ReefModelLayers.DWARF_ANGELFISH)), 0.4F);
     }
 
 

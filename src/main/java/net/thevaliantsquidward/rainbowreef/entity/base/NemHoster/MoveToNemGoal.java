@@ -5,7 +5,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class MoveToNemGoal extends Goal {
 
-    NemHoster fims;
+    private final NemHoster fims;
 
     int radius;
 
@@ -46,7 +46,7 @@ public class MoveToNemGoal extends Goal {
     }
 
     public void tick() {
-        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 4F);
+        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
 
         //Vec3 nempos = new Vec3(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F);
         //System.out.println(this.fims.position().distanceTo(nempos));
@@ -57,7 +57,7 @@ public class MoveToNemGoal extends Goal {
 
         this.fims.getNavigation().stop();
         this.fims.setSpeed(fims.getSpeed() * 4);
-        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 4F);
-        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 4F);
+        this.fims.getMoveControl().setWantedPosition(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
+        this.fims.getNavigation().moveTo(this.fims.getNemPos().getX() + 0.5F, this.fims.getNemPos().getY() + 0.1F, this.fims.getNemPos().getZ() + 0.5F, 1F);
     }
 }

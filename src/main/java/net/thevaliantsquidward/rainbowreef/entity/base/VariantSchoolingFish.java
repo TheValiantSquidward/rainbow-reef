@@ -8,7 +8,6 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -22,11 +21,6 @@ public abstract class VariantSchoolingFish extends ReefMob {
 
     public VariantSchoolingFish(EntityType<? extends WaterAnimal> entityType, Level level, int feedCooldown) {
         super(entityType, level, feedCooldown);
-    }
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -106,7 +100,6 @@ public abstract class VariantSchoolingFish extends ReefMob {
         } else {
             this.startFollowing(((SchoolSpawnGroupData) spawnData).leader);
         }
-
         return spawnData;
     }
 

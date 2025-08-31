@@ -47,7 +47,7 @@ public class TangRenderer extends MobRenderer<Tang, TangModel<Tang>> {
     private static final ResourceLocation TEXTURE_ZEBRA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/tang/zebra.png");
 
     public TangRenderer(EntityRendererProvider.Context context) {
-        super(context, new TangModel<>(context.bakeLayer(ReefModelLayers.TANG_LAYER)), 0.3F);
+        super(context, new TangModel<>(context.bakeLayer(ReefModelLayers.TANG)), 0.3F);
     }
 
     public ResourceLocation getTextureLocation(Tang entity) {

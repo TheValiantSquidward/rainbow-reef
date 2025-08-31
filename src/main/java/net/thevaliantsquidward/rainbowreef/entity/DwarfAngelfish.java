@@ -1,8 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -12,18 +10,16 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DwarfAngelfish extends ReefMob implements Bucketable {
@@ -79,16 +75,13 @@ public class DwarfAngelfish extends ReefMob implements Bucketable {
     }
 
     @Override
-    @Nonnull
+    @NotNull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.DWARF_ANGELFISH_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
-        }
-        return stack;
+        return new ItemStack(ReefItems.DWARF_ANGELFISH_BUCKET.get());
     }
 
     @Nullable
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
         float variantChange = this.getRandom().nextFloat();
         float aberrant = this.getRandom().nextFloat();
@@ -141,9 +134,5 @@ public class DwarfAngelfish extends ReefMob implements Bucketable {
             this.setVariant(0);
         }
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    public static boolean canSpawn(EntityType<DwarfAngelfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

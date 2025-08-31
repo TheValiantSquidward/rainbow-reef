@@ -16,7 +16,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.blocks.AnemoneBlock;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.util.RRPOI;
+import net.thevaliantsquidward.rainbowreef.registry.ReefPoiTypes;
 
 import java.util.Comparator;
 import java.util.List;
@@ -158,16 +158,10 @@ public abstract class NemHoster extends VariantSchoolingFish {
     }
 
     public List<BlockPos> findNems() {
-        BlockPos blockpos = this.blockPosition();
+        BlockPos pos = this.blockPosition();
         PoiManager poimanager = ((ServerLevel)this.level()).getPoiManager();
-
-        Stream<PoiRecord> stream = poimanager.getInRange((p_218130_) -> {
-            return p_218130_.is(RRPOI.GREEN_NEM.getKey()) || p_218130_.is(RRPOI.ORANGE_NEM.getKey()) || p_218130_.is(RRPOI.YELLOW_NEM.getKey());
-        }, blockpos, 100, PoiManager.Occupancy.ANY);
-
-        return stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((p_148811_) -> {
-            return p_148811_.distSqr(blockpos);
-        })).collect(Collectors.toList());
+        Stream<PoiRecord> stream = poimanager.getInRange((poiTypeHolder) -> poiTypeHolder.is(ReefPoiTypes.GREEN_NEM.getKey()) || poiTypeHolder.is(ReefPoiTypes.ORANGE_NEM.getKey()) || poiTypeHolder.is(ReefPoiTypes.YELLOW_NEM.getKey()), pos, 100, PoiManager.Occupancy.ANY);
+        return stream.map(PoiRecord::getPos).sorted(Comparator.comparingDouble((blockPos) -> blockPos.distSqr(pos))).collect(Collectors.toList());
         //finds every single nem in render basically
     }
 }

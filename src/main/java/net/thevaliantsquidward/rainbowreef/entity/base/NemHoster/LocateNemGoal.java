@@ -1,20 +1,10 @@
 package net.thevaliantsquidward.rainbowreef.entity.base.NemHoster;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.village.poi.PoiManager;
-import net.minecraft.world.entity.ai.village.poi.PoiRecord;
-import net.thevaliantsquidward.rainbowreef.util.RRPOI;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LocateNemGoal extends Goal {
 
-    NemHoster clown;
+    private final NemHoster clown;
     int CD;
 
 

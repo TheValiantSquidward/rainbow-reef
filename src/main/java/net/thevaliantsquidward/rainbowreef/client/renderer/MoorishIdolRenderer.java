@@ -19,7 +19,7 @@ public class MoorishIdolRenderer extends MobRenderer<MoorishIdol, MoorishIdolMod
 
 
     public MoorishIdolRenderer(EntityRendererProvider.Context context) {
-        super(context, new MoorishIdolModel<>(context.bakeLayer(ReefModelLayers.IDOL_LAYER)), 0.4F);
+        super(context, new MoorishIdolModel<>(context.bakeLayer(ReefModelLayers.MOORISH_IDOL)), 0.4F);
     }
 
     protected void scale(MoorishIdol entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

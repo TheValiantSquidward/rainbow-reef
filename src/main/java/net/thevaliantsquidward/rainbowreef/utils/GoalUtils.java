@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
+package net.thevaliantsquidward.rainbowreef.utils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;

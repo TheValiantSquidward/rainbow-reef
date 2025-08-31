@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.SmallSharkAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.SmallShark;
-import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
+import net.thevaliantsquidward.rainbowreef.utils.MathHelpers;
 
 import java.util.List;
 

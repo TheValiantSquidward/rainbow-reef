@@ -19,7 +19,7 @@ public class ArrowCrabRenderer extends MobRenderer<ArrowCrab, ArrowCrabModel<Arr
 
 
     public ArrowCrabRenderer(EntityRendererProvider.Context context) {
-        super(context, new ArrowCrabModel<>(context.bakeLayer(ReefModelLayers.ARROWCRAB_LAYER)), 0.4F);
+        super(context, new ArrowCrabModel<>(context.bakeLayer(ReefModelLayers.ARROW_CRAB)), 0.4F);
     }
 
     protected void scale(ArrowCrab entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

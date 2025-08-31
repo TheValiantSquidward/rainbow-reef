@@ -1,23 +1,21 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -30,24 +28,25 @@ public class Mahi extends VariantSchoolingFish implements Bucketable {
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public Mahi(EntityType<? extends VariantSchoolingFish> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 180);
+    public Mahi(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
+        super(entityType, level, 180);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6D)
-                .add(Attributes.MOVEMENT_SPEED, 1D)
+                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new CustomizableRandomSwimGoal(this, 0.8, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -101,9 +100,5 @@ public class Mahi extends VariantSchoolingFish implements Bucketable {
             stack.setHoverName(this.getCustomName());
         }
         return stack;
-    }
-
-    public static boolean canSpawn(EntityType<Mahi> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

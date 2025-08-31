@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
 
 import java.util.Iterator;
 import java.util.List;

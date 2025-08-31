@@ -23,10 +23,11 @@ import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.DancingEntity;
+import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.DancesToJukebox;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -213,7 +214,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
         return ReefSoundEvents.CRAB_HURT.get();
     }
 
-    public static boolean canSpawn(EntityType<Crab> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(EntityType<? extends ReefMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return !level.getBlockState(pos).isSolid();
     }
 }

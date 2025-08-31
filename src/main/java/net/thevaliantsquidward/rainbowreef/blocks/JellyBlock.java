@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSounds;
 
 
@@ -21,7 +22,7 @@ public class JellyBlock extends Block {
             super.fallOn(pLevel, pState, pPos, pEntity, pFallDistance);
         } else {
             pEntity.causeFallDamage(pFallDistance, 0.0F, pLevel.damageSources().fall());
-            pEntity.playSound(ReefSounds.JELLYBOUNCE.get());
+            pEntity.playSound(ReefSoundEvents.JELLYBOUNCE.get());
         }
 
     }

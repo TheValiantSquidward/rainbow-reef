@@ -25,7 +25,7 @@ public class SeahorseRenderer extends MobRenderer<Seahorse, SeahorseModel<Seahor
     private static final ResourceLocation ONYX = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/seahorse/onyx.png");
 
     public SeahorseRenderer(EntityRendererProvider.Context context) {
-        super(context, new SeahorseModel<>(context.bakeLayer(ReefModelLayers.SEAHORSE_LAYER)), 0.3F);
+        super(context, new SeahorseModel<>(context.bakeLayer(ReefModelLayers.SEAHORSE)), 0.3F);
     }
 
     @Override

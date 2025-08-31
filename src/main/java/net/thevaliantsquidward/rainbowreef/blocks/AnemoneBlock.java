@@ -30,7 +30,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.IPlantable;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
 
 import javax.annotation.Nullable;
 

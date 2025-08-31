@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.util;
+package net.thevaliantsquidward.rainbowreef.utils;
 
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;

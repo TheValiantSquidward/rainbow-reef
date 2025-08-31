@@ -20,7 +20,7 @@ public class LionfishRenderer extends MobRenderer<Lionfish, LionfishModel<Lionfi
 
 
     public LionfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new LionfishModel<>(context.bakeLayer(ReefModelLayers.LIONFISH_LAYER)), 0.4F);
+        super(context, new LionfishModel<>(context.bakeLayer(ReefModelLayers.LIONFISH)), 0.4F);
     }
 
 

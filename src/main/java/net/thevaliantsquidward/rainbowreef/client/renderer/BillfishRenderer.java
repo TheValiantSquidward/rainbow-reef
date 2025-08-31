@@ -11,18 +11,16 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.BillfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Billfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class BillfishRenderer extends MobRenderer<Billfish, BillfishModel<Billfish>> {
+public class BillfishRenderer extends MobRenderer<Billfish, BillfishModel> {
 
     public BillfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new BillfishModel<>(context.bakeLayer(ReefModelLayers.BILLFISH_LAYER)), 0.6F);
+        super(context, new BillfishModel(context.bakeLayer(ReefModelLayers.BILLFISH)), 0.6F);
     }
 
-    private static final ResourceLocation SAILFISH = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/billfish/sailfish.png");
-
+    @Override
     public ResourceLocation getTextureLocation(Billfish entity) {
-        return switch (entity.getVariant()) {
-            default -> SAILFISH;
-        };
+        Billfish.BillfishVariant billfishVariant = Billfish.BillfishVariant.variantId(entity.getVariant());
+        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/billfish/" + billfishVariant.getSerializedName() + ".png");
     }
 
     @Override

@@ -1,27 +1,28 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.RandomSleepyLookaroundGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.RandomSleepySwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,18 +41,20 @@ public class Parrotfish extends VariantSchoolingFish {
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0D)
+                .add(Attributes.MAX_HEALTH, 8.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.PARROTFISH_DIET));
-        this.goalSelector.addGoal(4, new RandomSleepyLookaroundGoal(this));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSleepySwimGoal(this, 0.8, 1));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, RRTags.PARROTFISH_DIET));
+        this.goalSelector.addGoal(4, new RandomSleepySwimGoal(this, 0.8, 1));
+        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(6, new RandomSleepyLookaroundGoal(this));
     }
 
     public static String getVariantName(int variant) {
@@ -165,9 +168,5 @@ public class Parrotfish extends VariantSchoolingFish {
         }
 
         return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-    }
-
-    public static boolean canSpawn(EntityType<Parrotfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
     }
 }

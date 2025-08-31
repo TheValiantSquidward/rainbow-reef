@@ -5,7 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.thevaliantsquidward.rainbowreef.util.RainbowDamageTypes;
+import net.thevaliantsquidward.rainbowreef.registry.ReefDamageTypes;
 
 
 import java.util.Random;
@@ -29,7 +29,7 @@ public class BoxfishBreadItem extends Item {
 
     if (random.nextInt(100) == 0) {
             if (!world.isClientSide) {
-                player.hurt(RainbowDamageTypes.getDamageSource(world, RainbowDamageTypes.ATE_BOXFISH), 10000000);
+                player.hurt(ReefDamageTypes.getDamageSource(world, ReefDamageTypes.ATE_BOXFISH), 10000000);
             }
      }
 

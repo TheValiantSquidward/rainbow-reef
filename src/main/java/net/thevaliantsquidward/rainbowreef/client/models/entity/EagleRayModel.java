@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.EagleRayAnimations;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Ray;
-import net.thevaliantsquidward.rainbowreef.util.MathHelpers;
+import net.thevaliantsquidward.rainbowreef.utils.MathHelpers;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")

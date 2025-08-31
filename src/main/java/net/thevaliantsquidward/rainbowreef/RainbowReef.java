@@ -1,29 +1,19 @@
 package net.thevaliantsquidward.rainbowreef;
 
-import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.thevaliantsquidward.rainbowreef.data.*;
-import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
-import net.thevaliantsquidward.rainbowreef.client.renderer.*;
-import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
-import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.ReefLootModifiers;
-import net.thevaliantsquidward.rainbowreef.registry.ReefSounds;
-import net.thevaliantsquidward.rainbowreef.util.RRPOI;
-import net.thevaliantsquidward.rainbowreef.registry.ReefFeatures;
+import net.thevaliantsquidward.rainbowreef.registry.*;
+import net.thevaliantsquidward.rainbowreef.registry.ReefPoiTypes;
 
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
@@ -42,41 +32,19 @@ public class RainbowReef {
         RainbowReefTab.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
 
-        ReefEntities.register(modEventBus);
-        ReefItems.register(modEventBus);
-        ReefSounds.register(modEventBus);
-        ReefLootModifiers.register(modEventBus);
-        ReefFeatures.FEATURES.register(modEventBus);
-        RRPOI.DEF_REG.register(modEventBus);
+        ReefEntities.ENTITY_TYPES.register(modEventBus);
+        ReefItems.ITEMS.register(modEventBus);
         ReefBlocks.BLOCKS.register(modEventBus);
+        ReefLootModifiers.LOOT_MODIFIERS.register(modEventBus);
+        ReefFeatures.FEATURES.register(modEventBus);
+        ReefPoiTypes.POI_TYPES.register(modEventBus);
+        ReefSoundEvents.SOUND_EVENTS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::dataSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-    }
-
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(ReefEntities.GOBY.get(), GobyRenderer:: new);
-            EntityRenderers.register(ReefEntities.BOXFISH.get(), BoxfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.CLOWNFISH.get(), ClownfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.BUTTERFISH.get(), ButterfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.DWARFANGEL.get(), DwarfAngelfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.HOGFISH.get(), HogfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.BASSLET.get(), BassletRenderer:: new);
-            EntityRenderers.register(ReefEntities.MOORISH_IDOL.get(), MoorishIdolRenderer:: new);
-            EntityRenderers.register(ReefEntities.ARROW_CRAB.get(), ArrowCrabRenderer:: new);
-            EntityRenderers.register(ReefEntities.JELLYFISH.get(), JellyfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.LIONFISH.get(), LionfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.MAHI_MAHI.get(), MahiRenderer:: new);
-            EntityRenderers.register(ReefEntities.BILLFISH.get(), BillfishRenderer:: new);
-            EntityRenderers.register(ReefEntities.MAORI_WRASSE.get(), MaoriWrasseRenderer:: new);
-            EntityRenderers.register(ReefEntities.FROGFISH.get(), FrogfishRenderer:: new);
-        }
     }
 
     private void dataSetup(GatherDataEvent data) {

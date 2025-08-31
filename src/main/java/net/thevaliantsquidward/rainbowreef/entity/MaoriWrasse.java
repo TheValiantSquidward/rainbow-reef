@@ -66,8 +66,4 @@ public class MaoriWrasse extends ReefMob {
         }
         return stack;
     }
-
-    public static boolean canSpawn(EntityType<MaoriWrasse> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
-    }
 }

@@ -16,7 +16,7 @@ public class MahiRenderer extends MobRenderer<Mahi, MahiModel<Mahi>> {
 
 
     public MahiRenderer(EntityRendererProvider.Context context) {
-        super(context, new MahiModel<>(context.bakeLayer(ReefModelLayers.MAHI_LAYER)), 0.4F);
+        super(context, new MahiModel<>(context.bakeLayer(ReefModelLayers.MAHI_MAHI)), 0.4F);
     }
 
 

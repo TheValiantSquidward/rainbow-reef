@@ -101,7 +101,7 @@ public class FishDigGoal extends Goal {
             if (this.digTime % 5 == 0) {
                 SoundEvent sound = fims.level().getBlockState(this.digPos).getSoundType().getHitSound();
                 this.fims.spawnEffectsAtBlock(this.digPos);
-                this.fims.playSound(sound, 0.5F, 0.5F + fims.getRandom().nextFloat() * 0.5F);
+                this.fims.playSound(sound, 0.3F, 0.8F + fims.getRandom().nextFloat() * 0.25F);
                 //the fish plays sound and makes particles as long as it digs every 5 ticks(sound lasts that long)
             }
 

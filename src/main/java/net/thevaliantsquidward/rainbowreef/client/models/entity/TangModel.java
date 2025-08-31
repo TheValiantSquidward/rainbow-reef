@@ -58,7 +58,7 @@ public class TangModel<T extends Tang> extends ReefModel<T> {
 	public void setupAnim(Tang entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, TangAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0F);
+		this.animate(entity.swimAnimationState, TangAnimations.SWIM, ageInTicks, limbSwingAmount * 2.0F);
 		this.animate(entity.flopAnimationState, TangAnimations.FLOP, ageInTicks, 1.0F);
 
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
@@ -66,7 +66,7 @@ public class TangModel<T extends Tang> extends ReefModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

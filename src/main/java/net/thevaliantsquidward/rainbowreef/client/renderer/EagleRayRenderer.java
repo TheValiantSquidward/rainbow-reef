@@ -14,7 +14,7 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 public class EagleRayRenderer extends MobRenderer<Ray, EagleRayModel<Ray>> {
 
     public EagleRayRenderer(EntityRendererProvider.Context context) {
-        super(context, new EagleRayModel<>(context.bakeLayer(ReefModelLayers.RAY_LAYER)), 0.6F);
+        super(context, new EagleRayModel<>(context.bakeLayer(ReefModelLayers.RAY)), 0.6F);
     }
 
     private static final ResourceLocation SPOTTED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/eagleray/spotted_eagle_ray.png");

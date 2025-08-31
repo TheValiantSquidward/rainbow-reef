@@ -26,7 +26,7 @@ public class SmallSharkRenderer extends MobRenderer<SmallShark, SmallSharkModel<
     private static final ResourceLocation TEXTURE_PORTJACKSON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/portjackson.png");
 
     public SmallSharkRenderer(EntityRendererProvider.Context context) {
-        super(context, new SmallSharkModel<>(context.bakeLayer(ReefModelLayers.SMALL_SHARK_LAYER)), 0.4F);
+        super(context, new SmallSharkModel<>(context.bakeLayer(ReefModelLayers.SMALL_SHARK)), 0.4F);
     }
 
     public ResourceLocation getTextureLocation(SmallShark entity) {

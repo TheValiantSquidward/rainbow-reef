@@ -1,16 +1,12 @@
-package net.thevaliantsquidward.rainbowreef.util;
+package net.thevaliantsquidward.rainbowreef.utils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Vector3d;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 
 public class MathHelpers {
 

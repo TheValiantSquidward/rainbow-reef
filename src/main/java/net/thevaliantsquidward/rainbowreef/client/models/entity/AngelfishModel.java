@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,12 +10,11 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.AngelfishAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Angelfish;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class AngelfishModel<T extends Angelfish> extends ReefModel<T> {
+public class AngelfishModel extends HierarchicalModel<Angelfish> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -75,7 +75,7 @@ public class AngelfishModel<T extends Angelfish> extends ReefModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.util;
+package net.thevaliantsquidward.rainbowreef.registry;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -9,10 +9,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.utils.EntityExcludedDamageSource;
 
 import javax.annotation.Nullable;
 
-public class RainbowDamageTypes {
+public class ReefDamageTypes {
     public static final ResourceKey<DamageType> ATE_BOXFISH = create("ate_boxfish");
 
     public static ResourceKey<DamageType> create(String name) {
@@ -33,6 +34,5 @@ public class RainbowDamageTypes {
 
     public static void bootstrap(BootstapContext<DamageType> context) {
         context.register(ATE_BOXFISH, new DamageType("rainbowreef.ate_boxfish", 0.0F));
-
     }
 }

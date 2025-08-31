@@ -22,7 +22,7 @@ public class HogfishRenderer extends MobRenderer<Hogfish, HogfishModel<Hogfish>>
 
 
     public HogfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new HogfishModel<>(context.bakeLayer(ReefModelLayers.HOGFISH_LAYER)), 0.4F);
+        super(context, new HogfishModel<>(context.bakeLayer(ReefModelLayers.HOGFISH)), 0.4F);
     }
 
     protected void scale(Hogfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

@@ -1,8 +1,8 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
+import net.minecraft.util.ByIdMap;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -11,56 +11,52 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.LocateNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.MoveToNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.NemHoster;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.RestInNemGoal;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.VariantEntity;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.util.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.IntFunction;
 
 public class Clownfish extends NemHoster {
 
-    int nemSearchCooldown;
-
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
-    public final AnimationState landAnimationState = new AnimationState();
-
-    public Clownfish(EntityType<? extends NemHoster> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 200, 4, 600, 200);
+    public Clownfish(EntityType<? extends NemHoster> entityType, Level level) {
+        super(entityType, level, 200, 4, 600, 200);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 60, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier setAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4D)
-                .add(Attributes.MOVEMENT_SPEED, 0.7D)
+                .add(Attributes.MAX_HEALTH, 3.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 10, RRTags.CLOWNFISH_DIET));
+        // Anemone seeker goal plan:
+        // priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
+        // Pathfinds back to home nem and makes it hide for 3 - 5 secs
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(3, new RandomSwimmingGoal(this, 0.8D, 40));
-
-        this.goalSelector.addGoal(0, new LocateNemGoal(this, 200));
-        this.goalSelector.addGoal(0, new MoveToNemGoal(this, 1, 4));
-        this.goalSelector.addGoal(5, new RestInNemGoal(this, 3, 600, 200));
-        //Anemone seeker goal plan:
-        //priority of 0, but only works if the clown has a home nem and is over 10 blocks from it
-        //Pathfinds back to home nem and makes it hide for 3 - 5 secs
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new RestInNemGoal(this, 3, 600, 200));
+        this.goalSelector.addGoal(4, new MoveToNemGoal(this, 1, 4));
+        this.goalSelector.addGoal(5, new LocateNemGoal(this, 200));
+        this.goalSelector.addGoal(6, new FishDigGoal(this, 10, RRTags.CLOWNFISH_DIET));
+        this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1, 40));
+        this.goalSelector.addGoal(8, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -68,121 +64,73 @@ public class Clownfish extends NemHoster {
         return 5;
     }
 
-    public static boolean canSpawn(EntityType<Clownfish> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
-    }
-
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "blackandwhite";
-            case 2 -> "maroon";
-            case 3 -> "pinkskunk";
-            case 4 -> "clarkii";
-            case 5 -> "blizzard"; //r
-            case 6 -> "tomato";
-            case 7 -> "bluestrain"; //a
-            case 8 -> "madagascar";
-            case 9 -> "oman"; //r
-            case 10 -> "allard";
-            case 11 -> "mocha"; //r
-            case 12 -> "whitesnout"; //r
-            case 13 -> "goldnugget"; //r
-            case 14 -> "redsaddleback";
-            case 15 -> "snowstorm"; //r
-            case 16 -> "orangeskunk"; //r
-            case 17 -> "domino"; //r
-            case 18 -> "yellowclarkii"; //r
-            case 19 -> "naked"; //r
-
-
-            default -> "ocellaris";
-        };
-    }
-
-    public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive() && this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
-    }
-
     @Override
-    @Nonnull
+    @NotNull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.CLOWNFISH_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+        return new ItemStack(ReefItems.CLOWNFISH_BUCKET.get());
+    }
+
+    public enum ClownfishVariant implements StringRepresentable {
+        OCELLARIS(0, "ocellaris"),
+        BLACK_AND_WHITE(1, "black_and_white"),
+        PINK_SKUNK(2, "pink_skunk"),
+        MAROON(3, "maroon"),
+        CLARKII(4, "clarkii"),
+        TOMATO(5, "tomato"),
+        MADAGASCAR(6, "madagascar"),
+        ALLARD(7, "allard"),
+        RED_SADDLEBACK(8, "red_saddleback"),
+
+        // rare (could probably separate in a better way but this works for now)
+        BLIZZARD(9, "blizzard"),
+        BLUESTRAIN(10, "bluestrain"),
+        OMAN(11, "oman"),
+        MOCHA(12, "mocha"),
+        WHITESNOUT(13, "whitesnout"),
+        GOLD_NUGGET(14, "gold_nugget"),
+        SNOWSTORM(15, "snowstorm"),
+        ORANGE_SKUNK(16, "orange_skunk"),
+        DOMINO(17, "domino"),
+        YELLOW_CLARKII(18, "yellow_clarkii"),
+        NAKED(19, "naked");
+
+        private final int variant;
+        private final String name;
+
+        ClownfishVariant(int variant, String name) {
+            this.variant = variant;
+            this.name = name;
         }
-        return stack;
+
+        public int getVariant() {
+            return this.variant;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+
+        private static final IntFunction<ClownfishVariant> VARIANT_ID = ByIdMap.sparse(ClownfishVariant::getVariant, ClownfishVariant.values(), OCELLARIS);
+
+        public static ClownfishVariant variantId(int id) {
+            return VARIANT_ID.apply(id);
+        }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        float rare = this.getRandom().nextFloat();
-        float rareVariantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.001){
-            this.setVariant(7);
-        } else
-        if (variantChange <= 0.13F) {
-            this.setVariant(1);
-        } else
-        if (variantChange <= 0.26F) {
-            this.setVariant(2);
-        } else
-        if (variantChange <= 0.39F) {
-            this.setVariant(3);
-        } else
-        if (variantChange <= 0.42F) {
-            this.setVariant(4);
-        } else
-        if (variantChange <= 0.55F) {
-            this.setVariant(6);
-        } else
-        if (variantChange <= 0.60F) {
-            this.setVariant(8);
-        } else
-        if (variantChange <= 0.81F) {
-            this.setVariant(10);
-        } else
-        if (variantChange <= 0.94F) {
-            this.setVariant(14);
-        }else{
-            this.setVariant(0);
-        }
-        if(rare <= 0.05){
-            if (rareVariantChange <= 0.10F) {
-                this.setVariant(9);
-            } else
-            if (rareVariantChange <= 0.20F) {
-                this.setVariant(11);
-            } else
-            if (rareVariantChange <= 0.30F) {
-                this.setVariant(12);
-            } else {
-            if (rareVariantChange <= 0.40F) {
-                    this.setVariant(13);
-           } else
-           if (rareVariantChange <= 0.50F) {
-                    this.setVariant(15);
-           } else
-           if (rareVariantChange <= 0.60F) {
-                    this.setVariant(16);
-           } else
-           if (rareVariantChange <= 0.70F) {
-                    this.setVariant(17);
-           } else
-           if (rareVariantChange <= 0.80F) {
-               this.setVariant(18);
-           } else
-           if (rareVariantChange <= 0.90F) {
-               this.setVariant(19);
-           }else{
-                    this.setVariant(5);
-                }
-            }
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        ClownfishVariant commonVariant = ClownfishVariant.variantId(level.getRandom().nextInt(8));
+        ClownfishVariant rareVariant = ClownfishVariant.variantId(9 + level.getRandom().nextInt(10));
+
+        if (this.getRandom().nextFloat() <= 0.005F) {
+            this.setVariant(rareVariant.getVariant());
+        } else {
+            this.setVariant(commonVariant.getVariant());
         }
 
-        findAndSetNems();
-
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.findAndSetNems();
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }
