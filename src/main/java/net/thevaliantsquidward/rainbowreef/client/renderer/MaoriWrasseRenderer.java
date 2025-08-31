@@ -6,28 +6,29 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.MaoriWrasseModel;
 import net.thevaliantsquidward.rainbowreef.entity.MaoriWrasse;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class MaoriWrasseRenderer extends MobRenderer<MaoriWrasse, MaoriWrasseModel<MaoriWrasse>> {
+@OnlyIn(Dist.CLIENT)
+public class MaoriWrasseRenderer extends MobRenderer<MaoriWrasse, MaoriWrasseModel> {
 
     public MaoriWrasseRenderer(EntityRendererProvider.Context context) {
-        super(context, new MaoriWrasseModel<>(context.bakeLayer(ReefModelLayers.MAORI_WRASSE)), 0.6F);
-    }
-
-    private static final ResourceLocation MAORI = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/maoriwrasse/maori_wrasse.png");
-
-    public ResourceLocation getTextureLocation(MaoriWrasse entity) {
-        return switch (entity.getVariant()) {
-            default -> MAORI;
-        };
+        super(context, new MaoriWrasseModel(context.bakeLayer(ReefModelLayers.MAORI_WRASSE)), 0.6F);
     }
 
     @Override
-    protected void setupRotations(MaoriWrasse animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-        super.setupRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTick, -animatable.prevTilt, -animatable.tilt)));
+    public ResourceLocation getTextureLocation(MaoriWrasse entity) {
+        MaoriWrasse.MaoriWrasseVariant maoriWrasseVariant = MaoriWrasse.MaoriWrasseVariant.getVariantId(entity.getVariant());
+        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/maori_wrasse/" + maoriWrasseVariant.getSerializedName() + ".png");
+    }
+
+    @Override
+    protected void setupRotations(MaoriWrasse entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTick);
+        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTick, -entity.prevTilt, -entity.tilt)));
     }
 }

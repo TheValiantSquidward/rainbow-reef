@@ -42,47 +42,53 @@ public class ReefEntities {
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "tang").toString()));
 
-    public static final RegistryObject<EntityType<Seahorse>> SEAHORSE =
-            ENTITY_TYPES.register("seahorse",
-                    () -> EntityType.Builder.of(Seahorse::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.5f, 0.5f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "seahorse").toString()));
+    public static final RegistryObject<EntityType<Seahorse>> SEAHORSE = ENTITY_TYPES.register(
+            "seahorse", () ->
+            EntityType.Builder.of(Seahorse::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "seahorse").toString())
+    );
 
-    public static final RegistryObject<EntityType<Boxfish>> BOXFISH =
-            ENTITY_TYPES.register("boxfish",
-                    () -> EntityType.Builder.of(Boxfish::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.5f, 0.5f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "boxfish").toString()));
+    public static final RegistryObject<EntityType<Boxfish>> BOXFISH = ENTITY_TYPES.register(
+            "boxfish", () ->
+            EntityType.Builder.of(Boxfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "boxfish").toString())
+    );
 
-    public static final RegistryObject<EntityType<SmallShark>> SMALL_SHARK =
-            ENTITY_TYPES.register("small_shark",
-                    () -> EntityType.Builder.of(SmallShark::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.7f, 0.7f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "small_shark").toString()));
+    public static final RegistryObject<EntityType<SmallShark>> SMALL_SHARK = ENTITY_TYPES.register(
+            "small_shark", () ->
+            EntityType.Builder.of(SmallShark::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.7F, 0.7F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "small_shark").toString())
+    );
 
-    public static final RegistryObject<EntityType<Clownfish>> CLOWNFISH =
-            ENTITY_TYPES.register("clownfish",
-                    () -> EntityType.Builder.of(Clownfish::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.3f, 0.3f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "clownfish").toString()));
+    public static final RegistryObject<EntityType<Clownfish>> CLOWNFISH = ENTITY_TYPES.register(
+            "clownfish", () ->
+            EntityType.Builder.of(Clownfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "clownfish").toString())
+    );
 
-    public static final RegistryObject<EntityType<Butterflyfish>> BUTTERFLYFISH =
-            ENTITY_TYPES.register("butterflyfish",
-                    () -> EntityType.Builder.of(Butterflyfish::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.5f, 0.5f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "butterflyfish").toString()));
+    public static final RegistryObject<EntityType<Butterflyfish>> BUTTERFLYFISH = ENTITY_TYPES.register(
+            "butterflyfish", () ->
+            EntityType.Builder.of(Butterflyfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "butterflyfish").toString())
+    );
 
-    public static final RegistryObject<EntityType<DwarfAngelfish>> DWARFANGEL =
-            ENTITY_TYPES.register("dwarf_angelfish",
-                    () -> EntityType.Builder.of(DwarfAngelfish::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.5f, 0.5f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "dwarf_angelfish").toString()));
+    public static final RegistryObject<EntityType<DwarfAngelfish>> DWARF_ANGELFISH = ENTITY_TYPES.register(
+            "dwarf_angelfish", () ->
+            EntityType.Builder.of(DwarfAngelfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "dwarf_angelfish").toString())
+    );
 
     public static final RegistryObject<EntityType<Hogfish>> HOGFISH =
             ENTITY_TYPES.register("hogfish",
@@ -129,7 +135,7 @@ public class ReefEntities {
     public static final RegistryObject<EntityType<Ray>> RAY =
             ENTITY_TYPES.register("ray",
                     () -> EntityType.Builder.of(Ray::new, MobCategory.WATER_AMBIENT)
-                            .sized(1f, 0.6f)
+                            .sized(1.0F, 0.6F)
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "ray").toString()));
 
@@ -149,9 +155,9 @@ public class ReefEntities {
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "lionfish").toString()));
 
 
-    public static final RegistryObject<EntityType<Mahi>> MAHI_MAHI =
+    public static final RegistryObject<EntityType<MahiMahi>> MAHI_MAHI =
             ENTITY_TYPES.register("mahi_mahi",
-                    () -> EntityType.Builder.of(Mahi::new, MobCategory.WATER_AMBIENT)
+                    () -> EntityType.Builder.of(MahiMahi::new, MobCategory.WATER_AMBIENT)
                             .sized(1.2f, 1.2f)
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "mahi_mahi").toString()));

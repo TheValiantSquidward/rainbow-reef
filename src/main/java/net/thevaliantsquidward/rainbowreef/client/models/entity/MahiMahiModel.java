@@ -1,22 +1,17 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
-import net.thevaliantsquidward.rainbowreef.entity.Mahi;
+import net.thevaliantsquidward.rainbowreef.entity.MahiMahi;
 
-public class MahiModel<T extends Mahi> extends ReefModel<T> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "mahi_mahi"), "main");
+public class MahiMahiModel extends HierarchicalModel<MahiMahi> {
+
 	private final ModelPart Root;
 	private final ModelPart Core;
 	private final ModelPart Body;
@@ -30,7 +25,7 @@ public class MahiModel<T extends Mahi> extends ReefModel<T> {
 	private final ModelPart TopTailFin;
 	private final ModelPart BottomTailFin;
 
-	public MahiModel(ModelPart root) {
+	public MahiMahiModel(ModelPart root) {
 		this.Root = root.getChild("Root");
 		this.Core = this.Root.getChild("Core");
 		this.Body = this.Core.getChild("Body");
@@ -77,13 +72,7 @@ public class MahiModel<T extends Mahi> extends ReefModel<T> {
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
-
-
-	public void setupAnim(Mahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(MahiMahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
 		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));
@@ -92,8 +81,13 @@ public class MahiModel<T extends Mahi> extends ReefModel<T> {
 	}
 
 	@Override
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		this.Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	}
+
+	@Override
 	public ModelPart root() {
-		return Root;
+		return this.Root;
 	}
 
 }

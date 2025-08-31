@@ -13,38 +13,35 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MoorishIdol extends VariantSchoolingFish {
+public class MahiMahi extends VariantSchoolingFish implements Bucketable {
 
-    public MoorishIdol(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 500);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+    public MahiMahi(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
+        super(entityType, level, 180);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .build();
     }
 
@@ -52,10 +49,8 @@ public class MoorishIdol extends VariantSchoolingFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, ReefTags.MOORISH_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 2, false));
-        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -66,17 +61,16 @@ public class MoorishIdol extends VariantSchoolingFish {
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ReefItems.MOORISH_IDOL_BUCKET.get());
+        return new ItemStack(ReefItems.TANG_BUCKET.get());
     }
 
     @Override
     public int getVariantCount() {
-        return MoorishIdolVariant.values().length;
+        return MahiMahiVariant.values().length;
     }
 
-    public enum MoorishIdolVariant implements StringRepresentable {
-        ZANCLUS(1, "zanclus", ReefRarities.COMMON, null),
-        SILVER(2, "silver", ReefRarities.COMMON, null);
+    public enum MahiMahiVariant implements StringRepresentable {
+        GREEN(1, "green", ReefRarities.COMMON, null);
 
         private final int variant;
         private final String name;
@@ -84,29 +78,29 @@ public class MoorishIdol extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        MoorishIdolVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        MahiMahiVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
             this.biome = biome;
         }
 
-        public static MoorishIdolVariant getVariantId(int variants) {
-            for (MoorishIdolVariant variant : values()) {
+        public static MahiMahiVariant getVariantId(int variants) {
+            for (MahiMahiVariant variant : values()) {
                 if (variant.variant == variants) return variant;
             }
-            return MoorishIdolVariant.ZANCLUS;
+            return MahiMahiVariant.GREEN;
         }
 
-        public static MoorishIdolVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<MoorishIdolVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+        public static MahiMahiVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<MahiMahiVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
-        private static List<MoorishIdolVariant> getPossibleTypes(Holder<Biome> biome, ReefRarities rarity, boolean fromBucket) {
-            List<MoorishIdolVariant> variants = Lists.newArrayList();
-            for (MoorishIdolVariant variant : MoorishIdolVariant.values()) {
-                if ((fromBucket || variant.biome == null || biome.is(variant.biome)) && variant.rarity == rarity) {
+        private static List<MahiMahiVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
+            List<MahiMahiVariant> variants = Lists.newArrayList();
+            for (MahiMahiVariant variant : MahiMahiVariant.values()) {
+                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
                     variants.add(variant);
                 }
             }
@@ -130,8 +124,8 @@ public class MoorishIdol extends VariantSchoolingFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        int variant = MoorishIdolVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        this.setVariant(MoorishIdolVariant.getVariantId(variant).getVariant());
+        int variant = MahiMahiVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        this.setVariant(MahiMahiVariant.getVariantId(variant).getVariant());
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

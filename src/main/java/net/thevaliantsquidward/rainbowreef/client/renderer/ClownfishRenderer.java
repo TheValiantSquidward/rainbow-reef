@@ -19,7 +19,7 @@ public class ClownfishRenderer extends MobRenderer<Clownfish, ClownfishModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Clownfish entity) {
-        Clownfish.ClownfishVariant clownfishVariant = Clownfish.ClownfishVariant.variantId(entity.getVariant());
+        Clownfish.ClownfishVariant clownfishVariant = Clownfish.ClownfishVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/clownfish/" + clownfishVariant.getSerializedName() + ".png");
     }
 }

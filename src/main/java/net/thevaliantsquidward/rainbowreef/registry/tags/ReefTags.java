@@ -9,7 +9,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 
-public final class RRTags {
+public final class ReefTags {
     public static final TagKey<Block> CONSIDERED_NEMS = registerBlockTag("considered_nems");
     public static final TagKey<Block> TROPICAL_NEMS = registerBlockTag("tropical_nems");
     public static final TagKey<Block> TEMPERATE_NEMS = registerBlockTag("temperate_nems");

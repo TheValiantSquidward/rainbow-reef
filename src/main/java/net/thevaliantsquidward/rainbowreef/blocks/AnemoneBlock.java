@@ -30,7 +30,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.IPlantable;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 
 import javax.annotation.Nullable;
 
@@ -156,7 +156,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         System.out.println(itemStack.is(ItemTags.FISHES));
 
 
-        if(itemStack.is(RRTags.NEM_DIET) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ReefItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
+        if(itemStack.is(ReefTags.NEM_DIET) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ReefItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
             ItemStack drop;
             if (pState.getValue(COLOUR) == 0) {
                 drop = new ItemStack(ReefBlocks.YELLOW_SEA_ANEMONE.get());

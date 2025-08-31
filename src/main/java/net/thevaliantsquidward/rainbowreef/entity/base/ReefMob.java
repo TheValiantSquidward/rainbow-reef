@@ -1,18 +1,21 @@
 package net.thevaliantsquidward.rainbowreef.entity.base;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.Weight;
+import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,6 +39,7 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.UnaryOperator;
 
 public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
@@ -103,7 +107,11 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     public void setVariant(int variant) {
-        this.entityData.set(VARIANT, variant);
+        this.entityData.set(VARIANT, Mth.clamp(variant, 1, this.getVariantCount()));
+    }
+
+    public int getVariantCount() {
+        return 128;
     }
 
     @Override
@@ -254,28 +262,28 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         }
     }
 
-    private int findSeafloorDist(BlockPos selfpos) {
-        int depth = 0;
+    public enum ReefRarities implements WeightedEntry {
+        COMMON(style -> style.withColor(ChatFormatting.GRAY), 60),
+        UNCOMMON(style -> style.withColor(ChatFormatting.YELLOW), 30),
+        RARE(style -> style.withColor(ChatFormatting.AQUA), 15),
+        ABERRANT(style -> style.withColor(9419917), 1);
 
-        if (!this.level().isEmptyBlock(selfpos) && !this.level().getFluidState(selfpos).is(FluidTags.WATER)) {
-            return Integer.MAX_VALUE;
+        private final UnaryOperator<Style> style;
+        private final Weight weight;
+
+        ReefRarities(UnaryOperator<Style> style, int weight) {
+            this.style = style;
+            this.weight = Weight.of(weight);
         }
 
-        while (this.level().getFluidState(selfpos).is(FluidTags.WATER) && selfpos.getY() > 1) {
-            selfpos = selfpos.below();
-            depth ++;
+        @Override
+        public Weight getWeight() {
+            return this.weight;
         }
 
-        return depth;
-    }
-
-    private boolean checkFloat(BlockPos selfpos) {
-        int north = findSeafloorDist(selfpos.above().north());
-        int south = findSeafloorDist(selfpos.above().south());
-        int east = findSeafloorDist(selfpos.above().east());
-        int west = findSeafloorDist(selfpos.above().west());
-
-        return north <= (1) || south <= (1) || east <= (1) || west <= (1);
+        public UnaryOperator<Style> getStyle() {
+            return this.style;
+        }
     }
 
     @Override

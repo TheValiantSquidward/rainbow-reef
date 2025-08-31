@@ -41,7 +41,7 @@ public class ReefItems {
 
 
     public static final RegistryObject<Item> DWARF_ANGEL_SPAWN_EGG = ITEMS.register("dwarf_angelfish_spawn_egg",
-            () -> new ForgeSpawnEggItem(ReefEntities.DWARFANGEL, 0xfed638, 0x294cc7, new Item.Properties()));
+            () -> new ForgeSpawnEggItem(ReefEntities.DWARF_ANGELFISH, 0xfed638, 0x294cc7, new Item.Properties()));
 
 
     public static final RegistryObject<Item> SMALL_SHARK_SPAWN_EGG = ITEMS.register("small_shark_spawn_egg",
@@ -86,7 +86,7 @@ public class ReefItems {
 
     public static final RegistryObject<Item> PIPEFISH_BUCKET = ITEMS.register("pipefish_bucket", () -> new ReefFishBucketItem(ReefEntities.PIPEFISH, new Item.Properties()));
 
-    public static final RegistryObject<Item> DWARF_ANGELFISH_BUCKET = ITEMS.register("dwarf_angelfish_bucket", () -> new ReefFishBucketItem(ReefEntities.DWARFANGEL, new Item.Properties()));
+    public static final RegistryObject<Item> DWARF_ANGELFISH_BUCKET = ITEMS.register("dwarf_angelfish_bucket", () -> new ReefFishBucketItem(ReefEntities.DWARF_ANGELFISH, new Item.Properties()));
 
     public static final RegistryObject<Item> TANG_BUCKET = ITEMS.register("tang_bucket", () -> new ReefFishBucketItem(ReefEntities.TANG, new Item.Properties()));
 
@@ -100,7 +100,7 @@ public class ReefItems {
 
     public static final RegistryObject<Item> BUTTERFISH_BUCKET = ITEMS.register("butterflyfish_bucket", () -> new ReefFishBucketItem(ReefEntities.BUTTERFLYFISH, new Item.Properties()));
 
-    public static final RegistryObject<Item> SHARK_BUCKET = ITEMS.register("smallshark_bucket", () -> new ReefFishBucketItem(ReefEntities.SMALL_SHARK, new Item.Properties()));
+    public static final RegistryObject<Item> SMALL_SHARK_BUCKET = ITEMS.register("small_shark_bucket", () -> new ReefFishBucketItem(ReefEntities.SMALL_SHARK, new Item.Properties()));
 
     public static final RegistryObject<Item> SEAHORSE_BUCKET = ITEMS.register("seahorse_bucket", () -> new ReefFishBucketItem(ReefEntities.SEAHORSE, new Item.Properties()));
 
@@ -112,8 +112,7 @@ public class ReefItems {
 
     public static final RegistryObject<Item> MOORISH_IDOL_BUCKET = ITEMS.register("moorish_idol_bucket", () -> new ReefFishBucketItem(ReefEntities.MOORISH_IDOL, new Item.Properties()));
 
-    public static final RegistryObject<Item> SPOTTED_EAGLE_RAY_BUCKET = ITEMS.register("spotted_eagle_ray_bucket", () -> new ReefFishBucketItem(ReefEntities.RAY, new Item.Properties()));
-
+    public static final RegistryObject<Item> RAY_BUCKET = ITEMS.register("ray_bucket", () -> new ReefFishBucketItem(ReefEntities.RAY, new Item.Properties()));
 
     // Raw
     public static final RegistryObject<Item> RAW_GOBY = ITEMS.register("raw_goby", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
@@ -194,9 +193,6 @@ public class ReefItems {
     public static final RegistryObject<Item> TANGY_SOUP = ITEMS.register("tangy_soup", () -> new BowlFoodItem(new Item.Properties().stacksTo(1).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(12).saturationMod(0.8F).effect(new MobEffectInstance(MobEffects.GLOWING, 600, 1), 1.0F).build())));
 
     public static final RegistryObject<Item> ULTRA_BACON_SANDWICH = ITEMS.register("bacon_sandwich", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(14).saturationMod(0.7F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, 0), 1.0F).build())));
-
-   // public static final RegistryObject<Item> EELINI_SPAGHETTI = ITEMS.register("eelini_spaghetti", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationMod(1.0F).effect(new MobEffectInstance(MobEffects.DIG_SPEED, 2400, 1), 1.0F).build())));
-
 
     // Special Meals
 

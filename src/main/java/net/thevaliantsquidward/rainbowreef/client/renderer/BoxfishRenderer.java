@@ -19,7 +19,7 @@ public class BoxfishRenderer extends MobRenderer<Boxfish, BoxfishModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Boxfish entity) {
-        Boxfish.BoxfishVariant boxfishVariant = Boxfish.BoxfishVariant.variantId(entity.getVariant());
+        Boxfish.BoxfishVariant boxfishVariant = Boxfish.BoxfishVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/boxfish/" + boxfishVariant.getSerializedName() + ".png");
     }
 }

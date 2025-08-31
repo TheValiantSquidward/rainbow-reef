@@ -1,20 +1,29 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.GroundseekingRandomSwimGoal;
@@ -22,34 +31,37 @@ import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class SmallShark extends ReefMob {
 
     public IKSolver tailKinematics;
 
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
-
-    public SmallShark(EntityType<? extends WaterAnimal> entityType, Level level) {
+    public SmallShark(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level, 400);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
         this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes().add(Attributes.MAX_HEALTH, 7D).add(Attributes.MOVEMENT_SPEED, 0.8D).build();
+    public static AttributeSupplier createAttributes() {
+        return Animal.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 8.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 40, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
     }
 
     @Override
@@ -59,74 +71,93 @@ public class SmallShark extends ReefMob {
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.idleAnimationState.animateWhen(this.isAlive(), this.tickCount);
-    }
-
-    @Override
-    public void travel(Vec3 pTravelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isEyeInFluid(FluidTags.WATER) && !this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.01, 0.0));
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.008, 0.0));
         }
-        super.travel(pTravelVector);
+        super.travel(travelVector);
     }
 
     @Override
-    protected PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(Level level) {
         return new AdvancedWaterboundPathNavigation(this, level, true, false);
     }
 
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "pajama";
-            case 2 -> "horned";
-            case 3 -> "nurse";
-            case 4 -> "zebra";
-            case 5 -> "albino";
-            case 6 -> "piebald";
-            case 7 -> "portjackson";
-            default -> "epaulette";
-        };
+    @Override
+    @NotNull
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(ReefItems.SMALL_SHARK_BUCKET.get());
     }
 
     @Override
-    @Nonnull
-    public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.SHARK_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+    public int getVariantCount() {
+        return SmallSharkVariant.values().length;
+    }
+
+    public enum SmallSharkVariant implements StringRepresentable {
+        EPAULETTE(1, "epaulette", ReefRarities.COMMON, null),
+        PAJAMA(2, "pajama", ReefRarities.COMMON, null),
+        HORNED(3, "horned", ReefRarities.COMMON, null),
+        NURSE(4, "nurse", ReefRarities.COMMON, null),
+        ZEBRA(5, "zebra", ReefRarities.COMMON, null),
+        ALBINO(6, "albino", ReefRarities.COMMON, null),
+        PIEBALD(7, "piebald", ReefRarities.COMMON, null),
+        PORT_JACKSON(8, "port_jackson", ReefRarities.COMMON, null);
+
+        private final int variant;
+        private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
+
+        SmallSharkVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+            this.variant = variant;
+            this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
         }
-        return stack;
+
+        public static SmallSharkVariant getVariantId(int variants) {
+            for (SmallSharkVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return SmallSharkVariant.EPAULETTE;
+        }
+
+        public static SmallSharkVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<SmallSharkVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<SmallSharkVariant> getPossibleTypes(Holder<Biome> biome, ReefRarities rarity, boolean fromBucket) {
+            List<SmallSharkVariant> variants = Lists.newArrayList();
+            for (SmallSharkVariant variant : SmallSharkVariant.values()) {
+                if ((fromBucket || variant.biome == null || biome.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
+        }
+
+        public int getVariant() {
+            return this.variant;
+        }
+
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        float aberrant = this.getRandom().nextFloat();
-        float aberrantVariantChange = this.getRandom().nextFloat();
-        if(aberrant <= 0.01) {
-            if(aberrantVariantChange <= 0.50F){
-                this.setVariant(5);
-            }else
-            {
-                this.setVariant(6);
-            }
-        } else
-        if(variantChange <= 0.15F) {
-            this.setVariant(1);
-        } else if(variantChange <= 0.30F) {
-            this.setVariant(2);
-        } else if(variantChange <= 0.45F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.75F){
-            this.setVariant(7);
-        }else{
-            this.setVariant(0);
-        }
-
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        int variant = SmallSharkVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        this.setVariant(SmallSharkVariant.getVariantId(variant).getVariant());
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

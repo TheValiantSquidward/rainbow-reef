@@ -1,10 +1,8 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -19,9 +17,8 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Hogfish;
 
 @OnlyIn(Dist.CLIENT)
-public class HogfishModel<T extends Hogfish> extends ReefModel<T> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "hogfish"), "main");
+public class HogfishModel extends HierarchicalModel<Hogfish> {
+
 	private final ModelPart root;
 	private final ModelPart core;
 	private final ModelPart body;
@@ -87,13 +84,13 @@ public class HogfishModel<T extends Hogfish> extends ReefModel<T> {
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, HogfishAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
-		this.animate(entity.landAnimationState, ClownfishAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, HogfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0f);
+		this.animate(entity.flopAnimationState, HogfishAnimations.FLOP, ageInTicks, 1);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "rainbowreef:item/eagle_ray_bucket"
+    "layer0": "rainbowreef:item/ray_bucket"
   }
 }

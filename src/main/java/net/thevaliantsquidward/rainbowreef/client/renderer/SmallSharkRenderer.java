@@ -14,37 +14,21 @@ import net.thevaliantsquidward.rainbowreef.entity.SmallShark;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class SmallSharkRenderer extends MobRenderer<SmallShark, SmallSharkModel<SmallShark>> {
-
-    private static final ResourceLocation TEXTURE_EPAULETTE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/epauletteshark.png");
-    private static final ResourceLocation TEXTURE_PAJAMA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/pajama.png");
-    private static final ResourceLocation TEXTURE_NURSE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/nurse.png");
-    private static final ResourceLocation TEXTURE_HORNED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/horned.png");
-    private static final ResourceLocation TEXTURE_ZEBRA = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/zebra.png");
-    private static final ResourceLocation TEXTURE_ALBINO = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/albino.png");
-    private static final ResourceLocation TEXTURE_PIEBALD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/piebald_horned.png");
-    private static final ResourceLocation TEXTURE_PORTJACKSON = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/smallshark/portjackson.png");
+public class SmallSharkRenderer extends MobRenderer<SmallShark, SmallSharkModel> {
 
     public SmallSharkRenderer(EntityRendererProvider.Context context) {
-        super(context, new SmallSharkModel<>(context.bakeLayer(ReefModelLayers.SMALL_SHARK)), 0.4F);
-    }
-
-    public ResourceLocation getTextureLocation(SmallShark entity) {
-        return switch (entity.getVariant()) {
-            case 1 -> TEXTURE_PAJAMA;
-            case 2 -> TEXTURE_HORNED;
-            case 3 -> TEXTURE_NURSE;
-            case 4 -> TEXTURE_ZEBRA;
-            case 5 -> TEXTURE_ALBINO;
-            case 6 -> TEXTURE_PIEBALD;
-            case 7 -> TEXTURE_PORTJACKSON;
-            default -> TEXTURE_EPAULETTE;
-        };
+        super(context, new SmallSharkModel(context.bakeLayer(ReefModelLayers.SMALL_SHARK)), 0.4F);
     }
 
     @Override
-    protected void setupRotations(SmallShark animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
-        super.setupRotations(animatable, poseStack, ageInTicks, rotationYaw, partialTick);
-        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTick, -animatable.prevTilt, -animatable.tilt)));
+    public ResourceLocation getTextureLocation(SmallShark entity) {
+        SmallShark.SmallSharkVariant smallSharkVariant = SmallShark.SmallSharkVariant.getVariantId(entity.getVariant());
+        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/small_shark/" + smallSharkVariant.getSerializedName() + ".png");
+    }
+
+    @Override
+    protected void setupRotations(SmallShark entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+        poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, -entity.prevTilt, -entity.tilt)));
     }
 }

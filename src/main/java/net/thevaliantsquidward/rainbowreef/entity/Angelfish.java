@@ -1,9 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.Util;
+import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ByIdMap;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -17,14 +20,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.function.IntFunction;
+import java.util.List;
 
 public class Angelfish extends VariantSchoolingFish {
 
@@ -46,7 +50,7 @@ public class Angelfish extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 20, RRTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 20, ReefTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
@@ -62,53 +66,83 @@ public class Angelfish extends VariantSchoolingFish {
         return new ItemStack(ReefItems.ANGELFISH_BUCKET.get());
     }
 
+    @Override
+    public int getVariantCount() {
+        return AngelfishVariant.values().length;
+    }
+
     public enum AngelfishVariant implements StringRepresentable {
-        QUEEN(0, "queen"),
-        FRENCH(1, "french"),
-        EMPEROR(2, "emperor"),
-        YELLOWBAND(3, "yellowband"),
-        BLUERING(4, "bluering"),
-        ROCK_BEAUTY(5, "rock_beauty"),
-        BLUE_QUEEN(6, "blue_queen"),
-        MAJESTIC(7, "majestic"),
-        KING(8, "king"),
-        SEMICIRCLE(9, "semicircle"),
-        BANDED(10, "banded"),
-        GRAY(11, "gray"),
-        OLD_WOMAN(12, "old_woman"),
-        GUINEAN(13, "guinean"),
-        QUEENSLAND_YELLOWTAIL(14, "queensland_yellowtail"),
-        CLARION(15, "clarion");
+        QUEEN(1,  "queen", ReefRarities.COMMON, null),
+        FRENCH(2, "french", ReefRarities.UNCOMMON, null),
+        EMPEROR(3, "emperor", ReefRarities.UNCOMMON, null),
+        YELLOWBAND(4, "yellowband", ReefRarities.COMMON, null),
+        BLUERING(5, "bluering", ReefRarities.COMMON, null),
+        ROCK_BEAUTY(6, "rock_beauty", ReefRarities.RARE, null),
+        BLUE_QUEEN(7, "blue_queen", ReefRarities.RARE, null),
+        MAJESTIC(8, "majestic", ReefRarities.UNCOMMON, null),
+        KING(9, "king", ReefRarities.RARE, null),
+        SEMICIRCLE(10, "semicircle", ReefRarities.COMMON, null),
+        BANDED(11, "banded", ReefRarities.COMMON, null),
+        GRAY(12, "gray", ReefRarities.COMMON, null),
+        OLD_WOMAN(13, "old_woman", ReefRarities.COMMON, null),
+        GUINEAN(14, "guinean", ReefRarities.COMMON, null),
+        QUEENSLAND_YELLOWTAIL(15, "queensland_yellowtail", ReefRarities.COMMON, null),
+        CLARION(16, "clarion", ReefRarities.UNCOMMON, null);
 
         private final int variant;
         private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
 
-        AngelfishVariant(int variant, String name) {
+        AngelfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
             this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
+        }
+
+        public static AngelfishVariant getVariantId(int variants) {
+            for (AngelfishVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return AngelfishVariant.QUEEN;
+        }
+
+        public static AngelfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<AngelfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<AngelfishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
+            List<AngelfishVariant> variants = Lists.newArrayList();
+            for (AngelfishVariant variant : AngelfishVariant.values()) {
+                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
         }
 
         public int getVariant() {
             return this.variant;
         }
 
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
         @Override
         public @NotNull String getSerializedName() {
             return this.name;
-        }
-
-        private static final IntFunction<AngelfishVariant> VARIANT_ID = ByIdMap.sparse(AngelfishVariant::getVariant, AngelfishVariant.values(), QUEEN);
-
-        public static AngelfishVariant variantId(int id) {
-            return VARIANT_ID.apply(id);
         }
     }
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        AngelfishVariant variant = Util.getRandom(AngelfishVariant.values(), this.random);
-        this.setVariant(variant.getVariant());
+        int variant = AngelfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        this.setVariant(AngelfishVariant.getVariantId(variant).getVariant());
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

@@ -71,7 +71,7 @@ public class BoxfishModel extends HierarchicalModel<Boxfish> {
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
 		this.animate(entity.swimAnimationState, BoxfishAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
-		this.animate(entity.landAnimationState, BoxfishAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.flopAnimationState, BoxfishAnimations.FLOP, ageInTicks, 1);
 	}
 
 	@Override

@@ -1,34 +1,37 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class Hogfish extends ReefMob implements Bucketable {
-
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState digAnimationState = new AnimationState();
-    public final AnimationState landAnimationState = new AnimationState();
+public class Hogfish extends ReefMob {
 
     public Hogfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level, 400);
@@ -36,8 +39,8 @@ public class Hogfish extends ReefMob implements Bucketable {
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+    public static AttributeSupplier createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4D)
                 .add(Attributes.MOVEMENT_SPEED, 1D)
                 .build();
@@ -45,62 +48,85 @@ public class Hogfish extends ReefMob implements Bucketable {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 40, RRTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 0.8D, 1));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 40, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 1));
     }
 
     @Override
-    public @NotNull MoveControl getMoveControl() {
-        Entity entity = this.getControlledVehicle();
-        if (entity instanceof Mob mob) {
-            return mob.getMoveControl();
-        } else {
-            return this.moveControl;
-        }
-    }
-
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "spanish";
-            case 2 -> "peppermint";
-            case 3 -> "lyretail";
-            case 4 -> "coral";
-            default -> "cuban";
-        };
-    }
-
-    @Override
-    public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
-   @Override
-    @Nonnull
+    @NotNull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.HOGFISH_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+        return new ItemStack(ReefItems.HOGFISH_BUCKET.get());
+    }
+
+    @Override
+    public int getVariantCount() {
+        return HogfishVariant.values().length;
+    }
+
+    public enum HogfishVariant implements StringRepresentable {
+        CUBAN(1, "cuban", ReefRarities.COMMON, null),
+        SPANISH(2, "spanish", ReefRarities.COMMON, null),
+        PEPPERMINT(3, "peppermint", ReefRarities.UNCOMMON, null),
+        LYRETAIL(4, "lyretail", ReefRarities.COMMON, null),
+        CORAL(5, "coral", ReefRarities.UNCOMMON, null);
+
+        private final int variant;
+        private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
+
+        HogfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+            this.variant = variant;
+            this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
         }
-        return stack;
+
+        public static HogfishVariant getVariantId(int variants) {
+            for (HogfishVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return HogfishVariant.CUBAN;
+        }
+
+        public static HogfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<HogfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<HogfishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
+            List<HogfishVariant> variants = Lists.newArrayList();
+            for (HogfishVariant variant : HogfishVariant.values()) {
+                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
+        }
+
+        public int getVariant() {
+            return this.variant;
+        }
+
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.20F) {
-            this.setVariant(4);
-        } else if(variantChange <= 0.40F) {
-        this.setVariant(3);
-        } else if(variantChange <= 0.60F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.80F){
-            this.setVariant(1);
-        }else{
-            this.setVariant(0);
-        }
-
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        int variant = HogfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        this.setVariant(HogfishVariant.getVariantId(variant).getVariant());
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

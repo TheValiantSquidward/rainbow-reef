@@ -19,7 +19,7 @@ public class AngelfishRenderer extends MobRenderer<Angelfish, AngelfishModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Angelfish entity) {
-        Angelfish.AngelfishVariant angelfishVariant = Angelfish.AngelfishVariant.variantId(entity.getVariant());
+        Angelfish.AngelfishVariant angelfishVariant = Angelfish.AngelfishVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/angelfish/" + angelfishVariant.getSerializedName() + ".png");
     }
 }

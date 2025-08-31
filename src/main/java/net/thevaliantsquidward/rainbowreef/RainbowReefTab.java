@@ -94,8 +94,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         pOutput.accept(ReefItems.PIPEFISH_BUCKET.get());
                         pOutput.accept(ReefItems.SEAHORSE_BUCKET.get());
                         pOutput.accept(ReefItems.TANG_BUCKET.get());
-                        pOutput.accept(ReefItems.SHARK_BUCKET.get());
-                        pOutput.accept(ReefItems.SPOTTED_EAGLE_RAY_BUCKET.get());
+                        pOutput.accept(ReefItems.SMALL_SHARK_BUCKET.get());
+                        pOutput.accept(ReefItems.RAY_BUCKET.get());
 
                         pOutput.accept(ReefBlocks.ANGELFISH_CAKE.get());
                         pOutput.accept(ReefItems.BASSLET_COOKIE.get());

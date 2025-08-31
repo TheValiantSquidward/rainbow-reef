@@ -19,7 +19,7 @@ public class BassletRenderer extends MobRenderer<Basslet, BassletModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Basslet entity) {
-        Basslet.BassletVariant bassletVariant = Basslet.BassletVariant.variantId(entity.getVariant());
+        Basslet.BassletVariant bassletVariant = Basslet.BassletVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/basslet/" + bassletVariant.getSerializedName() + ".png");
     }
 }

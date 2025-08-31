@@ -76,9 +76,8 @@ public class GobyModel extends HierarchicalModel<Goby> {
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, GobyAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
-		this.animate(entity.idleAnimationState, GobyAnimations.IDLE, ageInTicks, 1);
-		this.animate(entity.landAnimationState, GobyAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, GobyAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
+		this.animate(entity.flopAnimationState, GobyAnimations.FLOP, ageInTicks, 1);
 	}
 
 	@Override

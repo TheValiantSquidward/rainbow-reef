@@ -11,9 +11,8 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.FrogfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Frogfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-
 @OnlyIn(Dist.CLIENT)
-public class FrogfishRenderer extends MobRenderer<Frogfish, FrogfishModel<Frogfish>> {
+public class FrogfishRenderer extends MobRenderer<Frogfish, FrogfishModel> {
     private static final ResourceLocation CLOWN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/frogfish/clown.png");
     private static final ResourceLocation ORANGE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/frogfish/orangeocellated.png");
     private static final ResourceLocation PINK = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/frogfish/pinkocellated.png");
@@ -24,7 +23,7 @@ public class FrogfishRenderer extends MobRenderer<Frogfish, FrogfishModel<Frogfi
 
 
     public FrogfishRenderer(EntityRendererProvider.Context context) {
-        super(context, new FrogfishModel<>(context.bakeLayer(ReefModelLayers.FROGFISH)), 0.4F);
+        super(context, new FrogfishModel(context.bakeLayer(ReefModelLayers.FROGFISH)), 0.4F);
     }
 
     protected void scale(Frogfish entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

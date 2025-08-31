@@ -1,8 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -13,11 +11,9 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -26,9 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class Frogfish extends ReefMob {
-
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState landAnimationState = new AnimationState();
 
     public Frogfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level, Integer.MAX_VALUE);
@@ -61,11 +54,6 @@ public class Frogfish extends ReefMob {
             case 6 -> "yellowlonglure";
             default -> "clown";
         };
-    }
-
-    public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive() && this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
     }
 
     @Override

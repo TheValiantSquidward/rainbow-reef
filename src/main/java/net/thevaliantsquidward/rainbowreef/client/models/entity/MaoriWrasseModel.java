@@ -1,24 +1,21 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.MaoriWrasseAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.MaoriWrasse;
 
-public class MaoriWrasseModel<T extends MaoriWrasse> extends ReefModel<T> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "maori_wrasse"), "main");
+@OnlyIn(Dist.CLIENT)
+public class MaoriWrasseModel extends HierarchicalModel<MaoriWrasse> {
+
 	private final ModelPart Root;
 	private final ModelPart Core;
 	private final ModelPart Tail;
@@ -74,21 +71,20 @@ public class MaoriWrasseModel<T extends MaoriWrasse> extends ReefModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void setupAnim(MaoriWrasse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, MaoriWrasseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
+		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 	}
 
 	@Override
-	public void setupAnim(MaoriWrasse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
-		this.animate(entity.swimAnimationState, MaoriWrasseAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		this.Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public ModelPart root() {
-		return Root;
+		return this.Root;
 	}
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 
 import java.util.Iterator;
 import java.util.List;
@@ -66,9 +66,9 @@ public class ReefStarFeature extends Feature<MultifaceGrowthConfiguration> {
     public static boolean placeGrowthIfPossible(WorldGenLevel pLevel, BlockPos pPos, BlockState pState, MultifaceGrowthConfiguration pConfig, RandomSource pRandom, List<Direction> pDirections) {
         BlockPos.MutableBlockPos $$6 = pPos.mutable();
         Iterator var7 = pDirections.iterator();
-        Optional<Block> star = BuiltInRegistries.BLOCK.getTag(RRTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(pLevel.getRandom())).map(Holder::value);
+        Optional<Block> star = BuiltInRegistries.BLOCK.getTag(ReefTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(pLevel.getRandom())).map(Holder::value);
         //BlockState block = star.map(Block::defaultBlockState).orElseGet(ModBlocks.SAFFRON_STARFISH.get()::defaultBlockState);
-        MultifaceBlock placeBlock = (MultifaceBlock) BuiltInRegistries.BLOCK.getTag(RRTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(pLevel.getRandom())).map(Holder::value).get();
+        MultifaceBlock placeBlock = (MultifaceBlock) BuiltInRegistries.BLOCK.getTag(ReefTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(pLevel.getRandom())).map(Holder::value).get();
 
         Direction $$7;
         BlockState $$8;

@@ -73,9 +73,8 @@ public class BassletModel extends HierarchicalModel<Basslet> {
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, BassletAnimations.SWIM, ageInTicks, (float) (0.5 + limbSwingAmount * 4.0f));
-		this.animate(entity.idleAnimationState, BassletAnimations.SWIM, ageInTicks, 1);
-		this.animate(entity.landAnimationState, BassletAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, BassletAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0f);
+		this.animate(entity.flopAnimationState, BassletAnimations.FLOP, ageInTicks, 1);
 	}
 
 	@Override

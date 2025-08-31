@@ -1,8 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.ByIdMap;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -10,11 +14,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.LocateNemGoal;
@@ -22,11 +26,11 @@ import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.MoveToNemGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.NemHoster;
 import net.thevaliantsquidward.rainbowreef.entity.base.NemHoster.RestInNemGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.function.IntFunction;
+import java.util.List;
 
 public class Clownfish extends NemHoster {
 
@@ -36,8 +40,8 @@ public class Clownfish extends NemHoster {
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+    public static AttributeSupplier createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 3.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .build();
@@ -54,7 +58,7 @@ public class Clownfish extends NemHoster {
         this.goalSelector.addGoal(3, new RestInNemGoal(this, 3, 600, 200));
         this.goalSelector.addGoal(4, new MoveToNemGoal(this, 1, 4));
         this.goalSelector.addGoal(5, new LocateNemGoal(this, 200));
-        this.goalSelector.addGoal(6, new FishDigGoal(this, 10, RRTags.CLOWNFISH_DIET));
+        this.goalSelector.addGoal(6, new FishDigGoal(this, 10, ReefTags.CLOWNFISH_DIET));
         this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1, 40));
         this.goalSelector.addGoal(8, new FollowVariantLeaderGoal(this));
     }
@@ -70,67 +74,87 @@ public class Clownfish extends NemHoster {
         return new ItemStack(ReefItems.CLOWNFISH_BUCKET.get());
     }
 
-    public enum ClownfishVariant implements StringRepresentable {
-        OCELLARIS(0, "ocellaris"),
-        BLACK_AND_WHITE(1, "black_and_white"),
-        PINK_SKUNK(2, "pink_skunk"),
-        MAROON(3, "maroon"),
-        CLARKII(4, "clarkii"),
-        TOMATO(5, "tomato"),
-        MADAGASCAR(6, "madagascar"),
-        ALLARD(7, "allard"),
-        RED_SADDLEBACK(8, "red_saddleback"),
+    @Override
+    public int getVariantCount() {
+        return ClownfishVariant.values().length;
+    }
 
-        // rare (could probably separate in a better way but this works for now)
-        BLIZZARD(9, "blizzard"),
-        BLUESTRAIN(10, "bluestrain"),
-        OMAN(11, "oman"),
-        MOCHA(12, "mocha"),
-        WHITESNOUT(13, "whitesnout"),
-        GOLD_NUGGET(14, "gold_nugget"),
-        SNOWSTORM(15, "snowstorm"),
-        ORANGE_SKUNK(16, "orange_skunk"),
-        DOMINO(17, "domino"),
-        YELLOW_CLARKII(18, "yellow_clarkii"),
-        NAKED(19, "naked");
+    public enum ClownfishVariant implements StringRepresentable {
+        OCELLARIS(1, "ocellaris", ReefRarities.COMMON, null),
+        BLACK_AND_WHITE(2, "black_and_white", ReefRarities.COMMON, null),
+        PINK_SKUNK(3, "pink_skunk", ReefRarities.COMMON, null),
+        MAROON(4, "maroon", ReefRarities.COMMON, null),
+        CLARKII(5, "clarkii", ReefRarities.COMMON, null),
+        TOMATO(6, "tomato", ReefRarities.COMMON, null),
+        MADAGASCAR(7, "madagascar", ReefRarities.COMMON, null),
+        ALLARD(8, "allard", ReefRarities.COMMON, null),
+        RED_SADDLEBACK(9, "red_saddleback", ReefRarities.COMMON, null),
+        BLIZZARD(10, "blizzard", ReefRarities.RARE, null),
+        BLUESTRAIN(11, "bluestrain", ReefRarities.UNCOMMON, null),
+        OMAN(12, "oman", ReefRarities.UNCOMMON, null),
+        MOCHA(13, "mocha", ReefRarities.UNCOMMON, null),
+        WHITESNOUT(14, "whitesnout", ReefRarities.RARE, null),
+        GOLD_NUGGET(15, "gold_nugget", ReefRarities.RARE, null),
+        SNOWSTORM(16, "snowstorm", ReefRarities.UNCOMMON, null),
+        ORANGE_SKUNK(17, "orange_skunk", ReefRarities.RARE, null),
+        DOMINO(18, "domino", ReefRarities.RARE, null),
+        YELLOW_CLARKII(19, "yellow_clarkii", ReefRarities.UNCOMMON, null),
+        NAKED(20, "naked", ReefRarities.RARE, null);
 
         private final int variant;
         private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
 
-        ClownfishVariant(int variant, String name) {
+        ClownfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
             this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
+        }
+
+        public static ClownfishVariant getVariantId(int variants) {
+            for (ClownfishVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return ClownfishVariant.OCELLARIS;
+        }
+
+        public static ClownfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<ClownfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<ClownfishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
+            List<ClownfishVariant> variants = Lists.newArrayList();
+            for (ClownfishVariant variant : ClownfishVariant.values()) {
+                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
         }
 
         public int getVariant() {
             return this.variant;
         }
 
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
         @Override
         public @NotNull String getSerializedName() {
             return this.name;
-        }
-
-        private static final IntFunction<ClownfishVariant> VARIANT_ID = ByIdMap.sparse(ClownfishVariant::getVariant, ClownfishVariant.values(), OCELLARIS);
-
-        public static ClownfishVariant variantId(int id) {
-            return VARIANT_ID.apply(id);
         }
     }
 
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        ClownfishVariant commonVariant = ClownfishVariant.variantId(level.getRandom().nextInt(8));
-        ClownfishVariant rareVariant = ClownfishVariant.variantId(9 + level.getRandom().nextInt(10));
-
-        if (this.getRandom().nextFloat() <= 0.005F) {
-            this.setVariant(rareVariant.getVariant());
-        } else {
-            this.setVariant(commonVariant.getVariant());
-        }
-
-        this.findAndSetNems();
+        int variant = ClownfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        this.setVariant(ClownfishVariant.getVariantId(variant).getVariant());
         return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

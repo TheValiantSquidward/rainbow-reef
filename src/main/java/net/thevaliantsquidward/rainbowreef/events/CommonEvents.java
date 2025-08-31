@@ -22,7 +22,7 @@ public class CommonEvents {
         entity.register(ReefEntities.CLOWNFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Clownfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.BUTTERFLYFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Butterflyfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.SEAHORSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seahorse::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        entity.register(ReefEntities.DWARFANGEL.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfAngelfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        entity.register(ReefEntities.DWARF_ANGELFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfAngelfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.PARROTFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Parrotfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.HOGFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hogfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.PIPEFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pipefish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
@@ -36,34 +36,34 @@ public class CommonEvents {
         entity.register(ReefEntities.BILLFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Billfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.FROGFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Frogfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.LIONFISH.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lionfish::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
-        entity.register(ReefEntities.MAHI_MAHI.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mahi::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
+        entity.register(ReefEntities.MAHI_MAHI.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MahiMahi::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
         entity.register(ReefEntities.MAORI_WRASSE.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MaoriWrasse::canSpawn, SpawnPlacementRegisterEvent.Operation.OR);
     }
 
     @SubscribeEvent
     public static void entityAttributeEvent(EntityAttributeCreationEvent event) {
         event.put(ReefEntities.GOBY.get(), Goby.createAttributes());
-        event.put(ReefEntities.TANG.get(), Tang.setAttributes());
+        event.put(ReefEntities.TANG.get(), Tang.createAttributes());
         event.put(ReefEntities.BOXFISH.get(), Boxfish.createAttributes());
-        event.put(ReefEntities.SMALL_SHARK.get(), SmallShark.setAttributes());
-        event.put(ReefEntities.CLOWNFISH.get(), Clownfish.setAttributes());
-        event.put(ReefEntities.BUTTERFLYFISH.get(), Butterflyfish.setAttributes());
-        event.put(ReefEntities.SEAHORSE.get(), Seahorse.setAttributes());
-        event.put(ReefEntities.DWARFANGEL.get(), DwarfAngelfish.setAttributes());
-        event.put(ReefEntities.PARROTFISH.get(), Parrotfish.setAttributes());
-        event.put(ReefEntities.HOGFISH.get(), Hogfish.setAttributes());
+        event.put(ReefEntities.SMALL_SHARK.get(), SmallShark.createAttributes());
+        event.put(ReefEntities.CLOWNFISH.get(), Clownfish.createAttributes());
+        event.put(ReefEntities.BUTTERFLYFISH.get(), Butterflyfish.createAttributes());
+        event.put(ReefEntities.SEAHORSE.get(), Seahorse.createAttributes());
+        event.put(ReefEntities.DWARF_ANGELFISH.get(), DwarfAngelfish.createAttributes());
+        event.put(ReefEntities.PARROTFISH.get(), Parrotfish.createAttributes());
+        event.put(ReefEntities.HOGFISH.get(), Hogfish.createAttributes());
         event.put(ReefEntities.BASSLET.get(), Basslet.createAttributes());
-        event.put(ReefEntities.PIPEFISH.get(), Pipefish.setAttributes());
-        event.put(ReefEntities.RAY.get(), Ray.setAttributes());
+        event.put(ReefEntities.PIPEFISH.get(), Pipefish.createAttributes());
+        event.put(ReefEntities.RAY.get(), Ray.createAttributes());
         event.put(ReefEntities.CRAB.get(), Crab.setAttributes());
-        event.put(ReefEntities.MOORISH_IDOL.get(), MoorishIdol.setAttributes());
+        event.put(ReefEntities.MOORISH_IDOL.get(), MoorishIdol.createAttributes());
         event.put(ReefEntities.ANGELFISH.get(), Angelfish.createAttributes());
         event.put(ReefEntities.ARROW_CRAB.get(), ArrowCrab.setAttributes());
-        event.put(ReefEntities.JELLYFISH.get(), Jellyfish.setAttributes());
-        event.put(ReefEntities.LIONFISH.get(), Lionfish.setAttributes());
-        event.put(ReefEntities.MAHI_MAHI.get(), Mahi.setAttributes());
+        event.put(ReefEntities.JELLYFISH.get(), Jellyfish.createAttributes());
+        event.put(ReefEntities.LIONFISH.get(), Lionfish.createAttributes());
+        event.put(ReefEntities.MAHI_MAHI.get(), MahiMahi.createAttributes());
         event.put(ReefEntities.BILLFISH.get(), Billfish.createAttributes());
-        event.put(ReefEntities.MAORI_WRASSE.get(), MaoriWrasse.setAttributes());
+        event.put(ReefEntities.MAORI_WRASSE.get(), MaoriWrasse.createAttributes());
         event.put(ReefEntities.FROGFISH.get(), Frogfish.setAttributes());
     }
 }

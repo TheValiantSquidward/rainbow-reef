@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,12 +10,11 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.TangAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Tang;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class TangModel<T extends Tang> extends ReefModel<T> {
+public class TangModel extends HierarchicalModel<Tang> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -58,7 +58,7 @@ public class TangModel<T extends Tang> extends ReefModel<T> {
 	public void setupAnim(Tang entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, TangAnimations.SWIM, ageInTicks, limbSwingAmount * 2.0F);
+		this.animate(entity.swimAnimationState, TangAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 		this.animate(entity.flopAnimationState, TangAnimations.FLOP, ageInTicks, 1.0F);
 
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);

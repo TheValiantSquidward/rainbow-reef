@@ -19,8 +19,7 @@ public class GobyRenderer extends MobRenderer<Goby, GobyModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Goby entity) {
-        int variant = entity.getVariant();
-        Goby.GobyVariant gobyVariant = Goby.GobyVariant.variantId(variant);
+        Goby.GobyVariant gobyVariant = Goby.GobyVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/goby/" + gobyVariant.getSerializedName() + ".png");
     }
 }

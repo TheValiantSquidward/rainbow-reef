@@ -1,6 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -10,26 +16,24 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
-import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.RRTags;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class Tang extends VariantSchoolingFish {
-
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
 
     public Tang(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level, 180);
@@ -37,8 +41,8 @@ public class Tang extends VariantSchoolingFish {
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+    public static AttributeSupplier createAttributes() {
+        return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
                 .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .build();
@@ -49,7 +53,7 @@ public class Tang extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, RRTags.TANG_DIET));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, ReefTags.TANG_DIET));
         this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
@@ -60,183 +64,104 @@ public class Tang extends VariantSchoolingFish {
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
-    }
-
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "powderblue";
-            case 2 -> "yellow";
-            case 3 -> "unicorn";
-            case 4 -> "convict";
-            case 5 -> "clown";
-            case 6 -> "achilles";
-            case 7 -> "purple";
-            case 8 -> "black";
-            case 9 -> "regalblue";
-            case 10 -> "gem";
-            case 11 -> "penguin";
-            case 12 -> "greenspot";
-            case 13 -> "rusty";
-            case 14 -> "pearly";
-            case 15 -> "yellowbellyblue";
-            case 16 -> "muddy";
-            case 17 -> "chocolate";
-            case 18 -> "sailfin";
-            case 19 -> "atlanticblue";
-            case 20 -> "eyestripe";
-            case 21 -> "whitecheek";
-            case 22 -> "scopas";
-            case 23 -> "goth";
-            case 24 -> "powderhybrid";
-            case 25 -> "pastelblue";
-            case 26 -> "yellowstrike";
-            case 27 -> "blacksurgeon";
-            case 28 -> "orangeband";
-            case 29 -> "blondelipstick";
-            case 30 -> "whitetailbristletooth";
-            case 31 -> "zebra";
-            default -> "bluehippo";
-        };
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float aberrant = this.getRandom().nextFloat();
-        float rare = this.getRandom().nextFloat();
-        float variantChange = this.getRandom().nextFloat();
-        float aberrantVariantChange = this.getRandom().nextFloat();
-        float rareVariantChange = this.getRandom().nextFloat();
-
-        if(aberrant <= 0.001){
-            if (aberrantVariantChange <= 0.11F) {
-                this.setVariant(11);
-            } else
-            if (aberrantVariantChange <= 0.22F) {
-                this.setVariant(12);
-            } else
-            if (aberrantVariantChange <= 0.33F) {
-                this.setVariant(13);
-            } else
-            if (aberrantVariantChange <= 0.44F) {
-                this.setVariant(14);
-            } else
-            if (aberrantVariantChange <= 0.55F) {
-                this.setVariant(15);
-            } else if (aberrantVariantChange <= 0.66F) {
-                this.setVariant(16);
-            } else if (aberrantVariantChange <= 0.77F) {
-                this.setVariant(23);
-            } else if (aberrantVariantChange <= 0.88F) {
-                this.setVariant(24);
-            } else if (aberrantVariantChange <= 0.99F) {
-                this.setVariant(26);
-            } else {
-                this.setVariant(25);
-            }
-
-        }
-        if(rare <= 0.15){
-            if (rareVariantChange <= 0.16F) {
-                this.setVariant(7);
-            } else
-            if (rareVariantChange <= 0.32F) {
-                this.setVariant(8);
-            } else
-            if (rareVariantChange <= 0.48F) {
-                this.setVariant(9);
-            } else
-            if (rareVariantChange <= 0.64F) {
-                this.setVariant(10);
-            } else
-            if (rareVariantChange <= 0.80F) {
-                this.setVariant(21);
-            } else
-            if (rareVariantChange <= 0.96F) {
-                this.setVariant(30);
-            } else {
-                this.setVariant(31);
-        }
-        }
-        else {
-            if (variantChange <= 0.07F) {
-                this.setVariant(1);
-            } else
-                if (variantChange <= 0.14F) {
-                this.setVariant(2);
-            } else
-                if (variantChange <= 0.21F) {
-                    this.setVariant(3);
-                } else
-                if (variantChange <= 0.28F) {
-                    this.setVariant(4);
-                } else
-                if (variantChange <= 0.35F) {
-                    this.setVariant(5);
-                } else
-                if (variantChange <= 0.42F) {
-                    this.setVariant(6);
-                } else
-                if (variantChange <= 0.49F) {
-                    this.setVariant(17);
-                } else
-                if (variantChange <= 0.56F) {
-                    this.setVariant(18);
-                } else
-                if (variantChange <= 0.63F) {
-                    this.setVariant(19);
-                } else
-                if (variantChange <= 0.70F) {
-                    this.setVariant(20);
-                } else
-                if (variantChange <= 0.77F) {
-                    this.setVariant(22);
-                } else
-                if (variantChange <= 0.84F) {
-                    this.setVariant(27);
-                } else
-                if (variantChange <= 0.91F) {
-                    this.setVariant(28);
-                } else
-                if (variantChange <= 0.98F) {
-                    this.setVariant(29);
-
-                } else {
-                    this.setVariant(0);
-            }
-        }
-
-        if (this.getRandom().nextFloat() >= 0.90) {
-            if (reason == MobSpawnType.CHUNK_GENERATION || reason == MobSpawnType.NATURAL
-                //|| reason == MobSpawnType.SPAWN_EGG
-            ) {
-                float schoolsize = this.getRandom().nextFloat();
-                int schoolcount = (int) ((this.getMaxSchoolSize() * schoolsize));
-
-                if (schoolcount > 0 && !this.level().isClientSide()) {
-                    for (int i = 0; i < schoolcount; i++) {
-                        Tang urine = new Tang(ReefEntities.TANG.get(), this.level());
-                        urine.setVariant(this.getVariant());
-                        urine.moveTo(this.getX(), this.getY(), this.getZ());
-                        urine.startFollowing(this);
-                        this.level().addFreshEntity(urine);
-                    }
-                }
-            }
-        }
-
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+    @Nonnull
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(ReefItems.TANG_BUCKET.get());
     }
 
     @Override
-    @Nonnull
-    public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.TANG_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+    public int getVariantCount() {
+        return TangVariant.values().length;
+    }
+
+    public enum TangVariant implements StringRepresentable {
+        BLUE(1, "blue", ReefRarities.COMMON, null),
+        POWDER_BLUE(2, "powder_blue", ReefRarities.COMMON, null),
+        YELLOW(3, "yellow", ReefRarities.COMMON, null),
+        UNICORN(4, "unicorn", ReefRarities.UNCOMMON, null),
+        CONVICT(5, "convict", ReefRarities.COMMON, null),
+        CLOWN(6, "clown", ReefRarities.COMMON, null),
+        ACHILLES(7, "achilles", ReefRarities.COMMON, null),
+        PURPLE(8, "purple", ReefRarities.UNCOMMON, null),
+        BLACK(9, "black", ReefRarities.RARE, null),
+        REGAL_BLUE(10, "regal_blue", ReefRarities.RARE, null),
+        GEM(11, "gem", ReefRarities.RARE, null),
+        PENGUIN(12, "penguin", ReefRarities.ABERRANT, null),
+        GREEN_SPOT(13, "green_spot", ReefRarities.ABERRANT, null),
+        RUSTY(14, "rusty", ReefRarities.ABERRANT, null),
+        PEARLY(15, "pearly", ReefRarities.ABERRANT, null),
+        YELLOWBELLY_BLUE(16, "yellowbelly_blue", ReefRarities.ABERRANT, null),
+        MUDDY(17, "muddy", ReefRarities.ABERRANT, null),
+        CHOCOLATE(18, "chocolate", ReefRarities.UNCOMMON, null),
+        SAILFIN(19, "sailfin", ReefRarities.COMMON, null),
+        ATLANTIC_BLUE(20, "atlantic_blue", ReefRarities.COMMON, null),
+        EYESTRIPE(21, "eyestripe", ReefRarities.COMMON, null),
+        WHITE_CHEEK(22, "white_cheeck", ReefRarities.UNCOMMON, null),
+        SCOPAS(23, "scopas", ReefRarities.COMMON, null),
+        GOTH(24, "goth", ReefRarities.ABERRANT, null),
+        POWDER_BLUE_HYBRID(25, "powder_blue_hybrid", ReefRarities.ABERRANT, null),
+        PASTEL_BLUE(26, "pastel_blue", ReefRarities.ABERRANT, null),
+        YELLOWSTRIKE(27, "yellowstrike", ReefRarities.ABERRANT, null),
+        BLACK_SURGEON(28, "black_surgeon", ReefRarities.RARE, null),
+        ORANGEBAND(29, "orangeband", ReefRarities.UNCOMMON, null),
+        BLONDE_LIPSTICK(30, "blonde_lipstick", ReefRarities.RARE, null),
+        WHITETAIL_BRISTLETOOTH(31, "whitetail_bristletooth", ReefRarities.UNCOMMON, null),
+        ZEBRA(32, "zebra", ReefRarities.RARE, null);
+
+        private final int variant;
+        private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
+
+        TangVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+            this.variant = variant;
+            this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
         }
-        return stack;
+
+        public static TangVariant getVariantId(int variants) {
+            for (TangVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return TangVariant.BLUE;
+        }
+
+        public static TangVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<TangVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<TangVariant> getPossibleTypes(Holder<Biome> biome, ReefRarities rarity, boolean fromBucket) {
+            List<TangVariant> variants = Lists.newArrayList();
+            for (TangVariant variant : TangVariant.values()) {
+                if ((fromBucket || variant.biome == null || biome.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
+        }
+
+        public int getVariant() {
+            return this.variant;
+        }
+
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        int variant = TangVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        this.setVariant(TangVariant.getVariantId(variant).getVariant());
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

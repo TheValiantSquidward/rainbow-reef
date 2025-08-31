@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,11 +10,10 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.MoorishIdol;
 
 @OnlyIn(Dist.CLIENT)
-public class MoorishIdolModel<T extends MoorishIdol> extends ReefModel<T> {
+public class MoorishIdolModel extends HierarchicalModel<MoorishIdol> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -86,8 +86,8 @@ public class MoorishIdolModel<T extends MoorishIdol> extends ReefModel<T> {
 
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, limbSwingAmount * 2.0F);
-		this.animate(entity.landAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.swimAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
 	}
 
 	@Override

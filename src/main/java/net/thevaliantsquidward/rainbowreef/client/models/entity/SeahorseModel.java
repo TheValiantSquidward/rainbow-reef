@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,12 +10,11 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.SeahorseAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Seahorse;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class SeahorseModel<T extends Seahorse> extends ReefModel<T> {
+public class SeahorseModel extends HierarchicalModel<Seahorse> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -49,15 +49,15 @@ public class SeahorseModel<T extends Seahorse> extends ReefModel<T> {
 	public void setupAnim(Seahorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, SeahorseAnimations.SWIM, ageInTicks, 0.7f + (limbSwingAmount * 4.0f + 0.4f));
-		this.animate(entity.flopAnimationState, SeahorseAnimations.FLOP, ageInTicks, 1.0f);
+		this.animate(entity.swimAnimationState, SeahorseAnimations.SWIM, ageInTicks, 0.8F + (limbSwingAmount * 4.0f + 0.5F));
+		this.animate(entity.flopAnimationState, SeahorseAnimations.FLOP, ageInTicks, 1);
 
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

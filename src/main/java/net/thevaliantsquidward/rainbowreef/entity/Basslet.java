@@ -1,9 +1,14 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+import com.google.common.collect.Lists;
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.ByIdMap;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -18,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
@@ -27,13 +33,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import java.util.function.IntFunction;
 
 public class Basslet extends ReefMob {
-
-    public final AnimationState swimAnimationState = new AnimationState();
-    public final AnimationState landAnimationState = new AnimationState();
-    public final AnimationState idleAnimationState = new AnimationState();
 
     public Basslet(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level, Integer.MAX_VALUE);
@@ -62,64 +65,87 @@ public class Basslet extends ReefMob {
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive() && this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.idleAnimationState.animateWhen(this.isAlive() && !this.walkAnimation.isMoving() && this.isInWaterOrBubble(), this.tickCount);
-        this.landAnimationState.animateWhen(this.isAlive() && !this.isInWaterOrBubble(), this.tickCount);
-    }
-
-    @Override
     @NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.BASSLET_BUCKET.get());
     }
 
+    @Override
+    public int getVariantCount() {
+        return BassletVariant.values().length;
+    }
+
     public enum BassletVariant implements StringRepresentable {
-        FAIRY(0, "fairy"),
-        BRAZILIAN(1, "brazilian"),
-        ACCESSOR(2, "accessor"),
-        BLACKCAP(3, "blackcap"),
-        CANDY(4, "candy"),
-        GOLD(5, "gold"),
-        GILDED(6, "gilded"),
-        SWISSGUARD(7, "swissguard"),
-        YELLOW_SCISSORTAIL(8, "yellow_scissortail"),
-        MIDNIGHT(9, "midnight");
+        FAIRY(1, "fairy", ReefRarities.COMMON, null),
+        BRAZILIAN(2, "brazilian", ReefRarities.COMMON, null),
+        ACCESSOR(3, "accessor", ReefRarities.RARE, null),
+        BLACKCAP(4, "blackcap", ReefRarities.UNCOMMON, null),
+        CANDY(5, "candy", ReefRarities.RARE, null),
+        GOLD(6, "gold", ReefRarities.COMMON, null),
+        GILDED(7, "gilded", ReefRarities.COMMON, null),
+        SWISSGUARD(8, "swissguard", ReefRarities.UNCOMMON, null),
+        YELLOW_SCISSORTAIL(9, "yellow_scissortail", ReefRarities.COMMON, null),
+        MIDNIGHT(10, "midnight", ReefRarities.UNCOMMON, null);
 
         private final int variant;
         private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
 
-        BassletVariant(int variant, String name) {
+        BassletVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
             this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
+        }
+
+        public static BassletVariant getVariantId(int variants) {
+            for (BassletVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return BassletVariant.FAIRY;
+        }
+
+        public static BassletVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<BassletVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<BassletVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
+            List<BassletVariant> variants = Lists.newArrayList();
+            for (BassletVariant variant : BassletVariant.values()) {
+                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
         }
 
         public int getVariant() {
             return this.variant;
         }
 
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
         @Override
         public @NotNull String getSerializedName() {
             return this.name;
-        }
-
-        private static final IntFunction<BassletVariant> VARIANT_ID = ByIdMap.sparse(BassletVariant::getVariant, BassletVariant.values(), FAIRY);
-
-        public static BassletVariant variantId(int id) {
-            return VARIANT_ID.apply(id);
         }
     }
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         LocalDate currentDate = LocalDate.now();
         if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
             this.setVariant(BassletVariant.CANDY.getVariant());
         } else {
-            BassletVariant variant = Util.getRandom(BassletVariant.values(), this.random);
-            this.setVariant(variant.getVariant());
+            int variant = BassletVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+            this.setVariant(BassletVariant.getVariantId(variant).getVariant());
         }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
     }
 }

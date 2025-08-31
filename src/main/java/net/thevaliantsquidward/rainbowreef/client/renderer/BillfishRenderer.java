@@ -19,7 +19,7 @@ public class BillfishRenderer extends MobRenderer<Billfish, BillfishModel> {
 
     @Override
     public ResourceLocation getTextureLocation(Billfish entity) {
-        Billfish.BillfishVariant billfishVariant = Billfish.BillfishVariant.variantId(entity.getVariant());
+        Billfish.BillfishVariant billfishVariant = Billfish.BillfishVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/billfish/" + billfishVariant.getSerializedName() + ".png");
     }
 

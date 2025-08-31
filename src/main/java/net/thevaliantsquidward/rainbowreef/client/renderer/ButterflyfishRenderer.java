@@ -19,7 +19,7 @@ public class ButterflyfishRenderer extends MobRenderer<Butterflyfish, Butterflyf
 
     @Override
     public ResourceLocation getTextureLocation(Butterflyfish entity) {
-        Butterflyfish.ButterflyfishVariant butterflyfishVariant = Butterflyfish.ButterflyfishVariant.variantId(entity.getVariant());
+        Butterflyfish.ButterflyfishVariant butterflyfishVariant = Butterflyfish.ButterflyfishVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/butterflyfish/" + butterflyfishVariant.getSerializedName() + ".png");
     }
 }

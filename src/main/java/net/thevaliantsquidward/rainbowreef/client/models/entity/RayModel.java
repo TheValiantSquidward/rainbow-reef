@@ -2,6 +2,7 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -9,13 +10,12 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.EagleRayAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Ray;
 import net.thevaliantsquidward.rainbowreef.utils.MathHelpers;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class EagleRayModel<T extends Ray> extends ReefModel<T> {
+public class RayModel extends HierarchicalModel<Ray> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -33,7 +33,7 @@ public class EagleRayModel<T extends Ray> extends ReefModel<T> {
 	private final ModelPart tail_tip3;
 	private final ModelPart tail_tip4;
 
-	public EagleRayModel(ModelPart root) {
+	public RayModel(ModelPart root) {
 		this.root = root.getChild("root");
 		this.core = this.root.getChild("core");
 		this.body = this.core.getChild("body");
@@ -76,9 +76,8 @@ public class EagleRayModel<T extends Ray> extends ReefModel<T> {
 	public void setupAnim(Ray entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, EagleRayAnimations.SWIM, ageInTicks, limbSwingAmount * 4.0f);
-		this.animateIdle(entity.idleAnimationState, EagleRayAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
-		this.animate(entity.flopAnimationState, EagleRayAnimations.FLOP, ageInTicks, 1.0f);
+		this.animate(entity.swimAnimationState, EagleRayAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
+		this.animate(entity.flopAnimationState, EagleRayAnimations.FLOP, ageInTicks, 1.0F);
 
 		if (entity.isInWaterOrBubble()) {
 			this.tail.yRot = this.tail.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1));
@@ -107,10 +106,9 @@ public class EagleRayModel<T extends Ray> extends ReefModel<T> {
 		}
 	}
 
-
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -18,7 +19,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class SmallSharkModel<T extends SmallShark> extends ReefModel<T> {
+public class SmallSharkModel extends HierarchicalModel<SmallShark> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -74,10 +75,9 @@ public class SmallSharkModel<T extends SmallShark> extends ReefModel<T> {
 	public void setupAnim(SmallShark entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
-		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, limbSwingAmount * 8.0f);
-		this.animateIdle(entity.idleAnimationState, SmallSharkAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
+		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 7.0F);
 
 		if (entity.isInWaterOrBubble()) {
 			this.tail.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1))));
@@ -89,17 +89,7 @@ public class SmallSharkModel<T extends SmallShark> extends ReefModel<T> {
 			this.tail_fin.xRot = this.tail_fin.xRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[1], entity.tailKinematics.getTailPitches()[1], 0.1))));
 			entity.tailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[0], entity.tailKinematics.getTailPitches()[0], 0.1);
 			entity.tailKinematics.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[1], entity.tailKinematics.getTailPitches()[1], 0.1);
-
 		}
-
-//		if (entity.isInWaterOrBubble()){
-//			if (entity.getDeltaMovement().horizontalDistanceSqr() > 1.0E-7D) {
-//				this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
-//				this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 2);
-//				this.tailRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
-//				this.tailFinRot.xRot = -(headPitch * (Mth.DEG_TO_RAD) / 4);
-//			}
-//		}
 	}
 
 	public List<ModelPart> getAllParts() {
@@ -108,7 +98,7 @@ public class SmallSharkModel<T extends SmallShark> extends ReefModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
