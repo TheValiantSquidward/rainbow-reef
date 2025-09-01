@@ -26,26 +26,28 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Boxfish extends ReefMob {
 
     public Boxfish(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4F)
+                .add(Attributes.MOVEMENT_SPEED, 0.55F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 1));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 30));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
@@ -62,14 +64,14 @@ public class Boxfish extends ReefMob {
     }
 
     public enum BoxfishVariant implements StringRepresentable {
-        GOLD(1, "gold", ReefRarities.COMMON, null),
-        PURPLE(2, "purple", ReefRarities.COMMON, null),
-        STRIPE(3, "stripe", ReefRarities.COMMON, null),
-        WHITE(4, "white", ReefRarities.COMMON, null),
-        BLUETAIL(5, "bluetail", ReefRarities.COMMON, null),
-        LONGHORN(6, "longhorn", ReefRarities.COMMON, null),
-        WHITLEYS(7, "whitleys", ReefRarities.COMMON, null),
-        SPOTTED(8, "spotted", ReefRarities.COMMON, null);
+        GOLD(1, "gold", COMMON, null),
+        PURPLE(2, "purple", UNCOMMON, null),
+        STRIPE(3, "stripe", COMMON, null),
+        WHITE(4, "white", COMMON, null),
+        BLUETAIL(5, "bluetail", UNCOMMON, null),
+        LONGHORN(6, "longhorn", UNCOMMON, null),
+        WHITLEYS(7, "whitleys", COMMON, null),
+        SPOTTED(8, "spotted", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -92,7 +94,7 @@ public class Boxfish extends ReefMob {
         }
 
         public static BoxfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<BoxfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<BoxfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -123,8 +125,28 @@ public class Boxfish extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = BoxfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(BoxfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof BoxfishData) {
+            variant = ((BoxfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new BoxfishData(variant);
+            }
+        }
         this.setVariant(BoxfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class BoxfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public BoxfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

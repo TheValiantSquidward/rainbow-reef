@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -44,16 +43,16 @@ public class Crab extends DancingEntity implements DancesToJukebox {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState danceAnimationState = new AnimationState();
 
-    public Crab(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+    public Crab(EntityType<? extends DancingEntity> entityType, Level level) {
+        super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }
 
-    public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 2D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2D)
+    public static AttributeSupplier createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.ARMOR, 2.0D)
                 .build();
     }
@@ -73,10 +72,10 @@ public class Crab extends DancingEntity implements DancesToJukebox {
                 return crab.isDancing();
             }
         });
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 120, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(0, new FishDigGoal(this, 120, 700, ReefTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
-        this.goalSelector.addGoal(3, new CrabBottomWander(this, 1.0D, 10, 50));
+        this.goalSelector.addGoal(3, new CrabBottomWander(this, 1, 10, 50));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
     }
 

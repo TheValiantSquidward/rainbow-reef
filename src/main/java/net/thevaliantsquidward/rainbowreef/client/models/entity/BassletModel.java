@@ -13,6 +13,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.BassletAnimations;
 import net.thevaliantsquidward.rainbowreef.entity.Basslet;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class BassletModel extends HierarchicalModel<Basslet> {
 
 	private final ModelPart root;
@@ -70,11 +71,9 @@ public class BassletModel extends HierarchicalModel<Basslet> {
 	@Override
 	public void setupAnim(Basslet entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, BassletAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0f);
-		this.animate(entity.flopAnimationState, BassletAnimations.FLOP, ageInTicks, 1);
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.animate(entity.swimAnimationState, BassletAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.flopAnimationState, BassletAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

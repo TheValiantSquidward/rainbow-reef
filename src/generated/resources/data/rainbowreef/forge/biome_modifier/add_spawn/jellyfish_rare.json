@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/jellyfish_rare",
+  "spawners": {
+    "type": "rainbowreef:jellyfish",
+    "maxCount": 2,
+    "minCount": 2,
+    "weight": 4
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/arrow_crab",
+  "spawners": {
+    "type": "rainbowreef:arrow_crab",
+    "maxCount": 2,
+    "minCount": 2,
+    "weight": 10
+  }
+}

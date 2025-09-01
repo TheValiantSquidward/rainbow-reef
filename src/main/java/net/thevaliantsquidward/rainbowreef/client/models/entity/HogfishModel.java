@@ -3,20 +3,17 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.HogfishAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Hogfish;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class HogfishModel extends HierarchicalModel<Hogfish> {
 
 	private final ModelPart root;
@@ -81,11 +78,9 @@ public class HogfishModel extends HierarchicalModel<Hogfish> {
 	@Override
 	public void setupAnim(Hogfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, HogfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0f);
-		this.animate(entity.flopAnimationState, HogfishAnimations.FLOP, ageInTicks, 1);
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.animate(entity.swimAnimationState, HogfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.flopAnimationState, HogfishAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

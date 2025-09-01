@@ -1,0 +1,16 @@
+{
+  "values": [
+    "minecraft:warm_ocean",
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    "minecraft:ocean",
+    "minecraft:deep_ocean",
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean",
+    "minecraft:beach",
+    "minecraft:stony_shore",
+    "minecraft:jungle",
+    "minecraft:swamp",
+    "minecraft:mangrove_swamp"
+  ]
+}

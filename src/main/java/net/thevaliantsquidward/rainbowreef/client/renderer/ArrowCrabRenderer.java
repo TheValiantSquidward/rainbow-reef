@@ -12,14 +12,14 @@ import net.thevaliantsquidward.rainbowreef.entity.ArrowCrab;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-public class ArrowCrabRenderer extends MobRenderer<ArrowCrab, ArrowCrabModel<ArrowCrab>> {
+public class ArrowCrabRenderer extends MobRenderer<ArrowCrab, ArrowCrabModel> {
 
     private static final ResourceLocation RED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/arrowcrab/redarrowcrab.png");
     private static final ResourceLocation YELLOWLINED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/arrowcrab/yellowlinearrowcrab.png");
 
 
     public ArrowCrabRenderer(EntityRendererProvider.Context context) {
-        super(context, new ArrowCrabModel<>(context.bakeLayer(ReefModelLayers.ARROW_CRAB)), 0.4F);
+        super(context, new ArrowCrabModel(context.bakeLayer(ReefModelLayers.ARROW_CRAB)), 0.4F);
     }
 
     protected void scale(ArrowCrab entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {

@@ -31,11 +31,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class DwarfAngelfish extends ReefMob {
 
     public DwarfAngelfish(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, 120);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -51,8 +53,8 @@ public class DwarfAngelfish extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 30, ReefTags.ANGELFISH_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 30, 200, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
     }
 
     @Override
@@ -67,22 +69,22 @@ public class DwarfAngelfish extends ReefMob {
     }
 
     public enum DwarfAngelfishVariant implements StringRepresentable {
-        BICOLOR(1, "bicolor", ReefRarities.COMMON, null),
-        CORAL_BEAUTY(2, "coral_beauty", ReefRarities.UNCOMMON, null),
-        FLAME(3, "flame", ReefRarities.UNCOMMON, null),
-        KEYHOLE(4, "keyhole", ReefRarities.COMMON, null),
-        MASKED(5, "masked", ReefRarities.COMMON, null),
-        CHERUB(6, "cherub", ReefRarities.COMMON, null),
-        BLACK_NOX(7, "black_nox", ReefRarities.COMMON, null),
-        LAMARCK(8, "lamarck", ReefRarities.COMMON, null),
-        LEMONPEEL(9, "lemonpeel", ReefRarities.UNCOMMON, null),
-        YELLOW(10, "yellow", ReefRarities.COMMON, null),
-        PEARLSCALE(11, "pearlscale", ReefRarities.UNCOMMON, null),
-        RESPLENDENT(12, "resplendent", ReefRarities.UNCOMMON, null),
-        PEPPERMINT(13, "peppermint", ReefRarities.RARE, null),
-        JAPANESE(14, "japanese", ReefRarities.RARE, null),
-        YELLOWTAIL(15, "yellowtail", ReefRarities.RARE, null),
-        ORANGEPEEL(16, "orangepeel", ReefRarities.ABERRANT, null);
+        BICOLOR(1, "bicolor", COMMON, null),
+        CORAL_BEAUTY(2, "coral_beauty", UNCOMMON, null),
+        FLAME(3, "flame", UNCOMMON, null),
+        KEYHOLE(4, "keyhole", COMMON, null),
+        MASKED(5, "masked", COMMON, null),
+        CHERUB(6, "cherub", COMMON, null),
+        BLACK_NOX(7, "black_nox", COMMON, null),
+        LAMARCK(8, "lamarck", COMMON, null),
+        LEMONPEEL(9, "lemonpeel", UNCOMMON, null),
+        YELLOW(10, "yellow", COMMON, null),
+        PEARLSCALE(11, "pearlscale", UNCOMMON, null),
+        RESPLENDENT(12, "resplendent", UNCOMMON, null),
+        PEPPERMINT(13, "peppermint", RARE, null),
+        JAPANESE(14, "japanese", RARE, null),
+        YELLOWTAIL(15, "yellowtail", RARE, null),
+        ORANGEPEEL(16, "orangepeel", ABERRANT, null);
 
         private final int variant;
         private final String name;
@@ -136,8 +138,29 @@ public class DwarfAngelfish extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = DwarfAngelfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(DwarfAngelfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof DwarfAngelfishData) {
+            variant = ((DwarfAngelfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new DwarfAngelfishData(variant);
+            }
+        }
         this.setVariant(DwarfAngelfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class DwarfAngelfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public DwarfAngelfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

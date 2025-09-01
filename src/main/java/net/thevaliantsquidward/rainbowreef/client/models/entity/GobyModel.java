@@ -13,6 +13,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.GobyAnimations;
 import net.thevaliantsquidward.rainbowreef.entity.Goby;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class GobyModel extends HierarchicalModel<Goby> {
 
 	private final ModelPart root;
@@ -73,11 +74,9 @@ public class GobyModel extends HierarchicalModel<Goby> {
 	@Override
 	public void setupAnim(Goby entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, GobyAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
-		this.animate(entity.flopAnimationState, GobyAnimations.FLOP, ageInTicks, 1);
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.animate(entity.swimAnimationState, GobyAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.flopAnimationState, GobyAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

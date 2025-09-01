@@ -13,6 +13,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.DwarfAngelfishAnima
 import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfish;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class DwarfAngelfishModel extends HierarchicalModel<DwarfAngelfish> {
 
 	private final ModelPart root;
@@ -71,11 +72,9 @@ public class DwarfAngelfishModel extends HierarchicalModel<DwarfAngelfish> {
 	@Override
 	public void setupAnim(DwarfAngelfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, DwarfAngelfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 3.0F);
-		this.animate(entity.flopAnimationState, DwarfAngelfishAnimations.FLOP, ageInTicks, 1);
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.animate(entity.swimAnimationState, DwarfAngelfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.flopAnimationState, DwarfAngelfishAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

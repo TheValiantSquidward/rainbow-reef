@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/moorish_idol",
+  "spawners": {
+    "type": "rainbowreef:moorish_idol",
+    "maxCount": 16,
+    "minCount": 16,
+    "weight": 8
+  }
+}

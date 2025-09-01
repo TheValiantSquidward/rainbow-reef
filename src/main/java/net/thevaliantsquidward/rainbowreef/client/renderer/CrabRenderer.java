@@ -8,7 +8,7 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.CrabModel;
 import net.thevaliantsquidward.rainbowreef.entity.Crab;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
-public class CrabRenderer extends MobRenderer<Crab, CrabModel<Crab>> {
+public class CrabRenderer extends MobRenderer<Crab, CrabModel> {
 
     private static final ResourceLocation VAMPIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/vampire.png");
     private static final ResourceLocation HALLOWEEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/halloween.png");
@@ -21,7 +21,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabModel<Crab>> {
     private static final ResourceLocation REDGHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/redghost.png");
 
     public CrabRenderer(EntityRendererProvider.Context context) {
-        super(context, new CrabModel<>(context.bakeLayer(ReefModelLayers.CRAB)), 0.3F);
+        super(context, new CrabModel(context.bakeLayer(ReefModelLayers.CRAB)), 0.3F);
     }
 
     public ResourceLocation getTextureLocation(Crab entity) {

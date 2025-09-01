@@ -1,24 +1,19 @@
-package net.thevaliantsquidward.rainbowreef.client.models.entity;// Made with Blockbench 4.12.5
-// Exported for Minecraft version 1.17 or later with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
+package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.ArrowCrabAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.ArrowCrab;
 
-
 @OnlyIn(Dist.CLIENT)
-public class ArrowCrabModel<T extends ArrowCrab> extends ReefModel<T> {
-
+@SuppressWarnings("FieldCanBeLocal, unused")
+public class ArrowCrabModel extends HierarchicalModel<ArrowCrab> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -127,17 +122,14 @@ public class ArrowCrabModel<T extends ArrowCrab> extends ReefModel<T> {
 	@Override
 	public void setupAnim(ArrowCrab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.walkAnimationState, ArrowCrabAnimations.WALK, ageInTicks, limbSwingAmount * 4.0f);
-		this.animate(entity.idleAnimationState, ArrowCrabAnimations.IDLE, ageInTicks, limbSwingAmount * 4.0f);
-		this.animate(entity.danceAnimationState, ArrowCrabAnimations.DANCE, ageInTicks, 1);
+		this.animateWalk(ArrowCrabAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+		this.animate(entity.idleAnimationState, ArrowCrabAnimations.IDLE, ageInTicks);
+		this.animate(entity.danceAnimationState, ArrowCrabAnimations.DANCE, ageInTicks);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.ClownfishAnimations
 import net.thevaliantsquidward.rainbowreef.entity.Clownfish;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class ClownfishModel extends HierarchicalModel<Clownfish> {
 
 	private final ModelPart root;
@@ -77,11 +78,9 @@ public class ClownfishModel extends HierarchicalModel<Clownfish> {
 	@Override
 	public void setupAnim(Clownfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, ClownfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 3.0F);
-		this.animate(entity.flopAnimationState, ClownfishAnimations.FLOP, ageInTicks, 1);
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.animate(entity.swimAnimationState, ClownfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.flopAnimationState, ClownfishAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

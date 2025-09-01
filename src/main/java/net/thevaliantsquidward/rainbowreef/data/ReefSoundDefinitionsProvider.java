@@ -57,6 +57,22 @@ public class ReefSoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
         );
+
+        this.sound(ReefSoundEvents.JELLYFISH_HURT,
+                sound(RainbowReef.modPrefix("entity/jellyfish/hurt1"))
+        );
+        this.sound(ReefSoundEvents.JELLYFISH_ZAP,
+                sound(RainbowReef.modPrefix("entity/jellyfish/zap1")),
+                sound(RainbowReef.modPrefix("entity/jellyfish/zap2"))
+        );
+
+        this.sound(ReefSoundEvents.JELLY_BLOCK_BOUNCE,
+                sound(RainbowReef.modPrefix("block/jelly_block/bounce1"))
+        );
+
+        this.sound(ReefSoundEvents.CLAW_DISC,
+                sound(RainbowReef.modPrefix("music/disc/claw")).stream()
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -13,11 +12,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.PipefishAnimations;
 import net.thevaliantsquidward.rainbowreef.entity.Pipefish;
 
-import java.util.List;
-
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class PipefishModel<T extends Pipefish> extends HierarchicalModel<T> {
+public class PipefishModel extends HierarchicalModel<Pipefish> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -53,20 +50,14 @@ public class PipefishModel<T extends Pipefish> extends HierarchicalModel<T> {
 	@Override
 	public void setupAnim(Pipefish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.animate(entity.swimAnimationState, PipefishAnimations.SWIM, ageInTicks, 1.25f * (limbSwingAmount * 4.0f + 0.8f));
-		this.animate(entity.flopAnimationState, PipefishAnimations.FLOP, ageInTicks, 1.0f);
-
+		this.animate(entity.swimAnimationState, PipefishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.flopAnimationState, PipefishAnimations.FLOP, ageInTicks);
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
-	}
-
-	public List<ModelPart> getAllParts() {
-		return ImmutableList.of(this.root, this.core, this.body, this.l_fin, this.r_fin, this.tail_base, this.tail_end);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

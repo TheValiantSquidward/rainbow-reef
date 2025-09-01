@@ -1,0 +1,108 @@
+{
+  "claw_disc": {
+    "sounds": [
+      {
+        "name": "rainbowreef:music/disc/claw",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.rainbowreef.claw_disc"
+  },
+  "crab_death": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.rainbowreef.crab_death"
+  },
+  "crab_flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop2",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop3",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop4",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.rainbowreef.crab_flop"
+  },
+  "crab_hurt": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.rainbowreef.crab_hurt"
+  },
+  "fish_death": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.rainbowreef.fish_death"
+  },
+  "fish_flop": {
+    "sounds": [
+      {
+        "name": "entity/fish/flop1",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop2",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop3",
+        "volume": 0.3
+      },
+      {
+        "name": "entity/fish/flop4",
+        "volume": 0.3
+      }
+    ],
+    "subtitle": "subtitles.rainbowreef.fish_flop"
+  },
+  "fish_hurt": {
+    "sounds": [
+      "entity/fish/hurt1",
+      "entity/fish/hurt2",
+      "entity/fish/hurt3",
+      "entity/fish/hurt4"
+    ],
+    "subtitle": "subtitles.rainbowreef.fish_hurt"
+  },
+  "jelly_block_bounce": {
+    "sounds": [
+      "rainbowreef:block/jelly_block/bounce1"
+    ],
+    "subtitle": "subtitles.rainbowreef.jelly_block_bounce"
+  },
+  "jellyfish_hurt": {
+    "sounds": [
+      "rainbowreef:entity/jellyfish/hurt1"
+    ],
+    "subtitle": "subtitles.rainbowreef.jellyfish_hurt"
+  },
+  "jellyfish_zap": {
+    "sounds": [
+      "rainbowreef:entity/jellyfish/zap1",
+      "rainbowreef:entity/jellyfish/zap2"
+    ],
+    "subtitle": "subtitles.rainbowreef.jellyfish_zap"
+  }
+}

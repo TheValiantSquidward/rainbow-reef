@@ -28,6 +28,8 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Ray extends VariantSchoolingFish {
 
     public IKSolver tailKinematics;
@@ -35,8 +37,8 @@ public class Ray extends VariantSchoolingFish {
     public double animationSpeed = 1;
 
     public Ray(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 1200);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 360, 2, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 360, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
         this.tailKinematics = new IKSolver(this, 5, 0.5, 0.75,false, false);
     }
@@ -44,7 +46,7 @@ public class Ray extends VariantSchoolingFish {
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 2.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.8F)
                 .build();
     }
 
@@ -52,8 +54,8 @@ public class Ray extends VariantSchoolingFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new FishDigGoal(this, 40, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 2, false));
+        this.goalSelector.addGoal(2, new FishDigGoal(this, 40, 1200, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 2, false));
         this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }
 
@@ -92,9 +94,9 @@ public class Ray extends VariantSchoolingFish {
     }
 
     public enum RayVariant implements StringRepresentable {
-        SPOTTED(1, "spotted", ReefRarities.COMMON, null),
-        COWNOSE(2, "cownose", ReefRarities.COMMON, null),
-        ORNATE(3, "ornate", ReefRarities.COMMON, null);
+        SPOTTED(1, "spotted", COMMON, null),
+        COWNOSE(2, "cownose", COMMON, null),
+        ORNATE(3, "ornate", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -117,7 +119,7 @@ public class Ray extends VariantSchoolingFish {
         }
 
         public static RayVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<RayVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<RayVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -148,8 +150,28 @@ public class Ray extends VariantSchoolingFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = RayVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(RayVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof RayData) {
+            variant = ((RayData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new RayData(variant);
+            }
+        }
         this.setVariant(RayVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class RayData implements SpawnGroupData {
+        public final int variantData;
+
+        public RayData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

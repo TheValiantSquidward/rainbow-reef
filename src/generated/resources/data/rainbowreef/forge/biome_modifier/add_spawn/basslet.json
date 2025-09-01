@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/basslet",
+  "spawners": {
+    "type": "rainbowreef:basslet",
+    "maxCount": 6,
+    "minCount": 6,
+    "weight": 15
+  }
+}

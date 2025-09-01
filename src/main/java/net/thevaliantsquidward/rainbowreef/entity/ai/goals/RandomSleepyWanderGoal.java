@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class RandomSleepyWanderGoal extends Goal {
-    public static final int DEFAULT_INTERVAL = 120;
+
     protected final PathfinderMob mob;
     protected double wantedX;
     protected double wantedY;

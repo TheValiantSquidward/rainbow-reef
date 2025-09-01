@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/seahorse",
+  "spawners": {
+    "type": "rainbowreef:seahorse",
+    "maxCount": 4,
+    "minCount": 4,
+    "weight": 8
+  }
+}

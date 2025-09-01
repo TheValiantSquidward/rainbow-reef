@@ -30,11 +30,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class MahiMahi extends VariantSchoolingFish implements Bucketable {
 
     public MahiMahi(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -49,7 +51,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
         this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
     }
 
@@ -70,7 +72,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     }
 
     public enum MahiMahiVariant implements StringRepresentable {
-        GREEN(1, "green", ReefRarities.COMMON, null);
+        GREEN(1, "green", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -93,7 +95,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
         }
 
         public static MahiMahiVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<MahiMahiVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<MahiMahiVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -124,8 +126,28 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = MahiMahiVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(MahiMahiVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof MahiMahiData) {
+            variant = ((MahiMahiData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new MahiMahiData(variant);
+            }
+        }
         this.setVariant(MahiMahiVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class MahiMahiData implements SpawnGroupData {
+        public final int variantData;
+
+        public MahiMahiData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

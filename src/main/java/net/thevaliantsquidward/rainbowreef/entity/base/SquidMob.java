@@ -25,8 +25,8 @@ public abstract class SquidMob extends ReefMob {
     public float ty;
     public float tz;
 
-    protected SquidMob(EntityType<? extends ReefMob> entityType, Level level, int feedCooldown) {
-        super(entityType, level, feedCooldown);
+    protected SquidMob(EntityType<? extends ReefMob> entityType, Level level) {
+        super(entityType, level);
     }
 
     @Override

@@ -33,11 +33,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Tang extends VariantSchoolingFish {
 
     public Tang(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -53,8 +55,8 @@ public class Tang extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, ReefTags.TANG_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, 200, ReefTags.TANG_DIET));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
@@ -75,38 +77,38 @@ public class Tang extends VariantSchoolingFish {
     }
 
     public enum TangVariant implements StringRepresentable {
-        BLUE(1, "blue", ReefRarities.COMMON, null),
-        POWDER_BLUE(2, "powder_blue", ReefRarities.COMMON, null),
-        YELLOW(3, "yellow", ReefRarities.COMMON, null),
-        UNICORN(4, "unicorn", ReefRarities.UNCOMMON, null),
-        CONVICT(5, "convict", ReefRarities.COMMON, null),
-        CLOWN(6, "clown", ReefRarities.COMMON, null),
-        ACHILLES(7, "achilles", ReefRarities.COMMON, null),
-        PURPLE(8, "purple", ReefRarities.UNCOMMON, null),
-        BLACK(9, "black", ReefRarities.RARE, null),
-        REGAL_BLUE(10, "regal_blue", ReefRarities.RARE, null),
-        GEM(11, "gem", ReefRarities.RARE, null),
-        PENGUIN(12, "penguin", ReefRarities.ABERRANT, null),
-        GREEN_SPOT(13, "green_spot", ReefRarities.ABERRANT, null),
-        RUSTY(14, "rusty", ReefRarities.ABERRANT, null),
-        PEARLY(15, "pearly", ReefRarities.ABERRANT, null),
-        YELLOWBELLY_BLUE(16, "yellowbelly_blue", ReefRarities.ABERRANT, null),
-        MUDDY(17, "muddy", ReefRarities.ABERRANT, null),
-        CHOCOLATE(18, "chocolate", ReefRarities.UNCOMMON, null),
-        SAILFIN(19, "sailfin", ReefRarities.COMMON, null),
-        ATLANTIC_BLUE(20, "atlantic_blue", ReefRarities.COMMON, null),
-        EYESTRIPE(21, "eyestripe", ReefRarities.COMMON, null),
-        WHITE_CHEEK(22, "white_cheeck", ReefRarities.UNCOMMON, null),
-        SCOPAS(23, "scopas", ReefRarities.COMMON, null),
-        GOTH(24, "goth", ReefRarities.ABERRANT, null),
-        POWDER_BLUE_HYBRID(25, "powder_blue_hybrid", ReefRarities.ABERRANT, null),
-        PASTEL_BLUE(26, "pastel_blue", ReefRarities.ABERRANT, null),
-        YELLOWSTRIKE(27, "yellowstrike", ReefRarities.ABERRANT, null),
-        BLACK_SURGEON(28, "black_surgeon", ReefRarities.RARE, null),
-        ORANGEBAND(29, "orangeband", ReefRarities.UNCOMMON, null),
-        BLONDE_LIPSTICK(30, "blonde_lipstick", ReefRarities.RARE, null),
-        WHITETAIL_BRISTLETOOTH(31, "whitetail_bristletooth", ReefRarities.UNCOMMON, null),
-        ZEBRA(32, "zebra", ReefRarities.RARE, null);
+        BLUE(1, "blue", COMMON, null),
+        POWDER_BLUE(2, "powder_blue", COMMON, null),
+        YELLOW(3, "yellow", COMMON, null),
+        UNICORN(4, "unicorn", UNCOMMON, null),
+        CONVICT(5, "convict", COMMON, null),
+        CLOWN(6, "clown", COMMON, null),
+        ACHILLES(7, "achilles", COMMON, null),
+        PURPLE(8, "purple", UNCOMMON, null),
+        BLACK(9, "black", RARE, null),
+        REGAL_BLUE(10, "regal_blue", RARE, null),
+        GEM(11, "gem", RARE, null),
+        PENGUIN(12, "penguin", ABERRANT, null),
+        GREEN_SPOT(13, "green_spot", ABERRANT, null),
+        RUSTY(14, "rusty", ABERRANT, null),
+        PEARLY(15, "pearly", ABERRANT, null),
+        YELLOWBELLY_BLUE(16, "yellowbelly_blue", ABERRANT, null),
+        MUDDY(17, "muddy", ABERRANT, null),
+        CHOCOLATE(18, "chocolate", UNCOMMON, null),
+        SAILFIN(19, "sailfin", COMMON, null),
+        ATLANTIC_BLUE(20, "atlantic_blue", COMMON, null),
+        EYESTRIPE(21, "eyestripe", COMMON, null),
+        WHITE_CHEEK(22, "white_cheek", UNCOMMON, null),
+        SCOPAS(23, "scopas", COMMON, null),
+        GOTH(24, "goth", ABERRANT, null),
+        POWDER_BLUE_HYBRID(25, "powder_blue_hybrid", ABERRANT, null),
+        PASTEL_BLUE(26, "pastel_blue", ABERRANT, null),
+        YELLOWSTRIKE(27, "yellowstrike", ABERRANT, null),
+        BLACK_SURGEON(28, "black_surgeon", RARE, null),
+        ORANGEBAND(29, "orangeband", UNCOMMON, null),
+        BLONDE_LIPSTICK(30, "blonde_lipstick", RARE, null),
+        WHITETAIL_BRISTLETOOTH(31, "whitetail_bristletooth", UNCOMMON, null),
+        ZEBRA(32, "zebra", RARE, null);
 
         private final int variant;
         private final String name;
@@ -160,8 +162,28 @@ public class Tang extends VariantSchoolingFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = TangVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(TangVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof TangData) {
+            variant = ((TangData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new TangData(variant);
+            }
+        }
         this.setVariant(TangVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class TangData implements SpawnGroupData {
+        public final int variantData;
+
+        public TangData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

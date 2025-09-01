@@ -27,11 +27,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Seahorse extends ReefMob {
 
     public Seahorse(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -47,7 +49,7 @@ public class Seahorse extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1D, 50, 10, 10, 2));
+        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1, 50, 10, 10, 2));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }
@@ -63,17 +65,22 @@ public class Seahorse extends ReefMob {
         return SeahorseVariant.values().length;
     }
 
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+    }
+
     public enum SeahorseVariant implements StringRepresentable {
-        KELP(1, "kelp", ReefRarities.COMMON, null),
-        COBALT(2, "cobalt", ReefRarities.COMMON, null),
-        GOLD(3, "gold", ReefRarities.COMMON, null),
-        AMBER(4, "amber", ReefRarities.COMMON, null),
-        SILVER(5, "silver", ReefRarities.COMMON, null),
-        GARNET(6, "garnet", ReefRarities.COMMON, null),
-        RUBY(7, "ruby", ReefRarities.COMMON, null),
-        SPINEL(8, "spinel", ReefRarities.COMMON, null),
-        CHERT(9, "chert", ReefRarities.COMMON, null),
-        ONYX(10, "onyx", ReefRarities.COMMON, null);
+        KELP(1, "kelp", COMMON, null),
+        COBALT(2, "cobalt", COMMON, null),
+        GOLD(3, "gold", UNCOMMON, null),
+        AMBER(4, "amber", COMMON, null),
+        SILVER(5, "silver", COMMON, null),
+        GARNET(6, "garnet", COMMON, null),
+        RUBY(7, "ruby", COMMON, null),
+        SPINEL(8, "spinel", COMMON, null),
+        CHERT(9, "chert", COMMON, null),
+        ONYX(10, "onyx", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -96,7 +103,7 @@ public class Seahorse extends ReefMob {
         }
 
         public static SeahorseVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<SeahorseVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<SeahorseVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -127,8 +134,28 @@ public class Seahorse extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = SeahorseVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(SeahorseVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof SeahorseData) {
+            variant = ((SeahorseData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new SeahorseData(variant);
+            }
+        }
         this.setVariant(SeahorseVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class SeahorseData implements SpawnGroupData {
+        public final int variantData;
+
+        public SeahorseData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

@@ -54,9 +54,18 @@ public class RainbowReef {
         ExistingFileHelper helper = data.getExistingFileHelper();
 
         boolean server = data.includeServer();
+        ReefDatapackBuiltinEntriesProvider datapackEntries = new ReefDatapackBuiltinEntriesProvider(output, provider);
+        generator.addProvider(server, datapackEntries);
+        provider = datapackEntries.getRegistryProvider();
+        generator.addProvider(server, new ReefBiomeTagProvider(output, provider, helper));
 
         boolean client = data.includeClient();
+        generator.addProvider(client, new ReefItemModelProvider(data));
         generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
 //        generator.addProvider(client, new ReefLanguageProvider(data));
+    }
+
+    public static ResourceLocation modPrefix(String name) {
+        return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
     }
 }

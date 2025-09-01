@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/boxfish",
+  "spawners": {
+    "type": "rainbowreef:boxfish",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 20
+  }
+}

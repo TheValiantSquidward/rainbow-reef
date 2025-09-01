@@ -13,6 +13,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimatio
 import net.thevaliantsquidward.rainbowreef.entity.MoorishIdol;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class MoorishIdolModel extends HierarchicalModel<MoorishIdol> {
 
 	private final ModelPart root;
@@ -83,11 +84,9 @@ public class MoorishIdolModel extends HierarchicalModel<MoorishIdol> {
 	@Override
 	public void setupAnim(MoorishIdol entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
 		this.animate(entity.swimAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
-		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

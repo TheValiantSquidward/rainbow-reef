@@ -13,6 +13,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimatio
 import net.thevaliantsquidward.rainbowreef.entity.Billfish;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class BillfishModel extends HierarchicalModel<Billfish> {
 
 	private final ModelPart Root;

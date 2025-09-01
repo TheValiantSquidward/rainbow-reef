@@ -32,18 +32,20 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Goby extends ReefMob {
 
     public Goby(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, Integer.MAX_VALUE);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 0.9F)
                 .build();
     }
 
@@ -52,7 +54,7 @@ public class Goby extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 0.8D, 75, 5, 10, 0.01));
+        this.goalSelector.addGoal(3, new GroundseekingRandomSwimGoal(this, 1, 75, 5, 10, 0.01));
     }
 
     @Override
@@ -67,22 +69,22 @@ public class Goby extends ReefMob {
     }
 
     public enum GobyVariant implements StringRepresentable {
-        FIRE(1, "fire", ReefRarities.COMMON, null),
-        PURPLE_FIRE(2, "purple_fire", ReefRarities.UNCOMMON, null),
-        CANDYCANE(3, "candycane", ReefRarities.UNCOMMON, null),
-        MANDARIN(4, "mandarin", ReefRarities.COMMON, null),
-        YELLOW_WATCHMAN(5, "yellow_watchman", ReefRarities.COMMON, null),
-        CATALINA(6, "catalina", ReefRarities.COMMON, null),
-        BLACK_RAY(7, "black_ray", ReefRarities.COMMON, null),
-        HELFRICHI(8, "helfrichi", ReefRarities.COMMON, null),
-        BLUE_NEON(9, "blue_neon", ReefRarities.UNCOMMON, null),
-        YELLOW_NEON(10, "yellow_neon", ReefRarities.UNCOMMON, null),
-        NEON_HYBRID(11, "neon_hybrid", ReefRarities.RARE, null),
-        BLUESTREAK(12, "bluestreak", ReefRarities.COMMON, null),
-        LEOPARD_SPOTTED(13, "leopard_spotted", ReefRarities.COMMON, null),
-        YELLOW_CLOWN(14, "yellow_clown", ReefRarities.COMMON, null),
-        DRACULA(15, "dracula", ReefRarities.RARE, null),
-        BLACKFIN(16, "blackfin", ReefRarities.COMMON, null);
+        FIRE(1, "fire", COMMON, null),
+        PURPLE_FIRE(2, "purple_fire", UNCOMMON, null),
+        CANDYCANE(3, "candycane", UNCOMMON, null),
+        MANDARIN(4, "mandarin", COMMON, null),
+        YELLOW_WATCHMAN(5, "yellow_watchman", COMMON, null),
+        CATALINA(6, "catalina", COMMON, null),
+        BLACK_RAY(7, "black_ray", COMMON, null),
+        HELFRICHI(8, "helfrichi", COMMON, null),
+        BLUE_NEON(9, "blue_neon", UNCOMMON, null),
+        YELLOW_NEON(10, "yellow_neon", UNCOMMON, null),
+        NEON_HYBRID(11, "neon_hybrid", RARE, null),
+        BLUESTREAK(12, "bluestreak", COMMON, null),
+        LEOPARD_SPOTTED(13, "leopard_spotted", COMMON, null),
+        YELLOW_CLOWN(14, "yellow_clown", COMMON, null),
+        DRACULA(15, "dracula", RARE, null),
+        BLACKFIN(16, "blackfin", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -105,7 +107,7 @@ public class Goby extends ReefMob {
         }
 
         public static GobyVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<GobyVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<GobyVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -136,13 +138,34 @@ public class Goby extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        int variant = GobyVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+
         LocalDate currentDate = LocalDate.now();
         if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
-            this.setVariant(GobyVariant.DRACULA.getVariant());
-        } else {
-            int variant = GobyVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-            this.setVariant(GobyVariant.getVariantId(variant).getVariant());
+            variant = GobyVariant.DRACULA.getVariant();
         }
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(GobyVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof GobyData) {
+            variant = ((GobyData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new GobyData(variant);
+            }
+        }
+        this.setVariant(GobyVariant.getVariantId(variant).getVariant());
+        return spawnData;
+    }
+
+    static class GobyData implements SpawnGroupData {
+        public final int variantData;
+
+        public GobyData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

@@ -84,11 +84,9 @@ public class ButterflyfishModel extends HierarchicalModel<Butterflyfish> {
 	@Override
 	public void setupAnim(Butterflyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));
-
-		this.animate(entity.swimAnimationState, ButterfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
-		this.animate(entity.flopAnimationState, ButterfishAnimations.FLOP, ageInTicks, 1);
+		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.animate(entity.swimAnimationState, ButterfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
+		this.animate(entity.flopAnimationState, ButterfishAnimations.FLOP, ageInTicks);
 	}
 
 	@Override

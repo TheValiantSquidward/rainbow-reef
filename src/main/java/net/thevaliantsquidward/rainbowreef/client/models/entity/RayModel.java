@@ -76,8 +76,8 @@ public class RayModel extends HierarchicalModel<Ray> {
 	public void setupAnim(Ray entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, EagleRayAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
-		this.animate(entity.flopAnimationState, EagleRayAnimations.FLOP, ageInTicks, 1.0F);
+		this.animate(entity.swimAnimationState, EagleRayAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
+		this.animate(entity.flopAnimationState, EagleRayAnimations.FLOP, ageInTicks);
 
 		if (entity.isInWaterOrBubble()) {
 			this.tail.yRot = this.tail.yRot - ((float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1));
@@ -91,7 +91,7 @@ public class RayModel extends HierarchicalModel<Ray> {
 			entity.tailKinematics.getCurrentTailYaws()[3] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[3], entity.tailKinematics.getTailYaws()[3], 0.1);
 			entity.tailKinematics.getCurrentTailYaws()[4] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[4], entity.tailKinematics.getTailYaws()[4], 0.1);
 
-			this.body.xRot = (headPitch * (Mth.DEG_TO_RAD));
+			this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
 
 			this.tail.xRot = -((float) (this.tail.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[0], (float) entity.tailKinematics.getTailPitches()[0], 0.1)));
 			this.tail_tip.xRot = -((float) (this.tail_tip.xRot + MathHelpers.LerpDegrees((float) entity.tailKinematics.getCurrentTailPitches()[1], (float) entity.tailKinematics.getTailPitches()[1], 0.1)));

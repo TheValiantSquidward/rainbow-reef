@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/angelfish",
+  "spawners": {
+    "type": "rainbowreef:angelfish",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 10
+  }
+}

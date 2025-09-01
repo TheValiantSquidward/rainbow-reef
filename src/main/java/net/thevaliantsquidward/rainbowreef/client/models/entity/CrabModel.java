@@ -2,18 +2,18 @@ package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.CrabAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Crab;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class CrabModel<T extends Crab> extends ReefModel<T> {
+public class CrabModel extends HierarchicalModel<Crab> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -87,16 +87,14 @@ public class CrabModel<T extends Crab> extends ReefModel<T> {
 	@Override
 	public void setupAnim(Crab entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		animateWalk(CrabAnimations.WALK, limbSwing, limbSwingAmount, 3.0f, 3.5f);
-
-		this.animateIdle(entity.idleAnimationState, CrabAnimations.IDLE, ageInTicks, 1.0f, 1 - Math.abs(limbSwingAmount));
-		this.animate(entity.danceAnimationState, CrabAnimations.DANCE, ageInTicks, 1.0f);
+		animateWalk(CrabAnimations.WALK, limbSwing, limbSwingAmount, 2, 4);
+		this.animate(entity.idleAnimationState, CrabAnimations.IDLE, ageInTicks);
+		this.animate(entity.danceAnimationState, CrabAnimations.DANCE, ageInTicks);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override

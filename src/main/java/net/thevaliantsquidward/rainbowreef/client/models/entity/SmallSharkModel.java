@@ -1,6 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HierarchicalModel;
@@ -11,11 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.SmallSharkAnimations;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.SmallShark;
-import net.thevaliantsquidward.rainbowreef.utils.MathHelpers;
-
-import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
@@ -75,25 +70,30 @@ public class SmallSharkModel extends HierarchicalModel<SmallShark> {
 	public void setupAnim(SmallShark entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
+		float prevOnLandProgress = entity.prevOnLandProgress;
+		float onLandProgress = entity.onLandProgress;
+		float partialTicks = ageInTicks - entity.tickCount;
+		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
+
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.core.y -= landProgress * ((float) Math.toRadians(-90) / 5F);
 
-		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 7.0F);
+		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 
-		if (entity.isInWaterOrBubble()) {
-			this.tail.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1))));
-			this.tail_fin.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[1], entity.tailKinematics.getTailYaws()[1], 0.1))));
-			entity.tailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1);
-			entity.tailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[1], entity.tailKinematics.getTailYaws()[1], 0.1);
+//		if (entity.isInWaterOrBubble()) {
+//			this.tail.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1))));
+//			this.tail_fin.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[1], entity.tailKinematics.getTailYaws()[1], 0.1))));
+//			entity.tailKinematics.getCurrentTailYaws()[0] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1);
+//			entity.tailKinematics.getCurrentTailYaws()[1] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[1], entity.tailKinematics.getTailYaws()[1], 0.1);
+//
+//			this.tail.xRot = this.tail.xRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[0], entity.tailKinematics.getTailPitches()[0], 0.1))));
+//			this.tail_fin.xRot = this.tail_fin.xRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[1], entity.tailKinematics.getTailPitches()[1], 0.1))));
+//			entity.tailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[0], entity.tailKinematics.getTailPitches()[0], 0.1);
+//			entity.tailKinematics.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[1], entity.tailKinematics.getTailPitches()[1], 0.1);
+//		}
 
-			this.tail.xRot = this.tail.xRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[0], entity.tailKinematics.getTailPitches()[0], 0.1))));
-			this.tail_fin.xRot = this.tail_fin.xRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[1], entity.tailKinematics.getTailPitches()[1], 0.1))));
-			entity.tailKinematics.getCurrentTailPitches()[0] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[0], entity.tailKinematics.getTailPitches()[0], 0.1);
-			entity.tailKinematics.getCurrentTailPitches()[1] = (float) MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailPitches()[1], entity.tailKinematics.getTailPitches()[1], 0.1);
-		}
-	}
-
-	public List<ModelPart> getAllParts() {
-		return ImmutableList.of(this.root, this.core, this.body, this.top_fin, this.l_fin, this.r_fin, this.tailRot, this.tail, this.tail_l_fin, this.tail_r_fin, this.tailFinRot, this.tail_fin);
+		this.tailRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 1.5F);
+		this.tailFinRot.yRot = -(entity.tilt * (Mth.DEG_TO_RAD) / 1.5F);
 	}
 
 	@Override

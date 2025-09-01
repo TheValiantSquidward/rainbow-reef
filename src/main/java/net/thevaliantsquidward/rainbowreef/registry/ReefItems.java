@@ -47,6 +47,12 @@ public class ReefItems {
     public static final RegistryObject<Item> SMALL_SHARK_SPAWN_EGG = ITEMS.register("small_shark_spawn_egg",
             () -> new ForgeSpawnEggItem(ReefEntities.SMALL_SHARK, 0xe0a33b, 0xa35a1d, new Item.Properties()));
 
+    public static final RegistryObject<Item> SHARK_SPAWN_EGG = ITEMS.register("shark_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.SHARK, 0x686963, 0xb0a5a2, new Item.Properties()));
+
+    public static final RegistryObject<Item> LARGE_SHARK_SPAWN_EGG = ITEMS.register("large_shark_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.LARGE_SHARK, 0x564637, 0xacaba3, new Item.Properties()));
+
     public static final RegistryObject<Item> CLOWNFISH_SPAWN_EGG = ITEMS.register("clownfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ReefEntities.CLOWNFISH, 0xe55500, 0xe69d7d, new Item.Properties()));
 
@@ -75,7 +81,7 @@ public class ReefItems {
             () -> new ForgeSpawnEggItem(ReefEntities.JELLYFISH, 0xf6b7dd, 0xef8298, new Item.Properties()));
 
     public static final RegistryObject<Item> CLAW_DISC = ITEMS.register("claw_disc",
-            () -> new RecordItem(2, ReefSoundEvents.CLAW, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2240));
+            () -> new RecordItem(2, ReefSoundEvents.CLAW_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2240));
 
     // Buckets
     public static final RegistryObject<Item> GOBY_BUCKET = ITEMS.register("goby_bucket", () -> new ReefFishBucketItem(ReefEntities.GOBY, new Item.Properties()));

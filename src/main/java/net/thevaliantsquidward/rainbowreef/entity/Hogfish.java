@@ -31,11 +31,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Hogfish extends ReefMob {
 
     public Hogfish(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, 400);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -51,8 +53,8 @@ public class Hogfish extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 40, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 1));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 40, 500, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 10));
     }
 
     @Override
@@ -67,11 +69,11 @@ public class Hogfish extends ReefMob {
     }
 
     public enum HogfishVariant implements StringRepresentable {
-        CUBAN(1, "cuban", ReefRarities.COMMON, null),
-        SPANISH(2, "spanish", ReefRarities.COMMON, null),
-        PEPPERMINT(3, "peppermint", ReefRarities.UNCOMMON, null),
-        LYRETAIL(4, "lyretail", ReefRarities.COMMON, null),
-        CORAL(5, "coral", ReefRarities.UNCOMMON, null);
+        CUBAN(1, "cuban", COMMON, null),
+        SPANISH(2, "spanish", COMMON, null),
+        PEPPERMINT(3, "peppermint", UNCOMMON, null),
+        LYRETAIL(4, "lyretail", COMMON, null),
+        CORAL(5, "coral", UNCOMMON, null);
 
         private final int variant;
         private final String name;
@@ -94,7 +96,7 @@ public class Hogfish extends ReefMob {
         }
 
         public static HogfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<HogfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<HogfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -125,8 +127,28 @@ public class Hogfish extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = HogfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        this.setVariant(HogfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(HogfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof HogfishData) {
+            variant = ((HogfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new HogfishData(variant);
+            }
+        }
+        this.setVariant(Butterflyfish.ButterflyfishVariant.getVariantId(variant).getVariant());
+        return spawnData;
+    }
+
+    static class HogfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public HogfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

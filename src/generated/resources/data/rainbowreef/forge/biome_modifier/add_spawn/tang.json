@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/tang",
+  "spawners": {
+    "type": "rainbowreef:tang",
+    "maxCount": 20,
+    "minCount": 20,
+    "weight": 40
+  }
+}

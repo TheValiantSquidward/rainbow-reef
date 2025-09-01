@@ -25,14 +25,13 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
     private static final EntityDataAccessor<Integer> JY = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> JZ = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.INT);
 
-    private BlockPos jukeboxPosition;
     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
     private final VibrationSystem.User vibrationUser;
 
-    public DancingEntity(EntityType<? extends ReefMob> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, 260);
+    public DancingEntity(EntityType<? extends ReefMob> entityType, Level level) {
+        super(entityType, level);
         this.vibrationUser = new VibrationUser();
-        this.dynamicJukeboxListener = new DynamicGameEventListener(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
+        this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
     }
 
     public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> pListenerConsumer) {
@@ -120,7 +119,6 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
     }
 
     class VibrationUser implements VibrationSystem.User {
-        private static final int VIBRATION_EVENT_LISTENER_RANGE = 16;
         private final PositionSource positionSource = new EntityPositionSource(DancingEntity.this, DancingEntity.this.getEyeHeight());
 
         VibrationUser() {

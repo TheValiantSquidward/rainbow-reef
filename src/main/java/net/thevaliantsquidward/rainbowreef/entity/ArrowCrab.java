@@ -30,8 +30,8 @@ public class ArrowCrab extends Crab implements DancesToJukebox {
     public final net.minecraft.world.entity.AnimationState danceAnimationState = new net.minecraft.world.entity.AnimationState();
     public final net.minecraft.world.entity.AnimationState walkAnimationState = new net.minecraft.world.entity.AnimationState();
 
-    public ArrowCrab(EntityType<? extends DancingEntity> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+    public ArrowCrab(EntityType<? extends DancingEntity> entityType, Level level) {
+        super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
         this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
     }

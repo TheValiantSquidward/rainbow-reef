@@ -22,6 +22,7 @@ public class ReefModelLayers {
     public static final ModelLayerLocation GOBY = main("goby");
     public static final ModelLayerLocation HOGFISH = main("hogfish");
     public static final ModelLayerLocation JELLYFISH = main("jellyfish");
+    public static final ModelLayerLocation LARGE_SHARK = main("large_shark");
     public static final ModelLayerLocation LIONFISH = main("lionfish");
     public static final ModelLayerLocation MAHI_MAHI = main("mahi_mahi");
     public static final ModelLayerLocation MAORI_WRASSE = main("maori_wrasse");
@@ -30,6 +31,7 @@ public class ReefModelLayers {
     public static final ModelLayerLocation PIPEFISH = main("pipefish");
     public static final ModelLayerLocation RAY = main("ray");
     public static final ModelLayerLocation SEAHORSE = main("seahorse");
+    public static final ModelLayerLocation SHARK = main("shark");
     public static final ModelLayerLocation SMALL_SHARK = main("small_shark");
     public static final ModelLayerLocation TANG = main("tang");
 

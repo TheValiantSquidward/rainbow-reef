@@ -37,13 +37,15 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class SmallShark extends ReefMob {
 
     public IKSolver tailKinematics;
 
     public SmallShark(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, 400);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
         this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
     }
@@ -60,8 +62,13 @@ public class SmallShark extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 40, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 40, 600, ReefTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
+    }
+
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+        return size.height * 0.5F;
     }
 
     @Override
@@ -71,9 +78,21 @@ public class SmallShark extends ReefMob {
     }
 
     @Override
+    public void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
+    }
+
+    @Override
+    public float flopChance() {
+        return 0.1F;
+    }
+
+    @Override
     public void travel(Vec3 travelVector) {
         if (this.isEyeInFluid(FluidTags.WATER) && !this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.008, 0.0));
+            if (!this.isPathFinding()) {
+                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
+            }
         }
         super.travel(travelVector);
     }
@@ -95,14 +114,14 @@ public class SmallShark extends ReefMob {
     }
 
     public enum SmallSharkVariant implements StringRepresentable {
-        EPAULETTE(1, "epaulette", ReefRarities.COMMON, null),
-        PAJAMA(2, "pajama", ReefRarities.COMMON, null),
-        HORNED(3, "horned", ReefRarities.COMMON, null),
-        NURSE(4, "nurse", ReefRarities.COMMON, null),
-        ZEBRA(5, "zebra", ReefRarities.COMMON, null),
-        ALBINO(6, "albino", ReefRarities.COMMON, null),
-        PIEBALD(7, "piebald", ReefRarities.COMMON, null),
-        PORT_JACKSON(8, "port_jackson", ReefRarities.COMMON, null);
+        EPAULETTE(1, "epaulette", COMMON, null),
+        PAJAMA(2, "pajama", UNCOMMON, null),
+        HORNED(3, "horned", COMMON, null),
+        NURSE(4, "nurse", COMMON, null),
+        ZEBRA(5, "zebra", COMMON, null),
+        ALBINO(6, "albino", ABERRANT, null),
+        PIEBALD(7, "piebald", ABERRANT, null),
+        PORT_JACKSON(8, "port_jackson", RARE, null);
 
         private final int variant;
         private final String name;
@@ -156,8 +175,28 @@ public class SmallShark extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = SmallSharkVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(SmallSharkVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof SmallSharkData) {
+            variant = ((SmallSharkData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new SmallSharkData(variant);
+            }
+        }
         this.setVariant(SmallSharkVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class SmallSharkData implements SpawnGroupData {
+        public final int variantData;
+
+        public SmallSharkData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

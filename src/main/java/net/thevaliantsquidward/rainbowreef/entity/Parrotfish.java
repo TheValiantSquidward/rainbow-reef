@@ -34,13 +34,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Parrotfish extends VariantSchoolingFish {
 
     public final AnimationState eepyAnimationState = new AnimationState();
 
     public Parrotfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -56,8 +58,8 @@ public class Parrotfish extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, ReefTags.PARROTFISH_DIET));
-        this.goalSelector.addGoal(4, new RandomSleepySwimGoal(this, 1, 1));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, 800, ReefTags.PARROTFISH_DIET));
+        this.goalSelector.addGoal(4, new RandomSleepySwimGoal(this, 1, 10));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
         this.goalSelector.addGoal(6, new RandomSleepyLookaroundGoal(this));
     }
@@ -90,18 +92,18 @@ public class Parrotfish extends VariantSchoolingFish {
     }
 
     public enum ParrotfishVariant implements StringRepresentable {
-        BLUE(1, "blue", ReefRarities.COMMON, null),
-        HUMPHEAD(2, "humphead", ReefRarities.COMMON, null),
-        RAINBOW(3, "rainbow", ReefRarities.COMMON, null),
-        MIDNIGHT(4, "midnight", ReefRarities.COMMON, null),
-        STOPLIGHT(5, "stoplight", ReefRarities.COMMON, null),
-        MEDITERRANEAN(6, "mediterranean", ReefRarities.COMMON, null),
-        PRINCESS(7, "princess", ReefRarities.COMMON, null),
-        YELLOWTAIL(8, "yellowtail", ReefRarities.COMMON, null),
-        BLUE_BUMPHEAD(9, "blue_bumphead", ReefRarities.COMMON, null),
-        RED(10, "red", ReefRarities.COMMON, null),
-        YELLOWBAND(11, "yellowband", ReefRarities.COMMON, null),
-        OBISHIME(12, "obishime", ReefRarities.COMMON, null);
+        BLUE(1, "blue", COMMON, null),
+        HUMPHEAD(2, "humphead", COMMON, null),
+        RAINBOW(3, "rainbow", COMMON, null),
+        MIDNIGHT(4, "midnight", COMMON, null),
+        STOPLIGHT(5, "stoplight", COMMON, null),
+        MEDITERRANEAN(6, "mediterranean", UNCOMMON, null),
+        PRINCESS(7, "princess", UNCOMMON, null),
+        YELLOWTAIL(8, "yellowtail", COMMON, null),
+        BLUE_BUMPHEAD(9, "blue_bumphead", RARE, null),
+        RED(10, "red", UNCOMMON, null),
+        YELLOWBAND(11, "yellowband", UNCOMMON, null),
+        OBISHIME(12, "obishime", RARE, null);
 
         private final int variant;
         private final String name;
@@ -124,7 +126,7 @@ public class Parrotfish extends VariantSchoolingFish {
         }
 
         public static ParrotfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<ParrotfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<ParrotfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -155,8 +157,28 @@ public class Parrotfish extends VariantSchoolingFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = ParrotfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(ParrotfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof ParrotfishData) {
+            variant = ((ParrotfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new ParrotfishData(variant);
+            }
+        }
         this.setVariant(ParrotfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class ParrotfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public ParrotfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

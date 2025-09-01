@@ -9,8 +9,7 @@ import javax.annotation.Nullable;
 
 public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
-    PathfinderMob fims;
-    Vec3 wantedPos;
+    private final PathfinderMob mob;
 
     int radius;
     int height;
@@ -18,9 +17,9 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     boolean preferCrevices;
 
-    public CustomizableRandomSwimGoal(PathfinderMob fi, double spdmultiplier, int interval, int radius, int height, int proximity, boolean preferCrevices) {
-        super(fi, spdmultiplier, interval);
-        this.fims = fi;
+    public CustomizableRandomSwimGoal(PathfinderMob mob, double speedMultiplier, int interval, int radius, int height, int proximity, boolean preferCrevices) {
+        super(mob, speedMultiplier, interval);
+        this.mob = mob;
         this.radius = radius;
         this.height = height;
         this.prox = proximity;
@@ -29,33 +28,19 @@ public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        return super.canUse() && fims.isInWater();
+        return super.canUse() && mob.isInWater();
     }
 
+    // second part cancels the goal if the animal gets close enough
     @Override
     public boolean canContinueToUse() {
-        wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        return super.canContinueToUse() && fims.isInWater() && !(this.wantedPos.distanceTo(this.fims.position()) <= this.fims.getBbWidth() * prox);
-        //second part cancels the goal if the animal gets close enough
+        Vec3 wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
+        return super.canContinueToUse() && mob.isInWater() && !(wantedPos.distanceTo(this.mob.position()) <= this.mob.getBbWidth() * prox);
     }
 
-    @Override
-    public void tick() {
-    }
-
-    @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
-    public void stop() {
-        super.stop();
-    }
-
+    // previously 32 and 12
     @Nullable
     protected Vec3 getPosition() {
         return GoalUtils.getRandomSwimmablePosThatIsntTheSameDepth(this.mob, radius, height, this.preferCrevices);
     }
-    //previously 32 and 12
 }

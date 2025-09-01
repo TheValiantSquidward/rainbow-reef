@@ -14,6 +14,7 @@ import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimatio
 import net.thevaliantsquidward.rainbowreef.entity.MaoriWrasse;
 
 @OnlyIn(Dist.CLIENT)
+@SuppressWarnings("FieldCanBeLocal, unused")
 public class MaoriWrasseModel extends HierarchicalModel<MaoriWrasse> {
 
 	private final ModelPart Root;
@@ -73,9 +74,9 @@ public class MaoriWrasseModel extends HierarchicalModel<MaoriWrasse> {
 	@Override
 	public void setupAnim(MaoriWrasse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks, 1);
+		this.animate(entity.flopAnimationState, MoorishIdolAnimations.FLOP, ageInTicks);
 		this.animate(entity.swimAnimationState, MaoriWrasseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
-		this.Core.xRot = (headPitch * (Mth.DEG_TO_RAD));
+		this.Root.xRot = (headPitch * (Mth.DEG_TO_RAD));
 	}
 
 	@Override

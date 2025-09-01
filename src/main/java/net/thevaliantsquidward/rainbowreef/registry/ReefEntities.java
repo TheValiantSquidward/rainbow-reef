@@ -61,9 +61,25 @@ public class ReefEntities {
     public static final RegistryObject<EntityType<SmallShark>> SMALL_SHARK = ENTITY_TYPES.register(
             "small_shark", () ->
             EntityType.Builder.of(SmallShark::new, MobCategory.WATER_AMBIENT)
-                    .sized(0.7F, 0.7F)
+                    .sized(0.5F, 0.5F)
                     .clientTrackingRange(10)
                     .build(new ResourceLocation(RainbowReef.MOD_ID, "small_shark").toString())
+    );
+
+    public static final RegistryObject<EntityType<Shark>> SHARK = ENTITY_TYPES.register(
+            "shark", () ->
+            EntityType.Builder.of(Shark::new, MobCategory.WATER_CREATURE)
+                    .sized(1.25F, 1.0F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "shark").toString())
+    );
+
+    public static final RegistryObject<EntityType<LargeShark>> LARGE_SHARK = ENTITY_TYPES.register(
+            "large_shark", () ->
+                    EntityType.Builder.of(LargeShark::new, MobCategory.WATER_CREATURE)
+                            .sized(1.3F, 1.2F)
+                            .clientTrackingRange(10)
+                            .build(new ResourceLocation(RainbowReef.MOD_ID, "large_shark").toString())
     );
 
     public static final RegistryObject<EntityType<Clownfish>> CLOWNFISH = ENTITY_TYPES.register(
@@ -118,12 +134,13 @@ public class ReefEntities {
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "basslet").toString()));
 
-    public static final RegistryObject<EntityType<Pipefish>> PIPEFISH =
-            ENTITY_TYPES.register("pipefish",
-                    () -> EntityType.Builder.of(Pipefish::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.5f, 0.5f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "pipefish").toString()));
+    public static final RegistryObject<EntityType<Pipefish>> PIPEFISH = ENTITY_TYPES.register(
+            "pipefish", () ->
+            EntityType.Builder.of(Pipefish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.35F, 0.35F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "pipefish").toString())
+    );
 
     public static final RegistryObject<EntityType<Parrotfish>> PARROTFISH =
             ENTITY_TYPES.register("parrotfish",

@@ -30,11 +30,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Angelfish extends VariantSchoolingFish {
 
     public Angelfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 300);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -50,8 +52,8 @@ public class Angelfish extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 20, ReefTags.ANGELFISH_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 20, 300, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
@@ -72,22 +74,22 @@ public class Angelfish extends VariantSchoolingFish {
     }
 
     public enum AngelfishVariant implements StringRepresentable {
-        QUEEN(1,  "queen", ReefRarities.COMMON, null),
-        FRENCH(2, "french", ReefRarities.UNCOMMON, null),
-        EMPEROR(3, "emperor", ReefRarities.UNCOMMON, null),
-        YELLOWBAND(4, "yellowband", ReefRarities.COMMON, null),
-        BLUERING(5, "bluering", ReefRarities.COMMON, null),
-        ROCK_BEAUTY(6, "rock_beauty", ReefRarities.RARE, null),
-        BLUE_QUEEN(7, "blue_queen", ReefRarities.RARE, null),
-        MAJESTIC(8, "majestic", ReefRarities.UNCOMMON, null),
-        KING(9, "king", ReefRarities.RARE, null),
-        SEMICIRCLE(10, "semicircle", ReefRarities.COMMON, null),
-        BANDED(11, "banded", ReefRarities.COMMON, null),
-        GRAY(12, "gray", ReefRarities.COMMON, null),
-        OLD_WOMAN(13, "old_woman", ReefRarities.COMMON, null),
-        GUINEAN(14, "guinean", ReefRarities.COMMON, null),
-        QUEENSLAND_YELLOWTAIL(15, "queensland_yellowtail", ReefRarities.COMMON, null),
-        CLARION(16, "clarion", ReefRarities.UNCOMMON, null);
+        QUEEN(1,  "queen", COMMON, null),
+        FRENCH(2, "french", UNCOMMON, null),
+        EMPEROR(3, "emperor", UNCOMMON, null),
+        YELLOWBAND(4, "yellowband", COMMON, null),
+        BLUERING(5, "bluering", COMMON, null),
+        ROCK_BEAUTY(6, "rock_beauty", RARE, null),
+        BLUE_QUEEN(7, "blue_queen", RARE, null),
+        MAJESTIC(8, "majestic", UNCOMMON, null),
+        KING(9, "king", RARE, null),
+        SEMICIRCLE(10, "semicircle", COMMON, null),
+        BANDED(11, "banded", COMMON, null),
+        GRAY(12, "gray", COMMON, null),
+        OLD_WOMAN(13, "old_woman", COMMON, null),
+        GUINEAN(14, "guinean", COMMON, null),
+        QUEENSLAND_YELLOWTAIL(15, "queensland_yellowtail", COMMON, null),
+        CLARION(16, "clarion", UNCOMMON, null);
 
         private final int variant;
         private final String name;
@@ -110,7 +112,7 @@ public class Angelfish extends VariantSchoolingFish {
         }
 
         public static AngelfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<AngelfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<AngelfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -133,7 +135,8 @@ public class Angelfish extends VariantSchoolingFish {
         }
 
         @Override
-        public @NotNull String getSerializedName() {
+        @NotNull
+        public String getSerializedName() {
             return this.name;
         }
     }
@@ -141,8 +144,28 @@ public class Angelfish extends VariantSchoolingFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = AngelfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(AngelfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof AngelfishData) {
+            variant = ((AngelfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new AngelfishData(variant);
+            }
+        }
         this.setVariant(AngelfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class AngelfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public AngelfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

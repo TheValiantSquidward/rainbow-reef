@@ -9,6 +9,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 public class AdvancedWaterboundPathNavigation extends PathNavigation {
+
     private boolean allowBreaching;
     private boolean preferCrevices;
 
@@ -27,10 +28,10 @@ public class AdvancedWaterboundPathNavigation extends PathNavigation {
         }
     }
 
-    protected @NotNull PathFinder createPathFinder(int pMaxVisitedNodes) {
-        //System.out.println("create " + this.preferCrevices);
+    @Override
+    protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
         this.nodeEvaluator = new AdvancedSwimNodeEvaluator(this.allowBreaching, this.preferCrevices);
-        return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
+        return new PathFinder(this.nodeEvaluator, maxVisitedNodes);
     }
 
     public void setPreferCrevices(boolean preferCrevices) {
@@ -41,26 +42,32 @@ public class AdvancedWaterboundPathNavigation extends PathNavigation {
         this.allowBreaching = allowBreaching;
     }
 
+    @Override
     protected boolean canUpdatePath() {
         return this.allowBreaching || this.isInLiquid();
     }
 
+    @Override
     protected @NotNull Vec3 getTempMobPos() {
         return new Vec3(this.mob.getX(), this.mob.getY(0.5D), this.mob.getZ());
     }
 
+    @Override
     protected double getGroundY(Vec3 vec3) {
         return vec3.y;
     }
 
+    @Override
     protected boolean canMoveDirectly(Vec3 vec3, Vec3 vec31) {
         return isClearForMovementBetween(this.mob, vec3, vec31, false);
     }
 
-    public boolean isStableDestination(BlockPos pPos) {
-        return !this.level.getBlockState(pPos).isSolidRender(this.level, pPos);
+    @Override
+    public boolean isStableDestination(BlockPos pos) {
+        return !this.level.getBlockState(pos).isSolidRender(this.level, pos);
     }
 
+    @Override
     public void setCanFloat(boolean pCanSwim) {
     }
 }

@@ -33,11 +33,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class MoorishIdol extends VariantSchoolingFish {
 
     public MoorishIdol(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
-        super(entityType, level, 500);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 2, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -53,8 +55,8 @@ public class MoorishIdol extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, ReefTags.MOORISH_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 2, false));
+        this.goalSelector.addGoal(3, new FishDigGoal(this, 10, 500, ReefTags.MOORISH_DIET));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 2, false));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
@@ -75,8 +77,8 @@ public class MoorishIdol extends VariantSchoolingFish {
     }
 
     public enum MoorishIdolVariant implements StringRepresentable {
-        ZANCLUS(1, "zanclus", ReefRarities.COMMON, null),
-        SILVER(2, "silver", ReefRarities.COMMON, null);
+        ZANCLUS(1, "zanclus", COMMON, null),
+        SILVER(2, "silver", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -99,7 +101,7 @@ public class MoorishIdol extends VariantSchoolingFish {
         }
 
         public static MoorishIdolVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<MoorishIdolVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<MoorishIdolVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -130,8 +132,28 @@ public class MoorishIdol extends VariantSchoolingFish {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = MoorishIdolVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(MoorishIdolVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof MoorishIdolData) {
+            variant = ((MoorishIdolData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new MoorishIdolData(variant);
+            }
+        }
         this.setVariant(MoorishIdolVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class MoorishIdolData implements SpawnGroupData {
+        public final int variantData;
+
+        public MoorishIdolData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

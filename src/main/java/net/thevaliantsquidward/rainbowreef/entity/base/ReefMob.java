@@ -2,16 +2,14 @@ package net.thevaliantsquidward.rainbowreef.entity.base;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.Weight;
@@ -19,10 +17,7 @@ import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -36,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,6 +41,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> FEED_COOLDOWN = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
 
     public float prevTilt;
     public float tilt;
@@ -52,18 +49,13 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     public float prevOnLandProgress;
     public float onLandProgress;
 
-    public int feedColldownLimit;
-    public int feedCooldown = 0;
-
     public final AnimationState swimAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
     public SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
 
-    protected ReefMob(EntityType<? extends WaterAnimal> entityType, Level level, int feedCooldown) {
+    protected ReefMob(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
-        this.feedColldownLimit = feedCooldown;
-        this.setFeedCooldown(this.feedColldownLimit + this.getRandom().nextInt(this.feedColldownLimit));
     }
 
     @Override
@@ -86,20 +78,23 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         super.defineSynchedData();
         this.entityData.define(VARIANT, 0);
         this.entityData.define(FROM_BUCKET, false);
+        this.entityData.define(FEED_COOLDOWN, 600 + (4 * this.getRandom().nextInt(600)));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("Variant", this.getVariant());
-        compound.putBoolean("FromBucket", this.fromBucket());
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("Variant", this.getVariant());
+        compoundTag.putBoolean("FromBucket", this.fromBucket());
+        compoundTag.putInt("FeedingCooldown", this.getFeedCooldown());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setVariant(compound.getInt("Variant"));
-        this.setFromBucket(compound.getBoolean("FromBucket"));
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        this.setVariant(compoundTag.getInt("Variant"));
+        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+        this.setFeedCooldown(compoundTag.getInt("FeedingCooldown"));
     }
 
     public int getVariant() {
@@ -112,6 +107,14 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     public int getVariantCount() {
         return 128;
+    }
+
+    public void setFeedCooldown(int cooldown) {
+        this.entityData.set(FEED_COOLDOWN, cooldown);
+    }
+
+    public int getFeedCooldown() {
+        return this.entityData.get(FEED_COOLDOWN);
     }
 
     @Override
@@ -158,14 +161,6 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         this.moveControl = newControl;
     }
 
-    public void setFeedCooldown(int cooldown) {
-        this.feedCooldown = cooldown;
-    }
-
-    public int getFeedCooldown() {
-        return feedCooldown;
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -192,11 +187,13 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
                     }
                 }
             }
-        } else{
+        } else {
             tilt = 0;
         }
 
-        this.feedCooldown--;
+        if (this.getFeedCooldown() > 0) {
+            this.setFeedCooldown(this.getFeedCooldown() - 1);
+        }
 
         this.tickFlopping();
     }
@@ -207,21 +204,30 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
     }
 
+    @Override
+    public void calculateEntityAnimation(boolean flying) {
+        float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
+        float f2 = Math.min(f1 * 10.0F, 1.0F);
+        this.walkAnimation.update(f2, 0.4F);
+    }
+
+    public float flopChance() {
+        return 0.5F;
+    }
+
     // flop here so it can be overridden if needed
     public void tickFlopping() {
-        boolean onLand = !this.isInWaterOrBubble() && this.onGround();
-
-        if (onLand && onLandProgress < 5F) {
+        if (!this.isInWaterOrBubble() && onLandProgress < 5F) {
             onLandProgress++;
         }
-        if (!onLand && onLandProgress > 0F) {
+        if (this.isInWaterOrBubble() && onLandProgress > 0F) {
             onLandProgress--;
         }
 
-        if (!isInWaterOrBubble() && this.isAlive()) {
-            if (this.onGround() && random.nextFloat() < 0.05F) {
-                this.setDeltaMovement(this.getDeltaMovement().add((this.random.nextFloat() * 2.0F - 1.0F) * 0.1F, 0.3D, (this.random.nextFloat() * 2.0F - 1.0F) * 0.1F));
-                this.setYRot(this.random.nextFloat() * 360.0F);
+        if (!this.isInWaterOrBubble() && this.isAlive()) {
+            if (this.onGround() && this.getRandom().nextFloat() < flopChance()) {
+                this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F, 0.3D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F));
+                this.setYRot(this.getRandom().nextFloat() * 360.0F);
                 this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
             }
         }
@@ -229,44 +235,47 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     @Override
     public void travel(Vec3 travelVector) {
-        if (this.isEffectiveAi() && this.isInWater()) {
+        if (this.isEffectiveAi() && this.isInWaterOrBubble()) {
             this.fishTravel(travelVector);
         } else {
             super.travel(travelVector);
         }
     }
 
-    // here so we don't need to keep copying travel everywhere
     public void fishTravel(Vec3 travelVector) {
+        if (this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding() && checkFloat(this.blockPosition())) {
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, 0.005 * this.getSpeed(), 0.0));
+        }
         this.moveRelative(this.getSpeed(), travelVector);
         this.move(MoverType.SELF, this.getDeltaMovement());
         this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
-        if (this.getTarget() == null) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
-        }
     }
 
-    // this method is only called serverside(in a goal) so you have to use sendParticles
-    public void spawnEffectsAtBlock(BlockPos target) {
-        float radius = 0.3F;
-        for (int i1 = 0; i1 < 3; i1++) {
-            double motionX = this.getRandom().nextGaussian() * 0.07D;
-            double motionY = this.getRandom().nextGaussian() * 0.07D;
-            double motionZ = this.getRandom().nextGaussian() * 0.07D;
-            float angle = (float) ((0.0174532925 * this.yBodyRot) + i1);
-            double extraX = radius * Mth.sin(Mth.PI + angle);
-            double extraY = 0.8F;
-            double extraZ = radius * Mth.cos(angle);
-            BlockState state = this.level().getBlockState(target);
-            ((ServerLevel) this.level()).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state), target.getX() + 0.5 + extraX, target.getY() + 0.5 + extraY, target.getZ() + 0.5 + extraZ, 1, motionX, motionY, motionZ, 1);
+    private int findSeafloorDist(BlockPos selfpos) {
+        int depth = 0;
+        if (!this.level().isEmptyBlock(selfpos) && !this.level().getFluidState(selfpos).is(FluidTags.WATER)) {
+            return Integer.MAX_VALUE;
         }
+        while (this.level().getFluidState(selfpos).is(FluidTags.WATER) && selfpos.getY() > 1) {
+            selfpos = selfpos.below();
+            depth ++;
+        }
+        return depth;
+    }
+
+    private boolean checkFloat(BlockPos selfpos) {
+        int north = findSeafloorDist(selfpos.above().north());
+        int south = findSeafloorDist(selfpos.above().south());
+        int east = findSeafloorDist(selfpos.above().east());
+        int west = findSeafloorDist(selfpos.above().west());
+        return north <= (1) || south <= (1) || east <= (1) || west <= (1);
     }
 
     public enum ReefRarities implements WeightedEntry {
         COMMON(style -> style.withColor(ChatFormatting.GRAY), 60),
         UNCOMMON(style -> style.withColor(ChatFormatting.YELLOW), 30),
         RARE(style -> style.withColor(ChatFormatting.AQUA), 15),
-        ABERRANT(style -> style.withColor(9419917), 1);
+        ABERRANT(style -> style.withColor(15933054), 1);
 
         private final UnaryOperator<Style> style;
         private final Weight weight;
@@ -277,7 +286,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         }
 
         @Override
-        public Weight getWeight() {
+        public @NotNull Weight getWeight() {
             return this.weight;
         }
 

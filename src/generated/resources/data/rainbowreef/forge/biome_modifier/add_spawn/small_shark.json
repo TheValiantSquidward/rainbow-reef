@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/small_shark",
+  "spawners": {
+    "type": "rainbowreef:small_shark",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 10
+  }
+}

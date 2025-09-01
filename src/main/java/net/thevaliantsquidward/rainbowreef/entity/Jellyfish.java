@@ -39,12 +39,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Jellyfish extends SquidMob {
 
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
     public Jellyfish(EntityType<? extends SquidMob> entityType, Level level) {
-        super(entityType, level, Integer.MAX_VALUE);
+        super(entityType, level);
         this.random.setSeed(this.getId());
         this.tentacleSpeed = 2.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
     }
@@ -64,7 +66,7 @@ public class Jellyfish extends SquidMob {
     @Override
     public void playerTouch(@NotNull Player player) {
         if (player instanceof ServerPlayer && player.hurt(this.damageSources().mobAttack(this), 2)) {
-            this.playSound(ReefSoundEvents.JELLYZAP.get(), 1.0F, 1.0F);
+            this.playSound(ReefSoundEvents.JELLYFISH_ZAP.get(), 1.0F, 1.0F);
             player.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0), this);
         }
     }
@@ -156,7 +158,7 @@ public class Jellyfish extends SquidMob {
     @Override
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ReefSoundEvents.JELLYHIT.get();
+        return ReefSoundEvents.JELLYFISH_HURT.get();
     }
 
     @Override
@@ -165,16 +167,16 @@ public class Jellyfish extends SquidMob {
     }
 
     public enum JellyfishVariant implements StringRepresentable {
-        PINK(1, "pink", ReefRarities.COMMON, null),
-        ORANGE(2, "orange", ReefRarities.COMMON, null),
-        WHITE(3, "white", ReefRarities.COMMON, null),
-        YELLOW(4, "yellow", ReefRarities.COMMON, null),
-        MUDDY(5, "muddy", ReefRarities.UNCOMMON, null),
-        ABYSSAL(6, "abyssal", ReefRarities.RARE, null),
-        CHERRY(7, "cherry", ReefRarities.UNCOMMON, null),
-        MINTY(8, "minty", ReefRarities.UNCOMMON, null),
-        AZURE(9, "azure", ReefRarities.RARE, null),
-        RED(10, "red", ReefRarities.COMMON, null);
+        PINK(1, "pink", COMMON, null),
+        ORANGE(2, "orange", COMMON, null),
+        WHITE(3, "white", COMMON, null),
+        YELLOW(4, "yellow", COMMON, null),
+        MUDDY(5, "muddy", UNCOMMON, null),
+        ABYSSAL(6, "abyssal", RARE, null),
+        CHERRY(7, "cherry", UNCOMMON, null),
+        MINTY(8, "minty", UNCOMMON, null),
+        AZURE(9, "azure", RARE, null),
+        RED(10, "red", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -197,7 +199,7 @@ public class Jellyfish extends SquidMob {
         }
 
         public static JellyfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<JellyfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<JellyfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -228,8 +230,28 @@ public class Jellyfish extends SquidMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = JellyfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(JellyfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof JellyfishData) {
+            variant = ((JellyfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new JellyfishData(variant);
+            }
+        }
         this.setVariant(JellyfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class JellyfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public JellyfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

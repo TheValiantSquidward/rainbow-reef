@@ -26,11 +26,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Billfish extends ReefMob {
 
     public Billfish(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, 180);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
@@ -44,7 +46,7 @@ public class Billfish extends ReefMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 1, 20, 20, 3, false));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
     }
 
     @Override
@@ -59,7 +61,7 @@ public class Billfish extends ReefMob {
     }
 
     public enum BillfishVariant implements StringRepresentable {
-        SAILFISH(1, "sailfish", ReefRarities.COMMON, null);
+        SAILFISH(1, "sailfish", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -82,7 +84,7 @@ public class Billfish extends ReefMob {
         }
 
         public static BillfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<BillfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<BillfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -111,9 +113,30 @@ public class Billfish extends ReefMob {
     }
 
     @Nullable
+    @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = BillfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(BillfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof BillfishData) {
+            variant = ((BillfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new BillfishData(variant);
+            }
+        }
         this.setVariant(BillfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class BillfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public BillfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

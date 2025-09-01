@@ -28,26 +28,28 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+
 public class Lionfish extends ReefMob {
 
     public Lionfish(EntityType<? extends ReefMob> entityType, Level level) {
-        super(entityType, level, 120);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, true);
+        super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.4F)
+                .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new FishDigGoal(this, 30, ReefTags.ANGELFISH_DIET));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 0.8D, 1));
+        this.goalSelector.addGoal(1, new FishDigGoal(this, 30, 500, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 10));
     }
 
     @Override
@@ -62,8 +64,8 @@ public class Lionfish extends ReefMob {
     }
 
     public enum LionfishVariant implements StringRepresentable {
-        RED(1, "red", ReefRarities.COMMON, null),
-        CLEARFIN(2, "clearfin", ReefRarities.COMMON, null);
+        RED(1, "red", COMMON, null),
+        CLEARFIN(2, "clearfin", COMMON, null);
 
         private final int variant;
         private final String name;
@@ -86,7 +88,7 @@ public class Lionfish extends ReefMob {
         }
 
         public static LionfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<LionfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<LionfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
@@ -117,8 +119,28 @@ public class Lionfish extends ReefMob {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = LionfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(LionfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof LionfishData) {
+            variant = ((LionfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new LionfishData(variant);
+            }
+        }
         this.setVariant(LionfishVariant.getVariantId(variant).getVariant());
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return spawnData;
+    }
+
+    static class LionfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public LionfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }
