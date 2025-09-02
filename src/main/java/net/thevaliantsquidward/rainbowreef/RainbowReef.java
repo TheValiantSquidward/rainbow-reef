@@ -60,6 +60,7 @@ public class RainbowReef {
         generator.addProvider(server, new ReefBiomeTagProvider(output, provider, helper));
 
         boolean client = data.includeClient();
+        generator.addProvider(client, new ReefBlockstateProvider(data));
         generator.addProvider(client, new ReefItemModelProvider(data));
         generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
         generator.addProvider(client, new ReefLanguageProvider(data));

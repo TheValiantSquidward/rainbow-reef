@@ -1,7 +1,0 @@
-{
-	"parent": "block/cross",
-	"textures": {
-		"cross": "rainbowreef:block/coral/shelf_coral"
-	},
-	"render_type": "cutout"
-}

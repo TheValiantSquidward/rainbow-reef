@@ -64,11 +64,17 @@ public class ParrotfishModel extends HierarchicalModel<Parrotfish> {
 	public void setupAnim(Parrotfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, ParrotfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
-		this.animate(entity.flopAnimationState, ParrotfishAnimations.FLOP, ageInTicks, 1.0F);
-		this.animate(entity.eepyAnimationState, ParrotfishAnimations.SLEEP, ageInTicks, 1.0F);
+		float prevOnLandProgress = entity.prevOnLandProgress;
+		float onLandProgress = entity.onLandProgress;
+		float partialTicks = ageInTicks - entity.tickCount;
+		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
+
+		this.animate(entity.swimAnimationState, ParrotfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
+		this.animate(entity.flopAnimationState, ParrotfishAnimations.FLOP, ageInTicks);
+		this.animate(entity.eepyAnimationState, ParrotfishAnimations.SLEEP, ageInTicks);
 
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
+		this.root.zRot += landProgress * ((float) Math.toRadians(90) / 5F);
 	}
 
 	@Override

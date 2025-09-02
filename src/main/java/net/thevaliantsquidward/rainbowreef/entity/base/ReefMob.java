@@ -212,7 +212,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     public float flopChance() {
-        return 0.5F;
+        return 0.3F;
     }
 
     // flop here so it can be overridden if needed

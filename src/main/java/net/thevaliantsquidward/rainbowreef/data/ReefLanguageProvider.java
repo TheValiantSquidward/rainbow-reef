@@ -12,6 +12,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.RainbowReefTab;
+import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import org.apache.commons.lang3.text.WordUtils;
@@ -29,6 +30,7 @@ public class ReefLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         this.addTab(RainbowReefTab.RAINBOW_REEF_TAB.get(), "Rainbow Reef");
 
+        ReefBlocks.AUTO_TRANSLATE.forEach(this::forBlocks);
         ReefItems.AUTO_TRANSLATE.forEach(this::forItems);
 
         this.addItem(ReefItems.ANGELFISH_BUCKET, "Bucket of Angelfish");
@@ -50,10 +52,15 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addItem(ReefItems.SMALL_SHARK_BUCKET, "Bucket of Small Shark");
         this.addItem(ReefItems.TANG_BUCKET, "Bucket of Tang");
 
+        this.addItem(ReefItems.SURF_N_TURF, "Surf 'N' Turf");
+
+        this.musicDisc(ReefItems.CLAW_DISC, "TheValiantSquidward - Claw");
+
         this.sound(ReefSoundEvents.FISH_IDLE, "Fish gurgles");
         this.sound(ReefSoundEvents.FISH_DEATH, "Fish dies");
         this.sound(ReefSoundEvents.FISH_HURT, "Fish hurts");
         this.sound(ReefSoundEvents.FISH_FLOP, "Fish flops");
+        this.sound(ReefSoundEvents.FISH_JUMP, "Fish jumps");
     }
 
     @Override
@@ -74,7 +81,7 @@ public class ReefLanguageProvider extends LanguageProvider {
     }
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
-        add("subtitles.shifted_lens." + key.get().getLocation().getPath(), subtitle);
+        add("subtitles.rainbowreef." + key.get().getLocation().getPath(), subtitle);
     }
 
     private void addEnchantmentWithDesc(Enchantment enchantment, String description) {
@@ -113,5 +120,11 @@ public class ReefLanguageProvider extends LanguageProvider {
 
     public void addAdvancementDesc(String key, String name) {
         this.add("advancement." + RainbowReef.MOD_ID + "." + key + ".desc", name);
+    }
+
+    protected void musicDisc(Supplier<? extends Item> item, String description) {
+        String disc = item.get().getDescriptionId();
+        add(disc, "Music Disc");
+        add(disc + ".desc", description);
     }
 }

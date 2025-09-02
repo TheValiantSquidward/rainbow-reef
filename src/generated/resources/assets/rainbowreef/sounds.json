@@ -86,6 +86,23 @@
     ],
     "subtitle": "subtitles.rainbowreef.fish_hurt"
   },
+  "fish_jump": {
+    "sounds": [
+      {
+        "name": "mob/dolphin/jump1",
+        "volume": 0.75
+      },
+      {
+        "name": "mob/dolphin/jump2",
+        "volume": 0.75
+      },
+      {
+        "name": "mob/dolphin/jump3",
+        "volume": 0.75
+      }
+    ],
+    "subtitle": "subtitles.rainbowreef.fish_jump"
+  },
   "jelly_block_bounce": {
     "sounds": [
       "rainbowreef:block/jelly_block/bounce1"

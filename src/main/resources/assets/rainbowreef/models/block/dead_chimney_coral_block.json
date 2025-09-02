@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "rainbowreef:block/coral/dead_chimney_coral_block"
-  }
-}

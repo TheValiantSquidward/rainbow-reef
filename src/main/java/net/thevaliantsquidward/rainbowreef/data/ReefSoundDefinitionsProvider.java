@@ -37,6 +37,11 @@ public class ReefSoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound("entity/fish/flop3").volume(0.3F),
                 sound("entity/fish/flop4").volume(0.3F)
         );
+        this.sound(ReefSoundEvents.FISH_JUMP,
+                sound("mob/dolphin/jump1").volume(0.75F),
+                sound("mob/dolphin/jump2").volume(0.75F),
+                sound("mob/dolphin/jump3").volume(0.75F)
+        );
 
         this.sound(ReefSoundEvents.CRAB_HURT,
                 sound("entity/fish/hurt1"),

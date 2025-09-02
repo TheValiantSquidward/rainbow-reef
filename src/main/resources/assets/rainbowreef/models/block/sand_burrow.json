@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "rainbowreef:block/sand_burrow",
-    "side": "minecraft:block/sand"
-  }
-}

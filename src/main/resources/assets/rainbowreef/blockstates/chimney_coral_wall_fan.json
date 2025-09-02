@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=east": { "model": "rainbowreef:block/chimney_coral_wall_fan", "y": 90 },
-    "facing=south": { "model": "rainbowreef:block/chimney_coral_wall_fan", "y": 180 },
-    "facing=west": { "model": "rainbowreef:block/chimney_coral_wall_fan", "y": 270 },
-    "facing=north": { "model": "rainbowreef:block/chimney_coral_wall_fan", "y": 0 }
-  }
-}

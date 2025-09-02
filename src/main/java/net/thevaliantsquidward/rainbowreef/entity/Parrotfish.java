@@ -71,6 +71,7 @@ public class Parrotfish extends VariantSchoolingFish {
 
     @Override
     public void setupAnimationStates() {
+        super.setupAnimationStates();
         long roundedTime = this.level().getDayTime() % 24000;
         boolean night = roundedTime >= 13000 && roundedTime <= 22000;
 

@@ -72,13 +72,13 @@ public class ReefItems {
     public static final RegistryObject<Item> DWARF_ANGELFISH_SPAWN_EGG = registerSpawnEggItem("dwarf_angelfish", ReefEntities.DWARF_ANGELFISH, 0xfed638, 0x294cc7);
     public static final RegistryObject<Item> DWARF_ANGELFISH_BUCKET = registerMobBucketItem("dwarf_angelfish", ReefEntities.DWARF_ANGELFISH);
     public static final RegistryObject<Item> RAW_DWARF_ANGELFISH = registerItem("dwarf_angelfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationMod(0.4F).meat().build())));
-    public static final RegistryObject<Item> DWARF_ANGELFISH_TARTS = registerItem("dwarf_angelfish_tarts", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).build())));
+    public static final RegistryObject<Item> DWARF_ANGELFISH_TART = registerItem("dwarf_angelfish_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(1).saturationMod(0.5F).build())));
 
     // frogfish
     public static final RegistryObject<Item> FROGFISH_SPAWN_EGG = registerSpawnEggItem("frogfish", ReefEntities.FROGFISH, 0xe4eef7, 0xbc4911);
 
     // goby
-    public static final RegistryObject<Item> GOBY_SPAWN_EGG = registerSpawnEggItem("goby", ReefEntities.GOBY, 0xffffff, 0xdb3f1f);
+    public static final RegistryObject<Item> GOBY_SPAWN_EGG = registerSpawnEggItem("goby", ReefEntities.GOBY, 0xdb3f1f, 0xffffff);
     public static final RegistryObject<Item> GOBY_BUCKET = registerMobBucketItem("goby", ReefEntities.GOBY);
     public static final RegistryObject<Item> RAW_GOBY = registerItem("goby", () -> new Item(foodItem(ReefFoodValues.RAW_GOBY)));
     public static final RegistryObject<Item> GOBY_GUMMY = registerItem("goby_gummy", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(2).saturationMod(0.5F).fast().build())));
@@ -95,7 +95,7 @@ public class ReefItems {
     public static final RegistryObject<Item> JELLYFISH_SPAWN_EGG = registerSpawnEggItem("jellyfish", ReefEntities.JELLYFISH, 0xf6b7dd, 0xef8298);
     public static final RegistryObject<Item> JELLYFISH_BUCKET = registerMobBucketItem("jellyfish", ReefEntities.JELLYFISH);
     public static final RegistryObject<Item> GLOB_OF_JELLY = registerItem("glob_of_jelly", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> JELLYFISH_JELLY = registerItem("jellyfish_jelly", () -> new JellyBottleItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5F).alwaysEat().build())));
+    public static final RegistryObject<Item> JELLY_BOTTLE = registerItem("jelly_bottle", () -> new JellyBottleItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(4).saturationMod(0.5F).alwaysEat().build())));
     public static final RegistryObject<Item> JELLY_TART = registerItem("jelly_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(0.5F).build())));
     public static final RegistryObject<Item> JELLY_SANDWICH = registerItem("jelly_sandwich", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEat().nutrition(8).saturationMod(0.5F).build())));
 
@@ -177,69 +177,42 @@ public class ReefItems {
     // discs
     public static final RegistryObject<Item> CLAW_DISC = registerItemNoLang("claw_disc", () -> new RecordItem(2, ReefSoundEvents.CLAW_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2240));
 
-    // Corals
-    public static final RegistryObject<Item> BARREL_CORAL_FAN = ITEMS.register("barrel_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.BARREL_CORAL_FAN.get(), ReefBlocks.BARREL_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    // shelf coral
+    public static final RegistryObject<Item> DEAD_SHELF_CORAL_FAN = registerItemNoLang("dead_shelf_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_SHELF_CORAL_FAN.get(), ReefBlocks.DEAD_SHELF_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> SHELF_CORAL_FAN = registerItemNoLang("shelf_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.SHELF_CORAL_FAN.get(), ReefBlocks.SHELF_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> DEAD_BARREL_CORAL_FAN = ITEMS.register("dead_barrel_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_BARREL_CORAL_FAN.get(), ReefBlocks.DEAD_BARREL_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
+    // barrel coral
+    public static final RegistryObject<Item> DEAD_BARREL_CORAL_FAN = registerItemNoLang("dead_barrel_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_BARREL_CORAL_FAN.get(), ReefBlocks.DEAD_BARREL_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> BARREL_CORAL_FAN = registerItemNoLang("barrel_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.BARREL_CORAL_FAN.get(), ReefBlocks.BARREL_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> CHIMNEY_CORAL_FAN = ITEMS.register("chimney_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.CHIMNEY_CORAL_FAN.get(), ReefBlocks.CHIMNEY_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    // hand coral
+    public static final RegistryObject<Item> DEAD_HAND_CORAL_FAN = registerItemNoLang("dead_hand_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_HAND_CORAL_FAN.get(), ReefBlocks.DEAD_HAND_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> HAND_CORAL_FAN = registerItemNoLang("hand_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.HAND_CORAL_FAN.get(), ReefBlocks.HAND_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> DEAD_CHIMNEY_CORAL_FAN = ITEMS.register("dead_chimney_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_CHIMNEY_CORAL_FAN.get(), ReefBlocks.DEAD_CHIMNEY_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
+    // chimney coral
+    public static final RegistryObject<Item> DEAD_CHIMNEY_CORAL_FAN = registerItemNoLang("dead_chimney_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_CHIMNEY_CORAL_FAN.get(), ReefBlocks.DEAD_CHIMNEY_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> CHIMNEY_CORAL_FAN = registerItemNoLang("chimney_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.CHIMNEY_CORAL_FAN.get(), ReefBlocks.CHIMNEY_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> SHELF_CORAL_FAN = ITEMS.register("shelf_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.SHELF_CORAL_FAN.get(), ReefBlocks.SHELF_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    // tower coral
+    public static final RegistryObject<Item> DEAD_TOWER_CORAL_FAN = registerItemNoLang("dead_tower_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_TOWER_CORAL_FAN.get(), ReefBlocks.DEAD_TOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> TOWER_CORAL_FAN = registerItemNoLang("tower_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.TOWER_CORAL_FAN.get(), ReefBlocks.TOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> DEAD_SHELF_CORAL_FAN = ITEMS.register("dead_shelf_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_SHELF_CORAL_FAN.get(), ReefBlocks.DEAD_SHELF_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
+    // rose coral
+    public static final RegistryObject<Item> DEAD_ROSE_CORAL_FAN = registerItemNoLang("dead_rose_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_ROSE_CORAL_FAN.get(), ReefBlocks.DEAD_ROSE_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> ROSE_CORAL_FAN = registerItemNoLang("rose_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.ROSE_CORAL_FAN.get(), ReefBlocks.ROSE_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> HAND_CORAL_FAN = ITEMS.register("hand_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.HAND_CORAL_FAN.get(), ReefBlocks.HAND_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    // flower coral
+    public static final RegistryObject<Item> DEAD_FLOWER_CORAL_FAN = registerItemNoLang("dead_flower_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_FLOWER_CORAL_FAN.get(), ReefBlocks.DEAD_FLOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> FLOWER_CORAL_FAN = registerItemNoLang("flower_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.FLOWER_CORAL_FAN.get(), ReefBlocks.FLOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> DEAD_HAND_CORAL_FAN = ITEMS.register("dead_hand_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_HAND_CORAL_FAN.get(), ReefBlocks.DEAD_HAND_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
+    // ring coral
+    public static final RegistryObject<Item> DEAD_RING_CORAL_FAN = registerItemNoLang("dead_ring_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_RING_CORAL_FAN.get(), ReefBlocks.DEAD_RING_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> RING_CORAL_FAN = registerItemNoLang("ring_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.RING_CORAL_FAN.get(), ReefBlocks.RING_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> TOWER_CORAL_FAN = ITEMS.register("tower_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.TOWER_CORAL_FAN.get(), ReefBlocks.TOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    // bush coral
+    public static final RegistryObject<Item> DEAD_BUSH_CORAL_FAN = registerItemNoLang("dead_bush_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_BUSH_CORAL_FAN.get(), ReefBlocks.DEAD_BUSH_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
+    public static final RegistryObject<Item> BUSH_CORAL_FAN = registerItemNoLang("bush_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.BUSH_CORAL_FAN.get(), ReefBlocks.BUSH_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
 
-    public static final RegistryObject<Item> DEAD_TOWER_CORAL_FAN = ITEMS.register("dead_tower_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_TOWER_CORAL_FAN.get(), ReefBlocks.DEAD_TOWER_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> ROSE_CORAL_FAN = ITEMS.register("rose_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.ROSE_CORAL_FAN.get(), ReefBlocks.ROSE_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> DEAD_ROSE_CORAL_FAN = ITEMS.register("dead_rose_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_ROSE_CORAL_FAN.get(), ReefBlocks.DEAD_ROSE_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> FLOWER_CORAL_FAN = ITEMS.register("flower_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.FLOWER_CORAL_FAN.get(), ReefBlocks.FLOWER_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> DEAD_FLOWER_CORAL_FAN = ITEMS.register("dead_flower_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_FLOWER_CORAL_FAN.get(), ReefBlocks.DEAD_FLOWER_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> RING_CORAL_FAN = ITEMS.register("ring_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.RING_CORAL_FAN.get(), ReefBlocks.RING_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> DEAD_RING_CORAL_FAN = ITEMS.register("dead_ring_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_RING_CORAL_FAN.get(), ReefBlocks.DEAD_RING_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> BUSH_CORAL_FAN = ITEMS.register("bush_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.BUSH_CORAL_FAN.get(), ReefBlocks.BUSH_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
-
-    public static final RegistryObject<Item> DEAD_BUSH_CORAL_FAN = ITEMS.register("dead_bush_coral_fan",
-            () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_BUSH_CORAL_FAN.get(), ReefBlocks.DEAD_BUSH_CORAL_WALL_FAN.get(),
-                    new Item.Properties(), Direction.DOWN));
 
     private static <I extends Item> RegistryObject<I> registerItem(String name, Supplier<? extends I> supplier) {
         RegistryObject<I> item = ITEMS.register(name, supplier);

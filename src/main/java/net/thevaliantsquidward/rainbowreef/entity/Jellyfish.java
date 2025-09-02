@@ -147,7 +147,7 @@ public class Jellyfish extends SquidMob {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
-                this.spawnAtLocation(ReefItems.JELLYFISH_JELLY.get());
+                this.spawnAtLocation(ReefItems.JELLY_BOTTLE.get());
                 this.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
                 return InteractionResult.SUCCESS;
             }

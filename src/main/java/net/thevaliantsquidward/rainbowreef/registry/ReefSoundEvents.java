@@ -19,6 +19,7 @@ public class ReefSoundEvents {
     public static final RegistryObject<SoundEvent> FISH_HURT = registerSoundEvent("fish_hurt");
     public static final RegistryObject<SoundEvent> FISH_DEATH = registerSoundEvent("fish_death");
     public static final RegistryObject<SoundEvent> FISH_FLOP = registerSoundEvent("fish_flop");
+    public static final RegistryObject<SoundEvent> FISH_JUMP = registerSoundEvent("fish_jump");
 
     // crab
     public static final RegistryObject<SoundEvent> CRAB_IDLE = registerSoundEvent("crab_idle");
