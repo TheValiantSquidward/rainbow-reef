@@ -72,7 +72,7 @@ public class Hogfish extends ReefMob {
         CUBAN(1, "cuban", COMMON, null),
         SPANISH(2, "spanish", COMMON, null),
         PEPPERMINT(3, "peppermint", UNCOMMON, null),
-        LYRETAIL(4, "lyretail", COMMON, null),
+        LYRETAIL(4, "lyretail", UNCOMMON, null),
         CORAL(5, "coral", UNCOMMON, null);
 
         private final int variant;

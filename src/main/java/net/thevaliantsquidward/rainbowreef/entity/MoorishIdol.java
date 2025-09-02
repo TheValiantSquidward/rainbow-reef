@@ -101,7 +101,7 @@ public class MoorishIdol extends VariantSchoolingFish {
         }
 
         public static MoorishIdolVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<MoorishIdolVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
+            List<MoorishIdolVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, ABERRANT).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

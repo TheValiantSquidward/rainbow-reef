@@ -77,11 +77,11 @@ public class Basslet extends ReefMob {
     public enum BassletVariant implements StringRepresentable {
         FAIRY(1, "fairy", COMMON, null),
         BRAZILIAN(2, "brazilian", COMMON, null),
-        ACCESSOR(3, "accessor", COMMON, null),
+        ACCESSOR(3, "accessor", UNCOMMON, null),
         BLACKCAP(4, "blackcap", COMMON, null),
         CANDY(5, "candy", RARE, null),
         GOLD(6, "gold", RARE, null),
-        GILDED(7, "gilded", COMMON, null),
+        GILDED(7, "gilded", ABERRANT, null),
         SWISSGUARD(8, "swissguard", UNCOMMON, null),
         YELLOW_SCISSORTAIL(9, "yellow_scissortail", UNCOMMON, null),
         MIDNIGHT(10, "midnight", UNCOMMON, null);
@@ -107,7 +107,7 @@ public class Basslet extends ReefMob {
         }
 
         public static BassletVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<BassletVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
+            List<BassletVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, ABERRANT).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

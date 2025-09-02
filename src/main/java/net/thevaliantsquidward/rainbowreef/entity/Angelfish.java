@@ -75,20 +75,20 @@ public class Angelfish extends VariantSchoolingFish {
 
     public enum AngelfishVariant implements StringRepresentable {
         QUEEN(1,  "queen", COMMON, null),
-        FRENCH(2, "french", UNCOMMON, null),
+        FRENCH(2, "french", COMMON, null),
         EMPEROR(3, "emperor", UNCOMMON, null),
         YELLOWBAND(4, "yellowband", COMMON, null),
         BLUERING(5, "bluering", COMMON, null),
-        ROCK_BEAUTY(6, "rock_beauty", RARE, null),
-        BLUE_QUEEN(7, "blue_queen", RARE, null),
+        ROCK_BEAUTY(6, "rock_beauty", UNCOMMON, null),
+        BLUE_QUEEN(7, "blue_queen", ABERRANT, null),
         MAJESTIC(8, "majestic", UNCOMMON, null),
         KING(9, "king", RARE, null),
         SEMICIRCLE(10, "semicircle", COMMON, null),
         BANDED(11, "banded", COMMON, null),
         GRAY(12, "gray", COMMON, null),
-        OLD_WOMAN(13, "old_woman", COMMON, null),
+        OLD_WOMAN(13, "old_woman", UNCOMMON, null),
         GUINEAN(14, "guinean", COMMON, null),
-        QUEENSLAND_YELLOWTAIL(15, "queensland_yellowtail", COMMON, null),
+        QUEENSLAND_YELLOWTAIL(15, "queensland_yellowtail", UNCOMMON, null),
         CLARION(16, "clarion", UNCOMMON, null);
 
         private final int variant;
@@ -112,7 +112,7 @@ public class Angelfish extends VariantSchoolingFish {
         }
 
         public static AngelfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<AngelfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
+            List<AngelfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, ABERRANT).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

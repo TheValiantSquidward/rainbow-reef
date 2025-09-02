@@ -74,17 +74,17 @@ public class Goby extends ReefMob {
         CANDYCANE(3, "candycane", UNCOMMON, null),
         MANDARIN(4, "mandarin", COMMON, null),
         YELLOW_WATCHMAN(5, "yellow_watchman", COMMON, null),
-        CATALINA(6, "catalina", COMMON, null),
-        BLACK_RAY(7, "black_ray", COMMON, null),
-        HELFRICHI(8, "helfrichi", COMMON, null),
-        BLUE_NEON(9, "blue_neon", UNCOMMON, null),
-        YELLOW_NEON(10, "yellow_neon", UNCOMMON, null),
-        NEON_HYBRID(11, "neon_hybrid", RARE, null),
+        CATALINA(6, "catalina", RARE, null),
+        BLACK_RAY(7, "black_ray", UNCOMMON, null),
+        HELFRICHI(8, "helfrichi", UNCOMMON, null),
+        BLUE_NEON(9, "blue_neon", COMMON, null),
+        YELLOW_NEON(10, "yellow_neon", COMMON, null),
+        NEON_HYBRID(11, "neon_hybrid", ABERRANT, null),
         BLUESTREAK(12, "bluestreak", COMMON, null),
-        LEOPARD_SPOTTED(13, "leopard_spotted", COMMON, null),
+        LEOPARD_SPOTTED(13, "leopard_spotted", UNCOMMON, null),
         YELLOW_CLOWN(14, "yellow_clown", COMMON, null),
-        DRACULA(15, "dracula", RARE, null),
-        BLACKFIN(16, "blackfin", COMMON, null);
+        DRACULA(15, "dracula", COMMON, null),
+        BLACKFIN(16, "blackfin", RARE, null);
 
         private final int variant;
         private final String name;
@@ -107,7 +107,7 @@ public class Goby extends ReefMob {
         }
 
         public static GobyVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<GobyVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
+            List<GobyVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, ABERRANT).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

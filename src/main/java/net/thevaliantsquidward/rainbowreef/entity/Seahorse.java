@@ -74,12 +74,12 @@ public class Seahorse extends ReefMob {
         COBALT(2, "cobalt", COMMON, null),
         GOLD(3, "gold", UNCOMMON, null),
         AMBER(4, "amber", COMMON, null),
-        SILVER(5, "silver", COMMON, null),
+        SILVER(5, "silver", UNCOMMON, null),
         GARNET(6, "garnet", COMMON, null),
         RUBY(7, "ruby", COMMON, null),
         SPINEL(8, "spinel", COMMON, null),
         CHERT(9, "chert", COMMON, null),
-        ONYX(10, "onyx", COMMON, null);
+        ONYX(10, "onyx", UNCOMMON, null);
 
         private final int variant;
         private final String name;

@@ -96,7 +96,7 @@ public class Ray extends VariantSchoolingFish {
     public enum RayVariant implements StringRepresentable {
         SPOTTED(1, "spotted", COMMON, null),
         COWNOSE(2, "cownose", COMMON, null),
-        ORNATE(3, "ornate", COMMON, null);
+        ORNATE(3, "ornate", RARE, null);
 
         private final int variant;
         private final String name;
@@ -119,7 +119,7 @@ public class Ray extends VariantSchoolingFish {
         }
 
         public static RayVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<RayVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
+            List<RayVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 
