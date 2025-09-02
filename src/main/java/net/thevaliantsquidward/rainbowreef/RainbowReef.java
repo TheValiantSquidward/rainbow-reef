@@ -62,7 +62,7 @@ public class RainbowReef {
         boolean client = data.includeClient();
         generator.addProvider(client, new ReefItemModelProvider(data));
         generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
-//        generator.addProvider(client, new ReefLanguageProvider(data));
+        generator.addProvider(client, new ReefLanguageProvider(data));
     }
 
     public static ResourceLocation modPrefix(String name) {

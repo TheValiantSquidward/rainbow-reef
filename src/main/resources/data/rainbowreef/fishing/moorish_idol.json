@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_moorish_idol"
-
+    "item": "rainbowreef:moorish_idol"
   },
-
   "result": {
-
     "id": "rainbowreef:moorish_idol"
-
   }
-
 }

@@ -1,12 +1,29 @@
 {
   "replace": false,
   "values": [
-    {"id":"rainbowreef:basslet_cookie","required":false},
-    {"id":"rainbowreef:idol_cookie","required":false},
-    {"id":"rainbowreef:jelly_tart","required":false},
-    {"id":"rainbowreef:clownfish_cupcake","required":false},
-    {"id":"rainbowreef:goby_gummy","required":false},
-    {"id":"rainbowreef:dwarf_angelfish_tarts","required":false}
-
+    {
+      "id":"rainbowreef:basslet_cookie",
+      "required":false
+    },
+    {
+      "id":"rainbowreef:idol_cookie",
+      "required":false
+    },
+    {
+      "id":"rainbowreef:jelly_tart",
+      "required":false
+    },
+    {
+      "id":"rainbowreef:clownfish_cupcake",
+      "required":false
+    },
+    {
+      "id":"rainbowreef:goby_gummy",
+      "required":false
+    },
+    {
+      "id":"rainbowreef:dwarf_angelfish_tarts",
+      "required":false
+    }
   ]
 }

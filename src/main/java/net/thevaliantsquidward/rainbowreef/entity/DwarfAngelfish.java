@@ -81,7 +81,7 @@ public class DwarfAngelfish extends ReefMob {
         YELLOW(10, "yellow", UNCOMMON, null),
         PEARLSCALE(11, "pearlscale", UNCOMMON, null),
         RESPLENDENT(12, "resplendent", UNCOMMON, null),
-        PEPPERMINT(13, "peppermint", RARE, null),
+        PEPPERMINT(13, "peppermint", EPIC, null),
         JAPANESE(14, "japanese", RARE, null),
         YELLOWTAIL(15, "yellowtail", RARE, null),
         ORANGEPEEL(16, "orangepeel", ABERRANT, null);

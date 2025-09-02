@@ -1,6 +1,0 @@
-{
-  "type": "forge:add_features",
-  "biomes": "minecraft:warm_ocean",
-  "features": "rainbowreef:reef_nem",
-  "step": "vegetal_decoration"
-}

@@ -144,7 +144,7 @@ public class SmallShark extends ReefMob {
         }
 
         public static SmallSharkVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<SmallSharkVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
+            List<SmallSharkVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, ABERRANT).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

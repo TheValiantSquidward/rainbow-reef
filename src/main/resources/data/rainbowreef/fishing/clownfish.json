@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_clownfish"
-
+    "item": "rainbowreef:clownfish"
   },
-
   "result": {
-
     "id": "rainbowreef:clownfish"
-
   }
-
 }

@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_tang"
-
+    "item": "rainbowreef:tang"
   },
-
   "result": {
-
     "id": "rainbowreef:tang"
-
   }
-
 }

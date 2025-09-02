@@ -68,7 +68,7 @@ public class Butterflyfish extends VariantSchoolingFish {
     @Override
     @NotNull
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ReefItems.BUTTERFISH_BUCKET.get());
+        return new ItemStack(ReefItems.BUTTERFLYFISH_BUCKET.get());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Butterflyfish extends VariantSchoolingFish {
 
     public enum ButterflyfishVariant implements StringRepresentable {
         COPPERBAND(1, "copperband", COMMON, null),
-        WROUGHT_IRON(2, "wrought_iron", RARE, null),
+        WROUGHT_IRON(2, "wrought_iron", EPIC, null),
         THREADFIN(3, "threadfin", COMMON, null),
         BANNER(4, "banner", COMMON, null),
         BLUECHEEK(5, "bluecheek", COMMON, null),

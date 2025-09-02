@@ -71,7 +71,7 @@ public class Damselfish extends VariantSchoolingFish {
     @Override
     @NotNull
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ReefItems.BUTTERFISH_BUCKET.get());
+        return new ItemStack(ReefItems.BUTTERFLYFISH_BUCKET.get());
     }
 
     @Override

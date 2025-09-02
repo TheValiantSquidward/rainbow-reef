@@ -172,7 +172,7 @@ public class Jellyfish extends SquidMob {
         WHITE(3, "white", COMMON, null),
         YELLOW(4, "yellow", COMMON, null),
         MUDDY(5, "muddy", UNCOMMON, null),
-        ABYSSAL(6, "abyssal", RARE, null),
+        ABYSSAL(6, "abyssal", EPIC, null),
         CHERRY(7, "cherry", UNCOMMON, null),
         MINTY(8, "minty", UNCOMMON, null),
         AZURE(9, "azure", RARE, null),
@@ -199,7 +199,7 @@ public class Jellyfish extends SquidMob {
         }
 
         public static JellyfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<JellyfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
+            List<JellyfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, EPIC).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

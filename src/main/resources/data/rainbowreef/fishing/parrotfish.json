@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_parrotfish"
-
+    "item": "rainbowreef:parrotfish"
   },
-
   "result": {
-
     "id": "rainbowreef:parrotfish"
-
   }
-
 }

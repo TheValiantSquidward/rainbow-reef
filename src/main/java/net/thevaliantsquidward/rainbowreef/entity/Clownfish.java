@@ -88,18 +88,18 @@ public class Clownfish extends Anemonefish {
         MAROON(4, "maroon", COMMON, null),
         CLARKII(5, "clarkii", COMMON, null),
         TOMATO(6, "tomato", COMMON, null),
-        MADAGASCAR(7, "madagascar", UNCOMMON, null),
-        ALLARD(8, "allard", UNCOMMON, null),
-        RED_SADDLEBACK(9, "red_saddleback", UNCOMMON, null),
+        MADAGASCAR(7, "madagascar", COMMON, null),
+        ALLARD(8, "allard", COMMON, null),
+        RED_SADDLEBACK(9, "red_saddleback", COMMON, null),
         BLIZZARD(10, "blizzard", RARE, null),
-        BLUESTRAIN(11, "bluestrain", ABERRANT, null),
+        BLUESTRAIN(11, "bluestrain", UNCOMMON, null),
         OMAN(12, "oman", UNCOMMON, null),
-        MOCHA(13, "mocha", RARE, null),
+        MOCHA(13, "mocha", UNCOMMON, null),
         WHITESNOUT(14, "whitesnout", RARE, null),
-        GOLD_NUGGET(15, "gold_nugget", RARE, null),
-        SNOWSTORM(16, "snowstorm", RARE, null),
-        ORANGE_SKUNK(17, "orange_skunk", UNCOMMON, null),
-        DOMINO(18, "domino", RARE, null),
+        GOLD_NUGGET(15, "gold_nugget", EPIC, null),
+        SNOWSTORM(16, "snowstorm", UNCOMMON, null),
+        ORANGE_SKUNK(17, "orange_skunk", RARE, null),
+        DOMINO(18, "domino", EPIC, null),
         YELLOW_CLARKII(19, "yellow_clarkii", UNCOMMON, null),
         NAKED(20, "naked", RARE, null);
 
@@ -124,7 +124,7 @@ public class Clownfish extends Anemonefish {
         }
 
         public static ClownfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<ClownfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, ABERRANT).getRandom(random).orElseThrow(), fromBucket);
+            List<ClownfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, EPIC).getRandom(random).orElseThrow(), fromBucket);
             return possibleTypes.get(random.nextInt(possibleTypes.size()));
         }
 

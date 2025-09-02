@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_pipefish"
-
+    "item": "rainbowreef:pipefish"
   },
-
   "result": {
-
     "id": "rainbowreef:pipefish"
-
   }
-
 }

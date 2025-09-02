@@ -22,8 +22,8 @@ import java.util.function.Supplier;
 
 public class ReefFishBucketItem extends MobBucketItem {
 
-    public ReefFishBucketItem(Supplier<? extends EntityType<?>> fishType, Item.Properties properties) {
-        super(fishType, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, properties.stacksTo(1));
+    public ReefFishBucketItem(Supplier<? extends EntityType<?>> fishType) {
+        super(fishType, () -> Fluids.WATER, () -> SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1));
     }
 
     @OnlyIn(Dist.CLIENT)

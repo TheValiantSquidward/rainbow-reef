@@ -18,16 +18,39 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ReefItems.RAW_TANG.get()))
                     .title(Component.translatable("creativetab.rainbow_reef_tab"))
                     .displayItems((pParameters, output) -> {
+                        // angelfish
                         output.accept(ReefItems.ANGELFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.ANGELFISH_BUCKET.get());
+                        output.accept(ReefItems.RAW_ANGELFISH.get());
+                        output.accept(ReefBlocks.ANGELFISH_CAKE.get());
+
+                        // arrow crab
                         output.accept(ReefItems.ARROW_CRAB_SPAWN_EGG.get());
+                        output.accept(ReefItems.ARROW_CRAB_BUCKET.get());
+                        output.accept(ReefItems.RAW_ARROW_CRAB.get());
+
+                        // basslet
                         output.accept(ReefItems.BASSLET_SPAWN_EGG.get());
+                        output.accept(ReefItems.BASSLET_BUCKET.get());
+
+                        // billfish
                         output.accept(ReefItems.BILLFISH_SPAWN_EGG.get());
+
+                        // boxfish
                         output.accept(ReefItems.BOXFISH_SPAWN_EGG.get());
-                        output.accept(ReefItems.BUTTERFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.BOXFISH_BUCKET.get());
+
+                        // butterflyfish
+                        output.accept(ReefItems.BUTTERFLYFISH_SPAWN_EGG.get());
+
+                        // clownfish
                         output.accept(ReefItems.CLOWNFISH_SPAWN_EGG.get());
+
+                        // crab
                         output.accept(ReefItems.CRAB_SPAWN_EGG.get());
+
                         output.accept(ReefItems.DAMSELFISH_SPAWN_EGG.get());
-                        output.accept(ReefItems.DWARF_ANGEL_SPAWN_EGG.get());
+                        output.accept(ReefItems.DWARF_ANGELFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.FROGFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.GOBY_SPAWN_EGG.get());
                         output.accept(ReefItems.HOGFISH_SPAWN_EGG.get());
@@ -48,13 +71,11 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.TRIGGERFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.WRASSE_SPAWN_EGG.get());
 
-                        output.accept(ReefItems.RAW_ANGELFISH.get());
-                        output.accept(ReefItems.RAW_ARROW_CRAB.get());
                         output.accept(ReefItems.RAW_BASSLET.get());
                         output.accept(ReefItems.RAW_BOXFISH.get());
-                        output.accept(ReefItems.RAW_BUTTERFISH.get());
+                        output.accept(ReefItems.RAW_BUTTERFLYFISH.get());
                         output.accept(ReefItems.RAW_CLOWNFISH.get());
-                        output.accept(ReefItems.RAW_CRAB_MEAT.get());
+                        output.accept(ReefItems.RAW_CRAB.get());
                         output.accept(ReefItems.RAW_DWARF_ANGELFISH.get());
                         output.accept(ReefItems.RAW_GOBY.get());
                         output.accept(ReefItems.RAW_HOGFISH.get());
@@ -67,11 +88,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.RAW_SMALL_SHARK.get());
                         output.accept(ReefItems.RAW_TANG.get());
 
-                        output.accept(ReefItems.ANGELFISH_BUCKET.get());
-                        output.accept(ReefItems.ARROW_CRAB_BUCKET.get());
-                        output.accept(ReefItems.BASSLET_BUCKET.get());
-                        output.accept(ReefItems.BOXFISH_BUCKET.get());
-                        output.accept(ReefItems.BUTTERFISH_BUCKET.get());
+                        output.accept(ReefItems.BUTTERFLYFISH_BUCKET.get());
                         output.accept(ReefItems.CLOWNFISH_BUCKET.get());
                         output.accept(ReefItems.CRAB_BUCKET.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
@@ -86,12 +103,11 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
                         output.accept(ReefItems.RAY_BUCKET.get());
 
-                        output.accept(ReefBlocks.ANGELFISH_CAKE.get());
                         output.accept(ReefItems.BASSLET_COOKIE.get());
                         output.accept(ReefItems.BOXFISH_BREAD.get());
-                        output.accept(ReefItems.BUTTERED_BUTTERFLYFISH_TOAST.get());
+                        output.accept(ReefItems.BUTTERED_TOAST.get());
                         output.accept(ReefItems.CLOWNFISH_CUPCAKE.get());
-                        output.accept(ReefItems.ROASTED_CRAB_MEAT.get());
+                        output.accept(ReefItems.ROASTED_CRAB.get());
                         output.accept(ReefItems.CRAB_CAKE.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_TARTS.get());
                         output.accept(ReefItems.GOBY_GUMMY.get());
@@ -104,7 +120,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.IDOL_COOKIE.get());
                         output.accept(ReefItems.PARROTFISH_PUNCH.get());
                         output.accept(ReefItems.PIPEFISH_SUSHI.get());
-                        output.accept(ReefItems.CHOCO_RAY_MUFFIN.get());
+                        output.accept(ReefItems.CHOCOLATE_RAY_MUFFIN.get());
                         output.accept(ReefItems.DRIED_SEAHORSE.get());
                         output.accept(ReefItems.TANGY_SOUP.get());
                         output.accept(ReefItems.SHARKBITE_SALAD.get());

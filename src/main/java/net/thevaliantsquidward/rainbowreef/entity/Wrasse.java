@@ -23,9 +23,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
-import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
@@ -67,7 +65,7 @@ public class Wrasse extends ReefMob {
     @Override
     @NotNull
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ReefItems.BUTTERFISH_BUCKET.get());
+        return new ItemStack(ReefItems.BUTTERFLYFISH_BUCKET.get());
     }
 
     @Override

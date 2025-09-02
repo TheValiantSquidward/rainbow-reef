@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_hogfish"
-
+    "item": "rainbowreef:hogfish"
   },
-
   "result": {
-
     "id": "rainbowreef:hogfish"
-
   }
-
 }

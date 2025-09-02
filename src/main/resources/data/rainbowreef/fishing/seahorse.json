@@ -1,15 +1,8 @@
 {
-
   "input": {
-
-    "item": "rainbowreef:raw_seahorse"
-
+    "item": "rainbowreef:seahorse"
   },
-
   "result": {
-
     "id": "rainbowreef:seahorse"
-
   }
-
 }

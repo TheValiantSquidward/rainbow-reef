@@ -12,6 +12,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.RainbowReefTab;
+import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -26,8 +27,28 @@ public class ReefLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-
         this.addTab(RainbowReefTab.RAINBOW_REEF_TAB.get(), "Rainbow Reef");
+
+        ReefItems.AUTO_TRANSLATE.forEach(this::forItems);
+
+        this.addItem(ReefItems.ANGELFISH_BUCKET, "Bucket of Angelfish");
+        this.addItem(ReefItems.ARROW_CRAB_BUCKET, "Bucket of Arrow Crab");
+        this.addItem(ReefItems.BASSLET_BUCKET, "Bucket of Basslet");
+        this.addItem(ReefItems.BOXFISH_BUCKET, "Bucket of Boxfish");
+        this.addItem(ReefItems.BUTTERFLYFISH_BUCKET, "Bucket of Butterflyfish");
+        this.addItem(ReefItems.CLOWNFISH_BUCKET, "Bucket of Clownfish");
+        this.addItem(ReefItems.CRAB_BUCKET, "Bucket of Crab");
+        this.addItem(ReefItems.DWARF_ANGELFISH_BUCKET, "Bucket of Dwarf Angelfish");
+        this.addItem(ReefItems.GOBY_BUCKET, "Bucket of Goby");
+        this.addItem(ReefItems.HOGFISH_BUCKET, "Bucket of Hogfish");
+        this.addItem(ReefItems.JELLYFISH_BUCKET, "Bucket of Jellyfish");
+        this.addItem(ReefItems.MOORISH_IDOL_BUCKET, "Bucket of Moorish Idol");
+        this.addItem(ReefItems.PARROTFISH_BUCKET, "Bucket of Parrotfish");
+        this.addItem(ReefItems.PIPEFISH_BUCKET, "Bucket of Pipefish");
+        this.addItem(ReefItems.RAY_BUCKET, "Bucket of Ray");
+        this.addItem(ReefItems.SEAHORSE_BUCKET, "Bucket of Seahorse");
+        this.addItem(ReefItems.SMALL_SHARK_BUCKET, "Bucket of Small Shark");
+        this.addItem(ReefItems.TANG_BUCKET, "Bucket of Tang");
 
         this.sound(ReefSoundEvents.FISH_IDLE, "Fish gurgles");
         this.sound(ReefSoundEvents.FISH_DEATH, "Fish dies");

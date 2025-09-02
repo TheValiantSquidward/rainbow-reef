@@ -275,6 +275,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         COMMON(style -> style.withColor(ChatFormatting.GRAY), 60),
         UNCOMMON(style -> style.withColor(ChatFormatting.YELLOW), 30),
         RARE(style -> style.withColor(ChatFormatting.AQUA), 15),
+        EPIC(style -> style.withColor(ChatFormatting.LIGHT_PURPLE), 5),
         ABERRANT(style -> style.withColor(15933054), 1);
 
         private final UnaryOperator<Style> style;
