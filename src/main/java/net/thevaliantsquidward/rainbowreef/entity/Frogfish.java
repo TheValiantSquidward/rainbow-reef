@@ -1,6 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
+import com.google.common.collect.Lists;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,11 +20,16 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
+
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.COMMON;
 
 public class Frogfish extends ReefMob {
 
@@ -42,44 +53,95 @@ public class Frogfish extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
     }
 
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "orangeocellated";
-            case 2 -> "pinkocellated";
-            case 3 -> "psychedelic";
-            case 4 -> "redlonglure";
-            case 5 -> "sargassum";
-            case 6 -> "yellowlonglure";
-            default -> "clown";
-        };
-    }
-
     @Override
     @Nonnull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.BOXFISH_BUCKET.get());
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-        float variantChange = this.getRandom().nextFloat();
-        if(variantChange <= 0.12F){
-            this.setVariant(1);
-        }else if(variantChange <= 0.24F){
-            this.setVariant(2);
-        }else if(variantChange <= 0.36F){
-            this.setVariant(3);
-        }else if(variantChange <= 0.48F){
-            this.setVariant(4);
-        }else if(variantChange <= 0.60F){
-            this.setVariant(5);
-        }else if(variantChange <= 0.72F){
-            this.setVariant(6);
-        }else if(variantChange <= 0.84F){
-            this.setVariant(7);
-        }else{
-            this.setVariant(0);
+    public enum FrogfishVariant implements StringRepresentable {
+        CLOWN(1, "clown", COMMON, null),
+        ORANGE_OCELLATED(2, "orange_ocellated", COMMON, null),
+        PINK_OCELLATED(3, "pink_ocellated", COMMON, null),
+        PSYCHEDELIC(4, "psychedelic", COMMON, null),
+        RED_LONGLURE(5, "red_longlure", COMMON, null),
+        SARGASSUM(6, "sargassum", COMMON, null),
+        YELLOW_LONGLURE(6, "yellow_longlure", COMMON, null);
+
+        private final int variant;
+        private final String name;
+        private final ReefRarities rarity;
+        @Nullable
+        private final TagKey<Biome> biome;
+
+        FrogfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+            this.variant = variant;
+            this.name = name;
+            this.rarity = rarity;
+            this.biome = biome;
         }
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+
+        public static FrogfishVariant getVariantId(int variants) {
+            for (FrogfishVariant variant : values()) {
+                if (variant.variant == variants) return variant;
+            }
+            return FrogfishVariant.CLOWN;
+        }
+
+        public static FrogfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
+            List<FrogfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
+            return possibleTypes.get(random.nextInt(possibleTypes.size()));
+        }
+
+        private static List<FrogfishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
+            List<FrogfishVariant> variants = Lists.newArrayList();
+            for (FrogfishVariant variant : FrogfishVariant.values()) {
+                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
+                    variants.add(variant);
+                }
+            }
+            return variants;
+        }
+
+        public int getVariant() {
+            return this.variant;
+        }
+
+        public ReefRarities getRarity() {
+            return this.rarity;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
+        }
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        int variant = FrogfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
+        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(FrogfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
+            return spawnData;
+        }
+        if (spawnData instanceof FrogfishData) {
+            variant = ((FrogfishData) spawnData).variantData;
+        } else {
+            if (!this.fromBucket()) {
+                spawnData = new FrogfishData(variant);
+            }
+        }
+        this.setVariant(FrogfishVariant.getVariantId(variant).getVariant());
+        return spawnData;
+    }
+
+    static class FrogfishData implements SpawnGroupData {
+        public final int variantData;
+
+        public FrogfishData(int variant) {
+            this.variantData = variant;
+        }
     }
 }

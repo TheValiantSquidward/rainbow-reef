@@ -48,6 +48,11 @@ public class ClientEvents {
         event.registerEntityRenderer(ReefEntities.MAORI_WRASSE.get(), MaoriWrasseRenderer::new);
         event.registerEntityRenderer(ReefEntities.BILLFISH.get(), BillfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.LARGE_SHARK.get(), LargeSharkRenderer::new);
+        event.registerEntityRenderer(ReefEntities.WRASSE.get(), WrasseRenderer::new);
+        event.registerEntityRenderer(ReefEntities.TRIGGERFISH.get(), TriggerfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.DAMSELFISH.get(), DamselfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.RABBITFISH.get(), RabbitfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.FROGFISH.get(), FrogfishRenderer::new);
     }
 
     @SubscribeEvent
@@ -77,5 +82,9 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.FROGFISH, FrogfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.SHARK, SharkModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.LARGE_SHARK, LargeSharkModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.WRASSE, WrasseModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.TRIGGERFISH, TriggerfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.DAMSELFISH, DamselfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.RABBITFISH, RabbitfishModel::createBodyLayer);
     }
 }

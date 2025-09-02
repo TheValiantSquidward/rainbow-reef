@@ -80,6 +80,33 @@ public class ReefItems {
     public static final RegistryObject<Item> JELLYFISH_SPAWN_EGG = ITEMS.register("jellyfish_spawn_egg",
             () -> new ForgeSpawnEggItem(ReefEntities.JELLYFISH, 0xf6b7dd, 0xef8298, new Item.Properties()));
 
+    public static final RegistryObject<Item> BILLFISH_SPAWN_EGG = ITEMS.register("billfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.BILLFISH, 0x1750ca, 0xe9ce85, new Item.Properties()));
+
+    public static final RegistryObject<Item> MAORI_WRASSE_SPAWN_EGG = ITEMS.register("maori_wrasse_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.MAORI_WRASSE, 0x1a7e89, 0x0d6c52, new Item.Properties()));
+
+    public static final RegistryObject<Item> MAHI_MAHI_SPAWN_EGG = ITEMS.register("mahi_mahi_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.MAHI_MAHI, 0x4b922b, 0xdcd700, new Item.Properties()));
+
+    public static final RegistryObject<Item> LIONFISH_SPAWN_EGG = ITEMS.register("lionfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.LIONFISH, 0x862a34, 0xd2d6dc, new Item.Properties()));
+
+    public static final RegistryObject<Item> FROGFISH_SPAWN_EGG = ITEMS.register("frogfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.FROGFISH, 0xe4eef7, 0xbc4911, new Item.Properties()));
+
+    public static final RegistryObject<Item> WRASSE_SPAWN_EGG = ITEMS.register("wrasse_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.WRASSE, 0xde608d, 0x1481bc, new Item.Properties()));
+
+    public static final RegistryObject<Item> TRIGGERFISH_SPAWN_EGG = ITEMS.register("triggerfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.TRIGGERFISH, 0x121418, 0xaa8e23, new Item.Properties()));
+
+    public static final RegistryObject<Item> DAMSELFISH_SPAWN_EGG = ITEMS.register("damselfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.DAMSELFISH, 0x15f578, 0x4ba2c4, new Item.Properties()));
+
+    public static final RegistryObject<Item> RABBITFISH_SPAWN_EGG = ITEMS.register("rabbitfish_spawn_egg",
+            () -> new ForgeSpawnEggItem(ReefEntities.RABBITFISH, 0xe8c417, 0x282339, new Item.Properties()));
+
     public static final RegistryObject<Item> CLAW_DISC = ITEMS.register("claw_disc",
             () -> new RecordItem(2, ReefSoundEvents.CLAW_DISC, new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 2240));
 

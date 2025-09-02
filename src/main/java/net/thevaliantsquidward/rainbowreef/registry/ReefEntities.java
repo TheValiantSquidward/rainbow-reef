@@ -50,6 +50,38 @@ public class ReefEntities {
                     .build(new ResourceLocation(RainbowReef.MOD_ID, "seahorse").toString())
     );
 
+    public static final RegistryObject<EntityType<Wrasse>> WRASSE = ENTITY_TYPES.register(
+            "wrasse", () ->
+            EntityType.Builder.of(Wrasse::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "wrasse").toString())
+    );
+
+    public static final RegistryObject<EntityType<Triggerfish>> TRIGGERFISH = ENTITY_TYPES.register(
+            "triggerfish", () ->
+            EntityType.Builder.of(Triggerfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.4F, 0.4F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "triggerfish").toString())
+    );
+
+    public static final RegistryObject<EntityType<Damselfish>> DAMSELFISH = ENTITY_TYPES.register(
+            "damselfish", () ->
+            EntityType.Builder.of(Damselfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "damselfish").toString())
+    );
+
+    public static final RegistryObject<EntityType<Rabbitfish>> RABBITFISH = ENTITY_TYPES.register(
+            "rabbitfish", () ->
+            EntityType.Builder.of(Rabbitfish::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.3F, 0.3F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "rabbitfish").toString())
+    );
+
     public static final RegistryObject<EntityType<Boxfish>> BOXFISH = ENTITY_TYPES.register(
             "boxfish", () ->
             EntityType.Builder.of(Boxfish::new, MobCategory.WATER_AMBIENT)

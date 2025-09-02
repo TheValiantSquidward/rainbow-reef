@@ -40,7 +40,7 @@ public class Lionfish extends ReefMob {
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 4.0D)
+                .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .build();
     }
@@ -50,6 +50,11 @@ public class Lionfish extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new FishDigGoal(this, 30, 500, ReefTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 10));
+    }
+
+    @Override
+    public void setupAnimationStates() {
+        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override

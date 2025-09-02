@@ -67,5 +67,9 @@ public class MobEvents {
         event.put(ReefEntities.FROGFISH.get(), Frogfish.createAttributes());
         event.put(ReefEntities.SHARK.get(), Shark.createAttributes());
         event.put(ReefEntities.LARGE_SHARK.get(), LargeShark.createAttributes());
+        event.put(ReefEntities.WRASSE.get(), Wrasse.createAttributes());
+        event.put(ReefEntities.TRIGGERFISH.get(), Triggerfish.createAttributes());
+        event.put(ReefEntities.DAMSELFISH.get(), Damselfish.createAttributes());
+        event.put(ReefEntities.RABBITFISH.get(), Rabbitfish.createAttributes());
     }
 }
