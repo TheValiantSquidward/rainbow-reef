@@ -78,7 +78,7 @@ public class MoorishIdol extends VariantSchoolingFish {
 
     public enum MoorishIdolVariant implements StringRepresentable {
         ZANCLUS(1, "zanclus", COMMON, null),
-        SILVER(2, "silver", COMMON, null);
+        SILVER(2, "silver", ABERRANT, null);
 
         private final int variant;
         private final String name;
