@@ -1,7 +1,5 @@
 package net.thevaliantsquidward.rainbowreef.events;
 
-
-
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.npc.VillagerProfession;

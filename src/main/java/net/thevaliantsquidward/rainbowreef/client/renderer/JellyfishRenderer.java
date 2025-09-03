@@ -21,18 +21,30 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
     }
 
     @Override
-    protected void setupRotations(Jellyfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
-        float xRot = Mth.lerp(partialTicks, entity.xBodyRotO, entity.xBodyRot);
-        float zRot = Mth.lerp(partialTicks, entity.zBodyRotO, entity.zBodyRot);
-        poseStack.translate(0.0F, 0.5F, 0.0F);
-        poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - rotationYaw));
-        poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
-        poseStack.mulPose(Axis.YP.rotationDegrees(zRot));
-        poseStack.translate(0.0F, -1.2F, 0.0F);
+    protected float getFlipDegrees(Jellyfish entity) {
+        return 0.0F;
     }
 
+    @Override
     public ResourceLocation getTextureLocation(Jellyfish entity) {
         Jellyfish.JellyfishVariant jellyfishVariant = Jellyfish.JellyfishVariant.getVariantId(entity.getVariant());
         return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/jellyfish/" + jellyfishVariant.getSerializedName() + ".png");
+    }
+
+    @Override
+    protected void setupRotations(Jellyfish entity, PoseStack poseStack, float p_115319_, float p_115320_, float partialTicks) {
+        if (entity.isInWaterOrBubble()) {
+            if (isEntityUpsideDown(entity)) {
+                poseStack.translate(0.0D, entity.getBbHeight() + 0.1F, 0.0D);
+                poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+            }
+            float translateY = entity.getBbHeight() * 0.5F;
+            poseStack.translate(0.0F, translateY, 0.0F);
+            poseStack.mulPose(Axis.YP.rotationDegrees(360.0F - Mth.rotLerp(partialTicks, entity.yRotO, entity.getYRot())));
+            poseStack.mulPose(Axis.XP.rotationDegrees((Mth.rotLerp(partialTicks, entity.xRotO, entity.getXRot()) + 90.0F) % 360.0F));
+            poseStack.translate(0.0F, -translateY, 0.0F);
+        } else {
+            super.setupRotations(entity, poseStack, p_115319_, p_115320_, partialTicks);
+        }
     }
 }

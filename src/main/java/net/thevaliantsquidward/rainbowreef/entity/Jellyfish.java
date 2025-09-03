@@ -22,6 +22,9 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,8 +32,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.SquidSwimGoal;
-import net.thevaliantsquidward.rainbowreef.entity.base.SquidMob;
+import net.thevaliantsquidward.rainbowreef.entity.base.JellyfishMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import org.jetbrains.annotations.NotNull;
@@ -41,26 +43,27 @@ import java.util.Locale;
 
 import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
 
-public class Jellyfish extends SquidMob {
+public class Jellyfish extends JellyfishMob {
 
     private static final EntityDataAccessor<Integer> SCALE = SynchedEntityData.defineId(Jellyfish.class, EntityDataSerializers.INT);
 
-    public Jellyfish(EntityType<? extends SquidMob> entityType, Level level) {
+    public Jellyfish(EntityType<? extends JellyfishMob> entityType, Level level) {
         super(entityType, level);
-        this.random.setSeed(this.getId());
-        this.tentacleSpeed = 2.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
+        this.moveControl = new SmoothSwimmingMoveControl(this, 45, 10, 0.02F, 0.0F, false);
+        this.lookControl = new JellyfishLookControl(this);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 10D)
-                .add(Attributes.MOVEMENT_SPEED, 0.3D)
+                .add(Attributes.MAX_HEALTH, 8.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.55F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SquidSwimGoal(this, 60, 0.18F, 0.18F, 0.18F));
+        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1, 60));
     }
 
     @Override
@@ -74,6 +77,7 @@ public class Jellyfish extends SquidMob {
     @Override
     public void tick() {
         super.tick();
+
         if (!this.hasCustomName()) {
             this.setScale(0);
         } else {
@@ -85,6 +89,10 @@ public class Jellyfish extends SquidMob {
                 }
             }
         }
+    }
+
+    @Override
+    public void tickFlopping() {
     }
 
     @Override

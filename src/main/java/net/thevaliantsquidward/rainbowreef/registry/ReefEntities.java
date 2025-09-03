@@ -21,12 +21,13 @@ public class ReefEntities {
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "goby").toString()));
 
-    public static final RegistryObject<EntityType<Jellyfish>> JELLYFISH =
-            ENTITY_TYPES.register("jellyfish",
-                    () -> EntityType.Builder.of(Jellyfish::new, MobCategory.WATER_AMBIENT)
-                            .sized(0.9f, 0.9f)
-                            .clientTrackingRange(10)
-                            .build(new ResourceLocation(RainbowReef.MOD_ID, "jellyfish").toString()));
+    public static final RegistryObject<EntityType<Jellyfish>> JELLYFISH = ENTITY_TYPES.register(
+            "jellyfish", () ->
+            EntityType.Builder.of(Jellyfish::new, MobCategory.WATER_CREATURE)
+                        .sized(1.1F, 1.1F)
+                        .clientTrackingRange(10)
+                        .build(new ResourceLocation(RainbowReef.MOD_ID, "jellyfish").toString())
+    );
 
     public static final RegistryObject<EntityType<MoorishIdol>> MOORISH_IDOL =
             ENTITY_TYPES.register("moorish_idol",
