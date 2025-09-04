@@ -52,9 +52,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> definition) {
-        definition.add(WATERLOGGED);
-        definition.add(COLOUR);
-        definition.add(FACING);
+        definition.add(WATERLOGGED, COLOUR, FACING);
     }
 
     @Override
@@ -82,6 +80,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     }
 
     @Nullable
+    @Override
     public BlockState getStateForPlacement(BlockPlaceContext world) {
         Direction direction = world.getClickedFace();
         BlockState oppositeDirection = world.getLevel().getBlockState(world.getClickedPos().relative(direction.getOpposite()));

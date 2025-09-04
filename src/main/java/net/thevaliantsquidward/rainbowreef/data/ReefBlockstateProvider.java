@@ -91,6 +91,11 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(BUSH_CORAL);
         this.coralFan(DEAD_BUSH_CORAL_FAN, DEAD_BUSH_CORAL_WALL_FAN);
         this.coralFan(BUSH_CORAL_FAN, BUSH_CORAL_WALL_FAN);
+
+        this.cubeAllBlock(CORALSTONE);
+        this.cubeAllBlock(CORALSTONE_BRICKS);
+        this.cubeAllBlock(CHISELED_CORALSTONE);
+        this.cubeAllBlock(POLISHED_CORALSTONE);
     }
 
     // item

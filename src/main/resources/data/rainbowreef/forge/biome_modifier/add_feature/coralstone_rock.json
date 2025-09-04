@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "minecraft:warm_ocean",
+  "features": [
+    "rainbowreef:coralstone_rock"
+  ],
+  "step": "underground_decoration"
+}
