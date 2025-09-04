@@ -3,8 +3,8 @@
   "biomes": "#rainbowreef:has_spawn/ray",
   "spawners": {
     "type": "rainbowreef:ray",
-    "maxCount": 2,
-    "minCount": 2,
+    "maxCount": 1,
+    "minCount": 1,
     "weight": 2
   }
 }

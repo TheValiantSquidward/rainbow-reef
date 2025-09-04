@@ -53,6 +53,7 @@ public class ClientEvents {
         event.registerEntityRenderer(ReefEntities.DAMSELFISH.get(), DamselfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.RABBITFISH.get(), RabbitfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.FROGFISH.get(), FrogfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.FUSILIER.get(), FusilierRenderer::new);
     }
 
     @SubscribeEvent
@@ -86,5 +87,6 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.TRIGGERFISH, TriggerfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.DAMSELFISH, DamselfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.RABBITFISH, RabbitfishModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.FUSILIER, FusilierModel::createBodyLayer);
     }
 }

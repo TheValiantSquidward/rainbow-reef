@@ -3,6 +3,7 @@ package net.thevaliantsquidward.rainbowreef.data;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
@@ -20,19 +21,15 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
 
     @Override
     public void addTags(Provider provider) {
-        this.tag(HAS_ANGELFISH).add(Biomes.WARM_OCEAN);
-        this.tag(HAS_ARROW_CRAB).add(Biomes.WARM_OCEAN);
-        this.tag(HAS_BASSLET).add(Biomes.WARM_OCEAN);
+        this.tag(HAS_ANGELFISH).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
+        this.tag(HAS_ARROW_CRAB).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
+        this.tag(HAS_BASSLET).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
-        this.tag(HAS_BOXFISH).add(
-                Biomes.WARM_OCEAN,
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_BOXFISH).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));
 
-        this.tag(HAS_BUTTERFLYFISH).add(Biomes.WARM_OCEAN);
+        this.tag(HAS_BUTTERFLYFISH).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
         this.tag(HAS_BUTTERFLYFISH_MANGROVE).add(Biomes.MANGROVE_SWAMP);
-        this.tag(HAS_CLOWNFISH).add(Biomes.WARM_OCEAN);
+        this.tag(HAS_CLOWNFISH).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
         this.tag(HAS_CRAB).add(
                 Biomes.WARM_OCEAN,
@@ -47,59 +44,30 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
                 Biomes.JUNGLE,
                 Biomes.SWAMP,
                 Biomes.MANGROVE_SWAMP
-        );
+        ).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
-        this.tag(HAS_DWARF_ANGELFISH).add(Biomes.WARM_OCEAN);
-        this.tag(HAS_GOBY).add(Biomes.WARM_OCEAN);
+        this.tag(HAS_DWARF_ANGELFISH).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
+        this.tag(HAS_GOBY).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
         this.tag(HAS_GOBY_MANGROVE).add(Biomes.MANGROVE_SWAMP);
 
-        this.tag(HAS_HOGFISH).add(
-                Biomes.WARM_OCEAN,
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_HOGFISH).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
-        this.tag(HAS_JELLYFISH).add(
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_JELLYFISH).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
 
-        this.tag(HAS_JELLYFISH_RARE).add(
-                Biomes.OCEAN,
-                Biomes.DEEP_OCEAN
-        );
+        this.tag(HAS_JELLYFISH_RARE).add(Biomes.OCEAN, Biomes.DEEP_OCEAN);
 
-        this.tag(HAS_MOORISH_IDOL).add(
-                Biomes.WARM_OCEAN,
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_MOORISH_IDOL).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
-        this.tag(HAS_PARROTFISH).add(
-                Biomes.WARM_OCEAN,
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_PARROTFISH).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
         this.tag(HAS_PIPEFISH).add(Biomes.MANGROVE_SWAMP);
 
-        this.tag(HAS_RAY).add(
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_RAY).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
 
-        this.tag(HAS_SEAHORSE).add(
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN,
-                Biomes.MANGROVE_SWAMP
-        );
+        this.tag(HAS_SEAHORSE).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN, Biomes.MANGROVE_SWAMP);
 
-        this.tag(HAS_SMALL_SHARK).add(
-                Biomes.WARM_OCEAN,
-                Biomes.LUKEWARM_OCEAN,
-                Biomes.DEEP_LUKEWARM_OCEAN
-        );
+        this.tag(HAS_SMALL_SHARK).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
 
-        this.tag(HAS_TANG).add(Biomes.WARM_OCEAN);
+        this.tag(HAS_TANG).add(Biomes.WARM_OCEAN).addOptional(new ResourceLocation("seafarer", "warm_reef"));;
     }
 }

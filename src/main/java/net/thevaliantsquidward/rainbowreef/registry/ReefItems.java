@@ -77,6 +77,9 @@ public class ReefItems {
     // frogfish
     public static final RegistryObject<Item> FROGFISH_SPAWN_EGG = registerSpawnEggItem("frogfish", ReefEntities.FROGFISH, 0xe4eef7, 0xbc4911);
 
+    // fusilier
+    public static final RegistryObject<Item> FUSILIER_SPAWN_EGG = registerSpawnEggItem("fusilier", ReefEntities.FUSILIER, 0x2d70c4, 0xf0f24e);
+
     // goby
     public static final RegistryObject<Item> GOBY_SPAWN_EGG = registerSpawnEggItem("goby", ReefEntities.GOBY, 0xdb3f1f, 0xffffff);
     public static final RegistryObject<Item> GOBY_BUCKET = registerMobBucketItem("goby", ReefEntities.GOBY);

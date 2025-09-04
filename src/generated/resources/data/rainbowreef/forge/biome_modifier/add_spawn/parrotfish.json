@@ -3,8 +3,8 @@
   "biomes": "#rainbowreef:has_spawn/parrotfish",
   "spawners": {
     "type": "rainbowreef:parrotfish",
-    "maxCount": 5,
-    "minCount": 5,
+    "maxCount": 1,
+    "minCount": 1,
     "weight": 12
   }
 }

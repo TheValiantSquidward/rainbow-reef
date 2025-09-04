@@ -233,6 +233,14 @@ public class ReefEntities {
                             .clientTrackingRange(10)
                             .build(new ResourceLocation(RainbowReef.MOD_ID, "frogfish").toString()));
 
+    public static final RegistryObject<EntityType<Fusilier>> FUSILIER = ENTITY_TYPES.register(
+            "fusilier", () ->
+            EntityType.Builder.of(Fusilier::new, MobCategory.WATER_AMBIENT)
+                    .sized(0.35F, 0.35F)
+                    .clientTrackingRange(10)
+                    .build(new ResourceLocation(RainbowReef.MOD_ID, "fusilier").toString())
+    );
+
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

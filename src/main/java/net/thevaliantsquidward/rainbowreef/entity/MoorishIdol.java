@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -25,6 +26,7 @@ import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
@@ -146,6 +148,20 @@ public class MoorishIdol extends VariantSchoolingFish {
             }
         }
         this.setVariant(MoorishIdolVariant.getVariantId(variant).getVariant());
+
+        if (spawnType == MobSpawnType.CHUNK_GENERATION || spawnType == MobSpawnType.NATURAL) {
+            int schoolCount = (int) (this.getMaxSchoolSize() * this.getRandom().nextFloat());
+            if (schoolCount > 0 && !this.level().isClientSide()) {
+                for (int i = 0; i < schoolCount; i++) {
+                    float distance = 1.5F;
+                    MoorishIdol entity = new MoorishIdol(ReefEntities.MOORISH_IDOL.get(), this.level());
+                    entity.setVariant(this.getVariant());
+                    entity.moveTo(this.getX() + this.getRandom().nextFloat() * distance, this.getY() + this.getRandom().nextFloat() * distance, this.getZ() + this.getRandom().nextFloat() * distance);
+                    entity.startFollowing(this);
+                    this.level().addFreshEntity(entity);
+                }
+            }
+        }
         return spawnData;
     }
 

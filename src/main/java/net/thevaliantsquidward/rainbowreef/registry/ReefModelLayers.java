@@ -20,6 +20,7 @@ public class ReefModelLayers {
     public static final ModelLayerLocation DAMSELFISH = main("damselfish");
     public static final ModelLayerLocation DWARF_ANGELFISH = main("dwarf_angelfish");
     public static final ModelLayerLocation FROGFISH = main("frogfish");
+    public static final ModelLayerLocation FUSILIER = main("fusilier");
     public static final ModelLayerLocation GOBY = main("goby");
     public static final ModelLayerLocation HOGFISH = main("hogfish");
     public static final ModelLayerLocation JELLYFISH = main("jellyfish");

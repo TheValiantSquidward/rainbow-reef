@@ -75,6 +75,9 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         // frogfish
                         output.accept(ReefItems.FROGFISH_SPAWN_EGG.get());
 
+                        // fusilier
+                        output.accept(ReefItems.FUSILIER_SPAWN_EGG.get());
+
                         // goby
                         output.accept(ReefItems.GOBY_SPAWN_EGG.get());
                         output.accept(ReefItems.GOBY_BUCKET.get());

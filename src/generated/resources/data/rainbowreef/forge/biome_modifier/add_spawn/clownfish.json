@@ -3,8 +3,8 @@
   "biomes": "#rainbowreef:has_spawn/clownfish",
   "spawners": {
     "type": "rainbowreef:clownfish",
-    "maxCount": 4,
-    "minCount": 4,
+    "maxCount": 2,
+    "minCount": 2,
     "weight": 20
   }
 }

@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-02T12:52:16.5854534	Item Models: rainbowreef
+// 1.20.1	2025-09-03T16:44:57.7122329	Item Models: rainbowreef
 a4c9bd9a5de28d54ff669d43ad81e29b3362332b assets/rainbowreef/models/item/angelfish.json
 a02524169ce786853a8f17bd55ecc5197111ef5e assets/rainbowreef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbowreef/models/item/angelfish_spawn_egg.json
@@ -37,6 +37,7 @@ c6869a239d924db9223dfdce37294ffd7afa6319 assets/rainbowreef/models/item/dwarf_an
 ca2b43139ed07116e5fe671d17fd6ee2045676cb assets/rainbowreef/models/item/dwarf_angelfish_tart.json
 0c192293f7becfbc3b55efeaadb2c225fc55b49f assets/rainbowreef/models/item/forbidden_soup.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbowreef/models/item/frogfish_spawn_egg.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbowreef/models/item/fusilier_spawn_egg.json
 425f449f73bd9237ae3d43fbcc3ec2aca7d85415 assets/rainbowreef/models/item/glob_of_jelly.json
 93bf372b075afbabc11cd699d6ba8015d4dc5d73 assets/rainbowreef/models/item/goby.json
 0b236e290f40732e3a9a10657fc5ee8c04ec19af assets/rainbowreef/models/item/goby_bucket.json

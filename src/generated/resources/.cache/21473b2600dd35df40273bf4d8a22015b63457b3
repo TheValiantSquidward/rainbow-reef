@@ -1,22 +1,22 @@
-// 1.20.1	2025-09-01T11:43:44.0250332	Tags for minecraft:worldgen/biome mod id rainbowreef
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/angelfish.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/arrow_crab.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/basslet.json
-6da7190ccb8f6b1e65242c7ea5834a1a69fd5db2 data/rainbowreef/tags/worldgen/biome/has_spawn/boxfish.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/butterflyfish.json
+// 1.20.1	2025-09-03T17:12:40.7906333	Tags for minecraft:worldgen/biome mod id rainbowreef
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/angelfish.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/arrow_crab.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/basslet.json
+3894588987a98b96e23f1ce1fb7886802652a139 data/rainbowreef/tags/worldgen/biome/has_spawn/boxfish.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/butterflyfish.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbowreef/tags/worldgen/biome/has_spawn/butterflyfish_mangrove.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/clownfish.json
-e596a403b45d79d7f343717cd52fcb505d8d1355 data/rainbowreef/tags/worldgen/biome/has_spawn/crab.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/dwarf_angelfish.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/goby.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/clownfish.json
+fd7ee42307323d2761de865f5ce32f5c24a5a237 data/rainbowreef/tags/worldgen/biome/has_spawn/crab.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/dwarf_angelfish.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/goby.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbowreef/tags/worldgen/biome/has_spawn/goby_mangrove.json
-6da7190ccb8f6b1e65242c7ea5834a1a69fd5db2 data/rainbowreef/tags/worldgen/biome/has_spawn/hogfish.json
+3894588987a98b96e23f1ce1fb7886802652a139 data/rainbowreef/tags/worldgen/biome/has_spawn/hogfish.json
 e2e1677b4fcae4afcf03328c1a9c235328d0c516 data/rainbowreef/tags/worldgen/biome/has_spawn/jellyfish.json
 6cdfdcfccfb03c1d2ba445ef9f1b72f874237f6c data/rainbowreef/tags/worldgen/biome/has_spawn/jellyfish_rare.json
-6da7190ccb8f6b1e65242c7ea5834a1a69fd5db2 data/rainbowreef/tags/worldgen/biome/has_spawn/moorish_idol.json
-6da7190ccb8f6b1e65242c7ea5834a1a69fd5db2 data/rainbowreef/tags/worldgen/biome/has_spawn/parrotfish.json
+3894588987a98b96e23f1ce1fb7886802652a139 data/rainbowreef/tags/worldgen/biome/has_spawn/moorish_idol.json
+3894588987a98b96e23f1ce1fb7886802652a139 data/rainbowreef/tags/worldgen/biome/has_spawn/parrotfish.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbowreef/tags/worldgen/biome/has_spawn/pipefish.json
 e2e1677b4fcae4afcf03328c1a9c235328d0c516 data/rainbowreef/tags/worldgen/biome/has_spawn/ray.json
 a89db273d286fd3ab70ac94efba0bd9125840f7d data/rainbowreef/tags/worldgen/biome/has_spawn/seahorse.json
-6da7190ccb8f6b1e65242c7ea5834a1a69fd5db2 data/rainbowreef/tags/worldgen/biome/has_spawn/small_shark.json
-6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbowreef/tags/worldgen/biome/has_spawn/tang.json
+3894588987a98b96e23f1ce1fb7886802652a139 data/rainbowreef/tags/worldgen/biome/has_spawn/small_shark.json
+17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbowreef/tags/worldgen/biome/has_spawn/tang.json

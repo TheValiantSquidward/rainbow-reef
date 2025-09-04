@@ -11,24 +11,36 @@ public class ReefBiomeTags {
     public static final TagKey<Biome> HAS_ANGELFISH = modBiomeTag("has_spawn/angelfish");
     public static final TagKey<Biome> HAS_ARROW_CRAB = modBiomeTag("has_spawn/arrow_crab");
     public static final TagKey<Biome> HAS_BASSLET = modBiomeTag("has_spawn/basslet");
+    public static final TagKey<Biome> HAS_BILLFISH = modBiomeTag("has_spawn/billfish");
     public static final TagKey<Biome> HAS_BOXFISH = modBiomeTag("has_spawn/boxfish");
     public static final TagKey<Biome> HAS_BUTTERFLYFISH = modBiomeTag("has_spawn/butterflyfish");
     public static final TagKey<Biome> HAS_BUTTERFLYFISH_MANGROVE = modBiomeTag("has_spawn/butterflyfish_mangrove");
     public static final TagKey<Biome> HAS_CLOWNFISH = modBiomeTag("has_spawn/clownfish");
     public static final TagKey<Biome> HAS_CRAB = modBiomeTag("has_spawn/crab");
+    public static final TagKey<Biome> HAS_DAMSELFISH = modBiomeTag("has_spawn/damselfish");
     public static final TagKey<Biome> HAS_DWARF_ANGELFISH = modBiomeTag("has_spawn/dwarf_angelfish");
+    public static final TagKey<Biome> HAS_FROGFISH = modBiomeTag("has_spawn/frogfish");
+    public static final TagKey<Biome> HAS_FUSILIER = modBiomeTag("has_spawn/fusilier");
     public static final TagKey<Biome> HAS_GOBY = modBiomeTag("has_spawn/goby");
     public static final TagKey<Biome> HAS_GOBY_MANGROVE = modBiomeTag("has_spawn/goby_mangrove");
     public static final TagKey<Biome> HAS_HOGFISH = modBiomeTag("has_spawn/hogfish");
     public static final TagKey<Biome> HAS_JELLYFISH = modBiomeTag("has_spawn/jellyfish");
     public static final TagKey<Biome> HAS_JELLYFISH_RARE = modBiomeTag("has_spawn/jellyfish_rare");
+    public static final TagKey<Biome> HAS_LARGE_SHARK = modBiomeTag("has_spawn/large_shark");
+    public static final TagKey<Biome> HAS_LIONFISH = modBiomeTag("has_spawn/lionfish");
+    public static final TagKey<Biome> HAS_MAHI_MAHI = modBiomeTag("has_spawn/mahi_mahi");
+    public static final TagKey<Biome> HAS_MAORI_WRASSE = modBiomeTag("has_spawn/maori_wrasse");
     public static final TagKey<Biome> HAS_MOORISH_IDOL = modBiomeTag("has_spawn/moorish_idol");
     public static final TagKey<Biome> HAS_PARROTFISH = modBiomeTag("has_spawn/parrotfish");
     public static final TagKey<Biome> HAS_PIPEFISH = modBiomeTag("has_spawn/pipefish");
+    public static final TagKey<Biome> HAS_RABBITFISH = modBiomeTag("has_spawn/rabbitfish");
     public static final TagKey<Biome> HAS_RAY = modBiomeTag("has_spawn/ray");
     public static final TagKey<Biome> HAS_SEAHORSE = modBiomeTag("has_spawn/seahorse");
+    public static final TagKey<Biome> HAS_SHARK = modBiomeTag("has_spawn/shark");
     public static final TagKey<Biome> HAS_SMALL_SHARK = modBiomeTag("has_spawn/small_shark");
     public static final TagKey<Biome> HAS_TANG = modBiomeTag("has_spawn/tang");
+    public static final TagKey<Biome> HAS_TRIGGERFISH = modBiomeTag("has_spawn/triggerfish");
+    public static final TagKey<Biome> HAS_WRASSE = modBiomeTag("has_spawn/wrasse");
 
     private static TagKey<Biome> modBiomeTag(String name) {
         return biomeTag(RainbowReef.MOD_ID, name);

@@ -3,8 +3,8 @@
   "biomes": "#rainbowreef:has_spawn/butterflyfish",
   "spawners": {
     "type": "rainbowreef:butterflyfish",
-    "maxCount": 10,
-    "minCount": 10,
+    "maxCount": 2,
+    "minCount": 2,
     "weight": 40
   }
 }

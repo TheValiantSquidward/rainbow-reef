@@ -46,36 +46,28 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     protected static final VoxelShape UP_AABB;
     protected static final VoxelShape DOWN_AABB;
 
-    public AnemoneBlock(int col) {
+    public AnemoneBlock(int color) {
         super(Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.5F).sound(SoundType.FROGLIGHT).randomTicks().noOcclusion());
-        this.registerDefaultState(this.stateDefinition.any()
-                .setValue(WATERLOGGED, Boolean.valueOf(true))
-                .setValue(COLOUR, Integer.valueOf(col))
-                //TODO: USE STONE WALL CODE TO MAKE IT CONFORM TO NEARBY BLOCKS
-        );
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, true).setValue(COLOUR, color).setValue(FACING, Direction.UP));
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> def) {
-        def.add(WATERLOGGED);
-        def.add(COLOUR);
-        def.add(FACING);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> definition) {
+        definition.add(WATERLOGGED);
+        definition.add(COLOUR);
+        definition.add(FACING);
     }
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        //BlockPos belowPos = pPos.below();
         if(state.getValue(FACING) == Direction.NORTH) {
             BlockPos northPos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
             return level.getBlockState(northPos).isFaceSturdy(level, pos, Direction.SOUTH);
-
         } else if (state.getValue(FACING) == Direction.SOUTH) {
             BlockPos southPos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() - 1);
             return level.getBlockState(southPos).isFaceSturdy(level, pos, Direction.NORTH);
-
         } else if (state.getValue(FACING) == Direction.EAST) {
             BlockPos eastPos = new BlockPos(pos.getX() - 1, pos.getY(), pos.getZ());
             return level.getBlockState(eastPos).isFaceSturdy(level, pos, Direction.WEST);
-
         } else if (state.getValue(FACING) == Direction.WEST) {
             BlockPos westPos = new BlockPos(pos.getX() + 1, pos.getY(), pos.getZ());
             return level.getBlockState(westPos).isFaceSturdy(level, pos, Direction.EAST);
@@ -83,80 +75,60 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         } else if (state.getValue(FACING) == Direction.UP) {
             BlockPos upPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
             return level.getBlockState(upPos).isFaceSturdy(level, pos, Direction.DOWN);
-
         } else {
             BlockPos downPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
             return level.getBlockState(downPos).isFaceSturdy(level, pos, Direction.UP);
         }
-
     }
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext world) {
-
-        Direction dir = world.getClickedFace();
-        BlockState oppDir = world.getLevel().getBlockState(world.getClickedPos().relative(dir.getOpposite()));
-
+        Direction direction = world.getClickedFace();
+        BlockState oppositeDirection = world.getLevel().getBlockState(world.getClickedPos().relative(direction.getOpposite()));
 
         FluidState state = world.getLevel().getFluidState(world.getClickedPos());
-        return (oppDir.is(this) && oppDir.getValue(FACING) == dir ? this.defaultBlockState().setValue(FACING, dir.getOpposite()) : this.defaultBlockState().setValue(FACING, dir))
-                .setValue(WATERLOGGED, state.is(FluidTags.WATER) && state.getAmount() == 8);
+        return (oppositeDirection.is(this) && oppositeDirection.getValue(FACING) == direction ? this.defaultBlockState().setValue(FACING, direction.getOpposite()) : this.defaultBlockState().setValue(FACING, direction)).setValue(WATERLOGGED, state.is(FluidTags.WATER) && state.getAmount() == 8);
     }
 
-
+    @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-        //set waterlogged if there was water there
     }
 
-
+    @Override
     public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
-        switch (state.getValue(FACING)) {
-            default:
-                return UP_AABB;
-            case DOWN:
-                return DOWN_AABB;
-            case UP:
-                return UP_AABB;
-            case NORTH:
-                return NORTH_AABB;
-            case SOUTH:
-                return SOUTH_AABB;
-            case WEST:
-                return WEST_AABB;
-            case EAST:
-                return EAST_AABB;
-        }
+        return switch (state.getValue(FACING)) {
+            case DOWN -> DOWN_AABB;
+            case NORTH -> NORTH_AABB;
+            case SOUTH -> SOUTH_AABB;
+            case WEST -> WEST_AABB;
+            case EAST -> EAST_AABB;
+            default -> UP_AABB;
+        };
     }
+
     public BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
+
     public BlockState mirror(BlockState state, Mirror flip) {
         return state.setValue(FACING, flip.mirror(state.getValue(FACING)));
     }
 
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
-        switch (pType) {
-            case LAND:
-                return true;
-            case WATER:
-                return pLevel.getFluidState(pPos).is(FluidTags.WATER);
-            case AIR:
-                return false;
-            default:
-                return false;
-        }
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType computationType) {
+        return switch (computationType) {
+            case LAND -> true;
+            case WATER -> level.getFluidState(pos).is(FluidTags.WATER);
+            default -> false;
+        };
     }
 
     @Deprecated
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if(pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-
+        if (pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
         System.out.println(itemStack.is(ItemTags.FISHES));
-
-
-        if(itemStack.is(ReefTags.NEM_DIET) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ReefItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
+        if (itemStack.is(ReefTags.NEM_DIET) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ReefItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
             ItemStack drop;
             if (pState.getValue(COLOUR) == 0) {
                 drop = new ItemStack(ReefBlocks.YELLOW_SEA_ANEMONE.get());
@@ -168,7 +140,6 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
             ItemEntity piss = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY(), pPos.getZ() + 0.5, drop);
             pLevel.addFreshEntity(piss);
         }
-
         return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
     }
 
@@ -196,5 +167,4 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         UP_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 5.0, 16.0);
         DOWN_AABB = Block.box(0.0, 11.0, 0.0, 16.0, 16.0, 16.0);
     }
-
 }

@@ -3,8 +3,8 @@
   "biomes": "#rainbowreef:has_spawn/angelfish",
   "spawners": {
     "type": "rainbowreef:angelfish",
-    "maxCount": 3,
-    "minCount": 3,
+    "maxCount": 2,
+    "minCount": 2,
     "weight": 10
   }
 }
