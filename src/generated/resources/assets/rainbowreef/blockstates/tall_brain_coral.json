@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "rainbowreef:block/tall_brain_coral_bottom"
+    },
+    "half=upper": {
+      "model": "rainbowreef:block/tall_brain_coral_top"
+    }
+  }
+}

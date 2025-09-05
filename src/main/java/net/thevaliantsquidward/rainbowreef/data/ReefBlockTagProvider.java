@@ -6,6 +6,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,6 +69,22 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 FLOWER_CORAL_WALL_FAN.get(),
                 RING_CORAL_WALL_FAN.get(),
                 BUSH_CORAL_WALL_FAN.get()
+        );
+
+        this.tag(ReefBlockTags.TALL_CORALS).add(
+                TALL_TUBE_CORAL.get(),
+                TALL_BRAIN_CORAL.get(),
+                TALL_BUBBLE_CORAL.get(),
+                TALL_FIRE_CORAL.get(),
+                TALL_HORN_CORAL.get(),
+                TALL_BARREL_CORAL.get(),
+                TALL_BUSH_CORAL.get(),
+                TALL_CHIMNEY_CORAL.get(),
+                TALL_HAND_CORAL.get(),
+                TALL_RING_CORAL.get(),
+                TALL_FLOWER_CORAL.get(),
+                TALL_ROSE_CORAL.get(),
+                TALL_SHELF_CORAL.get()
         );
     }
 

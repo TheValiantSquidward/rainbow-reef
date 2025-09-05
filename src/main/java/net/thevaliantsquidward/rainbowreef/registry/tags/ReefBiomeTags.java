@@ -8,6 +8,8 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 
 public class ReefBiomeTags {
 
+    public static final TagKey<Biome> WARM_OCEANS = modBiomeTag("warm_oceans");
+
     public static final TagKey<Biome> HAS_ANGELFISH = modBiomeTag("has_spawn/angelfish");
     public static final TagKey<Biome> HAS_ARROW_CRAB = modBiomeTag("has_spawn/arrow_crab");
     public static final TagKey<Biome> HAS_BASSLET = modBiomeTag("has_spawn/basslet");

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "rainbowreef:block/dead_tall_fire_coral_bottom"
+    },
+    "half=upper": {
+      "model": "rainbowreef:block/dead_tall_fire_coral_top"
+    }
+  }
+}

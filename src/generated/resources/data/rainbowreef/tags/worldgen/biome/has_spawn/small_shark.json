@@ -1,11 +1,7 @@
 {
   "values": [
-    "minecraft:warm_ocean",
+    "#rainbowreef:warm_oceans",
     "minecraft:lukewarm_ocean",
-    "minecraft:deep_lukewarm_ocean",
-    {
-      "id": "seafarer:warm_reef",
-      "required": false
-    }
+    "minecraft:deep_lukewarm_ocean"
   ]
 }

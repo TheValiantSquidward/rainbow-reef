@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "rainbowreef:block/tall_rose_coral_top"
+  }
+}

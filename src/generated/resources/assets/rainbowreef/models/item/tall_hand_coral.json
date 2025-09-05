@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "rainbowreef:block/tall_hand_coral_top"
+  }
+}

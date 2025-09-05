@@ -1,9 +1,5 @@
 {
   "values": [
-    "minecraft:warm_ocean",
-    {
-      "id": "seafarer:warm_reef",
-      "required": false
-    }
+    "#rainbowreef:warm_oceans"
   ]
 }

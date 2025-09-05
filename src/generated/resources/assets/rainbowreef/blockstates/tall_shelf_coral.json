@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "rainbowreef:block/tall_shelf_coral_bottom"
+    },
+    "half=upper": {
+      "model": "rainbowreef:block/tall_shelf_coral_top"
+    }
+  }
+}

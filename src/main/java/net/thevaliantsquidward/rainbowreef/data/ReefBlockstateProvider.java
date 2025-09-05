@@ -3,12 +3,16 @@ package net.thevaliantsquidward.rainbowreef.data;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+
+import java.util.function.Function;
 
 import static net.thevaliantsquidward.rainbowreef.registry.ReefBlocks.*;
 
@@ -27,6 +31,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(SHELF_CORAL);
         this.coralFan(DEAD_SHELF_CORAL_FAN, DEAD_SHELF_CORAL_WALL_FAN);
         this.coralFan(SHELF_CORAL_FAN, SHELF_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_SHELF_CORAL);
+        this.tallCoral(TALL_SHELF_CORAL);
 
         // barrel coral
         this.cubeAllBlock(DEAD_BARREL_CORAL_BLOCK);
@@ -35,6 +41,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(BARREL_CORAL);
         this.coralFan(DEAD_BARREL_CORAL_FAN, DEAD_BARREL_CORAL_WALL_FAN);
         this.coralFan(BARREL_CORAL_FAN, BARREL_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_BARREL_CORAL);
+        this.tallCoral(TALL_BARREL_CORAL);
 
         // hand coral
         this.cubeAllBlock(DEAD_HAND_CORAL_BLOCK);
@@ -43,6 +51,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(HAND_CORAL);
         this.coralFan(DEAD_HAND_CORAL_FAN, DEAD_HAND_CORAL_WALL_FAN);
         this.coralFan(HAND_CORAL_FAN, HAND_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_HAND_CORAL);
+        this.tallCoral(TALL_HAND_CORAL);
 
         // chimney coral
         this.cubeAllBlock(DEAD_CHIMNEY_CORAL_BLOCK);
@@ -51,6 +61,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(CHIMNEY_CORAL);
         this.coralFan(DEAD_CHIMNEY_CORAL_FAN, DEAD_CHIMNEY_CORAL_WALL_FAN);
         this.coralFan(CHIMNEY_CORAL_FAN, CHIMNEY_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_CHIMNEY_CORAL);
+        this.tallCoral(TALL_CHIMNEY_CORAL);
 
         // tower coral
         this.cubeAllBlock(DEAD_TOWER_CORAL_BLOCK);
@@ -59,6 +71,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(TOWER_CORAL);
         this.coralFan(DEAD_TOWER_CORAL_FAN, DEAD_TOWER_CORAL_WALL_FAN);
         this.coralFan(TOWER_CORAL_FAN, TOWER_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_TOWER_CORAL);
+        this.tallCoral(TALL_TOWER_CORAL);
 
         // rose coral
         this.cubeAllBlock(DEAD_ROSE_CORAL_BLOCK);
@@ -67,6 +81,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(ROSE_CORAL);
         this.coralFan(DEAD_ROSE_CORAL_FAN, DEAD_ROSE_CORAL_WALL_FAN);
         this.coralFan(ROSE_CORAL_FAN, ROSE_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_ROSE_CORAL);
+        this.tallCoral(TALL_ROSE_CORAL);
 
         // flower coral
         this.cubeAllBlock(DEAD_FLOWER_CORAL_BLOCK);
@@ -75,6 +91,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(FLOWER_CORAL);
         this.coralFan(DEAD_FLOWER_CORAL_FAN, DEAD_FLOWER_CORAL_WALL_FAN);
         this.coralFan(FLOWER_CORAL_FAN, FLOWER_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_FLOWER_CORAL);
+        this.tallCoral(TALL_FLOWER_CORAL);
 
         // ring coral
         this.cubeAllBlock(DEAD_RING_CORAL_BLOCK);
@@ -83,6 +101,8 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(RING_CORAL);
         this.coralFan(DEAD_RING_CORAL_FAN, DEAD_RING_CORAL_WALL_FAN);
         this.coralFan(RING_CORAL_FAN, RING_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_RING_CORAL);
+        this.tallCoral(TALL_RING_CORAL);
 
         // bush coral
         this.cubeAllBlock(DEAD_BUSH_CORAL_BLOCK);
@@ -91,6 +111,20 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.simpleCross(BUSH_CORAL);
         this.coralFan(DEAD_BUSH_CORAL_FAN, DEAD_BUSH_CORAL_WALL_FAN);
         this.coralFan(BUSH_CORAL_FAN, BUSH_CORAL_WALL_FAN);
+        this.tallCoral(DEAD_TALL_BUSH_CORAL);
+        this.tallCoral(TALL_BUSH_CORAL);
+
+        this.tallCoral(DEAD_TALL_BRAIN_CORAL);
+        this.tallCoral(DEAD_TALL_BUBBLE_CORAL);
+        this.tallCoral(DEAD_TALL_FIRE_CORAL);
+        this.tallCoral(DEAD_TALL_TUBE_CORAL);
+        this.tallCoral(DEAD_TALL_HORN_CORAL);
+
+        this.tallCoral(TALL_BRAIN_CORAL);
+        this.tallCoral(TALL_BUBBLE_CORAL);
+        this.tallCoral(TALL_FIRE_CORAL);
+        this.tallCoral(TALL_TUBE_CORAL);
+        this.tallCoral(TALL_HORN_CORAL);
 
         this.cubeAllBlock(CORALSTONE);
         this.cubeAllBlock(CORALSTONE_BRICKS);
@@ -148,6 +182,14 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.coralFan(coralFan, this.blockTexture(coralFan.get()));
         this.coralWallFan(coralWallFan, this.blockTexture(coralFan.get()));
         this.generatedItem(coralFan.get(), TextureFolder.BLOCK);
+    }
+
+    private void tallCoral(RegistryObject<Block> flower) {
+        String name = getItemName(flower.get());
+        Function<String, ModelFile> model = s -> this.models().cross(name + "_" + s, this.modLoc("block/" + name + "_" + s)).renderType("cutout");
+
+        this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc("block/" + name + "_top"));
+        this.getVariantBuilder(flower.get()).partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(model.apply("top"))).partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(model.apply("bottom")));
     }
 
     // utils

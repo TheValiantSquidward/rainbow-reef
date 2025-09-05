@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "minecraft:warm_ocean",
+  "biomes": "#rainbowreef:warm_oceans",
   "features": [
     "rainbowreef:coralstone_rock"
   ],
