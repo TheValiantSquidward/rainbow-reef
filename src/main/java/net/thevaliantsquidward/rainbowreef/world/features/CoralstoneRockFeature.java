@@ -35,9 +35,9 @@ public class CoralstoneRockFeature extends Feature<BlockStateConfiguration> {
             return false;
         } else {
             for (int i = 0; i < 3; ++i) {
-                int x = random.nextInt(2, 3);
-                int y = random.nextInt(2, 4);
-                int z = random.nextInt(2, 3);
+                int x = random.nextInt(2, 4);
+                int y = random.nextInt(2, 5);
+                int z = random.nextInt(2, 4);
                 float f = (float) (x + y + z) * 0.333F + 0.5F;
 
                 for (BlockPos blockpos1 : BlockPos.betweenClosed(blockpos.offset(-x, -y, -z), blockpos.offset(x, y, z))) {
