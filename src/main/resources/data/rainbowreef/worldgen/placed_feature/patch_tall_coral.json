@@ -2,8 +2,12 @@
   "feature": "rainbowreef:patch_tall_coral",
   "placement": [
     {
+      "type": "minecraft:rarity_filter",
+      "chance": 5
+    },
+    {
       "type": "minecraft:noise_based_count",
-      "noise_to_count_ratio": 5,
+      "noise_to_count_ratio": 4,
       "noise_factor": 400,
       "noise_offset": 0
     },

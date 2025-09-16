@@ -39,10 +39,7 @@ public class TallCoralFeature extends Feature<NoneFeatureConfiguration> {
 
         BlockState block = starfish.map(Block::defaultBlockState).orElseGet(ReefBlocks.TALL_HORN_CORAL.get()::defaultBlockState).setValue(TallCoralBlock.WATERLOGGED, true);
 
-        int x = random.nextInt(8) - random.nextInt(8);
-        int z = random.nextInt(8) - random.nextInt(8);
-
-        for (int j = 0; j < 32; j++) {
+        for (int j = 0; j < 16; j++) {
             BlockPos blockPos = pos.offset(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8) - random.nextInt(8));
             if (level.getFluidState(blockPos).is(FluidTags.WATER) && blockPos.getY() < 255 && block.canSurvive(level, blockPos)) {
                 BlockState upperState = block.setValue(TallCoralBlock.HALF, DoubleBlockHalf.UPPER);

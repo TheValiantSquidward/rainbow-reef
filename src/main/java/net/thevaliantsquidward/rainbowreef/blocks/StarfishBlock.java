@@ -16,11 +16,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
+
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public StarfishBlock(Properties pProperties) {
         super(pProperties);
-        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)));
-        //TODO: USE STONE WALL CODE TO MAKE IT CONFORM TO NEARBY BLOCKS
+        this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
