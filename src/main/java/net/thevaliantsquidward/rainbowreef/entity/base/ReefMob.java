@@ -133,15 +133,15 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
             bucket.setHoverName(this.getCustomName());
         }
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CompoundTag compoundnbt = bucket.getOrCreateTag();
-        compoundnbt.putInt("BucketVariantTag", this.getVariant());
+        CompoundTag compoundTag = bucket.getOrCreateTag();
+        compoundTag.putInt("BucketVariantTag", this.getVariant());
     }
 
     @Override
-    public void loadFromBucketTag(@Nonnull CompoundTag compound) {
-        Bucketable.loadDefaultDataFromBucketTag(this, compound);
-        if (compound.contains("BucketVariantTag", 3)) {
-            this.setVariant(compound.getInt("BucketVariantTag"));
+    public void loadFromBucketTag(@Nonnull CompoundTag compoundTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+        if (compoundTag.contains("BucketVariantTag", 3)) {
+            this.setVariant(compoundTag.getInt("BucketVariantTag"));
         }
     }
 
