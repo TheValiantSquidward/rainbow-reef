@@ -59,7 +59,9 @@ public class RainbowReef {
         provider = datapackEntries.getRegistryProvider();
         ReefBlockTagProvider blockTags = new ReefBlockTagProvider(output, provider, helper);
         generator.addProvider(server, blockTags);
+        generator.addProvider(server, new ReefItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new ReefBiomeTagProvider(output, provider, helper));
+        generator.addProvider(server, new ReefRecipeProvider(output));
 
         boolean client = data.includeClient();
         generator.addProvider(client, new ReefBlockstateProvider(data));

@@ -1,0 +1,29 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:mod_loaded",
+            "modid": "farmersdelight"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "category": "misc",
+        "ingredients": [
+          {
+            "item": "rainbowreef:hogfish"
+          }
+        ],
+        "result": {
+          "count": 2,
+          "item": "rainbowreef:hogfish_bacon"
+        }
+      }
+    }
+  ]
+}

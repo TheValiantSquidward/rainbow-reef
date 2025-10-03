@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "rainbowreef:cooked_hogfish_bacon"
+    },
+    "B": {
+      "item": "minecraft:bread"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "AAA",
+    "BBB"
+  ],
+  "result": {
+    "item": "rainbowreef:ultra_bacon_sandwich"
+  },
+  "show_notification": true
+}

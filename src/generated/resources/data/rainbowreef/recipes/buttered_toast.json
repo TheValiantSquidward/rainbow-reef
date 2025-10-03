@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "rainbowreef:butterflyfish"
+    },
+    "B": {
+      "item": "minecraft:bread"
+    },
+    "C": {
+      "item": "minecraft:milk_bucket"
+    }
+  },
+  "pattern": [
+    "A",
+    "C",
+    "B"
+  ],
+  "result": {
+    "item": "rainbowreef:buttered_toast"
+  },
+  "show_notification": true
+}

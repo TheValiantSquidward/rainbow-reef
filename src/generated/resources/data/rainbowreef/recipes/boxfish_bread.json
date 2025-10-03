@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "rainbowreef:boxfish"
+    },
+    "B": {
+      "tag": "forge:crops/wheat"
+    },
+    "C": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "CAC",
+    "BBB"
+  ],
+  "result": {
+    "item": "rainbowreef:boxfish_bread"
+  },
+  "show_notification": true
+}

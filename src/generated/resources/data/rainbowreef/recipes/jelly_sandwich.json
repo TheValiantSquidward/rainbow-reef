@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "rainbowreef:jelly_bottle"
+    },
+    "B": {
+      "item": "minecraft:bread"
+    }
+  },
+  "pattern": [
+    "B",
+    "A",
+    "B"
+  ],
+  "result": {
+    "item": "rainbowreef:jelly_sandwich"
+  },
+  "show_notification": true
+}

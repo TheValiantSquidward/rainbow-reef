@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "rainbowreef:basslet"
+    },
+    "B": {
+      "tag": "forge:crops/wheat"
+    }
+  },
+  "pattern": [
+    "BAB"
+  ],
+  "result": {
+    "count": 8,
+    "item": "rainbowreef:basslet_cookie"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#rainbowreef:rainbow_reef_crabs",
+    {
+      "id": "seafarer:shore_crab",
+      "required": false
+    },
+    {
+      "id": "seafarer:horseshoe_crab",
+      "required": false
+    }
+  ]
+}
