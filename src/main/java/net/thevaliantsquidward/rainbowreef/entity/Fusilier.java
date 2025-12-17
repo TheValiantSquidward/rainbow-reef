@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -54,13 +53,13 @@ public class Fusilier extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override

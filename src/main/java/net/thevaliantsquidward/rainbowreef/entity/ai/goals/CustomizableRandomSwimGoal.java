@@ -1,46 +1,51 @@
 package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.utils.GoalUtils;
 
 import javax.annotation.Nullable;
 
 public class CustomizableRandomSwimGoal extends RandomStrollGoal {
 
-    private final PathfinderMob mob;
+    private final int radius;
+    private final int height;
+    private final int proximity;
+    private final boolean hasProximity;
+    protected Vec3 wantedPos;
 
-    int radius;
-    int height;
-    int prox;
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height) {
+        this(entity, speedMultiplier, interval, radius, height, 0, false);
+    }
 
-    boolean preferCrevices;
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval) {
+        this(entity, speedMultiplier, interval, 10, 7, 0, false);
+    }
 
-    public CustomizableRandomSwimGoal(PathfinderMob mob, double speedMultiplier, int interval, int radius, int height, int proximity, boolean preferCrevices) {
-        super(mob, speedMultiplier, interval);
-        this.mob = mob;
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int proximity) {
+        this(entity, speedMultiplier, interval, 10, 7, proximity, true);
+    }
+
+    public CustomizableRandomSwimGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity, boolean hasProximity) {
+        super(entity, speedMultiplier, interval);
         this.radius = radius;
         this.height = height;
-        this.prox = proximity;
-        this.preferCrevices = preferCrevices;
+        this.proximity = proximity;
+        this.hasProximity = hasProximity;
     }
 
-    @Override
-    public boolean canUse() {
-        return super.canUse() && mob.isInWater();
-    }
-
-    // second part cancels the goal if the animal gets close enough
     @Override
     public boolean canContinueToUse() {
-        Vec3 wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        return super.canContinueToUse() && mob.isInWater() && !(wantedPos.distanceTo(this.mob.position()) <= this.mob.getBbWidth() * prox);
+        this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
+        if (this.hasProximity) {
+            return super.canContinueToUse() && !(this.wantedPos.distanceTo(mob.position()) <= mob.getBbWidth() * proximity);
+        }
+        return super.canContinueToUse();
     }
 
-    // previously 32 and 12
     @Nullable
     protected Vec3 getPosition() {
-        return GoalUtils.getRandomSwimmablePosThatIsntTheSameDepth(this.mob, radius, height, this.preferCrevices);
+        return BehaviorUtils.getRandomSwimmablePos(this.mob, radius, height);
     }
 }

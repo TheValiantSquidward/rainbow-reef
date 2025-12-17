@@ -77,7 +77,7 @@ public class JellyfishModel extends HierarchicalModel<Jellyfish> {
 	@Override
 	public void setupAnim(Jellyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, JellyfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, JellyfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 		this.animate(entity.flopAnimationState, JellyfishAnimations.FLOP, ageInTicks);
 	}
 

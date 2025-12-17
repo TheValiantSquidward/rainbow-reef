@@ -50,7 +50,7 @@ public class PipefishModel extends HierarchicalModel<Pipefish> {
 	@Override
 	public void setupAnim(Pipefish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, PipefishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.swimIdleAnimationState, PipefishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 		this.animate(entity.flopAnimationState, PipefishAnimations.FLOP, ageInTicks);
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}

@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
@@ -18,74 +19,68 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ReefItems.RAW_TANG.get()))
                     .title(Component.translatable("creativetab.rainbow_reef_tab"))
                     .displayItems((pParameters, output) -> {
+
+                        // Spawn eggs
+                        ReefItems.ITEMS.getEntries().forEach(spawnEgg -> {
+                            if ((spawnEgg.get() instanceof ForgeSpawnEggItem)) {
+                                output.accept(spawnEgg.get());
+                            }
+                        });
+
                         // angelfish
-                        output.accept(ReefItems.ANGELFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.ANGELFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_ANGELFISH.get());
                         output.accept(ReefBlocks.ANGELFISH_CAKE.get());
 
                         // arrow crab
-                        output.accept(ReefItems.ARROW_CRAB_SPAWN_EGG.get());
                         output.accept(ReefItems.ARROW_CRAB_BUCKET.get());
                         output.accept(ReefItems.RAW_ARROW_CRAB.get());
 
                         // basslet
-                        output.accept(ReefItems.BASSLET_SPAWN_EGG.get());
                         output.accept(ReefItems.BASSLET_BUCKET.get());
                         output.accept(ReefItems.RAW_BASSLET.get());
                         output.accept(ReefItems.BASSLET_COOKIE.get());
 
                         // billfish
-                        output.accept(ReefItems.BILLFISH_SPAWN_EGG.get());
 
                         // boxfish
-                        output.accept(ReefItems.BOXFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.BOXFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_BOXFISH.get());
                         output.accept(ReefItems.BOXFISH_BREAD.get());
 
                         // butterflyfish
-                        output.accept(ReefItems.BUTTERFLYFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.BUTTERFLYFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_BUTTERFLYFISH.get());
                         output.accept(ReefItems.BUTTERED_TOAST.get());
 
                         // clownfish
-                        output.accept(ReefItems.CLOWNFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.CLOWNFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_CLOWNFISH.get());
                         output.accept(ReefItems.CLOWNFISH_CUPCAKE.get());
 
                         // crab
-                        output.accept(ReefItems.CRAB_SPAWN_EGG.get());
                         output.accept(ReefItems.CRAB_BUCKET.get());
                         output.accept(ReefItems.RAW_CRAB.get());
                         output.accept(ReefItems.ROASTED_CRAB.get());
                         output.accept(ReefItems.CRAB_CAKE.get());
 
                         // damselfish
-                        output.accept(ReefItems.DAMSELFISH_SPAWN_EGG.get());
 
                         // dwarf angelfish
-                        output.accept(ReefItems.DWARF_ANGELFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_DWARF_ANGELFISH.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_TART.get());
 
                         // frogfish
-                        output.accept(ReefItems.FROGFISH_SPAWN_EGG.get());
 
                         // fusilier
-                        output.accept(ReefItems.FUSILIER_SPAWN_EGG.get());
 
                         // goby
-                        output.accept(ReefItems.GOBY_SPAWN_EGG.get());
                         output.accept(ReefItems.GOBY_BUCKET.get());
                         output.accept(ReefItems.RAW_GOBY.get());
                         output.accept(ReefItems.GOBY_GUMMY.get());
 
                         // hogfish
-                        output.accept(ReefItems.HOGFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.HOGFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_HOGFISH.get());
                         output.accept(ReefItems.HOGFISH_BACON.get());
@@ -93,7 +88,6 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.ULTRA_BACON_SANDWICH.get());
 
                         // jellyfish
-                        output.accept(ReefItems.JELLYFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.JELLYFISH_BUCKET.get());
                         output.accept(ReefItems.GLOB_OF_JELLY.get());
                         output.accept(ReefItems.JELLY_BOTTLE.get());
@@ -101,70 +95,55 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.JELLY_TART.get());
 
                         // large shark
-                        output.accept(ReefItems.LARGE_SHARK_SPAWN_EGG.get());
 
                         // lionfish
-                        output.accept(ReefItems.LIONFISH_SPAWN_EGG.get());
 
                         // mahi mahi
-                        output.accept(ReefItems.MAHI_MAHI_SPAWN_EGG.get());
 
                         // maori wrasse
-                        output.accept(ReefItems.MAORI_WRASSE_SPAWN_EGG.get());
 
                         // moorish idol
-                        output.accept(ReefItems.MOORISH_IDOL_SPAWN_EGG.get());
                         output.accept(ReefItems.MOORISH_IDOL_BUCKET.get());
                         output.accept(ReefItems.RAW_MOORISH_IDOL.get());
                         output.accept(ReefItems.IDOL_COOKIE.get());
 
                         // parrotfish
-                        output.accept(ReefItems.PARROTFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.PARROTFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_PARROTFISH.get());
                         output.accept(ReefItems.PARROTFISH_PUNCH.get());
 
                         // pipefish
-                        output.accept(ReefItems.PIPEFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.PIPEFISH_BUCKET.get());
                         output.accept(ReefItems.RAW_PIPEFISH.get());
                         output.accept(ReefItems.PIPEFISH_SUSHI.get());
 
                         // rabbitfish
-                        output.accept(ReefItems.RABBITFISH_SPAWN_EGG.get());
 
                         // ray
-                        output.accept(ReefItems.RAY_SPAWN_EGG.get());
                         output.accept(ReefItems.RAY_BUCKET.get());
                         output.accept(ReefItems.RAW_RAY.get());
                         output.accept(ReefItems.CHOCOLATE_RAY_MUFFIN.get());
 
                         // seahorse
-                        output.accept(ReefItems.SEAHORSE_SPAWN_EGG.get());
                         output.accept(ReefItems.SEAHORSE_BUCKET.get());
                         output.accept(ReefItems.RAW_SEAHORSE.get());
                         output.accept(ReefItems.DRIED_SEAHORSE.get());
 
                         // shark
-                        output.accept(ReefItems.SHARK_SPAWN_EGG.get());
 
                         // small shark
-                        output.accept(ReefItems.SMALL_SHARK_SPAWN_EGG.get());
                         output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
                         output.accept(ReefItems.RAW_SMALL_SHARK.get());
                         output.accept(ReefItems.SHARKBITE_SALAD.get());
 
                         // tang
-                        output.accept(ReefItems.TANG_SPAWN_EGG.get());
                         output.accept(ReefItems.TANG_BUCKET.get());
                         output.accept(ReefItems.RAW_TANG.get());
                         output.accept(ReefItems.TANGY_SOUP.get());
 
                         // triggerfish
-                        output.accept(ReefItems.TRIGGERFISH_SPAWN_EGG.get());
 
                         // wrasse
-                        output.accept(ReefItems.WRASSE_SPAWN_EGG.get());
 
                         output.accept(ReefItems.SEASUGAR_SORBET.get());
                         output.accept(ReefItems.ROCKFISH_CANDY.get());

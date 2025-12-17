@@ -72,7 +72,7 @@ public class BassletModel extends HierarchicalModel<Basslet> {
 	public void setupAnim(Basslet entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.animate(entity.swimAnimationState, BassletAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, BassletAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 		this.animate(entity.flopAnimationState, BassletAnimations.FLOP, ageInTicks);
 	}
 

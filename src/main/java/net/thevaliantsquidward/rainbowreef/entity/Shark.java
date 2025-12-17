@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -52,18 +51,18 @@ public class Shark extends VariantSchoolingFish {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
         return size.height * 0.5F;
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -149,7 +148,7 @@ public class Shark extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = SharkVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {

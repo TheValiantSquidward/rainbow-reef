@@ -59,7 +59,7 @@ public class Wrasse extends ReefMob {
 
     @Override
     public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override

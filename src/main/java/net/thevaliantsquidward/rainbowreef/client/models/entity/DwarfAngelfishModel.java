@@ -73,7 +73,7 @@ public class DwarfAngelfishModel extends HierarchicalModel<DwarfAngelfish> {
 	public void setupAnim(DwarfAngelfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.animate(entity.swimAnimationState, DwarfAngelfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.swimIdleAnimationState, DwarfAngelfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 		this.animate(entity.flopAnimationState, DwarfAngelfishAnimations.FLOP, ageInTicks);
 	}
 

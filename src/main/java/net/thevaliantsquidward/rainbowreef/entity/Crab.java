@@ -76,11 +76,11 @@ public class Crab extends DancingEntity implements DancesToJukebox {
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
         this.goalSelector.addGoal(3, new CrabBottomWander(this, 1, 10, 50));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }
 
     @Override
-    protected PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         CrabPathfinder crab = new CrabPathfinder(this, level) {
             public boolean isStableDestination(BlockPos pos) {
                 return this.level.getBlockState(pos).getFluidState().isEmpty();
@@ -171,7 +171,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVector) {
         if (this.isDancing()) {
             travelVector = Vec3.ZERO;
         }
@@ -209,7 +209,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(DamageSource source) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
         return ReefSoundEvents.CRAB_HURT.get();
     }
 

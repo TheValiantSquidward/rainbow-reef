@@ -1,6 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
 import com.google.common.collect.Lists;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
@@ -17,19 +18,17 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.GroundseekingRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.kinematics.IKSolver;
-import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
@@ -41,13 +40,10 @@ import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRariti
 
 public class SmallShark extends ReefMob {
 
-    public IKSolver tailKinematics;
-
     public SmallShark(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
-        this.tailKinematics = new IKSolver(this, 2, 0.3, 0.95, true, true);
     }
 
     public static AttributeSupplier createAttributes() {
@@ -63,23 +59,22 @@ public class SmallShark extends ReefMob {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishDigGoal(this, 40, 600, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(4, new GroundseekingRandomSwimGoal(this, 1, 100, 20, 20, 0.01));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 100));
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+        return this.getDepthPathfindingFavor(pos, level);
+    }
+
+    @Override
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
         return size.height * 0.5F;
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        this.tailKinematics.TakePerTickAction(this);
-    }
-
-    @Override
     public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override
@@ -88,18 +83,11 @@ public class SmallShark extends ReefMob {
     }
 
     @Override
-    public void travel(Vec3 travelVector) {
+    public void travel(@NotNull Vec3 travelVec) {
         if (this.isEyeInFluid(FluidTags.WATER) && !this.isPathFinding()) {
-            if (!this.isPathFinding()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
-            }
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0, -0.005, 0.0));
         }
-        super.travel(travelVector);
-    }
-
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
-        return new AdvancedWaterboundPathNavigation(this, level, true, false);
+        super.travel(travelVec);
     }
 
     @Override
@@ -174,7 +162,7 @@ public class SmallShark extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
         int variant = SmallSharkVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {

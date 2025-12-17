@@ -57,7 +57,7 @@ public class TangModel extends HierarchicalModel<Tang> {
 	@Override
 	public void setupAnim(Tang entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, TangAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
+		this.animate(entity.swimIdleAnimationState, TangAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
 		this.animate(entity.flopAnimationState, TangAnimations.FLOP, ageInTicks);
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}

@@ -9,6 +9,9 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ButterflyfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Butterflyfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
 
 @OnlyIn(Dist.CLIENT)
 public class ButterflyfishRenderer extends MobRenderer<Butterflyfish, ButterflyfishModel> {
@@ -18,8 +21,8 @@ public class ButterflyfishRenderer extends MobRenderer<Butterflyfish, Butterflyf
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Butterflyfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Butterflyfish entity) {
         Butterflyfish.ButterflyfishVariant butterflyfishVariant = Butterflyfish.ButterflyfishVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/butterflyfish/" + butterflyfishVariant.getSerializedName() + ".png");
+        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/butterflyfish/" + butterflyfishVariant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

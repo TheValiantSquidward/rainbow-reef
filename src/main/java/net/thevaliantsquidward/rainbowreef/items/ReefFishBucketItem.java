@@ -15,9 +15,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.entity.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Supplier;
 
 public class ReefFishBucketItem extends MobBucketItem {
@@ -27,7 +29,7 @@ public class ReefFishBucketItem extends MobBucketItem {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(@NotNull ItemStack stack, @Nullable Level level, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
         EntityType<?> fishType = getFishType();
 
         if (fishType == ReefEntities.ANGELFISH.get()) {
@@ -35,7 +37,7 @@ public class ReefFishBucketItem extends MobBucketItem {
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int variant = compoundnbt.getInt("BucketVariantTag");
                 Angelfish.AngelfishVariant angelfishVariant = Angelfish.AngelfishVariant.getVariantId(variant);
-                String name = "entity.rainbowreef.angelfish.variant_" + angelfishVariant.getSerializedName();
+                String name = "entity.rainbowreef.angelfish.variant_" + angelfishVariant.name().toLowerCase(Locale.ROOT);
                 tooltip.add((Component.translatable(name)).withStyle(angelfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
             }
         }
@@ -74,7 +76,7 @@ public class ReefFishBucketItem extends MobBucketItem {
             if (compoundnbt != null && compoundnbt.contains("BucketVariantTag", 3)) {
                 int variant = compoundnbt.getInt("BucketVariantTag");
                 Butterflyfish.ButterflyfishVariant butterflyfishVariant = Butterflyfish.ButterflyfishVariant.getVariantId(variant);
-                String name = "entity.rainbowreef.butterflyfish.variant_" + butterflyfishVariant.getSerializedName();
+                String name = "entity.rainbowreef.butterflyfish.variant_" + butterflyfishVariant.name().toLowerCase(Locale.ROOT);
                 tooltip.add((Component.translatable(name)).withStyle(butterflyfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
             }
         }

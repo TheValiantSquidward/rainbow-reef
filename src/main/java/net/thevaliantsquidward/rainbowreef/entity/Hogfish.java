@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -54,7 +55,7 @@ public class Hogfish extends ReefMob {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishDigGoal(this, 40, 500, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1, 10));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10));
     }
 
     @Override
@@ -140,7 +141,7 @@ public class Hogfish extends ReefMob {
                 spawnData = new HogfishData(variant);
             }
         }
-        this.setVariant(Butterflyfish.ButterflyfishVariant.getVariantId(variant).getVariant());
+        this.setVariant(HogfishVariant.getVariantId(variant).getVariant());
         return spawnData;
     }
 

@@ -78,7 +78,7 @@ public class SmallSharkModel extends HierarchicalModel<SmallShark> {
 		this.core.xRot = (headPitch * (Mth.DEG_TO_RAD));
 		this.core.y -= landProgress * ((float) Math.toRadians(-90) / 5F);
 
-		this.animate(entity.swimAnimationState, SmallSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, SmallSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 
 //		if (entity.isInWaterOrBubble()) {
 //			this.tail.yRot = this.tail.yRot - ((float) ((MathHelpers.LerpDegrees(entity.tailKinematics.getCurrentTailYaws()[0], entity.tailKinematics.getTailYaws()[0], 0.1))));

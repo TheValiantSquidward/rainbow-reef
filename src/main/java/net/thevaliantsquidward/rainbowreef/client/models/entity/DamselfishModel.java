@@ -63,7 +63,7 @@ public class DamselfishModel extends HierarchicalModel<Damselfish> {
 	@Override
 	public void setupAnim(Damselfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, DamselfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.swimIdleAnimationState, DamselfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 
 		float prevOnLandProgress = entity.prevOnLandProgress;
 		float onLandProgress = entity.onLandProgress;

@@ -99,7 +99,7 @@ public class SharkModel extends HierarchicalModel<Shark> {
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
 		this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
 
-		this.animate(entity.swimAnimationState, SharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, SharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 		this.animate(entity.flopAnimationState, SharkAnimations.FLOP, ageInTicks);
 		this.animate(entity.biteAnimationState, SharkAnimations.ATTACK, ageInTicks);
 	}

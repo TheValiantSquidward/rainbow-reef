@@ -65,7 +65,7 @@ public class TriggerfishModel extends HierarchicalModel<Triggerfish> {
 	@Override
 	public void setupAnim(Triggerfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, TriggerfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.swimIdleAnimationState, TriggerfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 
 		float prevOnLandProgress = entity.prevOnLandProgress;
 		float onLandProgress = entity.onLandProgress;

@@ -54,7 +54,7 @@ public class Angelfish extends VariantSchoolingFish {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishDigGoal(this, 20, 300, ReefTags.ANGELFISH_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
@@ -74,33 +74,31 @@ public class Angelfish extends VariantSchoolingFish {
         return AngelfishVariant.values().length;
     }
 
-    public enum AngelfishVariant implements StringRepresentable {
-        QUEEN(1,  "queen", COMMON, null),
-        FRENCH(2, "french", UNCOMMON, null),
-        EMPEROR(3, "emperor", UNCOMMON, null),
-        YELLOWBAND(4, "yellowband", COMMON, null),
-        BLUERING(5, "bluering", COMMON, null),
-        ROCK_BEAUTY(6, "rock_beauty", RARE, null),
-        BLUE_QUEEN(7, "blue_queen", EPIC, null),
-        MAJESTIC(8, "majestic", UNCOMMON, null),
-        KING(9, "king", RARE, null),
-        SEMICIRCLE(10, "semicircle", COMMON, null),
-        BANDED(11, "banded", COMMON, null),
-        GRAY(12, "gray", COMMON, null),
-        OLD_WOMAN(13, "old_woman", COMMON, null),
-        GUINEAN(14, "guinean", COMMON, null),
-        QUEENSLAND_YELLOWTAIL(15, "queensland_yellowtail", COMMON, null),
-        CLARION(16, "clarion", UNCOMMON, null);
+    public enum AngelfishVariant {
+        QUEEN(1, COMMON, null),
+        FRENCH(2, UNCOMMON, null),
+        EMPEROR(3, UNCOMMON, null),
+        YELLOWBAND(4, COMMON, null),
+        BLUERING(5, COMMON, null),
+        ROCK_BEAUTY(6, RARE, null),
+        BLUE_QUEEN(7, EPIC, null),
+        MAJESTIC(8, UNCOMMON, null),
+        KING(9, RARE, null),
+        SEMICIRCLE(10, COMMON, null),
+        BANDED(11, COMMON, null),
+        GRAY(12, COMMON, null),
+        OLD_WOMAN(13, COMMON, null),
+        GUINEAN(14, COMMON, null),
+        QUEENSLAND_YELLOWTAIL(15, COMMON, null),
+        CLARION(16, UNCOMMON, null);
 
         private final int variant;
-        private final String name;
         private final ReefRarities rarity;
         @Nullable
         private final TagKey<Biome> biome;
 
-        AngelfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        AngelfishVariant(int variant, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
-            this.name = name;
             this.rarity = rarity;
             this.biome = biome;
         }
@@ -133,12 +131,6 @@ public class Angelfish extends VariantSchoolingFish {
 
         public ReefRarities getRarity() {
             return this.rarity;
-        }
-
-        @Override
-        @NotNull
-        public String getSerializedName() {
-            return this.name;
         }
     }
 

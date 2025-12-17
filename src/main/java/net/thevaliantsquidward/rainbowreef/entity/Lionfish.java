@@ -19,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
@@ -49,12 +50,12 @@ public class Lionfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new FishDigGoal(this, 30, 500, ReefTags.ANGELFISH_DIET));
-        this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1, 10));
+        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 10));
     }
 
     @Override
     public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override

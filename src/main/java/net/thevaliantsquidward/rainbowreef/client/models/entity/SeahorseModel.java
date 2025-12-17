@@ -48,7 +48,7 @@ public class SeahorseModel extends HierarchicalModel<Seahorse> {
 	@Override
 	public void setupAnim(Seahorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, SeahorseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
+		this.animate(entity.swimIdleAnimationState, SeahorseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
 		this.animate(entity.flopAnimationState, SeahorseAnimations.FLOP, ageInTicks);
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}

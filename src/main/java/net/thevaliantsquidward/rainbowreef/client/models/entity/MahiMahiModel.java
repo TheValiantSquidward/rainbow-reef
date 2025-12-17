@@ -79,7 +79,7 @@ public class MahiMahiModel extends HierarchicalModel<MahiMahi> {
 	public void setupAnim(MahiMahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.Root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.animate(entity.swimAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 	}
 
 	@Override

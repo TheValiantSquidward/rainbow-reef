@@ -97,7 +97,7 @@ public class LargeSharkModel extends HierarchicalModel<LargeShark> {
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
 		this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
 
-		this.animate(entity.swimAnimationState, LargeSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, LargeSharkAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 		this.animate(entity.flopAnimationState, LargeSharkAnimations.FLOP, ageInTicks);
 		this.animate(entity.biteAnimationState, LargeSharkAnimations.ATTACK, ageInTicks);
 	}

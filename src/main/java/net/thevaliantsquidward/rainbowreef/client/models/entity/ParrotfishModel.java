@@ -69,7 +69,7 @@ public class ParrotfishModel extends HierarchicalModel<Parrotfish> {
 		float partialTicks = ageInTicks - entity.tickCount;
 		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-		this.animate(entity.swimAnimationState, ParrotfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
+		this.animate(entity.swimIdleAnimationState, ParrotfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.25F);
 		this.animate(entity.flopAnimationState, ParrotfishAnimations.FLOP, ageInTicks);
 		this.animate(entity.eepyAnimationState, ParrotfishAnimations.SLEEP, ageInTicks);
 

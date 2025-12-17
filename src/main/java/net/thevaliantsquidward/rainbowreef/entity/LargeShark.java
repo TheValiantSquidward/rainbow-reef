@@ -49,7 +49,7 @@ public class LargeShark extends ReefMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
+        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10));
 
     }
 

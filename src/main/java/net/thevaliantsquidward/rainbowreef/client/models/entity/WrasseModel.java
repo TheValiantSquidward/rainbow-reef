@@ -69,7 +69,7 @@ public class WrasseModel extends HierarchicalModel<Wrasse> {
 	@Override
 	public void setupAnim(Wrasse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, WrasseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
+		this.animate(entity.swimIdleAnimationState, WrasseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 
 		float prevOnLandProgress = entity.prevOnLandProgress;
 		float onLandProgress = entity.onLandProgress;

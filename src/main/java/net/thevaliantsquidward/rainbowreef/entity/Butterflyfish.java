@@ -4,9 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -58,7 +56,7 @@ public class Butterflyfish extends VariantSchoolingFish {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishDigGoal(this, 15, 600, ReefTags.BUTTERFLY_DIET));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, false));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
@@ -78,39 +76,43 @@ public class Butterflyfish extends VariantSchoolingFish {
         return ButterflyfishVariant.values().length;
     }
 
-    public enum ButterflyfishVariant implements StringRepresentable {
-        COPPERBAND(1, "copperband", COMMON, null),
-        WROUGHT_IRON(2, "wrought_iron", EPIC, null),
-        THREADFIN(3, "threadfin", COMMON, null),
-        BANNER(4, "banner", COMMON, null),
-        BLUECHEEK(5, "bluecheek", COMMON, null),
-        LONGNOSE(6, "longnose", COMMON, null),
-        SPOTFIN(7, "spotfin", COMMON, null),
-        HOODED(8, "hooded", UNCOMMON, null),
-        ARABIC(9, "arabic", UNCOMMON, null),
-        PYRAMID(10, "pyramid", UNCOMMON, null),
-        RED_SEA(11, "red_sea", RARE, null),
-        STRIPED(12, "striped", UNCOMMON, null),
-        SADDLEBACK(13, "saddleback", UNCOMMON, null),
-        AFRICAN(14, "african", UNCOMMON, null),
-        ERITREAN(15, "eritrean", RARE, null),
-        MARGINATED(16, "marginated", UNCOMMON, null),
-        THOMPSON(17, "thompson", UNCOMMON, null),
-        MULLERS(18, "mullers", UNCOMMON, null),
-        SIX_SPINED(19, "six_spined", UNCOMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
-        FOUREYE(20, "foureye", COMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
-        EASTER_ISLAND(21, "easter_island", RARE, null),
-        DARK_LONGNOSE(22, "dark_longnose", ABERRANT, null);
+    public enum ButterflyfishVariant {
+        COPPERBAND(1, COMMON, null),
+        WROUGHT_IRON(2, EPIC, null),
+        THREADFIN(3, COMMON, null),
+        BANNER(4, COMMON, null),
+        BLUECHEEK(5, COMMON, null),
+        LONGNOSE(6, COMMON, null),
+        SPOTFIN(7, COMMON, null),
+        HOODED(8, UNCOMMON, null),
+        ARABIC(9, UNCOMMON, null),
+        PYRAMID(10, UNCOMMON, null),
+        RED_SEA(11, RARE, null),
+        STRIPED(12, UNCOMMON, null),
+        SADDLEBACK(13, UNCOMMON, null),
+        AFRICAN(14, UNCOMMON, null),
+        ERITREAN(15, RARE, null),
+        MARGINATED(16, UNCOMMON, null),
+        THOMPSON(17, UNCOMMON, null),
+        MULLERS(18, UNCOMMON, null),
+        SIX_SPINED(19, UNCOMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
+        FOUREYE(20, COMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
+        EASTER_ISLAND(21, RARE, null),
+        DARK_LONGNOSE(22, ABERRANT, null),
+        VAGABOND(23, RARE, null),
+        TEARDROP(24, RARE, null),
+        ORNATE(25, UNCOMMON, null),
+        MERTENSII(26, UNCOMMON, null),
+        LINED(27, UNCOMMON, null),
+        COLORFUL_BLUE_BLOTCH(28, UNCOMMON, null);
 
         private final int variant;
-        private final String name;
         private final ReefRarities rarity;
         @Nullable
         private final TagKey<Biome> biome;
 
-        ButterflyfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        ButterflyfishVariant(int variant, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
-            this.name = name;
             this.rarity = rarity;
             this.biome = biome;
         }
@@ -143,11 +145,6 @@ public class Butterflyfish extends VariantSchoolingFish {
 
         public ReefRarities getRarity() {
             return this.rarity;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
         }
     }
 

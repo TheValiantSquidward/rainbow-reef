@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.data;
+package net.thevaliantsquidward.rainbowreef.datagen;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.sounds.SoundEvent;

@@ -5,7 +5,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -22,10 +21,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.thevaliantsquidward.rainbowreef.entity.ai.control.ReefSwimmingMoveControl;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishLeapGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.navigation.SmoothWaterBoundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
-import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -37,32 +37,32 @@ public class Billfish extends ReefMob {
 
     public Billfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 8, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 7);
+        this.moveControl = new ReefSwimmingMoveControl(this, 20, 10, 0.02F, 0.1F);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.6F)
+                .add(Attributes.MOVEMENT_SPEED, 1.9F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new FishLeapGoal(this, 10, 0.7D, 0.8D));
-        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 10, 48, 20, 3, false));
+        this.goalSelector.addGoal(1, new FishLeapGoal(this));
+        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 10));
     }
 
     @Override
     @NotNull
-    protected PathNavigation createNavigation(Level level) {
-        return new AdvancedWaterboundPathNavigation(this, level, false, true);
+    protected PathNavigation createNavigation(@NotNull Level level) {
+        return new SmoothWaterBoundPathNavigation(this, level, true);
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions size) {
+    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
         return size.height * 0.5F;
     }
 
@@ -79,27 +79,7 @@ public class Billfish extends ReefMob {
 
     @Override
     public void setupAnimationStates() {
-        this.swimAnimationState.animateWhen(this.isAlive(), this.tickCount);
-    }
-
-    @Override
-    public void tickFlopping() {
-        boolean onLand = !this.isInWaterOrBubble() && this.onGround();
-
-        if (onLand  && onLandProgress < 5F) {
-            onLandProgress++;
-        }
-        if (!onLand && onLandProgress > 0F) {
-            onLandProgress--;
-        }
-
-        if (!this.isInWaterOrBubble() && this.isAlive()) {
-            if (this.onGround() && this.getRandom().nextFloat() < 0.005F) {
-                this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F, 0.3D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.1F));
-                this.setYRot(this.getRandom().nextFloat() * 360.0F);
-                this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
-            }
-        }
+        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override

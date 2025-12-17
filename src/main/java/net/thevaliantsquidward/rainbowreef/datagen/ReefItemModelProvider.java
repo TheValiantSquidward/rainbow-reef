@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.data;
+package net.thevaliantsquidward.rainbowreef.datagen;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

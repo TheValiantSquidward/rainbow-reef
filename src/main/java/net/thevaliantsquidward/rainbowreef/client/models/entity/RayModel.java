@@ -76,7 +76,7 @@ public class RayModel extends HierarchicalModel<Ray> {
 	public void setupAnim(Ray entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		this.animate(entity.swimAnimationState, EagleRayAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
+		this.animate(entity.swimIdleAnimationState, EagleRayAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
 		this.animate(entity.flopAnimationState, EagleRayAnimations.FLOP, ageInTicks);
 
 		if (entity.isInWaterOrBubble()) {

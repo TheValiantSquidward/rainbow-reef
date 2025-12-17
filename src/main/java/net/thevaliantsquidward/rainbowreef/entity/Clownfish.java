@@ -20,12 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.LocateAnemoneGoal;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.MoveToAnemoneGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.Anemonefish;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.RestInAnemoneGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
@@ -63,7 +59,7 @@ public class Clownfish extends Anemonefish {
         this.goalSelector.addGoal(4, new MoveToAnemoneGoal(this, 1, 4));
         this.goalSelector.addGoal(5, new LocateAnemoneGoal(this, 200));
         this.goalSelector.addGoal(6, new FishDigGoal(this, 10, 400, ReefTags.CLOWNFISH_DIET));
-        this.goalSelector.addGoal(7, new RandomSwimmingGoal(this, 1, 40));
+        this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1, 40));
         this.goalSelector.addGoal(8, new FollowVariantLeaderGoal(this));
     }
 

@@ -66,7 +66,7 @@ public class AngelfishModel extends HierarchicalModel<Angelfish> {
 	@Override
 	public void setupAnim(Angelfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, AngelfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
+		this.animate(entity.swimIdleAnimationState, AngelfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount);
 		this.animate(entity.flopAnimationState, AngelfishAnimations.FLOP, ageInTicks);
 		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
 	}

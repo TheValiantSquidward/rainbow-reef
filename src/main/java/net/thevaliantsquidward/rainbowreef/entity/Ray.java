@@ -57,7 +57,7 @@ public class Ray extends VariantSchoolingFish {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new FishDigGoal(this, 40, 1200, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 2, false));
+        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 10));
         this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }
 

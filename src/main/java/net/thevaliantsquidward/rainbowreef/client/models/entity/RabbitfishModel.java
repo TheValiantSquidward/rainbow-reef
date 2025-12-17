@@ -64,7 +64,7 @@ public class RabbitfishModel extends HierarchicalModel<Rabbitfish> {
 	@Override
 	public void setupAnim(Rabbitfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimAnimationState, RabbitfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.animate(entity.swimIdleAnimationState, RabbitfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
 
 		float prevOnLandProgress = entity.prevOnLandProgress;
 		float onLandProgress = entity.onLandProgress;

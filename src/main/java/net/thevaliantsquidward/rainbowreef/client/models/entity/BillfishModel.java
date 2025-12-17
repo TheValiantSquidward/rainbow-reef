@@ -1,21 +1,19 @@
 package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
 import net.thevaliantsquidward.rainbowreef.client.animations.WrasseAnimations;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.Billfish;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class BillfishModel extends HierarchicalModel<Billfish> {
+public class BillfishModel extends ReefModel<Billfish> {
 
 	private final ModelPart root;
 	private final ModelPart core;
@@ -79,11 +77,6 @@ public class BillfishModel extends HierarchicalModel<Billfish> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-	}
-
-	@Override
 	public void setupAnim(Billfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
@@ -92,14 +85,18 @@ public class BillfishModel extends HierarchicalModel<Billfish> {
 		float partialTicks = ageInTicks - entity.tickCount;
 		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
 
-		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
+        if (!entity.isInWater() && !entity.isLeaping()) {
+            this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
+        } else {
+            this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
+        }
 
-		this.animate(entity.swimAnimationState, WrasseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.1F);
+        this.animateWalk(WrasseAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
+        this.animateIdle(entity.swimIdleAnimationState, WrasseAnimations.SWIM, ageInTicks, 0.8F, limbSwingAmount * 3);
 	}
 
 	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.root;
 	}
 }

@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
-import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,7 +23,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
-import net.thevaliantsquidward.rainbowreef.entity.pathing.AdvancedWaterboundPathNavigation;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,11 +41,6 @@ public class Basslet extends ReefMob {
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
-    @Override
-    protected @NotNull PathNavigation createNavigation(Level level) {
-        return new AdvancedWaterboundPathNavigation(this, level, true, false);
-    }
-
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
@@ -60,7 +53,7 @@ public class Basslet extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 10, 20, 20, 3, true));
+        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 10));
     }
 
     @Override
