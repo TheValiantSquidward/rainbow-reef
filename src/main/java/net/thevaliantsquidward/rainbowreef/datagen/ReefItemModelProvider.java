@@ -4,10 +4,8 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 
@@ -49,6 +47,7 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_CRAB);
         this.item(ROASTED_CRAB);
         this.item(CRAB_CAKE);
+        this.item(CRAB_ROE);
 
         this.item(DWARF_ANGELFISH_BUCKET);
         this.item(RAW_DWARF_ANGELFISH);
@@ -90,7 +89,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_SEAHORSE);
         this.item(DRIED_SEAHORSE);
 
-        this.item(SMALL_SHARK_BUCKET);
+        this.variantBucket(SMALL_SHARK_BUCKET,
+                "epaulette", "pajama", "horned", "nurse", "zebra", "albino", "piebald", "port_jackson");
         this.item(RAW_SMALL_SHARK);
         this.item(SHARKBITE_SALAD);
 
@@ -120,8 +120,17 @@ public class ReefItemModelProvider extends ItemModelProvider {
         return generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder dnaItem(DeferredHolder<Item, Item> item) {
-        return generated(item.getId().getPath(), modLoc("item/dna/" + item.getId().getPath()));
+    private void variantBucket(DeferredHolder<Item, Item> bucket, String... variantNames) {
+        String base = bucket.getId().getPath();
+        ItemModelBuilder builder = generated(base, modLoc("item/" + base));
+        for (int i = 0; i < variantNames.length; i++) {
+            String childName = base + "_" + variantNames[i];
+            generated(childName, modLoc("item/" + childName));
+            builder.override()
+                    .predicate(RainbowReef.location("variant"), i + 1)
+                    .model(new ModelFile.UncheckedModelFile(modLoc("item/" + childName)))
+                    .end();
+        }
     }
 
     // utils

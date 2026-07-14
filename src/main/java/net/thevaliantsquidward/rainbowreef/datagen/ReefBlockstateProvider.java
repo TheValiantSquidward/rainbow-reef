@@ -130,6 +130,11 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.cubeAllBlock(CORALSTONE_BRICKS);
         this.cubeAllBlock(CHISELED_CORALSTONE);
         this.cubeAllBlock(POLISHED_CORALSTONE);
+
+        this.cubeAllBlock(MUD_BURROW);
+        this.cubeAllBlock(SAND_BURROW);
+        this.cubeAllBlock(STONE_BURROW);
+        this.cubeAllBlock(CORALSTONE_BURROW);
     }
 
     // item
