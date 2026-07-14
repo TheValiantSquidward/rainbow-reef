@@ -10,15 +10,15 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 public class CrabRenderer extends MobRenderer<Crab, CrabModel> {
 
-    private static final ResourceLocation VAMPIRE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/vampire.png");
-    private static final ResourceLocation HALLOWEEN = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/halloween.png");
-    private static final ResourceLocation GHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/ghost.png");
-    private static final ResourceLocation SALLY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/sally.png");
-    private static final ResourceLocation EMERALD = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/emerald.png");
-    private static final ResourceLocation BLUE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/bluecrab.png");
-    private static final ResourceLocation PURPLE = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/purplecrab.png");
-    private static final ResourceLocation CANDY = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/candycrab.png");
-    private static final ResourceLocation REDGHOST = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/crab/redghost.png");
+    private static final ResourceLocation VAMPIRE = RainbowReef.location("textures/entity/crab/vampire.png");
+    private static final ResourceLocation HALLOWEEN = RainbowReef.location("textures/entity/crab/halloween.png");
+    private static final ResourceLocation GHOST = RainbowReef.location("textures/entity/crab/ghost.png");
+    private static final ResourceLocation SALLY = RainbowReef.location("textures/entity/crab/sally.png");
+    private static final ResourceLocation EMERALD = RainbowReef.location("textures/entity/crab/emerald.png");
+    private static final ResourceLocation BLUE = RainbowReef.location("textures/entity/crab/bluecrab.png");
+    private static final ResourceLocation PURPLE = RainbowReef.location("textures/entity/crab/purplecrab.png");
+    private static final ResourceLocation CANDY = RainbowReef.location("textures/entity/crab/candycrab.png");
+    private static final ResourceLocation REDGHOST = RainbowReef.location("textures/entity/crab/redghost.png");
 
     public CrabRenderer(EntityRendererProvider.Context context) {
         super(context, new CrabModel(context.bakeLayer(ReefModelLayers.CRAB)), 0.3F);

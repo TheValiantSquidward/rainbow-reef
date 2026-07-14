@@ -2,7 +2,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 
 import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -127,13 +126,9 @@ public class Hogfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = HogfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(HogfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
-            return spawnData;
-        }
         if (spawnData instanceof HogfishData) {
             variant = ((HogfishData) spawnData).variantData;
         } else {

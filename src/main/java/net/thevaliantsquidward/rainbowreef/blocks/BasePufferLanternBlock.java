@@ -47,35 +47,35 @@ public class BasePufferLanternBlock extends Block implements SimpleWaterloggedBl
 
 
     @Override
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        return pState.getValue(FACING).getAxis() == Direction.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return state.getValue(FACING).getAxis() == Direction.Axis.X ? X_AXIS_AABB : Z_AXIS_AABB;
     }
 
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        Level level = pContext.getLevel();
-        BlockPos pos = pContext.getClickedPos();
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
         FluidState fluidState = level.getFluidState(pos);
 
         return this.defaultBlockState()
-                .setValue(FACING, pContext.getHorizontalDirection().getOpposite())
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
     }
 
     @Override
-    public BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(FACING, pRotation.rotate(pState.getValue(FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(FACING, WATERLOGGED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(FACING, WATERLOGGED);
     }
 
     @Override

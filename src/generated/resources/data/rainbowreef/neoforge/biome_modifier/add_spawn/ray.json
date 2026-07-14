@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbowreef:has_spawn/ray",
+  "spawners": {
+    "type": "rainbowreef:ray",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 2
+  }
+}

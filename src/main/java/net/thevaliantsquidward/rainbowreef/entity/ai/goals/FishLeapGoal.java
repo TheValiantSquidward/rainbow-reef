@@ -53,8 +53,8 @@ public class FishLeapGoal extends JumpGoal {
         return this.reefMob.level().getFluidState(blockpos).is(FluidTags.WATER) && !this.reefMob.level().getBlockState(blockpos).blocksMotion();
     }
 
-    private boolean surfaceIsClear(BlockPos pPos, int pDx, int pDz, int pScale) {
-        return this.reefMob.level().getBlockState(pPos.offset(pDx * pScale, 1, pDz * pScale)).isAir() && this.reefMob.level().getBlockState(pPos.offset(pDx * pScale, 2, pDz * pScale)).isAir();
+    private boolean surfaceIsClear(BlockPos pos, int dx, int dz, int scale) {
+        return this.reefMob.level().getBlockState(pos.offset(dx * scale, 1, dz * scale)).isAir() && this.reefMob.level().getBlockState(pos.offset(dx * scale, 2, dz * scale)).isAir();
     }
 
     @Override

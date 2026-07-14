@@ -4,11 +4,11 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 
 import java.util.Objects;
@@ -109,18 +109,18 @@ public class ReefItemModelProvider extends ItemModelProvider {
 
         // spawn eggs
         for (Item item : BuiltInRegistries.ITEM) {
-            if (item instanceof SpawnEggItem && Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getNamespace().equals(RainbowReef.MOD_ID)) {
-                getBuilder(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath()).parent(getExistingFile(new ResourceLocation("item/template_spawn_egg")));
+            if (item instanceof SpawnEggItem && Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).getNamespace().equals(RainbowReef.MOD_ID)) {
+                getBuilder(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item)).getPath()).parent(getExistingFile(ResourceLocation.parse("item/template_spawn_egg")));
             }
         }
     }
 
     // item
-    private ItemModelBuilder item(RegistryObject<Item> item) {
+    private ItemModelBuilder item(DeferredHolder<Item, Item> item) {
         return generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
-    private ItemModelBuilder dnaItem(RegistryObject<Item> item) {
+    private ItemModelBuilder dnaItem(DeferredHolder<Item, Item> item) {
         return generated(item.getId().getPath(), modLoc("item/dna/" + item.getId().getPath()));
     }
 

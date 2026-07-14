@@ -1,16 +1,17 @@
 package net.thevaliantsquidward.rainbowreef.registry;
 
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.item.component.CustomData;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.items.ReefFishBucketItem;
 
 public class ReefItemProperties {
 
     public static void registerItemProperties() {
-        for (RegistryObject<Item> item : ReefItems.ITEMS.getEntries()) {
+        for (DeferredHolder<Item, ? extends Item> item : ReefItems.ITEMS.getEntries()) {
             if (item.get() instanceof ReefFishBucketItem) {
                 registerVariantProperties(item.get());
             }
@@ -18,6 +19,6 @@ public class ReefItemProperties {
     }
 
     public static void registerVariantProperties(Item item) {
-        ItemProperties.register(item, new ResourceLocation(RainbowReef.MOD_ID, "variant"), (stack, world, player, i) -> stack.hasTag() ? stack.getOrCreateTag().getInt("BucketVariantTag") : 0);
+        ItemProperties.register(item, RainbowReef.location("variant"), (stack, level, entity, seed) -> stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).getUnsafe().getInt("BucketVariantTag"));
     }
 }

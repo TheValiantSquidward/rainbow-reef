@@ -53,6 +53,6 @@ public class ReefBiomeTags {
     }
 
     public static TagKey<Biome> biomeTag(String modid, String name) {
-        return TagKey.create(Registries.BIOME, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

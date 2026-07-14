@@ -1,11 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.events;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.*;
 import net.thevaliantsquidward.rainbowreef.client.renderer.*;
@@ -14,7 +15,7 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefItemProperties;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = RainbowReef.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = RainbowReef.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
 
     @SubscribeEvent

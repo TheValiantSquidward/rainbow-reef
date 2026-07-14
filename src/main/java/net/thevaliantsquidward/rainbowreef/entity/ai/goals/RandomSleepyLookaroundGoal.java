@@ -11,8 +11,8 @@ public class RandomSleepyLookaroundGoal extends Goal {
     private double relZ;
     private int lookTime;
 
-    public RandomSleepyLookaroundGoal(Mob pMob) {
-        this.mob = pMob;
+    public RandomSleepyLookaroundGoal(Mob mob) {
+        this.mob = mob;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 

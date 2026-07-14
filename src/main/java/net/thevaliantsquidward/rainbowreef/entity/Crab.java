@@ -2,7 +2,7 @@ package net.thevaliantsquidward.rainbowreef.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.DancingEntity;
@@ -45,8 +45,8 @@ public class Crab extends DancingEntity implements DancesToJukebox {
 
     public Crab(EntityType<? extends DancingEntity> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
     }
 
     public static AttributeSupplier createAttributes() {
@@ -108,7 +108,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
     public ItemStack getBucketItemStack() {
         ItemStack stack = new ItemStack(ReefItems.CRAB_BUCKET.get());
         if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+            stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
         return stack;
     }
@@ -128,8 +128,9 @@ public class Crab extends DancingEntity implements DancesToJukebox {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @javax.annotation.Nullable SpawnGroupData spawnDataIn, @javax.annotation.Nullable CompoundTag dataTag) {
-        Holder<Biome> holder = worldIn.getBiome(this.blockPosition());
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+        Holder<Biome> holder = level.getBiome(this.blockPosition());
         float spookyVariantChange = this.getRandom().nextFloat();
         LocalDate currentDate = LocalDate.now();
         float variantChange = this.getRandom().nextFloat();
@@ -163,13 +164,8 @@ public class Crab extends DancingEntity implements DancesToJukebox {
             this.setVariant(0);
         }
 
-        return super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        return super.finalizeSpawn(level, difficulty, reason, spawnData);
     }
-
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
-    }
-
     @Override
     public void travel(@NotNull Vec3 travelVector) {
         if (this.isDancing()) {

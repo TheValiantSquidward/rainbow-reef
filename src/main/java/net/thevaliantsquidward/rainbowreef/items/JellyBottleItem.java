@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JellyBottleItem extends HoneyBottleItem {
-    public JellyBottleItem(Properties pProperties) {
-        super(pProperties);
+    public JellyBottleItem(Properties properties) {
+        super(properties);
     }
 
-    public UseAnim getUseAnimation(ItemStack p_41358_) {
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
@@ -47,7 +47,7 @@ public class JellyBottleItem extends HoneyBottleItem {
             List<MobEffectInstance> effectsToRemove = new ArrayList<>();
 
             for (MobEffectInstance effect : player.getActiveEffects()) {
-                if (!effect.isAmbient() && !effect.getEffect().isInstantenous() && !effect.getEffect().isBeneficial()) {
+                if (!effect.isAmbient() && !effect.getEffect().value().isInstantenous() && !effect.getEffect().value().isBeneficial()) {
                     effectsToRemove.add(effect);
                 }
             }

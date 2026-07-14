@@ -19,8 +19,8 @@ import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import java.util.Optional;
 
 public class FloorNemFeature extends Feature<NoneFeatureConfiguration> {
-    public FloorNemFeature(Codec<NoneFeatureConfiguration> pCodec) {
-        super(pCodec);
+    public FloorNemFeature(Codec<NoneFeatureConfiguration> codec) {
+        super(codec);
     }
 
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {

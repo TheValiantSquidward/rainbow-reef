@@ -3,8 +3,8 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.AngelfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Angelfish;
@@ -23,6 +23,6 @@ public class AngelfishRenderer extends MobRenderer<Angelfish, AngelfishModel> {
     @Override
     public @NotNull ResourceLocation getTextureLocation(Angelfish entity) {
         Angelfish.AngelfishVariant angelfishVariant = Angelfish.AngelfishVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/angelfish/" + angelfishVariant.name().toLowerCase(Locale.ROOT) + ".png");
+        return RainbowReef.location("textures/entity/angelfish/" + angelfishVariant.name().toLowerCase(Locale.ROOT) + ".png");
     }
 }

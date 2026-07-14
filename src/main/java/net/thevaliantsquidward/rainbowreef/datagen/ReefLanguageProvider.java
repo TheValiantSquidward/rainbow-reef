@@ -7,9 +7,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.RainbowReefTab;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
@@ -69,26 +69,21 @@ public class ReefLanguageProvider extends LanguageProvider {
     }
 
     private void forBlocks(Supplier<? extends Block> block) {
-        addBlock(block, ReefTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block.get())).getPath()));
+        addBlock(block, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block.get())).getPath()));
     }
 
     private void forItems(Supplier<? extends Item> item) {
-        addItem(item, ReefTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item.get())).getPath()));
+        addItem(item, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item.get())).getPath()));
     }
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
-        addEntityType(entity, ReefTextUtils.createTranslation(Objects.requireNonNull(ForgeRegistries.ENTITY_TYPES.getKey(entity.get())).getPath()));
+        addEntityType(entity, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(entity.get())).getPath()));
     }
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
         add("subtitles.rainbowreef." + key.get().getLocation().getPath(), subtitle);
     }
 
-    private void addEnchantmentWithDesc(Enchantment enchantment, String description) {
-        String name = ForgeRegistries.ENCHANTMENTS.getKey(enchantment).getPath();
-        this.add(enchantment, formatEnchantment(name));
-        this.add(enchantment.getDescriptionId() + ".desc", description);
-    }
 
     private String formatEnchantment(String path) {
         return WordUtils.capitalizeFully(path.replace("_", " ")).replace("Of ", "of ");
@@ -125,6 +120,6 @@ public class ReefLanguageProvider extends LanguageProvider {
     protected void musicDisc(Supplier<? extends Item> item, String description) {
         String disc = item.get().getDescriptionId();
         add(disc, "Music Disc");
-        add(disc + ".desc", description);
+        add("jukebox_song.rainbowreef." + BuiltInRegistries.ITEM.getKey(item.get()).getPath(), description);
     }
 }

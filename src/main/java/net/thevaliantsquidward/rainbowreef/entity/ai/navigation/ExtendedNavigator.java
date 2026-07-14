@@ -32,14 +32,14 @@ public interface ExtendedNavigator {
 
     Path getPathEN();
 
-    default boolean canPathOnto(BlockPathTypes pathType) {
+    default boolean canPathOnto(PathType pathType) {
         return switch (pathType) {
             case WATER, LAVA, OPEN -> false;
             default -> true;
         };
     }
 
-    default boolean canPathInto(BlockPathTypes pathType) {
+    default boolean canPathInto(PathType pathType) {
         return switch (pathType) {
             case DAMAGE_FIRE, DANGER_FIRE, DAMAGE_OTHER -> true;
             default -> false;
@@ -143,6 +143,7 @@ public interface ExtendedNavigator {
 
         try (BulkSectionAccess sectionAccess = new BulkSectionAccess(level)) {
             final NodeEvaluator nodeEvaluator = mob.getNavigation().getNodeEvaluator();
+            final PathfindingContext pathContext = new PathfindingContext(level, mob);
             final BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
             float target = 0;
 
@@ -170,11 +171,11 @@ public interface ExtendedNavigator {
                 for (int x = xBound; x != xStepBound; x += xStep) {
                     for (int z = zBound; z != zStepBound; z += zStep) {
                         for (int y = yBound; y != yStepBound; y += yStep) {
-                            if (!sectionAccess.getBlockState(pos.set(x, y, z)).isPathfindable(level, pos, PathComputationType.LAND)) return false;
+                            if (!sectionAccess.getBlockState(pos.set(x, y, z)).isPathfindable(PathComputationType.LAND)) return false;
                         }
-                        if (!canPathOnto(nodeEvaluator.getBlockPathType(level, x, yBound - 1, z))) return false;
+                        if (!canPathOnto(nodeEvaluator.getPathType(pathContext, x, yBound - 1, z))) return false;
 
-                        final BlockPathTypes insidePathType = nodeEvaluator.getBlockPathType(level, x, yBound, z);
+                        final PathType insidePathType = nodeEvaluator.getPathType(pathContext, x, yBound, z);
                         final float pathMalus = mob.getPathfindingMalus(insidePathType);
 
                         if (pathMalus < 0 || pathMalus >= 8) return false;

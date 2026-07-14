@@ -1,11 +1,13 @@
 package net.thevaliantsquidward.rainbowreef.blocks;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,14 +29,13 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.common.IPlantable;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 
 import javax.annotation.Nullable;
 
-public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContainer, IPlantable {
+public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContainer {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final IntegerProperty COLOUR = IntegerProperty.create("colour", 0, 2);
@@ -46,8 +47,20 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     protected static final VoxelShape UP_AABB;
     protected static final VoxelShape DOWN_AABB;
 
+    public static final MapCodec<AnemoneBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Codec.INT.fieldOf("colour").forGetter(block -> block.color)
+    ).apply(instance, AnemoneBlock::new));
+
+    private final int color;
+
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
+    }
+
     public AnemoneBlock(int color) {
         super(Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.5F).sound(SoundType.FROGLIGHT).randomTicks().noOcclusion());
+        this.color = color;
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, true).setValue(COLOUR, color).setValue(FACING, Direction.UP));
     }
 
@@ -114,36 +127,33 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         return state.setValue(FACING, flip.mirror(state.getValue(FACING)));
     }
 
-    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType computationType) {
+    protected boolean isPathfindable(BlockState state, PathComputationType computationType) {
         return switch (computationType) {
             case LAND -> true;
-            case WATER -> level.getFluidState(pos).is(FluidTags.WATER);
+            case WATER -> state.getFluidState().is(FluidTags.WATER);
             default -> false;
         };
     }
 
-    @Deprecated
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (pHand != InteractionHand.MAIN_HAND) return InteractionResult.FAIL;
-        System.out.println(itemStack.is(ItemTags.FISHES));
-        if (itemStack.is(ReefTags.NEM_DIET) && !itemStack.is(Items.TROPICAL_FISH) && !itemStack.is(ReefItems.RAW_CLOWNFISH.get()) && !pLevel.isClientSide() && pState.getValue(WATERLOGGED) == true) {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (hand != InteractionHand.MAIN_HAND) return ItemInteractionResult.FAIL;
+        if (stack.is(ReefTags.NEM_DIET) && !stack.is(Items.TROPICAL_FISH) && !stack.is(ReefItems.RAW_CLOWNFISH.get()) && !level.isClientSide() && state.getValue(WATERLOGGED)) {
             ItemStack drop;
-            if (pState.getValue(COLOUR) == 0) {
+            if (state.getValue(COLOUR) == 0) {
                 drop = new ItemStack(ReefBlocks.YELLOW_SEA_ANEMONE.get());
-            } else if (pState.getValue(COLOUR) == 1) {
+            } else if (state.getValue(COLOUR) == 1) {
                 drop = new ItemStack(ReefBlocks.ORANGE_SEA_ANEMONE.get());
             } else {
                 drop = new ItemStack(ReefBlocks.GREEN_SEA_ANEMONE.get());
             }
-            ItemEntity piss = new ItemEntity(pLevel, pPos.getX() + 0.5, pPos.getY(), pPos.getZ() + 0.5, drop);
-            pLevel.addFreshEntity(piss);
+            level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, drop));
         }
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit);
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
         return false;
     }
 
@@ -152,11 +162,6 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         return false;
     }
 
-    @Override
-    public BlockState getPlant(BlockGetter blockGetter, BlockPos blockPos) {
-        BlockState state = blockGetter.getBlockState(blockPos);
-        return state.getBlock() != this ? this.defaultBlockState() : state;
-    }
 
     static {
         EAST_AABB = Block.box(0.0, 0.0, 0.0, 5.0, 16.0, 16.0);

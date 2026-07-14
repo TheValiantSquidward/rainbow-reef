@@ -1,7 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -12,7 +12,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathType;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.DancingEntity;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.DancesToJukebox;
@@ -26,14 +26,14 @@ public class ArrowCrab extends Crab implements DancesToJukebox {
     // the crabby beast
     // crabbed to meet you
 
-    public final net.minecraft.world.entity.AnimationState idleAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState danceAnimationState = new net.minecraft.world.entity.AnimationState();
-    public final net.minecraft.world.entity.AnimationState walkAnimationState = new net.minecraft.world.entity.AnimationState();
+    public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState danceAnimationState = new AnimationState();
+    public final AnimationState walkAnimationState = new AnimationState();
 
     public ArrowCrab(EntityType<? extends DancingEntity> entityType, Level level) {
         super(entityType, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.WATER_BORDER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER, 0.0F);
+        this.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
     }
 
     public static AttributeSupplier setAttributes() {
@@ -71,7 +71,7 @@ public class ArrowCrab extends Crab implements DancesToJukebox {
     public ItemStack getBucketItemStack() {
         ItemStack stack = new ItemStack(ReefItems.ARROW_CRAB_BUCKET.get());
         if (this.hasCustomName()) {
-            stack.setHoverName(this.getCustomName());
+            stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
         return stack;
     }
@@ -85,7 +85,7 @@ public class ArrowCrab extends Crab implements DancesToJukebox {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         float variantChange = this.getRandom().nextFloat();
 
         if (variantChange <= 0.10F) {
@@ -94,14 +94,8 @@ public class ArrowCrab extends Crab implements DancesToJukebox {
             this.setVariant(0);
         }
 
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnData);
     }
-
-    @Override
-    public @NotNull MobType getMobType() {
-        return MobType.ARTHROPOD;
-    }
-
     @Override
     public void setupAnimationStates() {
         this.idleAnimationState.animateWhen(!this.walkAnimation.isMoving(), this.tickCount);

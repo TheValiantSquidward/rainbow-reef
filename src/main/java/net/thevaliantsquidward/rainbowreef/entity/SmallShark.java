@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
@@ -66,12 +65,6 @@ public class SmallShark extends ReefMob {
     public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
         return this.getDepthPathfindingFavor(pos, level);
     }
-
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.5F;
-    }
-
     @Override
     public void setupAnimationStates() {
         this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
@@ -162,13 +155,9 @@ public class SmallShark extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = SmallSharkVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(SmallSharkVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
-            return spawnData;
-        }
         if (spawnData instanceof SmallSharkData) {
             variant = ((SmallSharkData) spawnData).variantData;
         } else {

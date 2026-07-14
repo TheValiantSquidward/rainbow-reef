@@ -3,8 +3,8 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ParrotfishModel;
 import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyLayer;
@@ -22,6 +22,6 @@ public class ParrotfishRenderer extends MobRenderer<Parrotfish, ParrotfishModel>
     @Override
     public ResourceLocation getTextureLocation(Parrotfish entity) {
         Parrotfish.ParrotfishVariant parrotfishVariant = Parrotfish.ParrotfishVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/parrotfish/" + parrotfishVariant.getSerializedName() + ".png");
+        return RainbowReef.location("textures/entity/parrotfish/" + parrotfishVariant.getSerializedName() + ".png");
     }
 }

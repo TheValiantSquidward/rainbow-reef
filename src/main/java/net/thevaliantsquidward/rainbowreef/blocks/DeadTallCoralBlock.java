@@ -29,8 +29,8 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-    public DeadTallCoralBlock(Properties p_52861_) {
-        super(p_52861_);
+    public DeadTallCoralBlock(Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
@@ -52,63 +52,63 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
     }
 
-    public void setPlacedBy(Level p_52872_, BlockPos p_52873_, BlockState p_52874_, LivingEntity p_52875_, ItemStack p_52876_) {
-        BlockPos blockpos = p_52873_.above();
-        p_52872_.setBlock(blockpos, copyWaterloggedFrom(p_52872_, blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER)), 3);
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+        BlockPos blockpos = pos.above();
+        level.setBlock(blockpos, copyWaterloggedFrom(level, blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER)), 3);
     }
 
-    public boolean canSurvive(BlockState p_52887_, LevelReader p_52888_, BlockPos p_52889_) {
-        if (p_52887_.getValue(HALF) != DoubleBlockHalf.UPPER) {
-            return super.canSurvive(p_52887_, p_52888_, p_52889_);
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
+            return super.canSurvive(state, level, pos);
         } else {
-            BlockState blockstate = p_52888_.getBlockState(p_52889_.below());
-            if (p_52887_.getBlock() != this) return super.canSurvive(p_52887_, p_52888_, p_52889_);
+            BlockState blockstate = level.getBlockState(pos.below());
+            if (state.getBlock() != this) return super.canSurvive(state, level, pos);
             return blockstate.is(this) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER;
         }
     }
 
-    public static BlockState copyWaterloggedFrom(LevelReader p_182454_, BlockPos p_182455_, BlockState p_182456_) {
-        return p_182456_.hasProperty(BlockStateProperties.WATERLOGGED) ? p_182456_.setValue(BlockStateProperties.WATERLOGGED, p_182454_.isWaterAt(p_182455_)) : p_182456_;
+    public static BlockState copyWaterloggedFrom(LevelReader level, BlockPos pos, BlockState state) {
+        return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, level.isWaterAt(pos)) : state;
     }
 
-    public void playerWillDestroy(Level p_52878_, BlockPos p_52879_, BlockState p_52880_, Player p_52881_) {
-        if (!p_52878_.isClientSide) {
-            if (p_52881_.isCreative()) {
-                preventCreativeDropFromBottomPart(p_52878_, p_52879_, p_52880_, p_52881_);
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide) {
+            if (player.isCreative()) {
+                preventCreativeDropFromBottomPart(level, pos, state, player);
             } else {
-                dropResources(p_52880_, p_52878_, p_52879_, null, p_52881_, p_52881_.getMainHandItem());
+                dropResources(state, level, pos, null, player, player.getMainHandItem());
             }
         }
 
-        super.playerWillDestroy(p_52878_, p_52879_, p_52880_, p_52881_);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
-    public void playerDestroy(Level p_52865_, Player p_52866_, BlockPos p_52867_, BlockState p_52868_, @Nullable BlockEntity p_52869_, ItemStack p_52870_) {
-        super.playerDestroy(p_52865_, p_52866_, p_52867_, Blocks.AIR.defaultBlockState(), p_52869_, p_52870_);
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+        super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, stack);
     }
 
-    protected static void preventCreativeDropFromBottomPart(Level p_52904_, BlockPos p_52905_, BlockState p_52906_, Player p_52907_) {
-        DoubleBlockHalf doubleblockhalf = p_52906_.getValue(HALF);
+    protected static void preventCreativeDropFromBottomPart(Level level, BlockPos pos, BlockState state, Player player) {
+        DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
         if (doubleblockhalf == DoubleBlockHalf.UPPER) {
-            BlockPos blockpos = p_52905_.below();
-            BlockState blockstate = p_52904_.getBlockState(blockpos);
-            if (blockstate.is(p_52906_.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
+            BlockPos blockpos = pos.below();
+            BlockState blockstate = level.getBlockState(blockpos);
+            if (blockstate.is(state.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
                 BlockState blockstate1 = blockstate.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-                p_52904_.setBlock(blockpos, blockstate1, 35);
-                p_52904_.levelEvent(p_52907_, 2001, blockpos, Block.getId(blockstate));
+                level.setBlock(blockpos, blockstate1, 35);
+                level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
             }
         }
     }
 
-    public FluidState getFluidState(BlockState p_49191_) {
-        return p_49191_.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(p_49191_);
+    public FluidState getFluidState(BlockState state) {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> p_52901_) {
-        p_52901_.add(HALF).add(WATERLOGGED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(HALF).add(WATERLOGGED);
     }
 
-    public long getSeed(BlockState p_52891_, BlockPos p_52892_) {
-        return Mth.getSeed(p_52892_.getX(), p_52892_.below(p_52891_.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), p_52892_.getZ());
+    public long getSeed(BlockState state, BlockPos pos) {
+        return Mth.getSeed(pos.getX(), pos.below(state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
     }
 }

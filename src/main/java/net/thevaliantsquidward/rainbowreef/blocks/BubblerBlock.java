@@ -12,23 +12,23 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BubblerBlock extends Block {
     private static final int BUBBLE_COLUMN_CHECK_DELAY = 20;
-    public BubblerBlock(Properties pProperties) {
-        super(pProperties);
+    public BubblerBlock(Properties properties) {
+        super(properties);
     }
 
-    public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
-        FakeBubbleBlock.updateColumn(pLevel, pPos.above(), pState);
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        FakeBubbleBlock.updateColumn(level, pos.above(), state);
     }
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        if (pFacing == Direction.UP && pFacingState.is(Blocks.WATER)) {
-            pLevel.scheduleTick(pCurrentPos, this, 20);
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        if (facing == Direction.UP && facingState.is(Blocks.WATER)) {
+            level.scheduleTick(currentPos, this, 20);
         }
 
-        return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+        return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
-        pLevel.scheduleTick(pPos, this, 20);
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        level.scheduleTick(pos, this, 20);
     }
 
 }

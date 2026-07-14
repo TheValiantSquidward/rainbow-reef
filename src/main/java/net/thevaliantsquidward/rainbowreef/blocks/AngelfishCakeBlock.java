@@ -29,37 +29,37 @@ public class AngelfishCakeBlock extends Block {
     public static final IntegerProperty BITES = IntegerProperty.create("rrbites", 0, 3);
     protected static final VoxelShape SHAPE = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
 
-    public AngelfishCakeBlock(BlockBehaviour.Properties pProperties) {
-        super(pProperties);
+    public AngelfishCakeBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(BITES, 0));
     }
 
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
 
         // candle cake code
-        /*if (itemstack.is(ItemTags.CANDLES) && pState.getValue(BITES) == 0) {
+        /*if (itemstack.is(ItemTags.CANDLES) && state.getValue(BITES) == 0) {
             Block block = Block.byItem(item);
             if (block instanceof CandleBlock) {
-                if (!pPlayer.isCreative()) {
+                if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
 
-                pLevel.playSound(null, pPos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                pLevel.setBlockAndUpdate(pPos, CandleCakeBlock.byCandle(block));
-                pLevel.gameEvent(pPlayer, GameEvent.BLOCK_CHANGE, pPos);
-                pPlayer.awardStat(Stats.ITEM_USED.get(item));
+                level.playSound(null, pos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.setBlockAndUpdate(pos, CandleCakeBlock.byCandle(block));
+                level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                player.awardStat(Stats.ITEM_USED.get(item));
                 return InteractionResult.SUCCESS;
             }
         }*/
 
-        if (pLevel.isClientSide) {
-            if (eat(pLevel, pPos, pState, pPlayer).consumesAction()) {
+        if (level.isClientSide) {
+            if (eat(level, pos, state, player).consumesAction()) {
                 return InteractionResult.SUCCESS;
             }
 
@@ -68,53 +68,53 @@ public class AngelfishCakeBlock extends Block {
             }
         }
 
-        return eat(pLevel, pPos, pState, pPlayer);
+        return eat(level, pos, state, player);
     }
 
-    protected static InteractionResult eat(LevelAccessor pLevel, BlockPos pPos, BlockState pState, Player pPlayer) {
-        if (!pPlayer.canEat(false)) {
+    protected static InteractionResult eat(LevelAccessor level, BlockPos pos, BlockState state, Player player) {
+        if (!player.canEat(false)) {
             return InteractionResult.PASS;
         } else {
-            pPlayer.awardStat(Stats.EAT_CAKE_SLICE);
-            pPlayer.getFoodData().eat(2, 0.1F);
-            int i = pState.getValue(BITES);
-            pLevel.gameEvent(pPlayer, GameEvent.EAT, pPos);
+            player.awardStat(Stats.EAT_CAKE_SLICE);
+            player.getFoodData().eat(2, 0.1F);
+            int i = state.getValue(BITES);
+            level.gameEvent(player, GameEvent.EAT, pos);
             if (i < MAX_BITES) {
-                pLevel.setBlock(pPos, pState.setValue(BITES, i + 1), 3);
+                level.setBlock(pos, state.setValue(BITES, i + 1), 3);
             } else {
-                pLevel.removeBlock(pPos, false);
-                pLevel.gameEvent(pPlayer, GameEvent.BLOCK_DESTROY, pPos);
+                level.removeBlock(pos, false);
+                level.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
             }
 
             return InteractionResult.SUCCESS;
         }
     }
 
-    public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        return pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+    public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        return facing == Direction.DOWN && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
     }
 
-    public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        return pLevel.getBlockState(pPos.below()).isSolid();
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.below()).isSolid();
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(BITES);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(BITES);
     }
 
-    public int getAnalogOutputSignal(BlockState pBlockState, Level pLevel, BlockPos pPos) {
-        return getOutputSignal(pBlockState.getValue(BITES));
+    public int getAnalogOutputSignal(BlockState blockState, Level level, BlockPos pos) {
+        return getOutputSignal(blockState.getValue(BITES));
     }
 
-    public static int getOutputSignal(int pEaten) {
-        return (7 - pEaten) * 2;
+    public static int getOutputSignal(int eaten) {
+        return (7 - eaten) * 2;
     }
 
-    public boolean hasAnalogOutputSignal(BlockState pState) {
+    public boolean hasAnalogOutputSignal(BlockState state) {
         return true;
     }
 
-    public boolean isPathfindable(BlockState pState, BlockGetter pLevel, BlockPos pPos, PathComputationType pType) {
+    public boolean isPathfindable(BlockState state, BlockGetter level, BlockPos pos, PathComputationType type) {
         return false;
     }
 }

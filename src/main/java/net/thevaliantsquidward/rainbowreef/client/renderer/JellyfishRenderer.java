@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Jellyfish;
@@ -28,11 +28,11 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
     @Override
     public ResourceLocation getTextureLocation(Jellyfish entity) {
         Jellyfish.JellyfishVariant jellyfishVariant = Jellyfish.JellyfishVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/jellyfish/" + jellyfishVariant.getSerializedName() + ".png");
+        return RainbowReef.location("textures/entity/jellyfish/" + jellyfishVariant.getSerializedName() + ".png");
     }
 
     @Override
-    protected void setupRotations(Jellyfish entity, PoseStack poseStack, float p_115319_, float p_115320_, float partialTicks) {
+    protected void setupRotations(Jellyfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
         if (entity.isInWaterOrBubble()) {
             if (isEntityUpsideDown(entity)) {
                 poseStack.translate(0.0D, entity.getBbHeight() + 0.1F, 0.0D);
@@ -44,7 +44,7 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
             poseStack.mulPose(Axis.XP.rotationDegrees((Mth.rotLerp(partialTicks, entity.xRotO, entity.getXRot()) + 90.0F) % 360.0F));
             poseStack.translate(0.0F, -translateY, 0.0F);
         } else {
-            super.setupRotations(entity, poseStack, p_115319_, p_115320_, partialTicks);
+            super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks, scale);
         }
     }
 }

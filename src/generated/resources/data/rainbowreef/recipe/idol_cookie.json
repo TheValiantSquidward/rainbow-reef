@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "rainbowreef:moorish_idol"
+    },
+    "B": {
+      "tag": "c:crops/wheat"
+    }
+  },
+  "pattern": [
+    "BAB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "rainbowreef:idol_cookie"
+  }
+}

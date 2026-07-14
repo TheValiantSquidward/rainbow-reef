@@ -12,11 +12,11 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.stats.Stats;
 
 public class ParrotfishPunchItem extends HoneyBottleItem {
-    public ParrotfishPunchItem(Properties pProperties) {
-        super(pProperties);
+    public ParrotfishPunchItem(Properties properties) {
+        super(properties);
     }
 
-    public UseAnim getUseAnimation(ItemStack p_41358_) {
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 

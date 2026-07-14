@@ -6,8 +6,8 @@ import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.client.animations.JellyfishAnimations;
 import net.thevaliantsquidward.rainbowreef.entity.Jellyfish;
 
@@ -82,8 +82,8 @@ public class JellyfishModel extends HierarchicalModel<Jellyfish> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
+		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 
 	@Override

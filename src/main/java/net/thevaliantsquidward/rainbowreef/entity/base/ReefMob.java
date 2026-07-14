@@ -2,7 +2,9 @@ package net.thevaliantsquidward.rainbowreef.entity.base;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -87,12 +89,12 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(VARIANT, 0);
-        this.entityData.define(FROM_BUCKET, false);
-        this.entityData.define(FEED_COOLDOWN, 600 + (4 * this.getRandom().nextInt(600)));
-        this.entityData.define(LEAPING, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(VARIANT, 0);
+        builder.define(FROM_BUCKET, false);
+        builder.define(FEED_COOLDOWN, 600 + (4 * this.getRandom().nextInt(600)));
+        builder.define(LEAPING, false);
     }
 
     @Override
@@ -152,11 +154,10 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     @Override
     public void saveToBucketTag(@Nonnull ItemStack bucket) {
         if (this.hasCustomName()) {
-            bucket.setHoverName(this.getCustomName());
+            bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }
         Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CompoundTag compoundTag = bucket.getOrCreateTag();
-        compoundTag.putInt("BucketVariantTag", this.getVariant());
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, tag -> tag.putInt("BucketVariantTag", this.getVariant()));
     }
 
     @Override
