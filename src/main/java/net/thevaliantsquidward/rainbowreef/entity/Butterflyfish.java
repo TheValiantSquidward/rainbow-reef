@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -75,45 +76,51 @@ public class Butterflyfish extends VariantSchoolingFish {
         return ButterflyfishVariant.values().length;
     }
 
-    public enum ButterflyfishVariant {
-        COPPERBAND(1, COMMON, null),
-        WROUGHT_IRON(2, EPIC, null),
-        THREADFIN(3, COMMON, null),
-        BANNER(4, COMMON, null),
-        BLUECHEEK(5, COMMON, null),
-        LONGNOSE(6, COMMON, null),
-        SPOTFIN(7, COMMON, null),
-        HOODED(8, UNCOMMON, null),
-        ARABIC(9, UNCOMMON, null),
-        PYRAMID(10, UNCOMMON, null),
-        RED_SEA(11, RARE, null),
-        STRIPED(12, UNCOMMON, null),
-        SADDLEBACK(13, UNCOMMON, null),
-        AFRICAN(14, UNCOMMON, null),
-        ERITREAN(15, RARE, null),
-        MARGINATED(16, UNCOMMON, null),
-        THOMPSON(17, UNCOMMON, null),
-        MULLERS(18, UNCOMMON, null),
-        SIX_SPINED(19, UNCOMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
-        FOUREYE(20, COMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
-        EASTER_ISLAND(21, RARE, null),
-        DARK_LONGNOSE(22, ABERRANT, null),
-        VAGABOND(23, RARE, null),
-        TEARDROP(24, RARE, null),
-        ORNATE(25, UNCOMMON, null),
-        MERTENSII(26, UNCOMMON, null),
-        LINED(27, UNCOMMON, null),
-        COLORFUL_BLUE_BLOTCH(28, UNCOMMON, null);
+    public enum ButterflyfishVariant implements StringRepresentable {
+        COPPERBAND(1, "copperband", COMMON, null),
+        WROUGHT_IRON(2, "wrought_iron", EPIC, null),
+        THREADFIN(3, "threadfin", COMMON, null),
+        BANNER(4, "banner", COMMON, null),
+        BLUECHEEK(5, "blue_cheek", COMMON, null),
+        LONGNOSE(6, "longnose", COMMON, null),
+        SPOTFIN(7, "spotfin", COMMON, null),
+        HOODED(8, "hooded", UNCOMMON, null),
+        ARABIC(9, "arabic", UNCOMMON, null),
+        PYRAMID(10, "pyramid", UNCOMMON, null),
+        RED_SEA(11, "red_sea", RARE, null),
+        SADDLEBACK(12, "saddleback", UNCOMMON, null),
+        AFRICAN(13, "african", UNCOMMON, null),
+        ERITREAN(14, "eritrean", RARE, null),
+        MARGINATED(15, "marginated", UNCOMMON, null),
+        THOMPSON(16, "thompson", UNCOMMON, null),
+        MULLERS(17, "mullers", UNCOMMON, null),
+        SIX_SPINED(18, "six_spined", UNCOMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
+        FOUREYE(19, "foureyes", COMMON, ReefBiomeTags.HAS_BUTTERFLYFISH_MANGROVE),
+        EASTER_ISLAND(20, "easter_isle", RARE, null),
+        DARK_LONGNOSE(21, "dark_longnose", ABERRANT, null),
+        VAGABOND(22, "vagabond", RARE, null),
+        TEARDROP(23, "teardrop", RARE, null),
+        ORNATE(24, "ornate", UNCOMMON, null),
+        MERTENSII(25, "martensii", UNCOMMON, null),
+        LINED(26, "lined", UNCOMMON, null),
+        COLORFUL_BLUE_BLOTCH(27, "colorful_blue_botch", UNCOMMON, null);
 
         private final int variant;
+        private final String name;
         private final ReefRarities rarity;
         @Nullable
         private final TagKey<Biome> biome;
 
-        ButterflyfishVariant(int variant, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        ButterflyfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
             this.variant = variant;
+            this.name = name;
             this.rarity = rarity;
             this.biome = biome;
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.name;
         }
 
         public static ButterflyfishVariant getVariantId(int variants) {

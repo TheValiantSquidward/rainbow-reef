@@ -103,7 +103,7 @@ public class ReefLanguageProvider extends LanguageProvider {
 
     private void addVariantTooltips() {
         for (Angelfish.AngelfishVariant v : Angelfish.AngelfishVariant.values()) variantTooltip("angelfish", v.name().toLowerCase(Locale.ROOT));
-        for (Butterflyfish.ButterflyfishVariant v : Butterflyfish.ButterflyfishVariant.values()) variantTooltip("butterflyfish", v.name().toLowerCase(Locale.ROOT));
+        for (Butterflyfish.ButterflyfishVariant v : Butterflyfish.ButterflyfishVariant.values()) variantTooltip("butterflyfish", v.getSerializedName());
         for (Basslet.BassletVariant v : Basslet.BassletVariant.values()) variantTooltip("basslet", v.getSerializedName());
         for (Boxfish.BoxfishVariant v : Boxfish.BoxfishVariant.values()) variantTooltip("boxfish", v.getSerializedName());
         for (Clownfish.ClownfishVariant v : Clownfish.ClownfishVariant.values()) variantTooltip("clownfish", v.getSerializedName());
