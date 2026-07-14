@@ -1,20 +1,19 @@
 package net.thevaliantsquidward.rainbowreef.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.thevaliantsquidward.rainbowreef.client.animations.MoorishIdolAnimations;
+import net.thevaliantsquidward.rainbowreef.client.animations.MahiMahiAnimations;
+import net.thevaliantsquidward.rainbowreef.client.models.entity.base.ReefModel;
 import net.thevaliantsquidward.rainbowreef.entity.MahiMahi;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
-public class MahiMahiModel extends HierarchicalModel<MahiMahi> {
+public class MahiMahiModel extends ReefModel<MahiMahi> {
 
 	private final ModelPart Root;
 	private final ModelPart Core;
@@ -78,17 +77,14 @@ public class MahiMahiModel extends HierarchicalModel<MahiMahi> {
 
 	public void setupAnim(MahiMahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.Root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.animate(entity.swimIdleAnimationState, MoorishIdolAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
+		this.Root.xRot = headPitch * Mth.DEG_TO_RAD;
+		this.animateWalk(MahiMahiAnimations.SWIM_NORMAL, limbSwing, limbSwingAmount, 1.5F, 3);
+		this.animateIdle(entity.swimIdleAnimationState, MahiMahiAnimations.IDLE, ageInTicks, 0.8F, limbSwingAmount * 3);
+		this.animate(entity.flopAnimationState, MahiMahiAnimations.FLOP, ageInTicks);
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		this.Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public ModelPart root() {
+	public @NotNull ModelPart root() {
 		return this.Root;
 	}
 
