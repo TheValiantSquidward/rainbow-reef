@@ -3,6 +3,9 @@ package net.thevaliantsquidward.rainbowreef.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -12,6 +15,7 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,6 +34,7 @@ public class BurrowBlockEntity extends BlockEntity {
     public static final String COOLDOWN_TAG = "BurrowCooldown";
 
     private final List<Occupant> occupants = new ArrayList<>();
+    private boolean keepOccupantsOnBreak;
 
     public BurrowBlockEntity(BlockPos pos, BlockState state) {
         super(ReefBlockEntities.BURROW.get(), pos, state);
@@ -41,6 +46,14 @@ public class BurrowBlockEntity extends BlockEntity {
 
     public boolean isFull() {
         return this.occupants.size() >= MAX_OCCUPANTS;
+    }
+
+    public boolean keepOccupantsOnBreak() {
+        return this.keepOccupantsOnBreak;
+    }
+
+    public void setKeepOccupantsOnBreak(boolean keepOccupantsOnBreak) {
+        this.keepOccupantsOnBreak = keepOccupantsOnBreak;
     }
 
     public boolean canEnter(Mob mob) {
@@ -67,7 +80,7 @@ public class BurrowBlockEntity extends BlockEntity {
         tag.remove("leash");
         int stay = MIN_STAY_TICKS + this.level.random.nextInt(MAX_STAY_TICKS - MIN_STAY_TICKS);
         this.occupants.add(new Occupant(tag, 0, stay));
-        this.level.playSound(null, this.worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1.0F, 1.0F);
+        this.level.playSound(null, this.worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1.0F, 1.5F);
         mob.discard();
         this.setChanged();
         return true;
@@ -166,6 +179,10 @@ public class BurrowBlockEntity extends BlockEntity {
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
+        this.saveOccupants(tag);
+    }
+
+    private void saveOccupants(CompoundTag tag) {
         ListTag list = new ListTag();
         for (Occupant occupant : this.occupants) {
             CompoundTag entry = new CompoundTag();
@@ -175,6 +192,17 @@ public class BurrowBlockEntity extends BlockEntity {
             list.add(entry);
         }
         tag.put("Occupants", list);
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (!this.occupants.isEmpty()) {
+            CompoundTag tag = new CompoundTag();
+            tag.putString("id", BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).toString());
+            this.saveOccupants(tag);
+            components.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(tag));
+        }
     }
 
     private static class Occupant {

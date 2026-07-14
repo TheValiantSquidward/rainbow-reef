@@ -1,7 +1,14 @@
 package net.thevaliantsquidward.rainbowreef.blocks;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -48,10 +55,25 @@ public class BurrowBlock extends Block implements EntityBlock {
     }
 
     @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof BurrowBlockEntity burrow
+                && !player.isCreative() && hasSilkTouch(level, player.getMainHandItem())) {
+            burrow.setKeepOccupantsOnBreak(true);
+        }
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof BurrowBlockEntity burrow) {
+        if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof BurrowBlockEntity burrow
+                && !burrow.keepOccupantsOnBreak()) {
             burrow.evacuate();
         }
         super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    private static boolean hasSilkTouch(Level level, ItemStack tool) {
+        Holder<Enchantment> silkTouch = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.SILK_TOUCH);
+        return EnchantmentHelper.getItemEnchantmentLevel(silkTouch, tool) > 0;
     }
 }

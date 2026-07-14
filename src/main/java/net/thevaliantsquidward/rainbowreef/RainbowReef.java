@@ -3,6 +3,8 @@ package net.thevaliantsquidward.rainbowreef;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -15,7 +17,9 @@ import net.thevaliantsquidward.rainbowreef.datagen.*;
 import net.thevaliantsquidward.rainbowreef.registry.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefPoiTypes;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 @Mod(RainbowReef.MOD_ID)
@@ -65,6 +69,8 @@ public class RainbowReef {
         generator.addProvider(server, new ReefItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new ReefBiomeTagProvider(output, provider, helper));
         generator.addProvider(server, new ReefRecipeProvider(output, provider));
+        generator.addProvider(server, new LootTableProvider(output, Set.of(),
+                List.of(new LootTableProvider.SubProviderEntry(ReefBlockLootProvider::new, LootContextParamSets.BLOCK)), provider));
 
         boolean client = data.includeClient();
         generator.addProvider(client, new ReefBlockstateProvider(data));

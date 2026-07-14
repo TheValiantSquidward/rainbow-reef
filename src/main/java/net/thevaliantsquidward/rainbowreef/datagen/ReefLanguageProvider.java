@@ -14,6 +14,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.RainbowReefTab;
 import net.thevaliantsquidward.rainbowreef.entity.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import org.apache.commons.lang3.text.WordUtils;
@@ -35,8 +36,11 @@ public class ReefLanguageProvider extends LanguageProvider {
 
         ReefBlocks.AUTO_TRANSLATE.forEach(this::forBlocks);
         ReefItems.AUTO_TRANSLATE.forEach(this::forItems);
+        ReefEntities.ENTITY_TYPES.getEntries().forEach(this::forEntity);
 
         this.addVariantTooltips();
+
+        this.add("tooltip.rainbowreef.burrow_occupant", "%s %s");
 
         this.addItem(ReefItems.ANGELFISH_BUCKET, "Bucket of Angelfish");
         this.addItem(ReefItems.ARROW_CRAB_BUCKET, "Bucket of Arrow Crab");

@@ -13,6 +13,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.blocks.*;
+import net.thevaliantsquidward.rainbowreef.items.BurrowBlockItem;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
 
 import java.util.ArrayList;
@@ -47,13 +48,13 @@ public class ReefBlocks {
             () -> new RedSandBubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
     // burrows
-    public static final DeferredHolder<Block, Block> MUD_BURROW = registerBlock("mud_burrow",
+    public static final DeferredHolder<Block, Block> MUD_BURROW = registerBurrow("mud_burrow",
             () -> new BurrowBlock(true, ReefBlockTags.BURROWABLE_MUD, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
-    public static final DeferredHolder<Block, Block> SAND_BURROW = registerBlock("sand_burrow",
+    public static final DeferredHolder<Block, Block> SAND_BURROW = registerBurrow("sand_burrow",
             () -> new BurrowBlock(true, BlockTags.SAND, BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
-    public static final DeferredHolder<Block, Block> STONE_BURROW = registerBlock("stone_burrow",
+    public static final DeferredHolder<Block, Block> STONE_BURROW = registerBurrow("stone_burrow",
             () -> new BurrowBlock(false, BlockTags.BASE_STONE_OVERWORLD, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
-    public static final DeferredHolder<Block, Block> CORALSTONE_BURROW = registerBlock("coralstone_burrow",
+    public static final DeferredHolder<Block, Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow",
             () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
@@ -288,6 +289,13 @@ public class ReefBlocks {
                     return null;
                 }
             });
+
+    private static DeferredHolder<Block, Block> registerBurrow(String name, Supplier<BurrowBlock> supplier) {
+        DeferredHolder<Block, Block> block = BLOCKS.register(name, supplier);
+        ReefItems.ITEMS.register(name, () -> new BurrowBlockItem(block.get(), new Item.Properties()));
+        AUTO_TRANSLATE.add(block);
+        return block;
+    }
 
     private static <B extends Block> DeferredHolder<Block, B> registerBlock(String name, Supplier<? extends B> supplier) {
         DeferredHolder<Block, B> block = BLOCKS.register(name, supplier);
