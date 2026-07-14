@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.registry;
 
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -12,6 +13,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.blocks.*;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +46,15 @@ public class ReefBlocks {
     public static final DeferredHolder<Block, Block> RED_SAND_BUBBLER = registerBlock("red_sand_bubbler",
             () -> new RedSandBubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
-    // shelf coral
+    // burrows
     public static final DeferredHolder<Block, Block> MUD_BURROW = registerBlock("mud_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
+            () -> new BurrowBlock(true, ReefBlockTags.BURROWABLE_MUD, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
     public static final DeferredHolder<Block, Block> SAND_BURROW = registerBlock("sand_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+            () -> new BurrowBlock(true, BlockTags.SAND, BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
     public static final DeferredHolder<Block, Block> STONE_BURROW = registerBlock("stone_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+            () -> new BurrowBlock(false, BlockTags.BASE_STONE_OVERWORLD, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
     public static final DeferredHolder<Block, Block> CORALSTONE_BURROW = registerBlock("coralstone_burrow",
-            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+            () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
     public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL = registerBlock("dead_shelf_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));

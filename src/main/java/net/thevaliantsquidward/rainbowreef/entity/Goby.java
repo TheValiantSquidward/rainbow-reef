@@ -25,6 +25,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -55,7 +56,8 @@ public class Goby extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 75));
+        this.goalSelector.addGoal(3, new EnterBurrowGoal(this, 1.2D, ReefBlockTags.BURROWS));
+        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 75));
     }
 
     @Override

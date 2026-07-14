@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "rainbowreef:block/coralstone_burrow"
+    "end": "rainbowreef:block/coralstone",
+    "side": "rainbowreef:block/coralstone_burrow"
   }
 }

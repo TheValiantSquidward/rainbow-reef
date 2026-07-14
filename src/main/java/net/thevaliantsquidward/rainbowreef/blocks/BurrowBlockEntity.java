@@ -1,0 +1,191 @@
+package net.thevaliantsquidward.rainbowreef.blocks;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.thevaliantsquidward.rainbowreef.registry.ReefBlockEntities;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class BurrowBlockEntity extends BlockEntity {
+
+    public static final int MAX_OCCUPANTS = 3;
+    private static final int MIN_STAY_TICKS = 400;
+    private static final int MAX_STAY_TICKS = 1200;
+    public static final String COOLDOWN_TAG = "BurrowCooldown";
+
+    private final List<Occupant> occupants = new ArrayList<>();
+
+    public BurrowBlockEntity(BlockPos pos, BlockState state) {
+        super(ReefBlockEntities.BURROW.get(), pos, state);
+    }
+
+    public boolean isEmpty() {
+        return this.occupants.isEmpty();
+    }
+
+    public boolean isFull() {
+        return this.occupants.size() >= MAX_OCCUPANTS;
+    }
+
+    public boolean canEnter(Mob mob) {
+        if (this.isFull()) {
+            return false;
+        }
+        return this.occupants.isEmpty()
+                || EntityType.by(this.occupants.get(0).entityData).filter(type -> type == mob.getType()).isPresent();
+    }
+
+    public boolean tryEnter(Mob mob) {
+        if (this.level == null || this.level.isClientSide || !mob.isAlive() || !this.canEnter(mob)) {
+            return false;
+        }
+        mob.stopRiding();
+        mob.ejectPassengers();
+        CompoundTag tag = new CompoundTag();
+        if (!mob.save(tag)) {
+            return false;
+        }
+        tag.remove("UUID");
+        tag.remove("Passengers");
+        tag.remove("Leash");
+        tag.remove("leash");
+        int stay = MIN_STAY_TICKS + this.level.random.nextInt(MAX_STAY_TICKS - MIN_STAY_TICKS);
+        this.occupants.add(new Occupant(tag, 0, stay));
+        this.level.playSound(null, this.worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1.0F, 1.0F);
+        mob.discard();
+        this.setChanged();
+        return true;
+    }
+
+    public static void serverTick(Level level, BlockPos pos, BlockState state, BurrowBlockEntity burrow) {
+        boolean changed = false;
+        Iterator<Occupant> iterator = burrow.occupants.iterator();
+        while (iterator.hasNext()) {
+            Occupant occupant = iterator.next();
+            occupant.ticksInBurrow++;
+            if (occupant.ticksInBurrow > occupant.minOccupationTicks) {
+                if (burrow.releaseOccupant(level, pos, state, occupant)) {
+                    iterator.remove();
+                    changed = true;
+                } else {
+                    occupant.minOccupationTicks += 100;
+                }
+            }
+        }
+        if (changed) {
+            burrow.setChanged();
+        }
+    }
+
+    private boolean releaseOccupant(Level level, BlockPos pos, BlockState state, Occupant occupant) {
+        BlockPos exit = findExitPos(level, pos, state);
+        if (exit == null) {
+            return false;
+        }
+        Entity entity = EntityType.loadEntityRecursive(occupant.entityData.copy(), level, e -> e);
+        if (entity == null) {
+            return true;
+        }
+        entity.moveTo(exit.getX() + 0.5D, exit.getY() + 0.1D, exit.getZ() + 0.5D, level.random.nextFloat() * 360.0F, 0.0F);
+        applyCooldown(level, entity);
+        level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+        return level.addFreshEntity(entity);
+    }
+
+    public void evacuate() {
+        if (this.level == null || this.level.isClientSide) {
+            return;
+        }
+        for (Occupant occupant : this.occupants) {
+            Entity entity = EntityType.loadEntityRecursive(occupant.entityData.copy(), this.level, e -> e);
+            if (entity != null) {
+                BlockPos pos = this.worldPosition;
+                entity.moveTo(pos.getX() + 0.5D, pos.getY() + 0.1D, pos.getZ() + 0.5D, this.level.random.nextFloat() * 360.0F, 0.0F);
+                applyCooldown(this.level, entity);
+                this.level.addFreshEntity(entity);
+            }
+        }
+        this.occupants.clear();
+        this.setChanged();
+    }
+
+    private static void applyCooldown(Level level, Entity entity) {
+        if (entity instanceof Mob mob) {
+            mob.getPersistentData().putLong(COOLDOWN_TAG, level.getGameTime() + 600 + level.random.nextInt(1200));
+        }
+    }
+
+    @Nullable
+    private static BlockPos findExitPos(Level level, BlockPos pos, BlockState state) {
+        if (state.getBlock() instanceof BurrowBlock burrow && burrow.isGround()) {
+            BlockPos above = pos.above();
+            return level.getBlockState(above).isSolid() ? null : above;
+        }
+        BlockPos fallback = null;
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            BlockPos side = pos.relative(direction);
+            if (!level.getBlockState(side).isSolid()) {
+                if (level.getFluidState(side).is(FluidTags.WATER)) {
+                    return side;
+                }
+                if (fallback == null) {
+                    fallback = side;
+                }
+            }
+        }
+        return fallback;
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+        this.occupants.clear();
+        ListTag list = tag.getList("Occupants", Tag.TAG_COMPOUND);
+        for (int i = 0; i < list.size(); i++) {
+            CompoundTag entry = list.getCompound(i);
+            this.occupants.add(new Occupant(entry.getCompound("EntityData"), entry.getInt("TicksInBurrow"), entry.getInt("MinOccupationTicks")));
+        }
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
+        ListTag list = new ListTag();
+        for (Occupant occupant : this.occupants) {
+            CompoundTag entry = new CompoundTag();
+            entry.put("EntityData", occupant.entityData.copy());
+            entry.putInt("TicksInBurrow", occupant.ticksInBurrow);
+            entry.putInt("MinOccupationTicks", occupant.minOccupationTicks);
+            list.add(entry);
+        }
+        tag.put("Occupants", list);
+    }
+
+    private static class Occupant {
+        final CompoundTag entityData;
+        int ticksInBurrow;
+        int minOccupationTicks;
+
+        Occupant(CompoundTag entityData, int ticksInBurrow, int minOccupationTicks) {
+            this.entityData = entityData;
+            this.ticksInBurrow = ticksInBurrow;
+            this.minOccupationTicks = minOccupationTicks;
+        }
+    }
+}

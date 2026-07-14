@@ -26,6 +26,7 @@ import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.entity.interfaces.DancesToJukebox;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
+import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -75,6 +76,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
         this.goalSelector.addGoal(0, new FishDigGoal(this, 120, 700, ReefTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
+        this.goalSelector.addGoal(2, new EnterBurrowGoal(this, 1.0D, ReefBlockTags.BURROWS));
         this.goalSelector.addGoal(3, new CrabBottomWander(this, 1, 10, 50));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
     }

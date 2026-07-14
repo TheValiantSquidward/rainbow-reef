@@ -37,6 +37,7 @@ public class RainbowReef {
         ReefEntities.ENTITY_TYPES.register(modEventBus);
         ReefItems.ITEMS.register(modEventBus);
         ReefBlocks.BLOCKS.register(modEventBus);
+        ReefBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         ReefLootModifiers.LOOT_MODIFIERS.register(modEventBus);
         ReefFeatures.FEATURES.register(modEventBus);
         ReefPoiTypes.POI_TYPES.register(modEventBus);

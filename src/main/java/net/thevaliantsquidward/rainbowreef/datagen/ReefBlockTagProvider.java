@@ -3,13 +3,17 @@ package net.thevaliantsquidward.rainbowreef.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.thevaliantsquidward.rainbowreef.blocks.BurrowBlock;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static net.thevaliantsquidward.rainbowreef.registry.ReefBlocks.*;
@@ -70,6 +74,18 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 RING_CORAL_WALL_FAN.get(),
                 BUSH_CORAL_WALL_FAN.get()
         );
+
+        for (Block block : List.of(MUD_BURROW.get(), SAND_BURROW.get(), STONE_BURROW.get(), CORALSTONE_BURROW.get())) {
+            BurrowBlock burrow = (BurrowBlock) block;
+            this.tag(burrow.isGround() ? ReefBlockTags.GROUND_BURROWS : ReefBlockTags.WALL_BURROWS).add(burrow);
+        }
+        this.tag(ReefBlockTags.BURROWS).addTag(ReefBlockTags.GROUND_BURROWS).addTag(ReefBlockTags.WALL_BURROWS);
+
+        this.tag(ReefBlockTags.BURROWABLE_MUD).add(Blocks.MUD);
+        this.tag(ReefBlockTags.BURROWABLE_CORALSTONE).add(CORALSTONE.get());
+
+        this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(MUD_BURROW.get(), SAND_BURROW.get());
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(STONE_BURROW.get(), CORALSTONE_BURROW.get());
 
         this.tag(ReefBlockTags.TALL_CORALS).add(
                 TALL_TUBE_CORAL.get(),

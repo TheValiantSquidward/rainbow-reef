@@ -21,4 +21,6 @@ public class ReefFeatures {
 
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> TALL_CORAL = FEATURES.register("tall_coral", () -> new TallCoralFeature(NoneFeatureConfiguration.CODEC));
 
+    public static final DeferredHolder<Feature<?>, Feature<BlockStateConfiguration>> BURROW = FEATURES.register("burrow", () -> new BurrowFeature(BlockStateConfiguration.CODEC));
+
 }

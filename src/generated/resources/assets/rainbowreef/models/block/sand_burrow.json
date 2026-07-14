@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_top",
   "textures": {
-    "all": "rainbowreef:block/sand_burrow"
+    "side": "minecraft:block/sand",
+    "top": "rainbowreef:block/sand_burrow"
   }
 }

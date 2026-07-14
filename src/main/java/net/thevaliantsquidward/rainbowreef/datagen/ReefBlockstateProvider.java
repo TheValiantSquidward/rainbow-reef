@@ -131,10 +131,10 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.cubeAllBlock(CHISELED_CORALSTONE);
         this.cubeAllBlock(POLISHED_CORALSTONE);
 
-        this.cubeAllBlock(MUD_BURROW);
-        this.cubeAllBlock(SAND_BURROW);
-        this.cubeAllBlock(STONE_BURROW);
-        this.cubeAllBlock(CORALSTONE_BURROW);
+        this.groundBurrow(MUD_BURROW, this.mcLoc("block/mud"));
+        this.groundBurrow(SAND_BURROW, this.mcLoc("block/sand"));
+        this.wallBurrow(STONE_BURROW, this.mcLoc("block/stone"));
+        this.wallBurrow(CORALSTONE_BURROW, this.blockTexture(CORALSTONE.get()));
     }
 
     // item
@@ -149,6 +149,18 @@ public class ReefBlockstateProvider extends BlockStateProvider {
 
     private void cubeAllBlock(DeferredHolder<Block, Block> block) {
         this.simpleBlock(block.get());
+        this.itemModel(block);
+    }
+
+    private void groundBurrow(DeferredHolder<Block, Block> block, ResourceLocation baseTexture) {
+        ModelFile model = this.models().cubeTop(getBlockName(block.get()), baseTexture, this.blockTexture(block.get()));
+        this.simpleBlock(block.get(), model);
+        this.itemModel(block);
+    }
+
+    private void wallBurrow(DeferredHolder<Block, Block> block, ResourceLocation baseTexture) {
+        ModelFile model = this.models().cubeColumn(getBlockName(block.get()), this.blockTexture(block.get()), baseTexture);
+        this.simpleBlock(block.get(), model);
         this.itemModel(block);
     }
 
