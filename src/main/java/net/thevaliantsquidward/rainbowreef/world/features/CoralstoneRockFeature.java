@@ -11,8 +11,8 @@ import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfi
 
 public class CoralstoneRockFeature extends Feature<BlockStateConfiguration> {
 
-    public CoralstoneRockFeature(Codec<BlockStateConfiguration> pCodec) {
-        super(pCodec);
+    public CoralstoneRockFeature(Codec<BlockStateConfiguration> codec) {
+        super(codec);
     }
 
     @Override

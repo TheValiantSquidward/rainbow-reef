@@ -6,8 +6,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.SharkModel;
 import net.thevaliantsquidward.rainbowreef.entity.Shark;
@@ -23,12 +23,12 @@ public class SharkRenderer extends MobRenderer<Shark, SharkModel> {
     @Override
     public ResourceLocation getTextureLocation(Shark entity) {
         Shark.SharkVariant sharkVariant = Shark.SharkVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/shark/" + sharkVariant.getSerializedName() + ".png");
+        return RainbowReef.location("textures/entity/shark/" + sharkVariant.getSerializedName() + ".png");
     }
 
     @Override
-    protected void setupRotations(Shark entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks) {
-        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks);
+    protected void setupRotations(Shark entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+        super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks, scale);
         poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, -entity.prevTilt, -entity.tilt)));
     }
 }

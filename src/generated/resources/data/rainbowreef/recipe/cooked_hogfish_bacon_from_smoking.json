@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 100,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "rainbowreef:hogfish_bacon"
+  },
+  "result": {
+    "count": 1,
+    "id": "rainbowreef:cooked_hogfish_bacon"
+  }
+}

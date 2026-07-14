@@ -1,19 +1,19 @@
 package net.thevaliantsquidward.rainbowreef.datagen;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.*;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.*;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefItemTags;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 import static net.minecraft.data.recipes.RecipeCategory.*;
 import static net.thevaliantsquidward.rainbowreef.registry.ReefBlocks.*;
@@ -21,12 +21,12 @@ import static net.thevaliantsquidward.rainbowreef.registry.ReefItems.*;
 
 public class ReefRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
-    public ReefRecipeProvider(PackOutput output) {
-        super(output);
+    public ReefRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider);
     }
 
     @Override
-    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(RecipeOutput consumer) {
         ShapedRecipeBuilder.shaped(FOOD, ANGELFISH_CAKE.get()).define('A', Items.MILK_BUCKET).define('B', Items.SUGAR).define('C', Tags.Items.CROPS_WHEAT).define('D', RAW_ANGELFISH.get()).pattern("DDD").pattern("BAB").pattern("CCC").unlockedBy("has_raw_angelfish", has(RAW_ANGELFISH.get())).save(consumer);
         ShapedRecipeBuilder.shaped(FOOD, BASSLET_COOKIE.get(), 8).define('A', RAW_BASSLET.get()).define('B', Tags.Items.CROPS_WHEAT).pattern("BAB").unlockedBy("has_raw_basslet", has(RAW_BASSLET.get())).save(consumer);
         ShapedRecipeBuilder.shaped(FOOD, BOXFISH_BREAD.get()).define('A', RAW_BOXFISH.get()).define('B', Tags.Items.CROPS_WHEAT).define('C', Items.SUGAR).pattern("BBB").pattern("CAC").pattern("BBB").unlockedBy("has_raw_boxfish", has(RAW_BOXFISH.get())).save(consumer);
@@ -47,22 +47,22 @@ public class ReefRecipeProvider extends RecipeProvider implements IConditionBuil
         ShapedRecipeBuilder.shaped(FOOD, IDOL_COOKIE.get(), 8).define('A', RAW_MOORISH_IDOL.get()).define('B', Tags.Items.CROPS_WHEAT).pattern("BAB").unlockedBy("has_raw_moorish_idol", has(RAW_MOORISH_IDOL.get())).save(consumer);
     }
 
-    private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-        ConditionalRecipe.builder().addCondition(condition).addRecipe(consumer1 -> recipe.save(consumer1, id)).generateAdvancement(new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())).build(consumer, id);
+    private static void conditionalRecipe(RecipeBuilder recipe, ICondition condition, RecipeOutput consumer, ResourceLocation id) {
+        recipe.save(consumer.withConditions(condition), id);
     }
 
-    private static void cooking(ItemLike ingredient, ItemLike result, Consumer<FinishedRecipe> consumer) {
+    private static void cooking(ItemLike ingredient, ItemLike result, RecipeOutput consumer) {
         SimpleCookingRecipeBuilder.smelting(Ingredient.of(ingredient), FOOD, result, 0.35F, 200).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(result));
         SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(ingredient), FOOD, result, 0.35F, 600).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(result) + "_from_campfire_cooking"));
         SimpleCookingRecipeBuilder.smoking(Ingredient.of(ingredient), FOOD, result, 0.35F, 100).unlockedBy(getHasName(ingredient), has(ingredient)).save(consumer, getSaveLocation(getName(result) + "_from_smoking"));
     }
 
     private static String getName(ItemLike object) {
-        return ForgeRegistries.ITEMS.getKey(object.asItem()).getPath();
+        return BuiltInRegistries.ITEM.getKey(object.asItem()).getPath();
     }
 
     private static ResourceLocation getSaveLocation(ItemLike item) {
-        return ForgeRegistries.ITEMS.getKey(item.asItem());
+        return BuiltInRegistries.ITEM.getKey(item.asItem());
     }
 
     private static ResourceLocation getSaveLocation(String name) {

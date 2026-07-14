@@ -20,6 +20,6 @@ public class ReefItemTags {
     }
 
     public static TagKey<Item> itemTag(String modid, String name) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

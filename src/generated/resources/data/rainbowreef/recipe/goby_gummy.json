@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "rainbowreef:goby"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:slimeballs"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rainbowreef:goby_gummy"
+  }
+}

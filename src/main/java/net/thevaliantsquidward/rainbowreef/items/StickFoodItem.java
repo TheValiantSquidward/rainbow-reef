@@ -8,11 +8,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 public class StickFoodItem extends Item {
-    public StickFoodItem(Item.Properties pProperties) {
-        super(pProperties);
+    public StickFoodItem(Item.Properties properties) {
+        super(properties);
     }
-    public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pEntityLiving) {
-        ItemStack itemstack = super.finishUsingItem(pStack, pLevel, pEntityLiving);
-        return pEntityLiving instanceof Player && ((Player)pEntityLiving).getAbilities().instabuild ? itemstack : new ItemStack(Items.STICK);
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
+        ItemStack itemstack = super.finishUsingItem(stack, level, entityLiving);
+        return entityLiving instanceof Player && ((Player)entityLiving).getAbilities().instabuild ? itemstack : new ItemStack(Items.STICK);
     }
 }

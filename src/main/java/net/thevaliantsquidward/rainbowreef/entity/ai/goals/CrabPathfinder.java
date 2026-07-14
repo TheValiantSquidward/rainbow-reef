@@ -15,9 +15,9 @@ public class CrabPathfinder extends WaterBoundPathNavigation {
         super(entitylivingIn, worldIn);
     }
 
-    protected PathFinder createPathFinder(int p_179679_1_) {
+    protected PathFinder createPathFinder(int maxVisitedNodes) {
         this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
-        return new PathFinder(this.nodeEvaluator, p_179679_1_);
+        return new PathFinder(this.nodeEvaluator, maxVisitedNodes);
     }
 
     protected boolean canUpdatePath() {

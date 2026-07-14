@@ -1,6 +1,7 @@
 package net.thevaliantsquidward.rainbowreef.entity.base;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,23 +33,23 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
     public DancingEntity(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
         this.vibrationUser = new VibrationUser();
-        this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.getNotificationRadius()));
+        this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.value().notificationRadius()));
     }
 
-    public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> pListenerConsumer) {
+    public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> listenerConsumer) {
         Level level = this.level();
         if (level instanceof ServerLevel serverlevel) {
-            pListenerConsumer.accept(this.dynamicJukeboxListener, serverlevel);
+            listenerConsumer.accept(this.dynamicJukeboxListener, serverlevel);
         }
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DANCING, false);
-        this.entityData.define(JX, 0);
-        this.entityData.define(JY, 0);
-        this.entityData.define(JZ, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DANCING, false);
+        builder.define(JX, 0);
+        builder.define(JY, 0);
+        builder.define(JZ, 0);
     }
 
     @Override
@@ -67,7 +68,7 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
         super.tick();
 
         if (this.getJukeboxPos() != null) {
-            if (!this.getJukeboxPos().closerToCenterThan(this.position(), GameEvent.JUKEBOX_PLAY.getNotificationRadius())) {
+            if (!this.getJukeboxPos().closerToCenterThan(this.position(), GameEvent.JUKEBOX_PLAY.value().notificationRadius())) {
                 this.setDancing(false);
             } else {
                 this.setDancing(true);
@@ -134,13 +135,13 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
         }
 
         @Override
-        public boolean canReceiveVibration(ServerLevel serverLevel, BlockPos blockPos, GameEvent gameEvent, GameEvent.Context context) {
+        public boolean canReceiveVibration(ServerLevel serverLevel, BlockPos blockPos, Holder<GameEvent> gameEvent, GameEvent.Context context) {
             return true;
         }
         //crab is always receptive to music
 
         @Override
-        public void onReceiveVibration(ServerLevel serverLevel, BlockPos blockPos, GameEvent gameEvent, @Nullable Entity entity, @Nullable Entity entity1, float v) {
+        public void onReceiveVibration(ServerLevel serverLevel, BlockPos blockPos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity1, float v) {
         }
         //unused
 
@@ -153,9 +154,9 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
         private final PositionSource listenerSource;
         private final int listenerRadius;
 
-        public JukeboxListener(PositionSource pListenerSource, int pListenerRadius) {
-            this.listenerSource = pListenerSource;
-            this.listenerRadius = pListenerRadius;
+        public JukeboxListener(PositionSource listenerSource, int listenerRadius) {
+            this.listenerSource = listenerSource;
+            this.listenerRadius = listenerRadius;
         }
 
         public PositionSource getListenerSource() {
@@ -166,13 +167,13 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
             return this.listenerRadius;
         }
 
-        public boolean handleGameEvent(ServerLevel pLevel, GameEvent pGameEvent, GameEvent.Context pContext, Vec3 pPos) {
-            if (pGameEvent == GameEvent.JUKEBOX_PLAY) {
-                DancingEntity.this.setJukeboxPlaying(BlockPos.containing(pPos), true);
+        public boolean handleGameEvent(ServerLevel level, Holder<GameEvent> gameEvent, GameEvent.Context context, Vec3 pos) {
+            if (gameEvent.is(GameEvent.JUKEBOX_PLAY)) {
+                DancingEntity.this.setJukeboxPlaying(BlockPos.containing(pos), true);
                 return true;
 
-            } else if (pGameEvent == GameEvent.JUKEBOX_STOP_PLAY) {
-                DancingEntity.this.setJukeboxPlaying(BlockPos.containing(pPos), false);
+            } else if (gameEvent.is(GameEvent.JUKEBOX_STOP_PLAY)) {
+                DancingEntity.this.setJukeboxPlaying(BlockPos.containing(pos), false);
                 return true;
 
             } else {

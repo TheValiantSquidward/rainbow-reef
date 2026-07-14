@@ -20,6 +20,6 @@ public class ReefBlockTags {
     }
 
     public static TagKey<Block> blockTag(String modid, String name) {
-        return TagKey.create(Registries.BLOCK, new ResourceLocation(modid, name));
+        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(modid, name));
     }
 }

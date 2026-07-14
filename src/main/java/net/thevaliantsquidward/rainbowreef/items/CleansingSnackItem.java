@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CleansingSnackItem extends Item {
-    public CleansingSnackItem(Properties pProperties) {
-        super(pProperties);
+    public CleansingSnackItem(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class CleansingSnackItem extends Item {
             List<MobEffectInstance> effectsToRemove = new ArrayList<>();
 
             for (MobEffectInstance effect : player.getActiveEffects()) {
-                if (!effect.isAmbient() && !effect.getEffect().isInstantenous() && !effect.getEffect().isBeneficial()) {
+                if (!effect.isAmbient() && !effect.getEffect().value().isInstantenous() && !effect.getEffect().value().isBeneficial()) {
                     effectsToRemove.add(effect);
                 }
             }

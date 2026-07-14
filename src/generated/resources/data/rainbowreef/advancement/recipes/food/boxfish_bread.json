@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_boxfish": {
+      "conditions": {
+        "items": [
+          {
+            "items": "rainbowreef:boxfish"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "rainbowreef:boxfish_bread"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_raw_boxfish"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "rainbowreef:boxfish_bread"
+    ]
+  }
+}

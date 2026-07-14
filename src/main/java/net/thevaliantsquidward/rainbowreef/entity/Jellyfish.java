@@ -97,9 +97,9 @@ public class Jellyfish extends JellyfishMob {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(SCALE, 0);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(SCALE, 0);
     }
 
     @Override
@@ -138,8 +138,8 @@ public class Jellyfish extends JellyfishMob {
     }
 
     @Override
-    public EntityDimensions getDimensions(Pose pose) {
-        return super.getDimensions(pose).scale(getScale(this.getModelScale()));
+    protected EntityDimensions getDefaultDimensions(Pose pose) {
+        return super.getDefaultDimensions(pose).scale(getScale(this.getModelScale()));
     }
 
     @NotNull
@@ -238,13 +238,9 @@ public class Jellyfish extends JellyfishMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = JellyfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(JellyfishVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
-            return spawnData;
-        }
         if (spawnData instanceof JellyfishData) {
             variant = ((JellyfishData) spawnData).variantData;
         } else {

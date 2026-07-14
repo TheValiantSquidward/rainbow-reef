@@ -4,8 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ArrowCrabModel;
 import net.thevaliantsquidward.rainbowreef.entity.ArrowCrab;
@@ -14,8 +14,8 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
 @OnlyIn(Dist.CLIENT)
 public class ArrowCrabRenderer extends MobRenderer<ArrowCrab, ArrowCrabModel> {
 
-    private static final ResourceLocation RED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/arrowcrab/redarrowcrab.png");
-    private static final ResourceLocation YELLOWLINED = new ResourceLocation(RainbowReef.MOD_ID, "textures/entity/arrowcrab/yellowlinearrowcrab.png");
+    private static final ResourceLocation RED = RainbowReef.location("textures/entity/arrowcrab/redarrowcrab.png");
+    private static final ResourceLocation YELLOWLINED = RainbowReef.location("textures/entity/arrowcrab/yellowlinearrowcrab.png");
 
 
     public ArrowCrabRenderer(EntityRendererProvider.Context context) {

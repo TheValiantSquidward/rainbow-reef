@@ -4,10 +4,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 
@@ -15,14 +15,14 @@ public class RainbowReefTab {
 public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
         DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RainbowReef.MOD_ID);
 
-    public static final RegistryObject<CreativeModeTab> RAINBOW_REEF_TAB = CREATIVE_MODE_TABS.register("rainbow_reef_tab",
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RAINBOW_REEF_TAB = CREATIVE_MODE_TABS.register("rainbow_reef_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ReefItems.RAW_TANG.get()))
                     .title(Component.translatable("creativetab.rainbow_reef_tab"))
-                    .displayItems((pParameters, output) -> {
+                    .displayItems((parameters, output) -> {
 
                         // Spawn eggs
                         ReefItems.ITEMS.getEntries().forEach(spawnEgg -> {
-                            if ((spawnEgg.get() instanceof ForgeSpawnEggItem)) {
+                            if ((spawnEgg.get() instanceof DeferredSpawnEggItem)) {
                                 output.accept(spawnEgg.get());
                             }
                         });

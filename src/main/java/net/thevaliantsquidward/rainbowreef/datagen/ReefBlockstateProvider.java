@@ -4,12 +4,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 
 import java.util.function.Function;
@@ -133,7 +133,7 @@ public class ReefBlockstateProvider extends BlockStateProvider {
     }
 
     // item
-    private void itemModel(RegistryObject<Block> block) {
+    private void itemModel(DeferredHolder<Block, Block> block) {
         this.itemModels().withExistingParent(getItemName(block.get()), this.blockTexture(block.get()));
     }
 
@@ -142,49 +142,49 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc(folder.format(name)));
     }
 
-    private void cubeAllBlock(RegistryObject<Block> block) {
+    private void cubeAllBlock(DeferredHolder<Block, Block> block) {
         this.simpleBlock(block.get());
         this.itemModel(block);
     }
 
     // block
-    private void stairs(RegistryObject<Block> stairs, ResourceLocation texture) {
+    private void stairs(DeferredHolder<Block, Block> stairs, ResourceLocation texture) {
         this.stairsBlock((StairBlock) stairs.get(), texture);
         this.itemModel(stairs);
     }
 
-    private void slab(RegistryObject<Block> slab, ResourceLocation texture) {
+    private void slab(DeferredHolder<Block, Block> slab, ResourceLocation texture) {
         this.slabBlock((SlabBlock) slab.get(), texture, texture);
         this.itemModel(slab);
     }
 
-    private void wall(RegistryObject<Block> wall, ResourceLocation texture) {
+    private void wall(DeferredHolder<Block, Block> wall, ResourceLocation texture) {
         this.wallBlock((WallBlock) wall.get(), texture);
         this.itemModels().wallInventory(getItemName(wall.get()), texture);
     }
 
-    private void simpleCross(RegistryObject<Block> block) {
+    private void simpleCross(DeferredHolder<Block, Block> block) {
         this.simpleBlock(block.get(), this.models().cross(getItemName(block.get()), this.blockTexture(block.get())).renderType("cutout"));
         this.generatedItem(block.get(), TextureFolder.BLOCK);
     }
 
-    private void coralFan(RegistryObject<Block> coralFan, ResourceLocation texture) {
+    private void coralFan(DeferredHolder<Block, Block> coralFan, ResourceLocation texture) {
         ModelFile model = this.models().withExistingParent(getBlockName(coralFan.get()), "block/coral_fan").texture("fan", texture).renderType("cutout");
         this.simpleBlock(coralFan.get(), model);
     }
 
-    private void coralWallFan(RegistryObject<Block> coralFan, ResourceLocation texture) {
+    private void coralWallFan(DeferredHolder<Block, Block> coralFan, ResourceLocation texture) {
         ModelFile model = this.models().withExistingParent(getBlockName(coralFan.get()), "block/coral_wall_fan").texture("fan", texture).renderType("cutout");
         this.horizontalBlock(coralFan.get(), model);
     }
 
-    private void coralFan(RegistryObject<Block> coralFan, RegistryObject<Block> coralWallFan) {
+    private void coralFan(DeferredHolder<Block, Block> coralFan, DeferredHolder<Block, Block> coralWallFan) {
         this.coralFan(coralFan, this.blockTexture(coralFan.get()));
         this.coralWallFan(coralWallFan, this.blockTexture(coralFan.get()));
         this.generatedItem(coralFan.get(), TextureFolder.BLOCK);
     }
 
-    private void tallCoral(RegistryObject<Block> flower) {
+    private void tallCoral(DeferredHolder<Block, Block> flower) {
         String name = getItemName(flower.get());
         Function<String, ModelFile> model = s -> this.models().cross(name + "_" + s, this.modLoc("block/" + name + "_" + s)).renderType("cutout");
 
@@ -194,11 +194,11 @@ public class ReefBlockstateProvider extends BlockStateProvider {
 
     // utils
     private static String getItemName(ItemLike item) {
-        return ForgeRegistries.ITEMS.getKey(item.asItem()).getPath();
+        return BuiltInRegistries.ITEM.getKey(item.asItem()).getPath();
     }
 
     private static String getBlockName(Block block) {
-        return ForgeRegistries.BLOCKS.getKey(block).getPath();
+        return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 
     private enum TextureFolder {

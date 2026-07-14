@@ -4,13 +4,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.thevaliantsquidward.rainbowreef.datagen.*;
 import net.thevaliantsquidward.rainbowreef.registry.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefPoiTypes;
@@ -23,14 +23,16 @@ public class RainbowReef {
 
     public static final String MOD_ID = "rainbowreef";
 
-    public static ResourceLocation prefix(String name) {
-        return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
+    public static ResourceLocation location(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
-    public RainbowReef() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public static ResourceLocation prefix(String name) {
+        return location(name.toLowerCase(Locale.ROOT));
+    }
+
+    public RainbowReef(IEventBus modEventBus) {
         RainbowReefTab.register(modEventBus);
-        MinecraftForge.EVENT_BUS.register(this);
 
         ReefEntities.ENTITY_TYPES.register(modEventBus);
         ReefItems.ITEMS.register(modEventBus);
@@ -61,7 +63,7 @@ public class RainbowReef {
         generator.addProvider(server, blockTags);
         generator.addProvider(server, new ReefItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new ReefBiomeTagProvider(output, provider, helper));
-        generator.addProvider(server, new ReefRecipeProvider(output));
+        generator.addProvider(server, new ReefRecipeProvider(output, provider));
 
         boolean client = data.includeClient();
         generator.addProvider(client, new ReefBlockstateProvider(data));
@@ -71,6 +73,6 @@ public class RainbowReef {
     }
 
     public static ResourceLocation modPrefix(String name) {
-        return new ResourceLocation(MOD_ID, name.toLowerCase(Locale.ROOT));
+        return location(name.toLowerCase(Locale.ROOT));
     }
 }

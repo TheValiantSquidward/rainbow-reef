@@ -21,15 +21,15 @@ import java.util.List;
 import java.util.Optional;
 
 public class ReefStarFeature extends Feature<MultifaceGrowthConfiguration> {
-    public ReefStarFeature(Codec<MultifaceGrowthConfiguration> pCodec) {
-        super(pCodec);
+    public ReefStarFeature(Codec<MultifaceGrowthConfiguration> codec) {
+        super(codec);
     }
 
-    public boolean place(FeaturePlaceContext<MultifaceGrowthConfiguration> pContext) {
-        WorldGenLevel $$1 = pContext.level();
-        BlockPos $$2 = pContext.origin();
-        RandomSource $$3 = pContext.random();
-        MultifaceGrowthConfiguration $$4 = pContext.config();
+    public boolean place(FeaturePlaceContext<MultifaceGrowthConfiguration> context) {
+        WorldGenLevel $$1 = context.level();
+        BlockPos $$2 = context.origin();
+        RandomSource $$3 = context.random();
+        MultifaceGrowthConfiguration $$4 = context.config();
         if (!isAirOrWater($$1.getBlockState($$2))) {
             return false;
         } else {
@@ -63,12 +63,12 @@ public class ReefStarFeature extends Feature<MultifaceGrowthConfiguration> {
         }
     }
 
-    public static boolean placeGrowthIfPossible(WorldGenLevel pLevel, BlockPos pPos, BlockState pState, MultifaceGrowthConfiguration pConfig, RandomSource pRandom, List<Direction> pDirections) {
-        BlockPos.MutableBlockPos $$6 = pPos.mutable();
-        Iterator var7 = pDirections.iterator();
-        Optional<Block> star = BuiltInRegistries.BLOCK.getTag(ReefTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(pLevel.getRandom())).map(Holder::value);
+    public static boolean placeGrowthIfPossible(WorldGenLevel level, BlockPos pos, BlockState state, MultifaceGrowthConfiguration config, RandomSource random, List<Direction> directions) {
+        BlockPos.MutableBlockPos $$6 = pos.mutable();
+        Iterator var7 = directions.iterator();
+        Optional<Block> star = BuiltInRegistries.BLOCK.getTag(ReefTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(level.getRandom())).map(Holder::value);
         //BlockState block = star.map(Block::defaultBlockState).orElseGet(ModBlocks.SAFFRON_STARFISH.get()::defaultBlockState);
-        MultifaceBlock placeBlock = (MultifaceBlock) BuiltInRegistries.BLOCK.getTag(ReefTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(pLevel.getRandom())).map(Holder::value).get();
+        MultifaceBlock placeBlock = (MultifaceBlock) BuiltInRegistries.BLOCK.getTag(ReefTags.TROPICAL_STARS).flatMap((holders) -> holders.getRandomElement(level.getRandom())).map(Holder::value).get();
 
         Direction $$7;
         BlockState $$8;
@@ -78,19 +78,19 @@ public class ReefStarFeature extends Feature<MultifaceGrowthConfiguration> {
             }
 
             $$7 = (Direction)var7.next();
-            $$8 = pLevel.getBlockState($$6.setWithOffset(pPos, $$7));
-        } while(!$$8.is(pConfig.canBePlacedOn));
+            $$8 = level.getBlockState($$6.setWithOffset(pos, $$7));
+        } while(!$$8.is(config.canBePlacedOn));
 
-        BlockState $$9 = placeBlock.getStateForPlacement(pState, pLevel, pPos, $$7);
+        BlockState $$9 = placeBlock.getStateForPlacement(state, level, pos, $$7);
         if ($$9 == null) {
             return false;
         } else {
-            pLevel.setBlock(pPos, $$9, 3);
+            level.setBlock(pos, $$9, 3);
             return true;
         }
     }
 
-    private static boolean isAirOrWater(BlockState pState) {
-        return pState.isAir() || pState.is(Blocks.WATER);
+    private static boolean isAirOrWater(BlockState state) {
+        return state.isAir() || state.is(Blocks.WATER);
     }
 }

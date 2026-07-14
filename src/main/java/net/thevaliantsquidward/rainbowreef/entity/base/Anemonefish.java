@@ -45,9 +45,9 @@ public abstract class Anemonefish extends VariantSchoolingFish {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(HOME, new BlockPos(0,0,0));
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(HOME, new BlockPos(0,0,0));
     }
 
     @Override
@@ -125,7 +125,7 @@ public abstract class Anemonefish extends VariantSchoolingFish {
         if (vec31.distanceTo(vec3) > 20.0) {
             return false;
         } else {
-            return this.level().clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, net.minecraft.world.level.ClipContext.Fluid.NONE, this)).getType() == HitResult.Type.MISS;
+            return this.level().clip(new ClipContext(vec3, vec31, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, this)).getType() == HitResult.Type.MISS;
         }
     }
 

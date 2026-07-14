@@ -3,8 +3,8 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ClownfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Clownfish;
@@ -20,6 +20,6 @@ public class ClownfishRenderer extends MobRenderer<Clownfish, ClownfishModel> {
     @Override
     public ResourceLocation getTextureLocation(Clownfish entity) {
         Clownfish.ClownfishVariant clownfishVariant = Clownfish.ClownfishVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/clownfish/" + clownfishVariant.getSerializedName() + ".png");
+        return RainbowReef.location("textures/entity/clownfish/" + clownfishVariant.getSerializedName() + ".png");
     }
 }

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "rrbites=0": {
+      "model": "rainbowreef:block/angelfish_cake"
+    },
+    "rrbites=1": {
+      "model": "rainbowreef:block/angelfish_cake_3"
+    },
+    "rrbites=2": {
+      "model": "rainbowreef:block/angelfish_cake_2"
+    },
+    "rrbites=3": {
+      "model": "rainbowreef:block/angelfish_cake_1"
+    }
+  }
+}

@@ -14,15 +14,15 @@ import javax.annotation.Nullable;
 public class GoalUtils {
 
     @Nullable
-    public static Vec3 getRandomSwimmablePosWithSeabed(PathfinderMob pPathfinder, int pRadius, int pVerticalDistance) {
-        Vec3 testPos = DefaultRandomPos.getPos(pPathfinder, pRadius, pVerticalDistance);
-        int MaxSearchAmount = pRadius*pRadius*pRadius;
+    public static Vec3 getRandomSwimmablePosWithSeabed(PathfinderMob pathfinder, int radius, int verticalDistance) {
+        Vec3 testPos = DefaultRandomPos.getPos(pathfinder, radius, verticalDistance);
+        int MaxSearchAmount = radius*radius*radius;
 
-        for (int x = 0; testPos != null && x < MaxSearchAmount; testPos = DefaultRandomPos.getPos(pPathfinder, pRadius, pVerticalDistance), x ++) {
+        for (int x = 0; testPos != null && x < MaxSearchAmount; testPos = DefaultRandomPos.getPos(pathfinder, radius, verticalDistance), x ++) {
             if (testPos != null) {
                 Vec3 belowPos = testPos.subtract(0, 1, 0);
 
-                if (pPathfinder.level().getBlockState(BlockPos.containing(belowPos)).entityCanStandOn(pPathfinder.level(), BlockPos.containing(testPos), pPathfinder) && pPathfinder.level().getBlockState(BlockPos.containing(testPos)).isPathfindable(pPathfinder.level(), BlockPos.containing(testPos), PathComputationType.WATER)) {
+                if (pathfinder.level().getBlockState(BlockPos.containing(belowPos)).entityCanStandOn(pathfinder.level(), BlockPos.containing(testPos), pathfinder) && pathfinder.level().getBlockState(BlockPos.containing(testPos)).isPathfindable(PathComputationType.WATER)) {
                     return testPos;
                 }
 
@@ -40,23 +40,23 @@ public class GoalUtils {
 
 
     @Nullable
-    public static Vec3 getRandomSwimmablePosThatIsntTheSameDepth(PathfinderMob pPathfinder, int pRadius, int pVerticalDistance, boolean preferCrevices) {
-        LevelAccessor world = pPathfinder.level();
-        int MaxSearchAmount = pRadius*pRadius*pRadius;
+    public static Vec3 getRandomSwimmablePosThatIsntTheSameDepth(PathfinderMob pathfinder, int radius, int verticalDistance, boolean preferCrevices) {
+        LevelAccessor world = pathfinder.level();
+        int MaxSearchAmount = radius*radius*radius;
 
         BlockPos currentPos = null;
         int currentSolidSidesCount = 0;
 
 
         for (int i = 0; i < MaxSearchAmount; i++) {
-            Vec3 rand = DefaultRandomPos.getPos(pPathfinder, pRadius, pVerticalDistance);
+            Vec3 rand = DefaultRandomPos.getPos(pathfinder, radius, verticalDistance);
             if (rand != null) {
                 BlockPos seafloor = BlockPos.containing(rand);
 
                 while (world.getFluidState(seafloor).is(FluidTags.WATER) && seafloor.getY() > 1) {
-                    int tempSolidSidesCount = countSolidSides(pPathfinder.level(), seafloor.getX(), seafloor.getY(), seafloor.getZ());
+                    int tempSolidSidesCount = countSolidSides(pathfinder.level(), seafloor.getX(), seafloor.getY(), seafloor.getZ());
 
-                    if (seafloor.getY() != pPathfinder.position().y()) {
+                    if (seafloor.getY() != pathfinder.position().y()) {
                         if (preferCrevices) {
                             if (tempSolidSidesCount > currentSolidSidesCount) {
                                 currentPos = seafloor;

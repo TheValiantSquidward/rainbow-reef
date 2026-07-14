@@ -2,7 +2,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 
 import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
@@ -54,12 +53,6 @@ public class Shark extends VariantSchoolingFish {
         this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
     }
-
-    @Override
-    protected float getStandingEyeHeight(@NotNull Pose pose, EntityDimensions size) {
-        return size.height * 0.5F;
-    }
-
     @Override
     public int getMaxSchoolSize() {
         return 3;
@@ -148,13 +141,9 @@ public class Shark extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag compoundTag) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData, compoundTag);
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = SharkVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (compoundTag != null && compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(SharkVariant.getVariantId(compoundTag.getInt("BucketVariantTag")).getVariant());
-            return spawnData;
-        }
         if (spawnData instanceof SharkData) {
             variant = ((SharkData) spawnData).variantData;
         } else {

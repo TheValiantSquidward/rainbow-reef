@@ -3,8 +3,8 @@ package net.thevaliantsquidward.rainbowreef.client.renderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.DamselfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Damselfish;
@@ -19,6 +19,6 @@ public class DamselfishRenderer extends MobRenderer<Damselfish, DamselfishModel>
 
     public ResourceLocation getTextureLocation(Damselfish entity) {
         Damselfish.DamselfishVariant damselfishVariant = Damselfish.DamselfishVariant.getVariantId(entity.getVariant());
-        return new ResourceLocation(RainbowReef.MOD_ID,"textures/entity/damselfish/" + damselfishVariant.getSerializedName() + ".png");
+        return RainbowReef.location("textures/entity/damselfish/" + damselfishVariant.getSerializedName() + ".png");
     }
 }

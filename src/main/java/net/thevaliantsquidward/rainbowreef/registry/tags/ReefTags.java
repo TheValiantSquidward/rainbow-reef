@@ -1,7 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.registry.tags;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -27,18 +26,18 @@ public final class ReefTags {
     public static final TagKey<Biome> EEL_SALT = registerBiomeTag("eel_salt");
 
     private static TagKey<Block> registerBlockTag(String name) {
-        return TagKey.create(Registries.BLOCK, new ResourceLocation(RainbowReef.MOD_ID, name));
+        return TagKey.create(Registries.BLOCK, RainbowReef.location(name));
     }
 
     private static TagKey<Biome> registerBiomeTag(String name) {
-        return TagKey.create(Registries.BIOME, new ResourceLocation(RainbowReef.MOD_ID, name));
+        return TagKey.create(Registries.BIOME, RainbowReef.location(name));
     }
 
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
-        return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(RainbowReef.MOD_ID, name));
+        return TagKey.create(Registries.ENTITY_TYPE, RainbowReef.location(name));
     }
 
     private static TagKey<Item> registerItemTag(String name) {
-        return TagKey.create(Registries.ITEM, new ResourceLocation(RainbowReef.MOD_ID, name));
+        return TagKey.create(Registries.ITEM, RainbowReef.location(name));
     }
 }

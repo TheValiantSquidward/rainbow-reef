@@ -19,19 +19,19 @@ public class RandomSleepyWanderGoal extends Goal {
     protected boolean forceTrigger;
     private final boolean checkNoActionTime;
 
-    public RandomSleepyWanderGoal(PathfinderMob pMob, double pSpeedModifier) {
-        this(pMob, pSpeedModifier, 120);
+    public RandomSleepyWanderGoal(PathfinderMob mob, double speedModifier) {
+        this(mob, speedModifier, 120);
     }
 
-    public RandomSleepyWanderGoal(PathfinderMob pMob, double pSpeedModifier, int pInterval) {
-        this(pMob, pSpeedModifier, pInterval, true);
+    public RandomSleepyWanderGoal(PathfinderMob mob, double speedModifier, int interval) {
+        this(mob, speedModifier, interval, true);
     }
 
-    public RandomSleepyWanderGoal(PathfinderMob pMob, double pSpeedModifier, int pInterval, boolean pCheckNoActionTime) {
-        this.mob = pMob;
-        this.speedModifier = pSpeedModifier;
-        this.interval = pInterval;
-        this.checkNoActionTime = pCheckNoActionTime;
+    public RandomSleepyWanderGoal(PathfinderMob mob, double speedModifier, int interval, boolean checkNoActionTime) {
+        this.mob = mob;
+        this.speedModifier = speedModifier;
+        this.interval = interval;
+        this.checkNoActionTime = checkNoActionTime;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
 
@@ -103,7 +103,7 @@ public class RandomSleepyWanderGoal extends Goal {
     }
 
 
-    public void setInterval(int pNewchance) {
-        this.interval = pNewchance;
+    public void setInterval(int newchance) {
+        this.interval = newchance;
     }
 }

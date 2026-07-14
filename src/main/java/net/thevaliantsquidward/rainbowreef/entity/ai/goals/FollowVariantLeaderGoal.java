@@ -18,8 +18,8 @@ public class FollowVariantLeaderGoal extends Goal {
         this.nextStartTick = this.nextStartTick(fish);
     }
 
-    protected int nextStartTick(VariantSchoolingFish p_25252_) {
-        return reducedTickDelay(200 + p_25252_.getRandom().nextInt(200) % 20);
+    protected int nextStartTick(VariantSchoolingFish fish) {
+        return reducedTickDelay(200 + fish.getRandom().nextInt(200) % 20);
     }
 
     @Override
