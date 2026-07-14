@@ -17,6 +17,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.items.tooltip.ReefMobTooltipData;
+import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
@@ -60,6 +61,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         }
         if (entity instanceof ReefMob reefMob) {
             reefMob.setTooltipWaterState();
+            reefMob.setRenderedInTooltip(true);
         }
         entity.setYHeadRot(0);
 
@@ -68,6 +70,22 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
 
         float renderX = x + (this.getWidth(font) / 2F);
         float renderY = y + (this.getHeight() / 2F);
+        if (type == ReefEntities.ARROW_CRAB.get()) {
+            renderX += 10;
+            renderY += 3;
+        }
+        if (type == ReefEntities.PIPEFISH.get()) {
+            renderX += 10;
+            renderY += 0;
+        }
+        if (type == ReefEntities.JELLYFISH.get()) {
+            renderX += 3;
+            renderY += -3;
+        }
+        if (type == ReefEntities.HOGFISH.get()) {
+            renderX += 3;
+            renderY += 0;
+        }
 
         float time = (mc.level.getGameTime() + mc.getTimer().getGameTimeDeltaPartialTick(false)) / 20.0F;
         float bob = (float) Math.sin(time * Math.PI * 0.5F) * 0.05F;
@@ -77,6 +95,9 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         stack.translate(renderX, renderY + bob * scale, 50.0F);
         stack.scale(scale, -scale, scale);
         stack.mulPose(Axis.YP.rotationDegrees(45));
+        if (type == ReefEntities.JELLYFISH.get()) {
+            stack.mulPose(Axis.XP.rotationDegrees(90.0F));
+        }
         stack.mulPose(Axis.XP.rotationDegrees(-7.5F));
 
         mc.getEntityRenderDispatcher().setRenderShadow(false);

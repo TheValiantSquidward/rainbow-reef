@@ -33,6 +33,9 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
 
     @Override
     protected void setupRotations(Jellyfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+        if (entity.isRenderedInTooltip()) {
+            return;
+        }
         if (entity.isInWaterOrBubble()) {
             if (isEntityUpsideDown(entity)) {
                 poseStack.translate(0.0D, entity.getBbHeight() + 0.1F, 0.0D);

@@ -184,8 +184,18 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         this.moveControl = newControl;
     }
 
+    private boolean renderedInTooltip;
+
     public void setTooltipWaterState() {
         this.wasTouchingWater = true;
+    }
+
+    public void setRenderedInTooltip(boolean renderedInTooltip) {
+        this.renderedInTooltip = renderedInTooltip;
+    }
+
+    public boolean isRenderedInTooltip() {
+        return this.renderedInTooltip;
     }
 
     @Override
