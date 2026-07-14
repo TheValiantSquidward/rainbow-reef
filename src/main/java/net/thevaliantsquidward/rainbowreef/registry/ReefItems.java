@@ -68,6 +68,7 @@ public class ReefItems {
     public static final DeferredHolder<Item, Item> RAW_CRAB = registerItem("crab", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredHolder<Item, Item> ROASTED_CRAB = registerItem("roasted_crab", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.6F).build())));
     public static final DeferredHolder<Item, Item> CRAB_CAKE = registerItem("crab_cake", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.5F).build())));
+    public static final DeferredHolder<Item, Item> CRAB_ROE = registerItem("crab_roe", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())));
 
     // damselfish
     public static final DeferredHolder<Item, Item> DAMSELFISH_SPAWN_EGG = registerSpawnEggItem("damselfish", ReefEntities.DAMSELFISH, 0x15f578, 0x4ba2c4);

@@ -10,16 +10,12 @@ public class ReefSoundEvents {
 
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(BuiltInRegistries.SOUND_EVENT, RainbowReef.MOD_ID);
 
-    // empty but still here for resource packs ig
-    public static final DeferredHolder<SoundEvent, SoundEvent> FISH_IDLE = registerSoundEvent("fish_idle");
-
     public static final DeferredHolder<SoundEvent, SoundEvent> FISH_HURT = registerSoundEvent("fish_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> FISH_DEATH = registerSoundEvent("fish_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> FISH_FLOP = registerSoundEvent("fish_flop");
     public static final DeferredHolder<SoundEvent, SoundEvent> FISH_JUMP = registerSoundEvent("fish_jump");
 
     // crab
-    public static final DeferredHolder<SoundEvent, SoundEvent> CRAB_IDLE = registerSoundEvent("crab_idle");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRAB_HURT = registerSoundEvent("crab_hurt");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRAB_DEATH = registerSoundEvent("crab_death");
     public static final DeferredHolder<SoundEvent, SoundEvent> CRAB_FLOP = registerSoundEvent("crab_flop");

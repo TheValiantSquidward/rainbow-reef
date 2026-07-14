@@ -45,6 +45,15 @@ public class ReefBlocks {
             () -> new RedSandBubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
     // shelf coral
+    public static final DeferredHolder<Block, Block> MUD_BURROW = registerBlock("mud_burrow",
+            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
+    public static final DeferredHolder<Block, Block> SAND_BURROW = registerBlock("sand_burrow",
+            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredHolder<Block, Block> STONE_BURROW = registerBlock("stone_burrow",
+            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredHolder<Block, Block> CORALSTONE_BURROW = registerBlock("coralstone_burrow",
+            () -> new MudBurrowBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+
     public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
     public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL = registerBlock("dead_shelf_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
     public static final DeferredHolder<Block, Block> DEAD_TALL_SHELF_CORAL = registerBlock("dead_tall_shelf_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));

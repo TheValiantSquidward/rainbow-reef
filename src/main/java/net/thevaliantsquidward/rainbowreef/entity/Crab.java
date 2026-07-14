@@ -193,12 +193,6 @@ public class Crab extends DancingEntity implements DancesToJukebox {
 
     @Override
     @Nullable
-    protected SoundEvent getAmbientSound() {
-        return ReefSoundEvents.CRAB_IDLE.get();
-    }
-
-    @Override
-    @Nullable
     protected SoundEvent getDeathSound() {
         return ReefSoundEvents.CRAB_DEATH.get();
     }

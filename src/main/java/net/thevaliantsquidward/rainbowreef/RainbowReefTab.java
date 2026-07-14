@@ -1,15 +1,27 @@
 package net.thevaliantsquidward.rainbowreef;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.thevaliantsquidward.rainbowreef.entity.*;
+import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
+
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.function.Function;
+import java.util.function.IntFunction;
+import java.util.function.ToIntFunction;
+import java.util.stream.IntStream;
 
 public class RainbowReefTab {
 public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
@@ -63,6 +75,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.RAW_CRAB.get());
                         output.accept(ReefItems.ROASTED_CRAB.get());
                         output.accept(ReefItems.CRAB_CAKE.get());
+                        output.accept(ReefItems.CRAB_ROE.get());
 
                         // damselfish
 
@@ -132,7 +145,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         // shark
 
                         // small shark
-                        output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
+                        variantsByRarity(output, ReefItems.SMALL_SHARK_BUCKET.get(), SmallShark.SmallSharkVariant.values(), SmallShark.SmallSharkVariant::getVariant, SmallShark.SmallSharkVariant::getRarity);
                         output.accept(ReefItems.RAW_SMALL_SHARK.get());
                         output.accept(ReefItems.SHARKBITE_SALAD.get());
 
@@ -179,6 +192,11 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefBlocks.CORALSTONE_BRICKS.get());
                         output.accept(ReefBlocks.POLISHED_CORALSTONE.get());
                         output.accept(ReefBlocks.CHISELED_CORALSTONE.get());
+
+                        output.accept(ReefBlocks.MUD_BURROW.get());
+                        output.accept(ReefBlocks.SAND_BURROW.get());
+                        output.accept(ReefBlocks.STONE_BURROW.get());
+                        output.accept(ReefBlocks.CORALSTONE_BURROW.get());
 
                         output.accept(ReefBlocks.TALL_TUBE_CORAL.get());
                         output.accept(ReefBlocks.TALL_BRAIN_CORAL.get());
@@ -266,6 +284,52 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.DEAD_TOWER_CORAL_FAN.get());
                     })
                     .build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RAINBOW_REEF_VARIANTS_TAB = CREATIVE_MODE_TABS.register("rainbow_reef_variants_tab",
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(ReefItems.TANG_BUCKET.get()))
+                    .withTabsBefore(RAINBOW_REEF_TAB.getId())
+                    .title(Component.translatable("creativetab.rainbow_reef_variants_tab"))
+                    .displayItems((parameters, output) -> {
+                        variantsByRarity(output, ReefItems.ANGELFISH_BUCKET.get(), Angelfish.AngelfishVariant.values(), Angelfish.AngelfishVariant::getVariant, Angelfish.AngelfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.BASSLET_BUCKET.get(), Basslet.BassletVariant.values(), Basslet.BassletVariant::getVariant, Basslet.BassletVariant::getRarity);
+                        variantsByRarity(output, ReefItems.BOXFISH_BUCKET.get(), Boxfish.BoxfishVariant.values(), Boxfish.BoxfishVariant::getVariant, Boxfish.BoxfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.BUTTERFLYFISH_BUCKET.get(), Butterflyfish.ButterflyfishVariant.values(), Butterflyfish.ButterflyfishVariant::getVariant, Butterflyfish.ButterflyfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.CLOWNFISH_BUCKET.get(), Clownfish.ClownfishVariant.values(), Clownfish.ClownfishVariant::getVariant, Clownfish.ClownfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.DWARF_ANGELFISH_BUCKET.get(), DwarfAngelfish.DwarfAngelfishVariant.values(), DwarfAngelfish.DwarfAngelfishVariant::getVariant, DwarfAngelfish.DwarfAngelfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.GOBY_BUCKET.get(), Goby.GobyVariant.values(), Goby.GobyVariant::getVariant, Goby.GobyVariant::getRarity);
+                        variantsByRarity(output, ReefItems.HOGFISH_BUCKET.get(), Hogfish.HogfishVariant.values(), Hogfish.HogfishVariant::getVariant, Hogfish.HogfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.JELLYFISH_BUCKET.get(), Jellyfish.JellyfishVariant.values(), Jellyfish.JellyfishVariant::getVariant, Jellyfish.JellyfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.MOORISH_IDOL_BUCKET.get(), MoorishIdol.MoorishIdolVariant.values(), MoorishIdol.MoorishIdolVariant::getVariant, MoorishIdol.MoorishIdolVariant::getRarity);
+                        variantsByRarity(output, ReefItems.PARROTFISH_BUCKET.get(), Parrotfish.ParrotfishVariant.values(), Parrotfish.ParrotfishVariant::getVariant, Parrotfish.ParrotfishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.PIPEFISH_BUCKET.get(), Pipefish.PipefishVariant.values(), Pipefish.PipefishVariant::getVariant, Pipefish.PipefishVariant::getRarity);
+                        variantsByRarity(output, ReefItems.RAY_BUCKET.get(), Ray.RayVariant.values(), Ray.RayVariant::getVariant, Ray.RayVariant::getRarity);
+                        variantsByRarity(output, ReefItems.SEAHORSE_BUCKET.get(), Seahorse.SeahorseVariant.values(), Seahorse.SeahorseVariant::getVariant, Seahorse.SeahorseVariant::getRarity);
+                        variantsByRarity(output, ReefItems.TANG_BUCKET.get(), Tang.TangVariant.values(), Tang.TangVariant::getVariant, Tang.TangVariant::getRarity);
+
+                        variantsByName(output, ReefItems.ARROW_CRAB_BUCKET.get(), 2, ArrowCrab::getVariantName);
+                        variantsByName(output, ReefItems.CRAB_BUCKET.get(), 9, Crab::getVariantName);
+                    })
+                    .build());
+
+    private static void variantBucket(CreativeModeTab.Output output, Item bucket, int variant) {
+        ItemStack stack = new ItemStack(bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, tag -> tag.putInt("BucketVariantTag", variant));
+        output.accept(stack);
+    }
+
+    private static <E extends Enum<E>> void variantsByRarity(CreativeModeTab.Output output, Item bucket, E[] values,
+                                                             ToIntFunction<E> id, Function<E, ReefMob.ReefRarities> rarity) {
+        Arrays.stream(values)
+                .sorted(Comparator.<E>comparingInt(e -> rarity.apply(e).ordinal()).thenComparing(Enum::name))
+                .forEach(e -> variantBucket(output, bucket, id.applyAsInt(e)));
+    }
+
+    private static void variantsByName(CreativeModeTab.Output output, Item bucket, int count, IntFunction<String> name) {
+        IntStream.rangeClosed(1, count)
+                .boxed()
+                .sorted(Comparator.comparing(name::apply))
+                .forEach(variant -> variantBucket(output, bucket, variant));
+    }
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);

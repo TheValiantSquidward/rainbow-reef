@@ -86,7 +86,8 @@ public class Seahorse extends ReefMob {
         RUBY(7, "ruby", COMMON, null),
         SPINEL(8, "spinel", COMMON, null),
         CHERT(9, "chert", COMMON, null),
-        ONYX(10, "onyx", UNCOMMON, null);
+        ONYX(10, "onyx", UNCOMMON, null),
+        PEARLY(11, "pearly", UNCOMMON, null);
 
         private final int variant;
         private final String name;

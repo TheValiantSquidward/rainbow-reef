@@ -12,11 +12,13 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.RainbowReefTab;
+import net.thevaliantsquidward.rainbowreef.entity.*;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import org.apache.commons.lang3.text.WordUtils;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -29,9 +31,12 @@ public class ReefLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.addTab(RainbowReefTab.RAINBOW_REEF_TAB.get(), "Rainbow Reef");
+        this.addTab(RainbowReefTab.RAINBOW_REEF_VARIANTS_TAB.get(), "Rainbow Reef Variants");
 
         ReefBlocks.AUTO_TRANSLATE.forEach(this::forBlocks);
         ReefItems.AUTO_TRANSLATE.forEach(this::forItems);
+
+        this.addVariantTooltips();
 
         this.addItem(ReefItems.ANGELFISH_BUCKET, "Bucket of Angelfish");
         this.addItem(ReefItems.ARROW_CRAB_BUCKET, "Bucket of Arrow Crab");
@@ -56,11 +61,19 @@ public class ReefLanguageProvider extends LanguageProvider {
 
         this.musicDisc(ReefItems.CLAW_DISC, "TheValiantSquidward - Claw");
 
-        this.sound(ReefSoundEvents.FISH_IDLE, "Fish gurgles");
         this.sound(ReefSoundEvents.FISH_DEATH, "Fish dies");
         this.sound(ReefSoundEvents.FISH_HURT, "Fish hurts");
         this.sound(ReefSoundEvents.FISH_FLOP, "Fish flops");
         this.sound(ReefSoundEvents.FISH_JUMP, "Fish jumps");
+
+        this.sound(ReefSoundEvents.CRAB_DEATH, "Crab dies");
+        this.sound(ReefSoundEvents.CRAB_HURT, "Crab hurts");
+        this.sound(ReefSoundEvents.CRAB_FLOP, "Crab flops");
+
+        this.sound(ReefSoundEvents.JELLYFISH_HURT, "Jellyfish hurts");
+        this.sound(ReefSoundEvents.JELLYFISH_ZAP, "Jellyfish zaps");
+        this.sound(ReefSoundEvents.JELLY_BLOCK_BOUNCE, "Jelly Block bounces");
+        this.sound(ReefSoundEvents.CLAW_DISC, "TheValiantSquidward - Claw");
     }
 
     @Override
@@ -82,6 +95,31 @@ public class ReefLanguageProvider extends LanguageProvider {
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
         add("subtitles.rainbowreef." + key.get().getLocation().getPath(), subtitle);
+    }
+
+    private void addVariantTooltips() {
+        for (Angelfish.AngelfishVariant v : Angelfish.AngelfishVariant.values()) variantTooltip("angelfish", v.name().toLowerCase(Locale.ROOT));
+        for (Butterflyfish.ButterflyfishVariant v : Butterflyfish.ButterflyfishVariant.values()) variantTooltip("butterflyfish", v.name().toLowerCase(Locale.ROOT));
+        for (Basslet.BassletVariant v : Basslet.BassletVariant.values()) variantTooltip("basslet", v.getSerializedName());
+        for (Boxfish.BoxfishVariant v : Boxfish.BoxfishVariant.values()) variantTooltip("boxfish", v.getSerializedName());
+        for (Clownfish.ClownfishVariant v : Clownfish.ClownfishVariant.values()) variantTooltip("clownfish", v.getSerializedName());
+        for (DwarfAngelfish.DwarfAngelfishVariant v : DwarfAngelfish.DwarfAngelfishVariant.values()) variantTooltip("dwarf_angelfish", v.getSerializedName());
+        for (Goby.GobyVariant v : Goby.GobyVariant.values()) variantTooltip("goby", v.getSerializedName());
+        for (Hogfish.HogfishVariant v : Hogfish.HogfishVariant.values()) variantTooltip("hogfish", v.getSerializedName());
+        for (Jellyfish.JellyfishVariant v : Jellyfish.JellyfishVariant.values()) variantTooltip("jellyfish", v.getSerializedName());
+        for (MoorishIdol.MoorishIdolVariant v : MoorishIdol.MoorishIdolVariant.values()) variantTooltip("moorish_idol", v.getSerializedName());
+        for (Parrotfish.ParrotfishVariant v : Parrotfish.ParrotfishVariant.values()) variantTooltip("parrotfish", v.getSerializedName());
+        for (Pipefish.PipefishVariant v : Pipefish.PipefishVariant.values()) variantTooltip("pipefish", v.getSerializedName());
+        for (Ray.RayVariant v : Ray.RayVariant.values()) variantTooltip("ray", v.getSerializedName());
+        for (Seahorse.SeahorseVariant v : Seahorse.SeahorseVariant.values()) variantTooltip("seahorse", v.getSerializedName());
+        for (SmallShark.SmallSharkVariant v : SmallShark.SmallSharkVariant.values()) variantTooltip("small_shark", v.getSerializedName());
+        for (Tang.TangVariant v : Tang.TangVariant.values()) variantTooltip("tang", v.getSerializedName());
+        for (int i = 1; i <= 9; i++) variantTooltip("crab", Crab.getVariantName(i));
+        for (int i = 1; i <= 2; i++) variantTooltip("arrow_crab", ArrowCrab.getVariantName(i));
+    }
+
+    private void variantTooltip(String mob, String variant) {
+        add("entity.rainbowreef." + mob + ".variant_" + variant, ReefTextUtils.createTranslation(variant));
     }
 
 

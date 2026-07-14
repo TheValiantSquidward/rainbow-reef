@@ -303,12 +303,6 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     @Override
     @Nullable
-    protected SoundEvent getAmbientSound() {
-        return ReefSoundEvents.FISH_IDLE.get();
-    }
-
-    @Override
-    @Nullable
     protected SoundEvent getDeathSound() {
         return ReefSoundEvents.FISH_DEATH.get();
     }
