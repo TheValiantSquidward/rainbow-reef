@@ -184,6 +184,10 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         this.moveControl = newControl;
     }
 
+    public void setTooltipWaterState() {
+        this.wasTouchingWater = true;
+    }
+
     @Override
     public void tick() {
         super.tick();

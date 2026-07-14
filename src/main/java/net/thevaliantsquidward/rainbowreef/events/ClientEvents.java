@@ -3,6 +3,7 @@ package net.thevaliantsquidward.rainbowreef.events;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -10,6 +11,8 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.*;
 import net.thevaliantsquidward.rainbowreef.client.renderer.*;
+import net.thevaliantsquidward.rainbowreef.client.renderer.item.ReefMobTooltipRenderer;
+import net.thevaliantsquidward.rainbowreef.items.tooltip.ReefMobTooltipData;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItemProperties;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
@@ -21,6 +24,11 @@ public class ClientEvents {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent event) {
         event.enqueueWork(ReefItemProperties::registerItemProperties);
+    }
+
+    @SubscribeEvent
+    public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(ReefMobTooltipData.class, ReefMobTooltipRenderer::new);
     }
 
     @SubscribeEvent

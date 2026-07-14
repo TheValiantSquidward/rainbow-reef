@@ -71,6 +71,11 @@ repositories {
     maven { url = "https://maven.minecraftforge.net/" }
 }
 
+dependencies {
+    compileOnly "maven.modrinth:spawn-mod:4.0.4"
+    localRuntime "maven.modrinth:spawn-mod:4.0.4"
+}
+
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
             minecraft_version      : minecraft_version,

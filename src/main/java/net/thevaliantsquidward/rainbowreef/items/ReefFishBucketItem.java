@@ -10,14 +10,18 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
+import net.neoforged.fml.ModList;
 import net.thevaliantsquidward.rainbowreef.entity.*;
+import net.thevaliantsquidward.rainbowreef.items.tooltip.ReefMobTooltipData;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class ReefFishBucketItem extends MobBucketItem {
@@ -31,6 +35,16 @@ public class ReefFishBucketItem extends MobBucketItem {
 
     public EntityType<?> getFishType() {
         return this.fishTypeSupplier.get();
+    }
+
+    @Override
+    public @NotNull Optional<TooltipComponent> getTooltipImage(@NotNull ItemStack stack) {
+        if (ModList.get().isLoaded("spawn")) {
+            CompoundTag tag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
+            tag.putString("id", EntityType.getKey(this.getFishType()).toString());
+            return Optional.of(new ReefMobTooltipData(tag));
+        }
+        return super.getTooltipImage(stack);
     }
 
     @Override
