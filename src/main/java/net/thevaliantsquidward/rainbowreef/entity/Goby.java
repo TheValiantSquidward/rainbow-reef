@@ -77,22 +77,22 @@ public class Goby extends ReefMob {
     }
 
     public enum GobyVariant implements StringRepresentable {
-        FIRE(1, "fire", COMMON, null),
-        PURPLE_FIRE(2, "purple_fire", UNCOMMON, null),
-        CANDYCANE(3, "candycane", UNCOMMON, null),
-        MANDARIN(4, "mandarin", COMMON, null),
-        YELLOW_WATCHMAN(5, "yellow_watchman", COMMON, null),
-        CATALINA(6, "catalina", COMMON, null),
-        BLACK_RAY(7, "black_ray", COMMON, null),
-        HELFRICHI(8, "helfrichi", COMMON, null),
-        BLUE_NEON(9, "blue_neon", UNCOMMON, null),
-        YELLOW_NEON(10, "yellow_neon", UNCOMMON, null),
-        NEON_HYBRID(11, "neon_hybrid", EPIC, null),
-        BLUESTREAK(12, "bluestreak", COMMON, null),
-        LEOPARD_SPOTTED(13, "leopard_spotted", COMMON, null),
-        YELLOW_CLOWN(14, "yellow_clown", COMMON, null),
-        DRACULA(15, "dracula", RARE, null),
-        BLACKFIN(16, "blackfin", COMMON, null);
+        FIRE(1, "fire", COMMON),
+        PURPLE_FIRE(2, "purple_fire", UNCOMMON),
+        CANDYCANE(3, "candycane", UNCOMMON),
+        MANDARIN(4, "mandarin", COMMON),
+        YELLOW_WATCHMAN(5, "yellow_watchman", COMMON),
+        CATALINA(6, "catalina", COMMON),
+        BLACK_RAY(7, "black_ray", COMMON),
+        HELFRICHI(8, "helfrichi", COMMON),
+        BLUE_NEON(9, "blue_neon", UNCOMMON),
+        YELLOW_NEON(10, "yellow_neon", UNCOMMON),
+        NEON_HYBRID(11, "neon_hybrid", EPIC),
+        BLUESTREAK(12, "bluestreak", COMMON),
+        LEOPARD_SPOTTED(13, "leopard_spotted", COMMON),
+        YELLOW_CLOWN(14, "yellow_clown", COMMON),
+        DRACULA(15, "dracula", RARE),
+        BLACKFIN(16, "blackfin", COMMON);
 
         private final int variant;
         private final String name;
@@ -100,11 +100,11 @@ public class Goby extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        GobyVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        GobyVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static GobyVariant getVariantId(int variants) {
@@ -145,7 +145,7 @@ public class Goby extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = GobyVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
 
@@ -165,11 +165,6 @@ public class Goby extends ReefMob {
         return spawnData;
     }
 
-    static class GobyData implements SpawnGroupData {
-        public final int variantData;
-
-        public GobyData(int variant) {
-            this.variantData = variant;
-        }
+    record GobyData(int variantData) implements SpawnGroupData {
     }
 }

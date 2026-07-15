@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.DwarfAngelfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.DwarfAngelfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class DwarfAngelfishRenderer extends MobRenderer<DwarfAngelfish, DwarfAngelfishModel> {
@@ -18,7 +19,7 @@ public class DwarfAngelfishRenderer extends MobRenderer<DwarfAngelfish, DwarfAng
     }
 
     @Override
-    public ResourceLocation getTextureLocation(DwarfAngelfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(DwarfAngelfish entity) {
         DwarfAngelfish.DwarfAngelfishVariant dwarfAngelfishVariant = DwarfAngelfish.DwarfAngelfishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/dwarf_angelfish/" + dwarfAngelfishVariant.getSerializedName() + ".png");
     }

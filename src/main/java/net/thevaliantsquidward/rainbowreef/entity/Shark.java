@@ -86,9 +86,9 @@ public class Shark extends VariantSchoolingFish {
     }
 
     public enum SharkVariant implements StringRepresentable {
-        WHITETIP_REEF(1, "whitetip_reef", COMMON, null),
-        BLACKTIP_REEF(2, "blacktip_reef", COMMON, null),
-        LEMON(3, "lemon", RARE, null);
+        WHITETIP_REEF(1, "whitetip_reef", COMMON),
+        BLACKTIP_REEF(2, "blacktip_reef", COMMON),
+        LEMON(3, "lemon", RARE);
 
         private final int variant;
         private final String name;
@@ -96,11 +96,11 @@ public class Shark extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        SharkVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        SharkVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static SharkVariant getVariantId(int variants) {
@@ -169,11 +169,6 @@ public class Shark extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class SharkData implements SpawnGroupData {
-        public final int variantData;
-
-        public SharkData(int variant) {
-            this.variantData = variant;
-        }
+    record SharkData(int variantData) implements SpawnGroupData {
     }
 }

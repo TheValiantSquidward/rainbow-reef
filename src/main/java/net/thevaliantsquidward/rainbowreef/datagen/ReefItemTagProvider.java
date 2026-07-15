@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefItemTags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +22,7 @@ public class ReefItemTagProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
 
         this.tag(ReefItemTags.RAINBOW_REEF_CRABS).add(
                 RAW_CRAB.get(),
@@ -32,7 +33,7 @@ public class ReefItemTagProvider extends ItemTagsProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return RainbowReef.MOD_ID + " Item Tags";
     }
 }

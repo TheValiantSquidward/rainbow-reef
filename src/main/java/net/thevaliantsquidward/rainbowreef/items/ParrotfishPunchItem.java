@@ -10,26 +10,27 @@ import net.minecraft.world.level.Level;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.stats.Stats;
+import org.jetbrains.annotations.NotNull;
 
 public class ParrotfishPunchItem extends HoneyBottleItem {
     public ParrotfishPunchItem(Properties properties) {
         super(properties);
     }
 
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
         return UseAnim.DRINK;
     }
 
-    public SoundEvent getDrinkingSound() {
+    public @NotNull SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 
-    public SoundEvent getEatingSound() {
+    public @NotNull SoundEvent getEatingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity livingEntity) {
         if (livingEntity instanceof ServerPlayer serverplayer) {
             CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
             serverplayer.awardStat(Stats.ITEM_USED.get(this));

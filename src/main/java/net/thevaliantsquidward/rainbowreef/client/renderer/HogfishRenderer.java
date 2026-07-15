@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.HogfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Hogfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class HogfishRenderer extends MobRenderer<Hogfish, HogfishModel> {
@@ -18,7 +19,7 @@ public class HogfishRenderer extends MobRenderer<Hogfish, HogfishModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Hogfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Hogfish entity) {
         Hogfish.HogfishVariant hogfishVariant = Hogfish.HogfishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/hogfish/" + hogfishVariant.getSerializedName() + ".png");
     }

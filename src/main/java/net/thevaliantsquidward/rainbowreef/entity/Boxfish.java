@@ -64,14 +64,14 @@ public class Boxfish extends ReefMob {
     }
 
     public enum BoxfishVariant implements StringRepresentable {
-        GOLD(1, "gold", COMMON, null),
-        PURPLE(2, "purple", UNCOMMON, null),
-        STRIPE(3, "stripe", COMMON, null),
-        WHITE(4, "white", COMMON, null),
-        BLUETAIL(5, "bluetail", UNCOMMON, null),
-        LONGHORN(6, "longhorn", UNCOMMON, null),
-        WHITLEYS(7, "whitleys", COMMON, null),
-        SPOTTED(8, "spotted", COMMON, null);
+        GOLD(1, "gold", COMMON),
+        PURPLE(2, "purple", UNCOMMON),
+        STRIPE(3, "stripe", COMMON),
+        WHITE(4, "white", COMMON),
+        BLUETAIL(5, "bluetail", UNCOMMON),
+        LONGHORN(6, "longhorn", UNCOMMON),
+        WHITLEYS(7, "whitleys", COMMON),
+        SPOTTED(8, "spotted", COMMON);
 
         private final int variant;
         private final String name;
@@ -79,11 +79,11 @@ public class Boxfish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        BoxfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        BoxfishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static BoxfishVariant getVariantId(int variants) {
@@ -124,7 +124,7 @@ public class Boxfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = BoxfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof BoxfishData) {
@@ -138,11 +138,6 @@ public class Boxfish extends ReefMob {
         return spawnData;
     }
 
-    static class BoxfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public BoxfishData(int variant) {
-            this.variantData = variant;
-        }
+    record BoxfishData(int variantData) implements SpawnGroupData {
     }
 }

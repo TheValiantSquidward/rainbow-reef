@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.SmallSharkModel;
 import net.thevaliantsquidward.rainbowreef.entity.SmallShark;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class SmallSharkRenderer extends MobRenderer<SmallShark, SmallSharkModel> {
@@ -18,7 +19,7 @@ public class SmallSharkRenderer extends MobRenderer<SmallShark, SmallSharkModel>
     }
 
     @Override
-    public ResourceLocation getTextureLocation(SmallShark entity) {
+    public @NotNull ResourceLocation getTextureLocation(SmallShark entity) {
         SmallShark.SmallSharkVariant smallSharkVariant = SmallShark.SmallSharkVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/small_shark/" + smallSharkVariant.getSerializedName() + ".png");
     }

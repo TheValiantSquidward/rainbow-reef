@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -79,26 +78,26 @@ public class Clownfish extends Anemonefish {
     }
 
     public enum ClownfishVariant implements StringRepresentable {
-        OCELLARIS(1, "ocellaris", COMMON, null),
-        BLACK_AND_WHITE(2, "black_and_white", COMMON, null),
-        PINK_SKUNK(3, "pink_skunk", COMMON, null),
-        MAROON(4, "maroon", COMMON, null),
-        CLARKII(5, "clarkii", COMMON, null),
-        TOMATO(6, "tomato", COMMON, null),
-        MADAGASCAR(7, "madagascar", COMMON, null),
-        ALLARD(8, "allard", COMMON, null),
-        RED_SADDLEBACK(9, "red_saddleback", COMMON, null),
-        BLIZZARD(10, "blizzard", RARE, null),
-        BLUESTRAIN(11, "bluestrain", UNCOMMON, null),
-        OMAN(12, "oman", UNCOMMON, null),
-        MOCHA(13, "mocha", UNCOMMON, null),
-        WHITESNOUT(14, "whitesnout", RARE, null),
-        GOLD_NUGGET(15, "gold_nugget", EPIC, null),
-        SNOWSTORM(16, "snowstorm", UNCOMMON, null),
-        ORANGE_SKUNK(17, "orange_skunk", RARE, null),
-        DOMINO(18, "domino", EPIC, null),
-        YELLOW_CLARKII(19, "yellow_clarkii", UNCOMMON, null),
-        NAKED(20, "naked", RARE, null);
+        OCELLARIS(1, "ocellaris", COMMON),
+        BLACK_AND_WHITE(2, "black_and_white", COMMON),
+        PINK_SKUNK(3, "pink_skunk", COMMON),
+        MAROON(4, "maroon", COMMON),
+        CLARKII(5, "clarkii", COMMON),
+        TOMATO(6, "tomato", COMMON),
+        MADAGASCAR(7, "madagascar", COMMON),
+        ALLARD(8, "allard", COMMON),
+        RED_SADDLEBACK(9, "red_saddleback", COMMON),
+        BLIZZARD(10, "blizzard", RARE),
+        BLUESTRAIN(11, "bluestrain", UNCOMMON),
+        OMAN(12, "oman", UNCOMMON),
+        MOCHA(13, "mocha", UNCOMMON),
+        WHITESNOUT(14, "whitesnout", RARE),
+        GOLD_NUGGET(15, "gold_nugget", EPIC),
+        SNOWSTORM(16, "snowstorm", UNCOMMON),
+        ORANGE_SKUNK(17, "orange_skunk", RARE),
+        DOMINO(18, "domino", EPIC),
+        YELLOW_CLARKII(19, "yellow_clarkii", UNCOMMON),
+        NAKED(20, "naked", RARE);
 
         private final int variant;
         private final String name;
@@ -106,11 +105,11 @@ public class Clownfish extends Anemonefish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        ClownfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        ClownfishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static ClownfishVariant getVariantId(int variants) {
@@ -151,7 +150,7 @@ public class Clownfish extends Anemonefish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = ClownfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof ClownfishData) {
@@ -179,11 +178,6 @@ public class Clownfish extends Anemonefish {
         return spawnData;
     }
 
-    static class ClownfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public ClownfishData(int variant) {
-            this.variantData = variant;
-        }
+    record ClownfishData(int variantData) implements SpawnGroupData {
     }
 }

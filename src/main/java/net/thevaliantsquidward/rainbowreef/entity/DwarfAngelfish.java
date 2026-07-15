@@ -68,26 +68,26 @@ public class DwarfAngelfish extends ReefMob {
     }
 
     public enum DwarfAngelfishVariant implements StringRepresentable {
-        BICOLOR(1, "bicolor", COMMON, null),
-        CORAL_BEAUTY(2, "coral_beauty", COMMON, null),
-        FLAME(3, "flame", COMMON, null),
-        KEYHOLE(4, "keyhole", COMMON, null),
-        MASKED(5, "masked", COMMON, null),
-        CHERUB(6, "cherub", COMMON, null),
-        BLACK_NOX(7, "black_nox", COMMON, null),
-        LAMARCK(8, "lamarck", COMMON, null),
-        LEMONPEEL(9, "lemonpeel", COMMON, null),
-        YELLOW(10, "yellow", UNCOMMON, null),
-        PEARLSCALE(11, "pearlscale", UNCOMMON, null),
-        RESPLENDENT(12, "resplendent", UNCOMMON, null),
-        PEPPERMINT(13, "peppermint", EPIC, null),
-        BLACKSPOT(17, "blackspot", EPIC, null),
-        JOCULATOR(18, "joculator", EPIC, null),
-        JAPANESE(14, "japanese", RARE, null),
-        YELLOWTAIL(15, "yellowtail", RARE, null),
-        MULTIBAR(19, "multibar", RARE, null),
-        ORANGEPEEL(16, "orangepeel", ABERRANT, null),
-        WHITEBICOLOR(20,"whitebicolor", ABERRANT, null);
+        BICOLOR(1, "bicolor", COMMON),
+        CORAL_BEAUTY(2, "coral_beauty", COMMON),
+        FLAME(3, "flame", COMMON),
+        KEYHOLE(4, "keyhole", COMMON),
+        MASKED(5, "masked", COMMON),
+        CHERUB(6, "cherub", COMMON),
+        BLACK_NOX(7, "black_nox", COMMON),
+        LAMARCK(8, "lamarck", COMMON),
+        LEMONPEEL(9, "lemonpeel", COMMON),
+        YELLOW(10, "yellow", UNCOMMON),
+        PEARLSCALE(11, "pearlscale", UNCOMMON),
+        RESPLENDENT(12, "resplendent", UNCOMMON),
+        PEPPERMINT(13, "peppermint", EPIC),
+        BLACKSPOT(17, "blackspot", EPIC),
+        JOCULATOR(18, "joculator", EPIC),
+        JAPANESE(14, "japanese", RARE),
+        YELLOWTAIL(15, "yellowtail", RARE),
+        MULTIBAR(19, "multibar", RARE),
+        ORANGEPEEL(16, "orangepeel", ABERRANT),
+        WHITEBICOLOR(20,"whitebicolor", ABERRANT);
 
         private final int variant;
         private final String name;
@@ -95,11 +95,11 @@ public class DwarfAngelfish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        DwarfAngelfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        DwarfAngelfishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static DwarfAngelfishVariant getVariantId(int variants) {
@@ -140,7 +140,7 @@ public class DwarfAngelfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = DwarfAngelfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
 
@@ -155,11 +155,6 @@ public class DwarfAngelfish extends ReefMob {
         return spawnData;
     }
 
-    static class DwarfAngelfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public DwarfAngelfishData(int variant) {
-            this.variantData = variant;
-        }
+    record DwarfAngelfishData(int variantData) implements SpawnGroupData {
     }
 }

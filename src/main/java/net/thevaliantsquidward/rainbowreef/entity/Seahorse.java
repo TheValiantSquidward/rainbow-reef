@@ -77,17 +77,17 @@ public class Seahorse extends ReefMob {
     }
 
     public enum SeahorseVariant implements StringRepresentable {
-        KELP(1, "kelp", COMMON, null),
-        COBALT(2, "cobalt", COMMON, null),
-        GOLD(3, "gold", UNCOMMON, null),
-        AMBER(4, "amber", COMMON, null),
-        SILVER(5, "silver", UNCOMMON, null),
-        GARNET(6, "garnet", COMMON, null),
-        RUBY(7, "ruby", COMMON, null),
-        SPINEL(8, "spinel", COMMON, null),
-        CHERT(9, "chert", COMMON, null),
-        ONYX(10, "onyx", UNCOMMON, null),
-        PEARLY(11, "pearly", UNCOMMON, null);
+        KELP(1, "kelp", COMMON),
+        COBALT(2, "cobalt", COMMON),
+        GOLD(3, "gold", UNCOMMON),
+        AMBER(4, "amber", COMMON),
+        SILVER(5, "silver", UNCOMMON),
+        GARNET(6, "garnet", COMMON),
+        RUBY(7, "ruby", COMMON),
+        SPINEL(8, "spinel", COMMON),
+        CHERT(9, "chert", COMMON),
+        ONYX(10, "onyx", UNCOMMON),
+        PEARLY(11, "pearly", UNCOMMON);
 
         private final int variant;
         private final String name;
@@ -95,11 +95,11 @@ public class Seahorse extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        SeahorseVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        SeahorseVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static SeahorseVariant getVariantId(int variants) {
@@ -140,7 +140,7 @@ public class Seahorse extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = SeahorseVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof SeahorseData) {
@@ -154,11 +154,6 @@ public class Seahorse extends ReefMob {
         return spawnData;
     }
 
-    static class SeahorseData implements SpawnGroupData {
-        public final int variantData;
-
-        public SeahorseData(int variant) {
-            this.variantData = variant;
-        }
+    record SeahorseData(int variantData) implements SpawnGroupData {
     }
 }

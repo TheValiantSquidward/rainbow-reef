@@ -19,18 +19,16 @@ public class GoalUtils {
         int MaxSearchAmount = radius*radius*radius;
 
         for (int x = 0; testPos != null && x < MaxSearchAmount; testPos = DefaultRandomPos.getPos(pathfinder, radius, verticalDistance), x ++) {
-            if (testPos != null) {
-                Vec3 belowPos = testPos.subtract(0, 1, 0);
+            Vec3 belowPos = testPos.subtract(0, 1, 0);
 
-                if (pathfinder.level().getBlockState(BlockPos.containing(belowPos)).entityCanStandOn(pathfinder.level(), BlockPos.containing(testPos), pathfinder) && pathfinder.level().getBlockState(BlockPos.containing(testPos)).isPathfindable(PathComputationType.WATER)) {
-                    return testPos;
-                }
+            if (pathfinder.level().getBlockState(BlockPos.containing(belowPos)).entityCanStandOn(pathfinder.level(), BlockPos.containing(testPos), pathfinder) && pathfinder.level().getBlockState(BlockPos.containing(testPos)).isPathfindable(PathComputationType.WATER)) {
+                return testPos;
+            }
 
-                if (x == MaxSearchAmount - 1) {
-                    return testPos;
-                    //basically this keeps the shark moving if it can't find somewhere to go. it's flawed because there's nothing to prevent double checks but you probably can't get the shark stuck in open waters unless you're intentionally doing it
-                    //might be useful for drowned farms or smthing
-                }
+            if (x == MaxSearchAmount - 1) {
+                return testPos;
+                //basically this keeps the shark moving if it can't find somewhere to go. it's flawed because there's nothing to prevent double checks but you probably can't get the shark stuck in open waters unless you're intentionally doing it
+                //might be useful for drowned farms or smthing
             }
         }
 

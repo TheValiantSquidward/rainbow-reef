@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biomes;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +21,7 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
     }
 
     @Override
-    public void addTags(Provider provider) {
+    public void addTags(@NotNull Provider provider) {
         this.tag(WARM_OCEANS).add(Biomes.WARM_OCEAN).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "warm_reef"));
 
         this.tag(HAS_ANGELFISH).addTag(WARM_OCEANS);

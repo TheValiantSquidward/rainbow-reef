@@ -24,7 +24,7 @@ import java.util.function.Supplier;
 public class ReefBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, RainbowReef.MOD_ID);
-    public static List<DeferredHolder<Block, ? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
+    public static final List<DeferredHolder<Block, ? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
 
     public static final DeferredHolder<Block, Block> CORALSTONE = registerBlock("coralstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
@@ -229,65 +229,33 @@ public class ReefBlocks {
 
     public static final DeferredHolder<Block, Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     public static final DeferredHolder<Block, Block> UMBER_STARFISH = registerBlock("umber_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     public static final DeferredHolder<Block, Block> TANGERINE_STARFISH = registerBlock("tangerine_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     public static final DeferredHolder<Block, Block> CARMINE_STARFISH = registerBlock("carmine_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     public static final DeferredHolder<Block, Block> FUCHSIA_STARFISH = registerBlock("fuchsia_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     public static final DeferredHolder<Block, Block> SAFFRON_STARFISH = registerBlock("saffron_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     public static final DeferredHolder<Block, Block> CHARTREUSE_STARFISH = registerBlock("chartreuse_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
     public static final DeferredHolder<Block, Block> VIOLET_STARFISH = registerBlock("violet_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-                @Override
-                public MultifaceSpreader getSpreader() {
-                    return null;
-                }
             });
 
     private static DeferredHolder<Block, Block> registerBurrow(String name, Supplier<BurrowBlock> supplier) {

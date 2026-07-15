@@ -19,6 +19,7 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefPoiTypes;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,10 +28,10 @@ public abstract class Anemonefish extends VariantSchoolingFish {
     private static final EntityDataAccessor<BlockPos> HOME = SynchedEntityData.defineId(Anemonefish.class, EntityDataSerializers.BLOCK_POS);
 
     public int anemoneSearchCooldown = 0;
-    int maxAnemoneSearchCooldown;
-    int homeRadius;
-    int restInterval;
-    int restTime;
+    final int maxAnemoneSearchCooldown;
+    final int homeRadius;
+    final int restInterval;
+    final int restTime;
 
     public Anemonefish(EntityType<? extends VariantSchoolingFish> entityType, Level level, int searchCooldown, int homeRadius, int restInterval, int restTime) {
         super(entityType, level);
@@ -76,16 +77,11 @@ public abstract class Anemonefish extends VariantSchoolingFish {
         //sets the home position of the clownfish
         //NULL = REMOVE POS
 
-        if (pos == null){
-            //setting home position to null defaults the position TO THE WORLD ORIGIN
-            //and sets hasnem to false
-            this.entityData.set(HOME, BlockPos.ZERO);
-
-        } else {
-            //giving an actual blockpos sets the clownfish's home position to the given blockpos
-            //and sets hasnem to true
-            this.entityData.set(HOME, pos);
-        }
+        //setting home position to null defaults the position TO THE WORLD ORIGIN
+        //and sets hasnem to false
+        //giving an actual blockpos sets the clownfish's home position to the given blockpos
+        //and sets hasnem to true
+        this.entityData.set(HOME, Objects.requireNonNullElse(pos, BlockPos.ZERO));
     }
 
     public BlockPos getAnemonePos() {

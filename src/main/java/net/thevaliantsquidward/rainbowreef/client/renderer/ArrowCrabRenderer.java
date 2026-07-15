@@ -10,6 +10,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.ArrowCrabModel;
 import net.thevaliantsquidward.rainbowreef.entity.ArrowCrab;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class ArrowCrabRenderer extends MobRenderer<ArrowCrab, ArrowCrabModel> {
@@ -22,11 +23,11 @@ public class ArrowCrabRenderer extends MobRenderer<ArrowCrab, ArrowCrabModel> {
         super(context, new ArrowCrabModel(context.bakeLayer(ReefModelLayers.ARROW_CRAB)), 0.4F);
     }
 
-    protected void scale(ArrowCrab entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+    protected void scale(@NotNull ArrowCrab entitylivingbaseIn, @NotNull PoseStack matrixStackIn, float partialTickTime) {
     }
 
 
-    public ResourceLocation getTextureLocation(ArrowCrab entity) {
+    public @NotNull ResourceLocation getTextureLocation(ArrowCrab entity) {
         return switch (entity.getVariant()) {
             case 1 -> RED;
             default -> YELLOWLINED;

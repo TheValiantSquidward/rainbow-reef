@@ -72,12 +72,12 @@ public class Pipefish extends ReefMob {
     }
 
     public enum PipefishVariant implements StringRepresentable {
-        GREEN(1, "green", COMMON, null),
-        JANNS(2, "janns", RARE, null),
-        MULTIBANDED(3, "multibanded", UNCOMMON, null),
-        ORANGE_STRIPED(4, "orange_striped", COMMON, null),
-        BLUE_STRIPED(5, "blue_striped", COMMON, null),
-        PINK(6, "pink", UNCOMMON, null);
+        GREEN(1, "green", COMMON),
+        JANNS(2, "janns", RARE),
+        MULTIBANDED(3, "multibanded", UNCOMMON),
+        ORANGE_STRIPED(4, "orange_striped", COMMON),
+        BLUE_STRIPED(5, "blue_striped", COMMON),
+        PINK(6, "pink", UNCOMMON);
 
         private final int variant;
         private final String name;
@@ -85,11 +85,11 @@ public class Pipefish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        PipefishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        PipefishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static PipefishVariant getVariantId(int variants) {
@@ -130,7 +130,7 @@ public class Pipefish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = PipefishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof PipefishData) {
@@ -144,11 +144,6 @@ public class Pipefish extends ReefMob {
         return spawnData;
     }
 
-    static class PipefishData implements SpawnGroupData {
-        public final int variantData;
-
-        public PipefishData(int variant) {
-            this.variantData = variant;
-        }
+    record PipefishData(int variantData) implements SpawnGroupData {
     }
 }

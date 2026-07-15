@@ -28,15 +28,14 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
     private static final EntityDataAccessor<Integer> JZ = SynchedEntityData.defineId(DancingEntity.class, EntityDataSerializers.INT);
 
     private final DynamicGameEventListener<JukeboxListener> dynamicJukeboxListener;
-    private final VibrationSystem.User vibrationUser;
 
     public DancingEntity(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
-        this.vibrationUser = new VibrationUser();
+        VibrationSystem.User vibrationUser = new VibrationUser();
         this.dynamicJukeboxListener = new DynamicGameEventListener<>(new JukeboxListener(vibrationUser.getPositionSource(), GameEvent.JUKEBOX_PLAY.value().notificationRadius()));
     }
 
-    public void updateDynamicGameEventListener(BiConsumer<DynamicGameEventListener<?>, ServerLevel> listenerConsumer) {
+    public void updateDynamicGameEventListener(@NotNull BiConsumer<DynamicGameEventListener<?>, ServerLevel> listenerConsumer) {
         Level level = this.level();
         if (level instanceof ServerLevel serverlevel) {
             listenerConsumer.accept(this.dynamicJukeboxListener, serverlevel);
@@ -90,13 +89,8 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
     }
 
     public BlockPos getJukeboxPos() {
-        if (this.entityData.get(JX) == null) {
-            return null;
-
-        } else {
-            BlockPos pos = new BlockPos(this.entityData.get(JX) - 1, this.entityData.get(JY), this.entityData.get(JZ));
-            return pos;
-        }
+        this.entityData.get(JX);
+        return new BlockPos(this.entityData.get(JX) - 1, this.entityData.get(JY), this.entityData.get(JZ));
     }
 
     public boolean isDancing() {
@@ -130,22 +124,22 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
             return 16;
         }
 
-        public PositionSource getPositionSource() {
+        public @NotNull PositionSource getPositionSource() {
             return this.positionSource;
         }
 
         @Override
-        public boolean canReceiveVibration(ServerLevel serverLevel, BlockPos blockPos, Holder<GameEvent> gameEvent, GameEvent.Context context) {
+        public boolean canReceiveVibration(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context) {
             return true;
         }
         //crab is always receptive to music
 
         @Override
-        public void onReceiveVibration(ServerLevel serverLevel, BlockPos blockPos, Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity1, float v) {
+        public void onReceiveVibration(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos, @NotNull Holder<GameEvent> gameEvent, @Nullable Entity entity, @Nullable Entity entity1, float v) {
         }
         //unused
 
-        public TagKey<GameEvent> getListenableEvents() {
+        public @NotNull TagKey<GameEvent> getListenableEvents() {
             return GameEventTags.ALLAY_CAN_LISTEN;
         }
     }
@@ -159,7 +153,7 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
             this.listenerRadius = listenerRadius;
         }
 
-        public PositionSource getListenerSource() {
+        public @NotNull PositionSource getListenerSource() {
             return this.listenerSource;
         }
 
@@ -167,7 +161,7 @@ public abstract class DancingEntity extends ReefMob implements DancesToJukebox {
             return this.listenerRadius;
         }
 
-        public boolean handleGameEvent(ServerLevel level, Holder<GameEvent> gameEvent, GameEvent.Context context, Vec3 pos) {
+        public boolean handleGameEvent(@NotNull ServerLevel level, Holder<GameEvent> gameEvent, GameEvent.@NotNull Context context, @NotNull Vec3 pos) {
             if (gameEvent.is(GameEvent.JUKEBOX_PLAY)) {
                 DancingEntity.this.setJukeboxPlaying(BlockPos.containing(pos), true);
                 return true;

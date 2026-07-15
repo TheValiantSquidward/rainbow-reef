@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.SeahorseModel;
 import net.thevaliantsquidward.rainbowreef.entity.Seahorse;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class SeahorseRenderer extends MobRenderer<Seahorse, SeahorseModel> {
@@ -18,7 +19,7 @@ public class SeahorseRenderer extends MobRenderer<Seahorse, SeahorseModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Seahorse entity) {
+    public @NotNull ResourceLocation getTextureLocation(Seahorse entity) {
         Seahorse.SeahorseVariant seahorseVariant = Seahorse.SeahorseVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/seahorse/" + seahorseVariant.getSerializedName() + ".png");
     }

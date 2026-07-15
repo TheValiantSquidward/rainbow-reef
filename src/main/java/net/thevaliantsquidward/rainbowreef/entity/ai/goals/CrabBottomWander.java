@@ -12,8 +12,8 @@ import net.thevaliantsquidward.rainbowreef.entity.interfaces.SemiAquatic;
 import javax.annotation.Nullable;
 
 public class CrabBottomWander extends RandomStrollGoal {
-    private int waterChance = 0;
-    private int landChance = 0;
+    private int waterChance;
+    private int landChance;
     private int range = 5;
 
     public CrabBottomWander(PathfinderMob creature, double speed, int waterChance, int landChance) {

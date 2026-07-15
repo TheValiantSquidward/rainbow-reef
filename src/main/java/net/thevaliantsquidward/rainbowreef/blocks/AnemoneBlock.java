@@ -32,6 +32,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -54,7 +55,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     private final int color;
 
     @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
+    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
         return CODEC;
     }
 
@@ -69,7 +70,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     }
 
     @Override
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
         if(state.getValue(FACING) == Direction.NORTH) {
             BlockPos northPos = new BlockPos(pos.getX(), pos.getY(), pos.getZ() + 1);
             return level.getBlockState(northPos).isFaceSturdy(level, pos, Direction.SOUTH);
@@ -103,12 +104,12 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     }
 
     @Override
-    public FluidState getFluidState(BlockState state) {
+    public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter getter, BlockPos pos, CollisionContext context) {
+    public @NotNull VoxelShape getShape(BlockState state, @NotNull BlockGetter getter, @NotNull BlockPos pos, @NotNull CollisionContext context) {
         return switch (state.getValue(FACING)) {
             case DOWN -> DOWN_AABB;
             case NORTH -> NORTH_AABB;
@@ -119,15 +120,15 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
         };
     }
 
-    public BlockState rotate(BlockState state, Rotation rotation) {
+    public @NotNull BlockState rotate(BlockState state, Rotation rotation) {
         return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    public BlockState mirror(BlockState state, Mirror flip) {
+    public @NotNull BlockState mirror(BlockState state, Mirror flip) {
         return state.setValue(FACING, flip.mirror(state.getValue(FACING)));
     }
 
-    protected boolean isPathfindable(BlockState state, PathComputationType computationType) {
+    protected boolean isPathfindable(@NotNull BlockState state, PathComputationType computationType) {
         return switch (computationType) {
             case LAND -> true;
             case WATER -> state.getFluidState().is(FluidTags.WATER);
@@ -136,7 +137,7 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected @NotNull ItemInteractionResult useItemOn(@NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult) {
         if (hand != InteractionHand.MAIN_HAND) return ItemInteractionResult.FAIL;
         if (stack.is(ReefTags.NEM_DIET) && !stack.is(Items.TROPICAL_FISH) && !stack.is(ReefItems.RAW_CLOWNFISH.get()) && !level.isClientSide() && state.getValue(WATERLOGGED)) {
             ItemStack drop;
@@ -153,12 +154,12 @@ public class AnemoneBlock extends DirectionalBlock implements LiquidBlockContain
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+    public boolean canPlaceLiquid(@Nullable Player player, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull BlockState blockState, @NotNull Fluid fluid) {
         return false;
     }
 
     @Override
-    public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
+    public boolean placeLiquid(@NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos, @NotNull BlockState blockState, @NotNull FluidState fluidState) {
         return false;
     }
 

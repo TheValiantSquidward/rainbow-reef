@@ -73,10 +73,10 @@ public class Rabbitfish extends ReefMob {
     }
 
     public enum RabbitfishVariant implements StringRepresentable {
-        FOXFACE(1, "foxface", COMMON, null),
-        BICOLOR_FOXFACE(2, "bicolor_foxface", COMMON, null),
-        BLACK_FOXFACE(3, "black_foxface", COMMON, null),
-        MAGNIFICENT_FOXFACE(4, "magnificent_foxface", COMMON, null);
+        FOXFACE(1, "foxface"),
+        BICOLOR_FOXFACE(2, "bicolor_foxface"),
+        BLACK_FOXFACE(3, "black_foxface"),
+        MAGNIFICENT_FOXFACE(4, "magnificent_foxface");
 
         private final int variant;
         private final String name;
@@ -84,11 +84,11 @@ public class Rabbitfish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        RabbitfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        RabbitfishVariant(int variant, String name) {
             this.variant = variant;
             this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static RabbitfishVariant getVariantId(int variants) {
@@ -129,7 +129,7 @@ public class Rabbitfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = RabbitfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof RabbitfishData) {
@@ -143,11 +143,6 @@ public class Rabbitfish extends ReefMob {
         return spawnData;
     }
 
-    static class RabbitfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public RabbitfishData(int variant) {
-            this.variantData = variant;
-        }
+    record RabbitfishData(int variantData) implements SpawnGroupData {
     }
 }

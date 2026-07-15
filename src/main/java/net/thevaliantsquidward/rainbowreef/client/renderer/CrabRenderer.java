@@ -7,6 +7,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.CrabModel;
 import net.thevaliantsquidward.rainbowreef.entity.Crab;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer extends MobRenderer<Crab, CrabModel> {
 
@@ -24,7 +25,7 @@ public class CrabRenderer extends MobRenderer<Crab, CrabModel> {
         super(context, new CrabModel(context.bakeLayer(ReefModelLayers.CRAB)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(Crab entity) {
+    public @NotNull ResourceLocation getTextureLocation(Crab entity) {
         return switch (entity.getVariant()) {
             case 1 -> HALLOWEEN;
             case 2 -> GHOST;

@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.DamselfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Damselfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class DamselfishRenderer extends MobRenderer<Damselfish, DamselfishModel> {
@@ -17,7 +18,7 @@ public class DamselfishRenderer extends MobRenderer<Damselfish, DamselfishModel>
         super(context, new DamselfishModel(context.bakeLayer(ReefModelLayers.DAMSELFISH)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(Damselfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Damselfish entity) {
         Damselfish.DamselfishVariant damselfishVariant = Damselfish.DamselfishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/damselfish/" + damselfishVariant.getSerializedName() + ".png");
     }

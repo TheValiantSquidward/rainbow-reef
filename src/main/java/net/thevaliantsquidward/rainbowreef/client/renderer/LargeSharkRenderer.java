@@ -12,6 +12,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.LargeSharkModel;
 import net.thevaliantsquidward.rainbowreef.entity.LargeShark;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class LargeSharkRenderer extends MobRenderer<LargeShark, LargeSharkModel> {
@@ -21,13 +22,13 @@ public class LargeSharkRenderer extends MobRenderer<LargeShark, LargeSharkModel>
     }
 
     @Override
-    public ResourceLocation getTextureLocation(LargeShark entity) {
+    public @NotNull ResourceLocation getTextureLocation(LargeShark entity) {
         LargeShark.LargeSharkVariant largeSharkVariant = LargeShark.LargeSharkVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/large_shark/" + largeSharkVariant.getSerializedName() + ".png");
     }
 
     @Override
-    protected void setupRotations(LargeShark entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+    protected void setupRotations(@NotNull LargeShark entity, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
         super.setupRotations(entity, poseStack, ageInTicks, rotationYaw, partialTicks, scale);
         poseStack.mulPose(Axis.ZP.rotationDegrees(Mth.lerp(partialTicks, -entity.prevTilt, -entity.tilt)));
     }

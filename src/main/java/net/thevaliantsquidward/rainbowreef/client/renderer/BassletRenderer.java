@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.BassletModel;
 import net.thevaliantsquidward.rainbowreef.entity.Basslet;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class BassletRenderer extends MobRenderer<Basslet, BassletModel> {
@@ -18,7 +19,7 @@ public class BassletRenderer extends MobRenderer<Basslet, BassletModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Basslet entity) {
+    public @NotNull ResourceLocation getTextureLocation(Basslet entity) {
         Basslet.BassletVariant bassletVariant = Basslet.BassletVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/basslet/" + bassletVariant.getSerializedName() + ".png");
     }

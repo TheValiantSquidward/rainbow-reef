@@ -15,6 +15,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
 
@@ -22,7 +24,7 @@ public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBl
     public static final MapCodec<StarfishBlock> CODEC = simpleCodec(StarfishBlock::new);
 
     @Override
-    protected MapCodec<StarfishBlock> codec() {
+    protected @NotNull MapCodec<StarfishBlock> codec() {
         return CODEC;
     }
 
@@ -31,19 +33,19 @@ public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBl
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, false));
     }
 
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(WATERLOGGED);
     }
 
-    public FluidState getFluidState(BlockState state) {
+    public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
-    public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
+    public boolean canBeReplaced(@NotNull BlockState state, @NotNull BlockPlaceContext useContext) {
         return false;
     }
 
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
@@ -52,7 +54,7 @@ public class StarfishBlock extends MultifaceBlock implements SimpleWaterloggedBl
     }
 
     @Override
-    public MultifaceSpreader getSpreader() {
+    public @Nullable MultifaceSpreader getSpreader() {
         return null;
     }
 

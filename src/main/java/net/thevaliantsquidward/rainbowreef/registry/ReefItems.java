@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public class ReefItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, RainbowReef.MOD_ID);
-    public static List<DeferredHolder<Item, ? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
+    public static final List<DeferredHolder<Item, ? extends Item>> AUTO_TRANSLATE = new ArrayList<>();
 
     // angelfish
     public static final DeferredHolder<Item, Item> ANGELFISH_SPAWN_EGG = registerSpawnEggItem("angelfish", ReefEntities.ANGELFISH, 0x2e4284, 0xcfc24b);
@@ -230,8 +230,7 @@ public class ReefItems {
     }
 
     private static <I extends Item> DeferredHolder<Item, I> registerItemNoLang(String name, Supplier<? extends I> supplier) {
-        DeferredHolder<Item, I> item = ITEMS.register(name, supplier);
-        return item;
+        return ITEMS.register(name, supplier);
     }
 
     private static DeferredHolder<Item, Item> registerSpawnEggItem(String name, Supplier<? extends EntityType<? extends Mob>> type, int baseColor, int spotColor) {

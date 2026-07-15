@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.MoorishIdolModel;
 import net.thevaliantsquidward.rainbowreef.entity.MoorishIdol;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class MoorishIdolRenderer extends MobRenderer<MoorishIdol, MoorishIdolModel> {
@@ -18,7 +19,7 @@ public class MoorishIdolRenderer extends MobRenderer<MoorishIdol, MoorishIdolMod
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MoorishIdol entity) {
+    public @NotNull ResourceLocation getTextureLocation(MoorishIdol entity) {
         MoorishIdol.MoorishIdolVariant moorishIdolVariant = MoorishIdol.MoorishIdolVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/moorish_idol/" + moorishIdolVariant.getSerializedName() + ".png");
     }

@@ -8,7 +8,7 @@ public class RestInAnemoneGoal extends RandomStrollGoal {
 
     private final Anemonefish fish;
 
-    double speedMultiplier;
+    final double speedMultiplier;
 
     int timer;
 

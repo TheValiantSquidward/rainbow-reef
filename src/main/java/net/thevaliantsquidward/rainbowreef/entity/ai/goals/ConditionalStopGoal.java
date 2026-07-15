@@ -5,7 +5,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.thevaliantsquidward.rainbowreef.entity.Crab;
 
 public class ConditionalStopGoal extends Goal {
-    private PathfinderMob creatura = null;
+    private PathfinderMob creatura;
 
     public ConditionalStopGoal(Crab creature) {
         this.creatura = creature;

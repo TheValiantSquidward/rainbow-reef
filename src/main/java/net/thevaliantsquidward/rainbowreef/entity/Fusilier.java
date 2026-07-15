@@ -78,12 +78,12 @@ public class Fusilier extends VariantSchoolingFish {
     }
 
     public enum FusilierVariant implements StringRepresentable {
-        YELLOWBACK(1, "yellowback", COMMON, null),
-        DARK_BANDED(2, "dark_banded", COMMON, null),
-        LUNAR(3, "lunar", COMMON, null),
-        REDBELLY_YELLOWTAIL(4, "redbelly_yellowtail", COMMON, null),
-        STRIPED(5, "striped", COMMON, null),
-        YELLOW_AND_BLUE_BACK(6, "yellow_and_blue_back", COMMON, null);
+        YELLOWBACK(1, "yellowback"),
+        DARK_BANDED(2, "dark_banded"),
+        LUNAR(3, "lunar"),
+        REDBELLY_YELLOWTAIL(4, "redbelly_yellowtail"),
+        STRIPED(5, "striped"),
+        YELLOW_AND_BLUE_BACK(6, "yellow_and_blue_back");
 
         private final int variant;
         private final String name;
@@ -91,11 +91,11 @@ public class Fusilier extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        FusilierVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        FusilierVariant(int variant, String name) {
             this.variant = variant;
             this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static FusilierVariant getVariantId(int variants) {
@@ -136,7 +136,7 @@ public class Fusilier extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = FusilierVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof FusilierData) {
@@ -164,11 +164,6 @@ public class Fusilier extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class FusilierData implements SpawnGroupData {
-        public final int variantData;
-
-        public FusilierData(int variant) {
-            this.variantData = variant;
-        }
+    record FusilierData(int variantData) implements SpawnGroupData {
     }
 }

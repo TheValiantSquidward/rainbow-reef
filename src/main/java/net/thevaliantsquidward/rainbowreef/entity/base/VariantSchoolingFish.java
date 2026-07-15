@@ -6,6 +6,7 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 public abstract class VariantSchoolingFish extends ReefMob {
@@ -37,7 +38,7 @@ public abstract class VariantSchoolingFish extends ReefMob {
     }
 
     public void stopFollowing() {
-        this.leader.removeFollower();
+        Objects.requireNonNull(this.leader).removeFollower();
         this.leader = null;
     }
 
@@ -71,12 +72,12 @@ public abstract class VariantSchoolingFish extends ReefMob {
     }
 
     public boolean inRangeOfLeader() {
-        return this.distanceToSqr(this.leader) <= 121.0D;
+        return this.distanceToSqr(Objects.requireNonNull(this.leader)) <= 121.0D;
     }
 
     public void pathToLeader() {
         if (this.isFollower()) {
-            this.getNavigation().moveTo(this.leader, 1.0D);
+            this.getNavigation().moveTo(Objects.requireNonNull(this.leader), 1.0D);
         }
     }
 

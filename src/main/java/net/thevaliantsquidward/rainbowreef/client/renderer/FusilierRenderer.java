@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.FusilierModel;
 import net.thevaliantsquidward.rainbowreef.entity.Fusilier;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class FusilierRenderer extends MobRenderer<Fusilier, FusilierModel> {
@@ -18,7 +19,7 @@ public class FusilierRenderer extends MobRenderer<Fusilier, FusilierModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Fusilier entity) {
+    public @NotNull ResourceLocation getTextureLocation(Fusilier entity) {
         Fusilier.FusilierVariant fusilierVariant = Fusilier.FusilierVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/fusilier/" + fusilierVariant.getSerializedName() + ".png");
     }

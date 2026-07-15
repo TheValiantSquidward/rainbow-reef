@@ -33,9 +33,9 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
         poseStack.popPose();
     }
 
-    protected void animateIdle(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed, float limbSwingAmount) {
-        float scale = Math.max(0, Math.min(1 - Math.abs(limbSwingAmount), 1));
-        animationState.updateTime(ageInTicks, speed);
+    protected void animateIdle(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float limbSwingAmount) {
+        float scale = Math.clamp(1 - Math.abs(limbSwingAmount), 0, 1);
+        animationState.updateTime(ageInTicks, (float) 0.8);
         animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, ReefModel.ANIMATION_VECTOR_CACHE));
     }
 

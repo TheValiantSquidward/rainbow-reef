@@ -5,7 +5,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -18,6 +17,7 @@ import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
 import org.apache.commons.lang3.text.WordUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -63,7 +63,7 @@ public class ReefLanguageProvider extends LanguageProvider {
 
         this.addItem(ReefItems.SURF_N_TURF, "Surf 'N' Turf");
 
-        this.musicDisc(ReefItems.CLAW_DISC, "TheValiantSquidward - Claw");
+        this.musicDisc();
 
         this.sound(ReefSoundEvents.FISH_DEATH, "Fish dies");
         this.sound(ReefSoundEvents.FISH_HURT, "Fish hurts");
@@ -81,7 +81,7 @@ public class ReefLanguageProvider extends LanguageProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return  RainbowReef.MOD_ID + " Languages: en_us";
     }
 
@@ -159,9 +159,9 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.add("advancement." + RainbowReef.MOD_ID + "." + key + ".desc", name);
     }
 
-    protected void musicDisc(Supplier<? extends Item> item, String description) {
-        String disc = item.get().getDescriptionId();
+    protected void musicDisc() {
+        String disc = ((Supplier<? extends Item>) ReefItems.CLAW_DISC).get().getDescriptionId();
         add(disc, "Music Disc");
-        add("jukebox_song.rainbowreef." + BuiltInRegistries.ITEM.getKey(item.get()).getPath(), description);
+        add("jukebox_song.rainbowreef." + BuiltInRegistries.ITEM.getKey(((Supplier<? extends Item>) ReefItems.CLAW_DISC).get()).getPath(), "TheValiantSquidward - Claw");
     }
 }

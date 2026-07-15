@@ -73,20 +73,20 @@ public class Wrasse extends ReefMob {
     }
 
     public enum WrasseVariant implements StringRepresentable {
-        BLACKEAR(1, "blackear", COMMON, null),
-        BLUEHEAD(2, "bluehead", COMMON, null),
-        BLUESTREAK_CLEANER(3, "bluestreak_cleaner", COMMON, null),
-        CORTEZ_RAINBOW(4, "cortez_rainbow", COMMON, null),
-        CREOLE(5, "creole", COMMON, null),
-        GREENBIRD(6, "greenbird", COMMON, null),
-        JANSENS(7, "jansens", COMMON, null),
-        ORANGE_DOTTED(8, "orange_dotted", COMMON, null),
-        PEACOCK(9, "peacock", COMMON, null),
-        RAINBOW_MEDITERRANEAN(10, "rainbow_mediterranean", COMMON, null),
-        SIXBAR(11, "sixbar", COMMON, null),
-        SURGE(12, "surge", COMMON, null),
-        YELLOWHEAD(13, "yellowhead", COMMON, null),
-        YELLOWTAIL(14, "yellowtail", COMMON, null);
+        BLACKEAR(1, "blackear"),
+        BLUEHEAD(2, "bluehead"),
+        BLUESTREAK_CLEANER(3, "bluestreak_cleaner"),
+        CORTEZ_RAINBOW(4, "cortez_rainbow"),
+        CREOLE(5, "creole"),
+        GREENBIRD(6, "greenbird"),
+        JANSENS(7, "jansens"),
+        ORANGE_DOTTED(8, "orange_dotted"),
+        PEACOCK(9, "peacock"),
+        RAINBOW_MEDITERRANEAN(10, "rainbow_mediterranean"),
+        SIXBAR(11, "sixbar"),
+        SURGE(12, "surge"),
+        YELLOWHEAD(13, "yellowhead"),
+        YELLOWTAIL(14, "yellowtail");
 
         private final int variant;
         private final String name;
@@ -94,11 +94,11 @@ public class Wrasse extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        WrasseVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        WrasseVariant(int variant, String name) {
             this.variant = variant;
             this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static WrasseVariant getVariantId(int variants) {
@@ -139,7 +139,7 @@ public class Wrasse extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = WrasseVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof WrasseData) {
@@ -153,11 +153,6 @@ public class Wrasse extends ReefMob {
         return spawnData;
     }
 
-    static class WrasseData implements SpawnGroupData {
-        public final int variantData;
-
-        public WrasseData(int variant) {
-            this.variantData = variant;
-        }
+    record WrasseData(int variantData) implements SpawnGroupData {
     }
 }

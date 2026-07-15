@@ -89,8 +89,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_SEAHORSE);
         this.item(DRIED_SEAHORSE);
 
-        this.variantBucket(SMALL_SHARK_BUCKET,
-                "epaulette", "pajama", "horned", "nurse", "zebra", "albino", "piebald", "port_jackson");
+        this.variantBucket(
+        );
         this.item(RAW_SMALL_SHARK);
         this.item(SHARKBITE_SALAD);
 
@@ -116,15 +116,15 @@ public class ReefItemModelProvider extends ItemModelProvider {
     }
 
     // item
-    private ItemModelBuilder item(DeferredHolder<Item, Item> item) {
-        return generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
+    private void item(DeferredHolder<Item, Item> item) {
+        generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
-    private void variantBucket(DeferredHolder<Item, Item> bucket, String... variantNames) {
-        String base = bucket.getId().getPath();
+    private void variantBucket() {
+        String base = net.thevaliantsquidward.rainbowreef.registry.ReefItems.SMALL_SHARK_BUCKET.getId().getPath();
         ItemModelBuilder builder = generated(base, modLoc("item/" + base));
-        for (int i = 0; i < variantNames.length; i++) {
-            String childName = base + "_" + variantNames[i];
+        for (int i = 0; i < new String[]{"epaulette", "pajama", "horned", "nurse", "zebra", "albino", "piebald", "port_jackson"}.length; i++) {
+            String childName = base + "_" + new String[]{"epaulette", "pajama", "horned", "nurse", "zebra", "albino", "piebald", "port_jackson"}[i];
             generated(childName, modLoc("item/" + childName));
             builder.override()
                     .predicate(RainbowReef.location("variant"), i + 1)

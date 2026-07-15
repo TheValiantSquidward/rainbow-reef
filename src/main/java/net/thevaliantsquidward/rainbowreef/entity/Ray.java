@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -33,7 +32,7 @@ import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRariti
 
 public class Ray extends VariantSchoolingFish {
 
-    public IKSolver tailKinematics;
+    public final IKSolver tailKinematics;
     public int animationTime;
     public double animationSpeed = 1;
 
@@ -95,9 +94,9 @@ public class Ray extends VariantSchoolingFish {
     }
 
     public enum RayVariant implements StringRepresentable {
-        SPOTTED(1, "spotted", COMMON, null),
-        COWNOSE(2, "cownose", COMMON, null),
-        ORNATE(3, "ornate", RARE, null);
+        SPOTTED(1, "spotted", COMMON),
+        COWNOSE(2, "cownose", COMMON),
+        ORNATE(3, "ornate", RARE);
 
         private final int variant;
         private final String name;
@@ -105,11 +104,11 @@ public class Ray extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        RayVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        RayVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static RayVariant getVariantId(int variants) {
@@ -150,7 +149,7 @@ public class Ray extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = RayVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof RayData) {
@@ -178,11 +177,6 @@ public class Ray extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class RayData implements SpawnGroupData {
-        public final int variantData;
-
-        public RayData(int variant) {
-            this.variantData = variant;
-        }
+    record RayData(int variantData) implements SpawnGroupData {
     }
 }

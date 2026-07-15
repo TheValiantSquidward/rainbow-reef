@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.TangModel;
 import net.thevaliantsquidward.rainbowreef.entity.Tang;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class TangRenderer extends MobRenderer<Tang, TangModel> {
@@ -17,7 +18,7 @@ public class TangRenderer extends MobRenderer<Tang, TangModel> {
         super(context, new TangModel(context.bakeLayer(ReefModelLayers.TANG)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(Tang entity) {
+    public @NotNull ResourceLocation getTextureLocation(Tang entity) {
         Tang.TangVariant tangVariant = Tang.TangVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/tang/" + tangVariant.getSerializedName() + ".png");
     }

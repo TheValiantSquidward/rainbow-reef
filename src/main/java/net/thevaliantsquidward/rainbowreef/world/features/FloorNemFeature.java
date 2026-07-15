@@ -38,10 +38,8 @@ public class FloorNemFeature extends Feature<NoneFeatureConfiguration> {
             int listlength = directions.length;
             BlockState block = nem.map(Block::defaultBlockState).orElseGet(ReefBlocks.ORANGE_SEA_ANEMONE.get()::defaultBlockState).setValue(BlockStateProperties.FACING, Direction.UP);
 
-            for(int var6 = 0; var6 < listlength; ++var6) {
-                Direction direction = directions[var6];
-
-                if(direction == Direction.NORTH) {
+            for (Direction direction : directions) {
+                if (direction == Direction.NORTH) {
                     BlockPos northPos = new BlockPos(origin.getX(), origin.getY(), origin.getZ() + 1);
                     //return level.getBlockState(northPos).isFaceSturdy(level, pos, Direction.SOUTH);
 

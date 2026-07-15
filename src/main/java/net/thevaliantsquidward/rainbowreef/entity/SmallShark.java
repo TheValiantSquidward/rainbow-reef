@@ -95,14 +95,14 @@ public class SmallShark extends ReefMob {
     }
 
     public enum SmallSharkVariant implements StringRepresentable {
-        EPAULETTE(1, "epaulette", COMMON, null),
-        PAJAMA(2, "pajama", UNCOMMON, null),
-        HORNED(3, "horned", COMMON, null),
-        NURSE(4, "nurse", COMMON, null),
-        ZEBRA(5, "zebra", COMMON, null),
-        ALBINO(6, "albino", ABERRANT, null),
-        PIEBALD(7, "piebald", ABERRANT, null),
-        PORT_JACKSON(8, "port_jackson", RARE, null);
+        EPAULETTE(1, "epaulette", COMMON),
+        PAJAMA(2, "pajama", UNCOMMON),
+        HORNED(3, "horned", COMMON),
+        NURSE(4, "nurse", COMMON),
+        ZEBRA(5, "zebra", COMMON),
+        ALBINO(6, "albino", ABERRANT),
+        PIEBALD(7, "piebald", ABERRANT),
+        PORT_JACKSON(8, "port_jackson", RARE);
 
         private final int variant;
         private final String name;
@@ -110,11 +110,11 @@ public class SmallShark extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        SmallSharkVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        SmallSharkVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static SmallSharkVariant getVariantId(int variants) {
@@ -169,11 +169,6 @@ public class SmallShark extends ReefMob {
         return spawnData;
     }
 
-    static class SmallSharkData implements SpawnGroupData {
-        public final int variantData;
-
-        public SmallSharkData(int variant) {
-            this.variantData = variant;
-        }
+    record SmallSharkData(int variantData) implements SpawnGroupData {
     }
 }

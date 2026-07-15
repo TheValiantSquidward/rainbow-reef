@@ -6,16 +6,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.thevaliantsquidward.rainbowreef.datagen.*;
 import net.thevaliantsquidward.rainbowreef.registry.*;
-import net.thevaliantsquidward.rainbowreef.registry.ReefPoiTypes;
 
 import java.util.List;
 import java.util.Locale;

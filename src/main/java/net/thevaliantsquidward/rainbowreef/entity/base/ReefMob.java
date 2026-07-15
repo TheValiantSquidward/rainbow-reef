@@ -57,7 +57,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     public final AnimationState swimIdleAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
 
-    public SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
+    public final SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
 
     protected ReefMob(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
@@ -89,7 +89,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(VARIANT, 0);
         builder.define(FROM_BUCKET, false);

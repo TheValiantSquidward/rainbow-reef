@@ -156,7 +156,7 @@ public class Butterflyfish extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = ButterflyfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof ButterflyfishData) {
@@ -184,11 +184,6 @@ public class Butterflyfish extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class ButterflyfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public ButterflyfishData(int variant) {
-            this.variantData = variant;
-        }
+    record ButterflyfishData(int variantData) implements SpawnGroupData {
     }
 }

@@ -78,24 +78,24 @@ public class Damselfish extends VariantSchoolingFish {
     }
 
     public enum DamselfishVariant implements StringRepresentable {
-        AZURE(1, "azure", COMMON, null),
-        BARRIER_REEF(2, "barrier_reef", COMMON, null),
-        BEAUGREGORY(3, "beaugregory", COMMON, null),
-        BICOLOR(4, "bicolor", COMMON, null),
-        BLUE(5, "blue", COMMON, null),
-        BLUEFIN(6, "bluefin", COMMON, null),
-        BROWN(7, "brown", COMMON, null),
-        CANARY(8, "canary", COMMON, null),
-        CHINESE_SCISSORTAIL(9, "chinese_scissortail", COMMON, null),
-        DOMINO(10, "domino", COMMON, null),
-        GREEN(11, "green", COMMON, null),
-        INDIGO(12, "indigo", COMMON, null),
-        JEWEL(13, "jewel", COMMON, null),
-        SCISSORTAIL_SERGEANT_MAJOR(14, "scissortail_sergeant_major", COMMON, null),
-        SERGEANT_MAJOR(15, "sergeant_major", COMMON, null),
-        SUNSHINE(16, "sunshine", COMMON, null),
-        THREE_STRIPE(17, "three_stripe", COMMON, null),
-        TWO_TONE(18, "two_tone", COMMON, null);
+        AZURE(1, "azure"),
+        BARRIER_REEF(2, "barrier_reef"),
+        BEAUGREGORY(3, "beaugregory"),
+        BICOLOR(4, "bicolor"),
+        BLUE(5, "blue"),
+        BLUEFIN(6, "bluefin"),
+        BROWN(7, "brown"),
+        CANARY(8, "canary"),
+        CHINESE_SCISSORTAIL(9, "chinese_scissortail"),
+        DOMINO(10, "domino"),
+        GREEN(11, "green"),
+        INDIGO(12, "indigo"),
+        JEWEL(13, "jewel"),
+        SCISSORTAIL_SERGEANT_MAJOR(14, "scissortail_sergeant_major"),
+        SERGEANT_MAJOR(15, "sergeant_major"),
+        SUNSHINE(16, "sunshine"),
+        THREE_STRIPE(17, "three_stripe"),
+        TWO_TONE(18, "two_tone");
 
         private final int variant;
         private final String name;
@@ -103,11 +103,11 @@ public class Damselfish extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        DamselfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        DamselfishVariant(int variant, String name) {
             this.variant = variant;
             this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static DamselfishVariant getVariantId(int variants) {
@@ -148,7 +148,7 @@ public class Damselfish extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = DamselfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof DamselfishData) {
@@ -176,11 +176,6 @@ public class Damselfish extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class DamselfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public DamselfishData(int variant) {
-            this.variantData = variant;
-        }
+    record DamselfishData(int variantData) implements SpawnGroupData {
     }
 }

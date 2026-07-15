@@ -12,6 +12,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.JellyfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Jellyfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
@@ -21,18 +22,18 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
     }
 
     @Override
-    protected float getFlipDegrees(Jellyfish entity) {
+    protected float getFlipDegrees(@NotNull Jellyfish entity) {
         return 0.0F;
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Jellyfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Jellyfish entity) {
         Jellyfish.JellyfishVariant jellyfishVariant = Jellyfish.JellyfishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/jellyfish/" + jellyfishVariant.getSerializedName() + ".png");
     }
 
     @Override
-    protected void setupRotations(Jellyfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+    protected void setupRotations(Jellyfish entity, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
         if (entity.isRenderedInTooltip()) {
             return;
         }

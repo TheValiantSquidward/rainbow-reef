@@ -14,7 +14,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -69,11 +68,11 @@ public class Hogfish extends ReefMob {
     }
 
     public enum HogfishVariant implements StringRepresentable {
-        CUBAN(1, "cuban", COMMON, null),
-        SPANISH(2, "spanish", COMMON, null),
-        PEPPERMINT(3, "peppermint", UNCOMMON, null),
-        LYRETAIL(4, "lyretail", UNCOMMON, null),
-        CORAL(5, "coral", UNCOMMON, null);
+        CUBAN(1, "cuban", COMMON),
+        SPANISH(2, "spanish", COMMON),
+        PEPPERMINT(3, "peppermint", UNCOMMON),
+        LYRETAIL(4, "lyretail", UNCOMMON),
+        CORAL(5, "coral", UNCOMMON);
 
         private final int variant;
         private final String name;
@@ -81,11 +80,11 @@ public class Hogfish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        HogfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        HogfishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static HogfishVariant getVariantId(int variants) {
@@ -126,7 +125,7 @@ public class Hogfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = HogfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof HogfishData) {
@@ -140,11 +139,6 @@ public class Hogfish extends ReefMob {
         return spawnData;
     }
 
-    static class HogfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public HogfishData(int variant) {
-            this.variantData = variant;
-        }
+    record HogfishData(int variantData) implements SpawnGroupData {
     }
 }

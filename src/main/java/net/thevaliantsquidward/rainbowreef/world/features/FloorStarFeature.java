@@ -30,7 +30,7 @@ public class FloorStarFeature extends Feature<MultifaceGrowthConfiguration> {
         BlockPos $$2 = context.origin();
         RandomSource $$3 = context.random();
         MultifaceGrowthConfiguration $$4 = context.config();
-        if (!isAirOrWater($$1.getBlockState($$2))) {
+        if (isAirOrWater($$1.getBlockState($$2))) {
             return false;
         } else {
             List<Direction> $$5 = $$4.getShuffledDirections($$3);
@@ -38,17 +38,15 @@ public class FloorStarFeature extends Feature<MultifaceGrowthConfiguration> {
                 return true;
             } else {
                 BlockPos.MutableBlockPos $$6 = $$2.mutable();
-                Iterator var8 = $$5.iterator();
 
-                while(var8.hasNext()) {
-                    Direction $$7 = (Direction)var8.next();
+                for (Direction $$7 : $$5) {
                     $$6.set($$2);
                     List<Direction> $$8 = $$4.getShuffledDirectionsExcept($$3, $$7.getOpposite());
 
-                    for(int $$9 = 0; $$9 < $$4.searchRange; ++$$9) {
+                    for (int $$9 = 0; $$9 < $$4.searchRange; ++$$9) {
                         $$6.setWithOffset($$2, $$7);
                         BlockState $$10 = $$1.getBlockState($$6);
-                        if (!isAirOrWater($$10) && !$$10.is($$4.placeBlock)) {
+                        if (isAirOrWater($$10) && !$$10.is($$4.placeBlock)) {
                             break;
                         }
 
@@ -65,7 +63,7 @@ public class FloorStarFeature extends Feature<MultifaceGrowthConfiguration> {
 
     public static boolean placeGrowthIfPossible(WorldGenLevel level, BlockPos pos, BlockState state, MultifaceGrowthConfiguration config, RandomSource random, List<Direction> directions) {
         BlockPos.MutableBlockPos $$6 = pos.mutable();
-        Iterator var7 = directions.iterator();
+        Iterator<Direction> var7 = directions.iterator();
         Optional<Block> star = BuiltInRegistries.BLOCK.getTag(ReefTags.TEMPERATE_STARS).flatMap((holders) -> holders.getRandomElement(level.getRandom())).map(Holder::value);
         //BlockState block = star.map(Block::defaultBlockState).orElseGet(ModBlocks.SAFFRON_STARFISH.get()::defaultBlockState);
         MultifaceBlock placeBlock = (MultifaceBlock) BuiltInRegistries.BLOCK.getTag(ReefTags.TEMPERATE_STARS).flatMap((holders) -> holders.getRandomElement(level.getRandom())).map(Holder::value).get();
@@ -91,6 +89,6 @@ public class FloorStarFeature extends Feature<MultifaceGrowthConfiguration> {
     }
 
     private static boolean isAirOrWater(BlockState state) {
-        return state.isAir() || state.is(Blocks.WATER);
+        return !state.isAir() && !state.is(Blocks.WATER);
     }
 }

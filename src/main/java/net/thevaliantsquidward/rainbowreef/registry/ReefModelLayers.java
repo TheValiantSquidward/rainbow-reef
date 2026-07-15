@@ -39,11 +39,11 @@ public class ReefModelLayers {
     public static final ModelLayerLocation TRIGGERFISH = main("triggerfish");
     public static final ModelLayerLocation WRASSE = main("wrasse");
 
-    private static ModelLayerLocation register(String id, String name) {
-        return new ModelLayerLocation(RainbowReef.location(id), name);
+    private static ModelLayerLocation register(String id) {
+        return new ModelLayerLocation(RainbowReef.location(id), "main");
     }
 
     private static ModelLayerLocation main(String id) {
-        return register(id, "main");
+        return register(id);
     }
 }

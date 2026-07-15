@@ -69,16 +69,16 @@ public class Basslet extends ReefMob {
     }
 
     public enum BassletVariant implements StringRepresentable {
-        FAIRY(1, "fairy", COMMON, null),
-        BRAZILIAN(2, "brazilian", COMMON, null),
-        ACCESSOR(3, "accessor", UNCOMMON, null),
-        BLACKCAP(4, "blackcap", COMMON, null),
-        CANDY(5, "candy", RARE, null),
-        GOLD(6, "gold", RARE, null),
-        GILDED(7, "gilded", ABERRANT, null),
-        SWISSGUARD(8, "swissguard", UNCOMMON, null),
-        YELLOW_SCISSORTAIL(9, "yellow_scissortail", UNCOMMON, null),
-        MIDNIGHT(10, "midnight", UNCOMMON, null);
+        FAIRY(1, "fairy", COMMON),
+        BRAZILIAN(2, "brazilian", COMMON),
+        ACCESSOR(3, "accessor", UNCOMMON),
+        BLACKCAP(4, "blackcap", COMMON),
+        CANDY(5, "candy", RARE),
+        GOLD(6, "gold", RARE),
+        GILDED(7, "gilded", ABERRANT),
+        SWISSGUARD(8, "swissguard", UNCOMMON),
+        YELLOW_SCISSORTAIL(9, "yellow_scissortail", UNCOMMON),
+        MIDNIGHT(10, "midnight", UNCOMMON);
 
         private final int variant;
         private final String name;
@@ -86,11 +86,11 @@ public class Basslet extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        BassletVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        BassletVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static BassletVariant getVariantId(int variants) {
@@ -131,7 +131,7 @@ public class Basslet extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = BassletVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
 
@@ -151,11 +151,6 @@ public class Basslet extends ReefMob {
         return spawnData;
     }
 
-    static class BassletData implements SpawnGroupData {
-        public final int variantData;
-
-        public BassletData(int variant) {
-            this.variantData = variant;
-        }
+    record BassletData(int variantData) implements SpawnGroupData {
     }
 }

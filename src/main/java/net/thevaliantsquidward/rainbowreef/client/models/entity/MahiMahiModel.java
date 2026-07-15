@@ -79,7 +79,7 @@ public class MahiMahiModel extends ReefModel<MahiMahi> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.Root.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.animateWalk(MahiMahiAnimations.SWIM_NORMAL, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdle(entity.swimIdleAnimationState, MahiMahiAnimations.IDLE, ageInTicks, 0.8F, limbSwingAmount * 3);
+		this.animateIdle(entity.swimIdleAnimationState, MahiMahiAnimations.IDLE, ageInTicks, limbSwingAmount * 3);
 		this.animate(entity.flopAnimationState, MahiMahiAnimations.FLOP, ageInTicks);
 	}
 

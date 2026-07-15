@@ -88,7 +88,7 @@ public class ButterflyfishModel extends ReefModel<Butterflyfish> {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 		this.Root.xRot = headPitch * Mth.DEG_TO_RAD;
 		this.animateWalk(ButterfishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdle(entity.swimIdleAnimationState, ButterfishAnimations.IDLE, ageInTicks, 0.8F, limbSwingAmount * 3);
+		this.animateIdle(entity.swimIdleAnimationState, ButterfishAnimations.IDLE, ageInTicks, limbSwingAmount * 3);
 		this.animate(entity.flopAnimationState, ButterfishAnimations.FLOP, ageInTicks);
 	}
 

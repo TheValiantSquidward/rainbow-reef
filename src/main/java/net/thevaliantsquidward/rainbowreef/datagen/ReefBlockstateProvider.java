@@ -142,9 +142,9 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.itemModels().withExistingParent(getItemName(block.get()), this.blockTexture(block.get()));
     }
 
-    private void generatedItem(ItemLike item, TextureFolder folder) {
+    private void generatedItem(ItemLike item) {
         String name = getItemName(item);
-        this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc(folder.format(name)));
+        this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc(TextureFolder.BLOCK.format(name)));
     }
 
     private void cubeAllBlock(DeferredHolder<Block, Block> block) {
@@ -182,7 +182,7 @@ public class ReefBlockstateProvider extends BlockStateProvider {
 
     private void simpleCross(DeferredHolder<Block, Block> block) {
         this.simpleBlock(block.get(), this.models().cross(getItemName(block.get()), this.blockTexture(block.get())).renderType("cutout"));
-        this.generatedItem(block.get(), TextureFolder.BLOCK);
+        this.generatedItem(block.get());
     }
 
     private void coralFan(DeferredHolder<Block, Block> coralFan, ResourceLocation texture) {
@@ -198,7 +198,7 @@ public class ReefBlockstateProvider extends BlockStateProvider {
     private void coralFan(DeferredHolder<Block, Block> coralFan, DeferredHolder<Block, Block> coralWallFan) {
         this.coralFan(coralFan, this.blockTexture(coralFan.get()));
         this.coralWallFan(coralWallFan, this.blockTexture(coralFan.get()));
-        this.generatedItem(coralFan.get(), TextureFolder.BLOCK);
+        this.generatedItem(coralFan.get());
     }
 
     private void tallCoral(DeferredHolder<Block, Block> flower) {

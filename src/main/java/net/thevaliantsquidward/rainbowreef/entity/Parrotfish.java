@@ -93,18 +93,18 @@ public class Parrotfish extends VariantSchoolingFish {
     }
 
     public enum ParrotfishVariant implements StringRepresentable {
-        BLUE(1, "blue", COMMON, null),
-        HUMPHEAD(2, "humphead", COMMON, null),
-        RAINBOW(3, "rainbow", COMMON, null),
-        MIDNIGHT(4, "midnight", COMMON, null),
-        STOPLIGHT(5, "stoplight", COMMON, null),
-        MEDITERRANEAN(6, "mediterranean", UNCOMMON, null),
-        PRINCESS(7, "princess", UNCOMMON, null),
-        YELLOWTAIL(8, "yellowtail", COMMON, null),
-        BLUE_BUMPHEAD(9, "blue_bumphead", RARE, null),
-        RED(10, "red", UNCOMMON, null),
-        YELLOWBAND(11, "yellowband", UNCOMMON, null),
-        OBISHIME(12, "obishime", RARE, null);
+        BLUE(1, "blue", COMMON),
+        HUMPHEAD(2, "humphead", COMMON),
+        RAINBOW(3, "rainbow", COMMON),
+        MIDNIGHT(4, "midnight", COMMON),
+        STOPLIGHT(5, "stoplight", COMMON),
+        MEDITERRANEAN(6, "mediterranean", UNCOMMON),
+        PRINCESS(7, "princess", UNCOMMON),
+        YELLOWTAIL(8, "yellowtail", COMMON),
+        BLUE_BUMPHEAD(9, "blue_bumphead", RARE),
+        RED(10, "red", UNCOMMON),
+        YELLOWBAND(11, "yellowband", UNCOMMON),
+        OBISHIME(12, "obishime", RARE);
 
         private final int variant;
         private final String name;
@@ -112,11 +112,11 @@ public class Parrotfish extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        ParrotfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        ParrotfishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static ParrotfishVariant getVariantId(int variants) {
@@ -157,7 +157,7 @@ public class Parrotfish extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = ParrotfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof ParrotfishData) {
@@ -185,11 +185,6 @@ public class Parrotfish extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class ParrotfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public ParrotfishData(int variant) {
-            this.variantData = variant;
-        }
+    record ParrotfishData(int variantData) implements SpawnGroupData {
     }
 }

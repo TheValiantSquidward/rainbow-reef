@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlockEntities;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BurrowBlock extends Block implements EntityBlock {
@@ -40,14 +41,14 @@ public class BurrowBlock extends Block implements EntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(@NotNull BlockPos pos, @NotNull BlockState state) {
         return new BurrowBlockEntity(pos, state);
     }
 
     @Nullable
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
         if (!level.isClientSide && type == ReefBlockEntities.BURROW.get()) {
             return (BlockEntityTicker<T>) (BlockEntityTicker<BurrowBlockEntity>) BurrowBlockEntity::serverTick;
         }
@@ -55,7 +56,7 @@ public class BurrowBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         if (!level.isClientSide && level.getBlockEntity(pos) instanceof BurrowBlockEntity burrow
                 && !player.isCreative() && hasSilkTouch(level, player.getMainHandItem())) {
             burrow.setKeepOccupantsOnBreak(true);
@@ -64,7 +65,7 @@ public class BurrowBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    public void onRemove(BlockState state, @NotNull Level level, @NotNull BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!state.is(newState.getBlock()) && level.getBlockEntity(pos) instanceof BurrowBlockEntity burrow
                 && !burrow.keepOccupantsOnBreak()) {
             burrow.evacuate();

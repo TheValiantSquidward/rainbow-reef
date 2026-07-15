@@ -11,6 +11,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.CopyComponentsFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class ReefBlockLootProvider extends BlockLootSubProvider {
     }
 
     @Override
-    protected Iterable<Block> getKnownBlocks() {
+    protected @NotNull Iterable<Block> getKnownBlocks() {
         return List.of(ReefBlocks.MUD_BURROW.get(), ReefBlocks.SAND_BURROW.get(), ReefBlocks.STONE_BURROW.get(), ReefBlocks.CORALSTONE_BURROW.get());
     }
 }

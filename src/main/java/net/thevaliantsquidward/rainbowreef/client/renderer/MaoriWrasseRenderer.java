@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.MaoriWrasseModel;
 import net.thevaliantsquidward.rainbowreef.entity.MaoriWrasse;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class MaoriWrasseRenderer extends MobRenderer<MaoriWrasse, MaoriWrasseModel> {
@@ -18,7 +19,7 @@ public class MaoriWrasseRenderer extends MobRenderer<MaoriWrasse, MaoriWrasseMod
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MaoriWrasse entity) {
+    public @NotNull ResourceLocation getTextureLocation(MaoriWrasse entity) {
         MaoriWrasse.MaoriWrasseVariant maoriWrasseVariant = MaoriWrasse.MaoriWrasseVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/maori_wrasse/" + maoriWrasseVariant.getSerializedName() + ".png");
     }

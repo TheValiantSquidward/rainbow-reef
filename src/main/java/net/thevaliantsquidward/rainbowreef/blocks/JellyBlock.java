@@ -9,13 +9,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
+import org.jetbrains.annotations.NotNull;
 
 public class JellyBlock extends Block {
     public JellyBlock(Properties properties) {
         super(properties);
     }
 
-    public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, Entity entity, float fallDistance) {
         if (entity.isSuppressingBounce()) {
             super.fallOn(level, state, pos, entity, fallDistance);
         } else {
@@ -24,7 +25,7 @@ public class JellyBlock extends Block {
         }
     }
 
-    public void updateEntityAfterFallOn(BlockGetter level, Entity entity) {
+    public void updateEntityAfterFallOn(@NotNull BlockGetter level, Entity entity) {
         if (entity.isSuppressingBounce()) {
             super.updateEntityAfterFallOn(level, entity);
         } else {
@@ -43,7 +44,7 @@ public class JellyBlock extends Block {
 
     }
 
-    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+    public void stepOn(@NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState state, Entity entity) {
         double d0 = Math.abs(entity.getDeltaMovement().y);
         if (d0 < 0.1D && !entity.isSteppingCarefully()) {
 

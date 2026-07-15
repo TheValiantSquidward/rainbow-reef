@@ -15,7 +15,6 @@ import java.util.EnumSet;
 public class CrabLeaveWater extends Goal {
     private final PathfinderMob creature;
     private BlockPos targetPos;
-    private final int executionChance = 30;
 
     public CrabLeaveWater(PathfinderMob creature) {
         this.creature = creature;
@@ -23,6 +22,7 @@ public class CrabLeaveWater extends Goal {
     }
 
     public boolean canUse() {
+        int executionChance = 30;
         if (this.creature.level().getFluidState(this.creature.blockPosition()).is(FluidTags.WATER) && (this.creature.getTarget() != null || this.creature.getRandom().nextInt(executionChance) == 0)) {
             if (this.creature instanceof SemiAquatic && ((SemiAquatic) this.creature).shouldLeaveWater()) {
                 targetPos = generateTarget();

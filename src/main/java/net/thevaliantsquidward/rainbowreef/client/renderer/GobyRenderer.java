@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.GobyModel;
 import net.thevaliantsquidward.rainbowreef.entity.Goby;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class GobyRenderer extends MobRenderer<Goby, GobyModel> {
@@ -18,7 +19,7 @@ public class GobyRenderer extends MobRenderer<Goby, GobyModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Goby entity) {
+    public @NotNull ResourceLocation getTextureLocation(Goby entity) {
         Goby.GobyVariant gobyVariant = Goby.GobyVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/goby/" + gobyVariant.getSerializedName() + ".png");
     }

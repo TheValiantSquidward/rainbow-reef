@@ -86,7 +86,7 @@ public class Billfish extends ReefMob {
     }
 
     public enum BillfishVariant implements StringRepresentable {
-        SAILFISH(1, "sailfish", COMMON, null);
+        SAILFISH();
 
         private final int variant;
         private final String name;
@@ -94,11 +94,11 @@ public class Billfish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        BillfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+        BillfishVariant() {
+            this.variant = 1;
+            this.name = "sailfish";
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static BillfishVariant getVariantId(int variants) {
@@ -139,7 +139,7 @@ public class Billfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = BillfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof BillfishData) {
@@ -153,11 +153,6 @@ public class Billfish extends ReefMob {
         return spawnData;
     }
 
-    static class BillfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public BillfishData(int variant) {
-            this.variantData = variant;
-        }
+    record BillfishData(int variantData) implements SpawnGroupData {
     }
 }

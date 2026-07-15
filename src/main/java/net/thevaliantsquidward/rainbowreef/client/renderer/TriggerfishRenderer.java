@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.TriggerfishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Triggerfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class TriggerfishRenderer extends MobRenderer<Triggerfish, TriggerfishModel> {
@@ -17,7 +18,7 @@ public class TriggerfishRenderer extends MobRenderer<Triggerfish, TriggerfishMod
         super(context, new TriggerfishModel(context.bakeLayer(ReefModelLayers.TRIGGERFISH)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(Triggerfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Triggerfish entity) {
         Triggerfish.TriggerfishVariant triggerfishVariant = Triggerfish.TriggerfishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/triggerfish/" + triggerfishVariant.getSerializedName() + ".png");
     }

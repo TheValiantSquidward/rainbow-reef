@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.thevaliantsquidward.rainbowreef.registry.ReefDamageTypes;
+import org.jetbrains.annotations.NotNull;
 
 
 import java.util.Random;
@@ -17,12 +18,11 @@ public class BoxfishBreadItem extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level world, @NotNull LivingEntity entity) {
         super.finishUsingItem(stack, world, entity);
 
 
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
+        if (entity instanceof Player player) {
 
 
             Random random = new Random();

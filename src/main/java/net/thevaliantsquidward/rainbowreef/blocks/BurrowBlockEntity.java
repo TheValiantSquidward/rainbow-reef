@@ -20,11 +20,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlockEntities;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 public class BurrowBlockEntity extends BlockEntity {
 
@@ -61,18 +63,18 @@ public class BurrowBlockEntity extends BlockEntity {
             return false;
         }
         return this.occupants.isEmpty()
-                || EntityType.by(this.occupants.get(0).entityData).filter(type -> type == mob.getType()).isPresent();
+                || EntityType.by(this.occupants.getFirst().entityData).filter(type -> type == mob.getType()).isPresent();
     }
 
-    public boolean tryEnter(Mob mob) {
+    public void tryEnter(Mob mob) {
         if (this.level == null || this.level.isClientSide || !mob.isAlive() || !this.canEnter(mob)) {
-            return false;
+            return;
         }
         mob.stopRiding();
         mob.ejectPassengers();
         CompoundTag tag = new CompoundTag();
         if (!mob.save(tag)) {
-            return false;
+            return;
         }
         tag.remove("UUID");
         tag.remove("Passengers");
@@ -83,7 +85,6 @@ public class BurrowBlockEntity extends BlockEntity {
         this.level.playSound(null, this.worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1.0F, 1.5F);
         mob.discard();
         this.setChanged();
-        return true;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, BurrowBlockEntity burrow) {
@@ -166,7 +167,7 @@ public class BurrowBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.loadAdditional(tag, registries);
         this.occupants.clear();
         ListTag list = tag.getList("Occupants", Tag.TAG_COMPOUND);
@@ -177,7 +178,7 @@ public class BurrowBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         super.saveAdditional(tag, registries);
         this.saveOccupants(tag);
     }
@@ -195,11 +196,11 @@ public class BurrowBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+    protected void collectImplicitComponents(DataComponentMap.@NotNull Builder components) {
         super.collectImplicitComponents(components);
         if (!this.occupants.isEmpty()) {
             CompoundTag tag = new CompoundTag();
-            tag.putString("id", BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType()).toString());
+            tag.putString("id", Objects.requireNonNull(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(this.getType())).toString());
             this.saveOccupants(tag);
             components.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(tag));
         }

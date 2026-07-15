@@ -28,6 +28,8 @@ import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class TallCoralBlock extends DeadTallCoralBlock {
 
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
@@ -40,8 +42,8 @@ public class TallCoralBlock extends DeadTallCoralBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (!scanForWater(state, level, pos)) {
+    public void tick(@NotNull BlockState state, @NotNull ServerLevel level, @NotNull BlockPos pos, @NotNull RandomSource random) {
+        if (scanForWater(state, level, pos)) {
             level.setBlock(pos, this.deadBlock.defaultBlockState().setValue(WATERLOGGED, Boolean.FALSE).setValue(HALF, state.getValue(HALF)), -1);
         }
     }
@@ -55,23 +57,23 @@ public class TallCoralBlock extends DeadTallCoralBlock {
         }
     }
 
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState neighborState, boolean movedByPiston) {
-        if (!scanForWater(state, level, pos)) {
+    public void onPlace(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState neighborState, boolean movedByPiston) {
+        if (scanForWater(state, level, pos)) {
             level.scheduleTick(pos, this, 60 + level.getRandom().nextInt(40));
         }
     }
 
-    protected static boolean scanForWater(BlockState state, BlockGetter level, BlockPos pos) {
+    protected static boolean scanForWater(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         if (state.getValue(WATERLOGGED)) {
-            return true;
+            return false;
         } else {
             for(Direction direction : Direction.values()) {
                 if (level.getFluidState(pos.relative(direction)).is(FluidTags.WATER)) {
-                    return true;
+                    return false;
                 }
             }
 
-            return false;
+            return true;
         }
     }
 
@@ -80,7 +82,7 @@ public class TallCoralBlock extends DeadTallCoralBlock {
         BlockPos blockpos = context.getClickedPos();
         Level level = context.getLevel();
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-        return blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context) ? super.getStateForPlacement(context).setValue(WATERLOGGED, Boolean.valueOf(fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8)) : null;
+        return blockpos.getY() < level.getMaxBuildHeight() - 1 && level.getBlockState(blockpos.above()).canBeReplaced(context) ? Objects.requireNonNull(super.getStateForPlacement(context)).setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8) : null;
     }
 
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
@@ -105,10 +107,10 @@ public class TallCoralBlock extends DeadTallCoralBlock {
     }
 
     public static BlockState copyWaterloggedFrom(LevelReader level, BlockPos pos, BlockState state) {
-        return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(level.isWaterAt(pos))) : state;
+        return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, level.isWaterAt(pos)) : state;
     }
 
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public @NotNull BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             if (player.isCreative()) {
                 preventCreativeDropFromBottomPart(level, pos, state, player);

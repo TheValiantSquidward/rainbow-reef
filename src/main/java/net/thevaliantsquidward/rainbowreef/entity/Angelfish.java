@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -74,32 +73,32 @@ public class Angelfish extends VariantSchoolingFish {
     }
 
     public enum AngelfishVariant {
-        QUEEN(1, COMMON, null),
-        FRENCH(2, UNCOMMON, null),
-        EMPEROR(3, UNCOMMON, null),
-        YELLOWBAND(4, COMMON, null),
-        BLUERING(5, COMMON, null),
-        ROCK_BEAUTY(6, RARE, null),
-        BLUE_QUEEN(7, EPIC, null),
-        MAJESTIC(8, UNCOMMON, null),
-        KING(9, RARE, null),
-        SEMICIRCLE(10, COMMON, null),
-        BANDED(11, COMMON, null),
-        GRAY(12, COMMON, null),
-        OLD_WOMAN(13, COMMON, null),
-        GUINEAN(14, COMMON, null),
-        QUEENSLAND_YELLOWTAIL(15, COMMON, null),
-        CLARION(16, UNCOMMON, null);
+        QUEEN(1, COMMON),
+        FRENCH(2, UNCOMMON),
+        EMPEROR(3, UNCOMMON),
+        YELLOWBAND(4, COMMON),
+        BLUERING(5, COMMON),
+        ROCK_BEAUTY(6, RARE),
+        BLUE_QUEEN(7, EPIC),
+        MAJESTIC(8, UNCOMMON),
+        KING(9, RARE),
+        SEMICIRCLE(10, COMMON),
+        BANDED(11, COMMON),
+        GRAY(12, COMMON),
+        OLD_WOMAN(13, COMMON),
+        GUINEAN(14, COMMON),
+        QUEENSLAND_YELLOWTAIL(15, COMMON),
+        CLARION(16, UNCOMMON);
 
         private final int variant;
         private final ReefRarities rarity;
         @Nullable
         private final TagKey<Biome> biome;
 
-        AngelfishVariant(int variant, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        AngelfishVariant(int variant, ReefRarities rarity) {
             this.variant = variant;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static AngelfishVariant getVariantId(int variants) {
@@ -135,7 +134,7 @@ public class Angelfish extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = AngelfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof AngelfishData) {
@@ -163,11 +162,6 @@ public class Angelfish extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class AngelfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public AngelfishData(int variant) {
-            this.variantData = variant;
-        }
+    record AngelfishData(int variantData) implements SpawnGroupData {
     }
 }

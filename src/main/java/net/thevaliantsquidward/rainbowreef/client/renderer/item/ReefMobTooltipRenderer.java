@@ -80,7 +80,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         }
         if (type == ReefEntities.JELLYFISH.get()) {
             renderX += 3;
-            renderY += -3;
+            renderY -= 3;
         }
         if (type == ReefEntities.HOGFISH.get()) {
             renderX += 3;

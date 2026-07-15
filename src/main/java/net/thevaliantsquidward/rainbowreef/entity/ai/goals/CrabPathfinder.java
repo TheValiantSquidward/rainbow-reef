@@ -8,6 +8,7 @@ import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class CrabPathfinder extends WaterBoundPathNavigation {
 
@@ -15,7 +16,7 @@ public class CrabPathfinder extends WaterBoundPathNavigation {
         super(entitylivingIn, worldIn);
     }
 
-    protected PathFinder createPathFinder(int maxVisitedNodes) {
+    protected @NotNull PathFinder createPathFinder(int maxVisitedNodes) {
         this.nodeEvaluator = new AmphibiousNodeEvaluator(true);
         return new PathFinder(this.nodeEvaluator, maxVisitedNodes);
     }
@@ -24,7 +25,7 @@ public class CrabPathfinder extends WaterBoundPathNavigation {
         return true;
     }
 
-    protected Vec3 getTempMobPos() {
+    protected @NotNull Vec3 getTempMobPos() {
         return new Vec3(this.mob.getX(), this.mob.getY(0.5D), this.mob.getZ());
     }
 

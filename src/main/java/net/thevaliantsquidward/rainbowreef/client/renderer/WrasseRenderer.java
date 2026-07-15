@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.WrasseModel;
 import net.thevaliantsquidward.rainbowreef.entity.Wrasse;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class WrasseRenderer extends MobRenderer<Wrasse, WrasseModel> {
@@ -17,7 +18,7 @@ public class WrasseRenderer extends MobRenderer<Wrasse, WrasseModel> {
         super(context, new WrasseModel(context.bakeLayer(ReefModelLayers.WRASSE)), 0.3F);
     }
 
-    public ResourceLocation getTextureLocation(Wrasse entity) {
+    public @NotNull ResourceLocation getTextureLocation(Wrasse entity) {
         Wrasse.WrasseVariant wrasseVariant = Wrasse.WrasseVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/wrasse/" + wrasseVariant.getSerializedName() + ".png");
     }

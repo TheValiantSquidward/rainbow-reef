@@ -10,6 +10,7 @@ import net.thevaliantsquidward.rainbowreef.client.models.entity.ParrotfishModel;
 import net.thevaliantsquidward.rainbowreef.client.renderer.layer.ParrotfishEepyLayer;
 import net.thevaliantsquidward.rainbowreef.entity.Parrotfish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class ParrotfishRenderer extends MobRenderer<Parrotfish, ParrotfishModel> {
@@ -20,7 +21,7 @@ public class ParrotfishRenderer extends MobRenderer<Parrotfish, ParrotfishModel>
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Parrotfish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Parrotfish entity) {
         Parrotfish.ParrotfishVariant parrotfishVariant = Parrotfish.ParrotfishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/parrotfish/" + parrotfishVariant.getSerializedName() + ".png");
     }

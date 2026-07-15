@@ -83,12 +83,11 @@ public class Crab extends DancingEntity implements DancesToJukebox {
 
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
-        CrabPathfinder crab = new CrabPathfinder(this, level) {
+        return new CrabPathfinder(Crab.this, level) {
             public boolean isStableDestination(BlockPos pos) {
                 return this.level.getBlockState(pos).getFluidState().isEmpty();
             }
         };
-        return crab;
     }
 
     @Override
@@ -131,7 +130,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
         Holder<Biome> holder = level.getBiome(this.blockPosition());
         float spookyVariantChange = this.getRandom().nextFloat();
         LocalDate currentDate = LocalDate.now();

@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -78,8 +77,8 @@ public class MoorishIdol extends VariantSchoolingFish {
     }
 
     public enum MoorishIdolVariant implements StringRepresentable {
-        ZANCLUS(1, "zanclus", COMMON, null),
-        SILVER(2, "silver", ABERRANT, null);
+        ZANCLUS(1, "zanclus", COMMON),
+        SILVER(2, "silver", ABERRANT);
 
         private final int variant;
         private final String name;
@@ -87,11 +86,11 @@ public class MoorishIdol extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        MoorishIdolVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        MoorishIdolVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static MoorishIdolVariant getVariantId(int variants) {
@@ -132,7 +131,7 @@ public class MoorishIdol extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = MoorishIdolVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof MoorishIdolData) {
@@ -160,11 +159,6 @@ public class MoorishIdol extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class MoorishIdolData implements SpawnGroupData {
-        public final int variantData;
-
-        public MoorishIdolData(int variant) {
-            this.variantData = variant;
-        }
+    record MoorishIdolData(int variantData) implements SpawnGroupData {
     }
 }

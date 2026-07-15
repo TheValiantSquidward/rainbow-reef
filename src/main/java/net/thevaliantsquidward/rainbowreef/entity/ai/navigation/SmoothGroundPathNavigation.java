@@ -11,6 +11,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
@@ -50,7 +52,7 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation implements 
         final int shortcutNode = getClosestVerticalTraversal(Mth.floor(safeSurfacePos.y));
         this.maxDistanceToWaypoint = this.mob.getBbWidth() > 0.75f ? this.mob.getBbWidth() / 2f : 0.75f - this.mob.getBbWidth() / 2f;
         if (!attemptShortcut(shortcutNode, safeSurfacePos)) {
-            if (isCloseToNextNode(0.5f) || isAboutToTraverseVertically() && isCloseToNextNode(getMaxDistanceToWaypoint())) this.path.advance();
+            if (isCloseToNextNode(0.5f) || isAboutToTraverseVertically() && isCloseToNextNode(getMaxDistanceToWaypoint())) Objects.requireNonNull(this.path).advance();
         }
         this.doStuckDetection(safeSurfacePos);
     }
@@ -61,7 +63,7 @@ public class SmoothGroundPathNavigation extends GroundPathNavigation implements 
     }
 
     protected int getClosestVerticalTraversal(int safeSurfaceHeight) {
-        final int nodesLength = this.path.getNodeCount();
+        final int nodesLength = Objects.requireNonNull(this.path).getNodeCount();
         for (int nodeIndex = this.path.getNextNodeIndex(); nodeIndex < nodesLength; nodeIndex++) {
             if (this.path.getNode(nodeIndex).y != safeSurfaceHeight) return nodeIndex;
         }

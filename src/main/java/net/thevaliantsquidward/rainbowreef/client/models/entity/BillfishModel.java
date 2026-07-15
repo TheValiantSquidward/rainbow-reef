@@ -88,7 +88,7 @@ public class BillfishModel extends ReefModel<Billfish> {
         }
 
         this.animateWalk(BillfishAnimations.SWIM_NORMAL, limbSwing, limbSwingAmount, 1.5F, 3);
-        this.animateIdle(entity.swimIdleAnimationState, BillfishAnimations.IDLE, ageInTicks, 0.8F, limbSwingAmount * 3);
+        this.animateIdle(entity.swimIdleAnimationState, BillfishAnimations.IDLE, ageInTicks, limbSwingAmount * 3);
 	}
 
 	@Override

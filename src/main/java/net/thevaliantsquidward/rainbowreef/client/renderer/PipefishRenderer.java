@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.PipefishModel;
 import net.thevaliantsquidward.rainbowreef.entity.Pipefish;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class PipefishRenderer extends MobRenderer<Pipefish, PipefishModel> {
@@ -18,7 +19,7 @@ public class PipefishRenderer extends MobRenderer<Pipefish, PipefishModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Pipefish entity) {
+    public @NotNull ResourceLocation getTextureLocation(Pipefish entity) {
         Pipefish.PipefishVariant parrotfishVariant = Pipefish.PipefishVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/pipefish/" + parrotfishVariant.getSerializedName() + ".png");
     }

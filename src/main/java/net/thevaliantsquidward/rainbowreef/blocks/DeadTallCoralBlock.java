@@ -36,7 +36,7 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
 
     @NotNull
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState blockState, LevelAccessor level, BlockPos pos, BlockPos blockPos) {
+    public BlockState updateShape(BlockState state, Direction direction, @NotNull BlockState blockState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos blockPos) {
         DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
         if (direction.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (direction == Direction.UP) || blockState.is(this) && blockState.getValue(HALF) != doubleblockhalf) {
             return doubleblockhalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, blockState, level, pos, blockPos);
@@ -52,12 +52,12 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
     }
 
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+    public void setPlacedBy(Level level, BlockPos pos, @NotNull BlockState state, LivingEntity entity, @NotNull ItemStack stack) {
         BlockPos blockpos = pos.above();
         level.setBlock(blockpos, copyWaterloggedFrom(level, blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER)), 3);
     }
 
-    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+    public boolean canSurvive(BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
         if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
             return super.canSurvive(state, level, pos);
         } else {
@@ -71,7 +71,7 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, level.isWaterAt(pos)) : state;
     }
 
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
         if (!level.isClientSide) {
             if (player.isCreative()) {
                 preventCreativeDropFromBottomPart(level, pos, state, player);
@@ -83,7 +83,7 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
+    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
         super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, stack);
     }
 
@@ -100,7 +100,7 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         }
     }
 
-    public FluidState getFluidState(BlockState state) {
+    public @NotNull FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 

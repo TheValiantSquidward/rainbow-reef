@@ -23,7 +23,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.player.Player;
@@ -41,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
 
@@ -82,7 +82,7 @@ public class Jellyfish extends JellyfishMob {
         if (!this.hasCustomName()) {
             this.setScale(0);
         } else {
-            if (!this.getCustomName().getString().toLowerCase().equals("squishy")) {
+            if (!Objects.requireNonNull(this.getCustomName()).getString().toLowerCase().equals("squishy")) {
                 this.setScale(0);
             } else {
                 if ("squishy".equals(this.getName().getString().toLowerCase(Locale.ROOT)) && !this.isBaby()) {
@@ -115,7 +115,7 @@ public class Jellyfish extends JellyfishMob {
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         if (SCALE.equals(key)) {
             this.refreshDimensions();
         }
@@ -138,7 +138,7 @@ public class Jellyfish extends JellyfishMob {
     }
 
     @Override
-    protected EntityDimensions getDefaultDimensions(Pose pose) {
+    protected @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
         return super.getDefaultDimensions(pose).scale(getScale(this.getModelScale()));
     }
 
@@ -176,16 +176,16 @@ public class Jellyfish extends JellyfishMob {
     }
 
     public enum JellyfishVariant implements StringRepresentable {
-        PINK(1, "pink", COMMON, null),
-        ORANGE(2, "orange", COMMON, null),
-        WHITE(3, "white", COMMON, null),
-        YELLOW(4, "yellow", COMMON, null),
-        MUDDY(5, "muddy", UNCOMMON, null),
-        ABYSSAL(6, "abyssal", EPIC, null),
-        CHERRY(7, "cherry", UNCOMMON, null),
-        MINTY(8, "minty", UNCOMMON, null),
-        AZURE(9, "azure", RARE, null),
-        RED(10, "red", COMMON, null);
+        PINK(1, "pink", COMMON),
+        ORANGE(2, "orange", COMMON),
+        WHITE(3, "white", COMMON),
+        YELLOW(4, "yellow", COMMON),
+        MUDDY(5, "muddy", UNCOMMON),
+        ABYSSAL(6, "abyssal", EPIC),
+        CHERRY(7, "cherry", UNCOMMON),
+        MINTY(8, "minty", UNCOMMON),
+        AZURE(9, "azure", RARE),
+        RED(10, "red", COMMON);
 
         private final int variant;
         private final String name;
@@ -193,11 +193,11 @@ public class Jellyfish extends JellyfishMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        JellyfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        JellyfishVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static JellyfishVariant getVariantId(int variants) {
@@ -238,7 +238,7 @@ public class Jellyfish extends JellyfishMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = JellyfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof JellyfishData) {
@@ -252,11 +252,6 @@ public class Jellyfish extends JellyfishMob {
         return spawnData;
     }
 
-    static class JellyfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public JellyfishData(int variant) {
-            this.variantData = variant;
-        }
+    record JellyfishData(int variantData) implements SpawnGroupData {
     }
 }

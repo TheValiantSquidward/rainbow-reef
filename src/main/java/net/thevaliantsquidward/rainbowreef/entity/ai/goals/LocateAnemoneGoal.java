@@ -6,7 +6,7 @@ import net.thevaliantsquidward.rainbowreef.entity.base.Anemonefish;
 public class LocateAnemoneGoal extends Goal {
 
     private final Anemonefish fish;
-    int cooldown;
+    final int cooldown;
 
     public LocateAnemoneGoal(Anemonefish fish, int cooldown) {
         super();

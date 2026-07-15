@@ -77,38 +77,38 @@ public class Tang extends VariantSchoolingFish {
     }
 
     public enum TangVariant implements StringRepresentable {
-        BLUE(1, "blue", COMMON, null),
-        POWDER_BLUE(2, "powder_blue", COMMON, null),
-        YELLOW(3, "yellow", COMMON, null),
-        UNICORN(4, "unicorn", UNCOMMON, null),
-        CONVICT(5, "convict", COMMON, null),
-        CLOWN(6, "clown", COMMON, null),
-        ACHILLES(7, "achilles", COMMON, null),
-        PURPLE(8, "purple", UNCOMMON, null),
-        BLACK(9, "black", RARE, null),
-        REGAL_BLUE(10, "regal_blue", EPIC, null),
-        GEM(11, "gem", EPIC, null),
-        PENGUIN(12, "penguin", ABERRANT, null),
-        GREEN_SPOT(13, "green_spot", ABERRANT, null),
-        RUSTY(14, "rusty", ABERRANT, null),
-        PEARLY(15, "pearly", ABERRANT, null),
-        YELLOWBELLY_BLUE(16, "yellowbelly_blue", ABERRANT, null),
-        MUDDY(17, "muddy", ABERRANT, null),
-        CHOCOLATE(18, "chocolate", UNCOMMON, null),
-        SAILFIN(19, "sailfin", COMMON, null),
-        ATLANTIC_BLUE(20, "atlantic_blue", COMMON, null),
-        EYESTRIPE(21, "eyestripe", COMMON, null),
-        WHITE_CHEEK(22, "white_cheek", UNCOMMON, null),
-        SCOPAS(23, "scopas", COMMON, null),
-        GOTH(24, "goth", ABERRANT, null),
-        POWDER_BLUE_HYBRID(25, "powder_blue_hybrid", ABERRANT, null),
-        PASTEL_BLUE(26, "pastel_blue", ABERRANT, null),
-        YELLOWSTRIKE(27, "yellowstrike", ABERRANT, null),
-        BLACK_SURGEON(28, "black_surgeon", RARE, null),
-        ORANGEBAND(29, "orangeband", UNCOMMON, null),
-        BLONDE_LIPSTICK(30, "blonde_lipstick", RARE, null),
-        WHITETAIL_BRISTLETOOTH(31, "whitetail_bristletooth", UNCOMMON, null),
-        ZEBRA(32, "zebra", RARE, null);
+        BLUE(1, "blue", COMMON),
+        POWDER_BLUE(2, "powder_blue", COMMON),
+        YELLOW(3, "yellow", COMMON),
+        UNICORN(4, "unicorn", UNCOMMON),
+        CONVICT(5, "convict", COMMON),
+        CLOWN(6, "clown", COMMON),
+        ACHILLES(7, "achilles", COMMON),
+        PURPLE(8, "purple", UNCOMMON),
+        BLACK(9, "black", RARE),
+        REGAL_BLUE(10, "regal_blue", EPIC),
+        GEM(11, "gem", EPIC),
+        PENGUIN(12, "penguin", ABERRANT),
+        GREEN_SPOT(13, "green_spot", ABERRANT),
+        RUSTY(14, "rusty", ABERRANT),
+        PEARLY(15, "pearly", ABERRANT),
+        YELLOWBELLY_BLUE(16, "yellowbelly_blue", ABERRANT),
+        MUDDY(17, "muddy", ABERRANT),
+        CHOCOLATE(18, "chocolate", UNCOMMON),
+        SAILFIN(19, "sailfin", COMMON),
+        ATLANTIC_BLUE(20, "atlantic_blue", COMMON),
+        EYESTRIPE(21, "eyestripe", COMMON),
+        WHITE_CHEEK(22, "white_cheek", UNCOMMON),
+        SCOPAS(23, "scopas", COMMON),
+        GOTH(24, "goth", ABERRANT),
+        POWDER_BLUE_HYBRID(25, "powder_blue_hybrid", ABERRANT),
+        PASTEL_BLUE(26, "pastel_blue", ABERRANT),
+        YELLOWSTRIKE(27, "yellowstrike", ABERRANT),
+        BLACK_SURGEON(28, "black_surgeon", RARE),
+        ORANGEBAND(29, "orangeband", UNCOMMON),
+        BLONDE_LIPSTICK(30, "blonde_lipstick", RARE),
+        WHITETAIL_BRISTLETOOTH(31, "whitetail_bristletooth", UNCOMMON),
+        ZEBRA(32, "zebra", RARE);
 
         private final int variant;
         private final String name;
@@ -116,11 +116,11 @@ public class Tang extends VariantSchoolingFish {
         @Nullable
         private final TagKey<Biome> biome;
 
-        TangVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        TangVariant(int variant, String name, ReefRarities rarity) {
             this.variant = variant;
             this.name = name;
             this.rarity = rarity;
-            this.biome = biome;
+            this.biome = null;
         }
 
         public static TangVariant getVariantId(int variants) {
@@ -161,7 +161,7 @@ public class Tang extends VariantSchoolingFish {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = TangVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof TangData) {
@@ -189,11 +189,6 @@ public class Tang extends VariantSchoolingFish {
         return spawnData;
     }
 
-    static class TangData implements SpawnGroupData {
-        public final int variantData;
-
-        public TangData(int variant) {
-            this.variantData = variant;
-        }
+    record TangData(int variantData) implements SpawnGroupData {
     }
 }

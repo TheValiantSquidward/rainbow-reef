@@ -12,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -69,8 +68,8 @@ public class Lionfish extends ReefMob {
     }
 
     public enum LionfishVariant implements StringRepresentable {
-        RED(1, "red", COMMON, null),
-        CLEARFIN(2, "clearfin", COMMON, null);
+        RED(1, "red"),
+        CLEARFIN(2, "clearfin");
 
         private final int variant;
         private final String name;
@@ -78,11 +77,11 @@ public class Lionfish extends ReefMob {
         @Nullable
         private final TagKey<Biome> biome;
 
-        LionfishVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
+        LionfishVariant(int variant, String name) {
             this.variant = variant;
             this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static LionfishVariant getVariantId(int variants) {
@@ -123,7 +122,7 @@ public class Lionfish extends ReefMob {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = LionfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof LionfishData) {
@@ -137,11 +136,6 @@ public class Lionfish extends ReefMob {
         return spawnData;
     }
 
-    static class LionfishData implements SpawnGroupData {
-        public final int variantData;
-
-        public LionfishData(int variant) {
-            this.variantData = variant;
-        }
+    record LionfishData(int variantData) implements SpawnGroupData {
     }
 }

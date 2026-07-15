@@ -32,11 +32,11 @@ public class IKSolver {
     private Vec3[] nodes = {};
     private Vec3[] coreNodes = {};
     private enum nodeLimits {POS_LIMIT, NEG_LIMIT}
-    private double nodeDist;
+    private final double nodeDist;
     private int bodyLength;
 
-    private double bodyPitch = 0;
-    private double currentBodyPitch = 0;
+    private final double bodyPitch = 0;
+    private final double currentBodyPitch = 0;
     private double[] tailYaws = {};
     private double[] tailPitches = {};
     private double[] currentTailYaws = {};
@@ -49,10 +49,10 @@ public class IKSolver {
     private Vec3 torsoBackOffset = new Vec3(0, 0, 1);
 
     private Vec3 rightRefPoint;
-    private Vec3 rightRefOffset = new Vec3(1, 0, 0);
+    private final Vec3 rightRefOffset = new Vec3(1, 0, 0);
 
     private Vec3 leftRefPoint;
-    private Vec3 leftRefOffset = new Vec3(-1, 0, 0);
+    private final Vec3 leftRefOffset = new Vec3(-1, 0, 0);
 
     private Vec3 upRefPoint;
     private final Vec3 upRefOffset = new Vec3(0, -1, 0);

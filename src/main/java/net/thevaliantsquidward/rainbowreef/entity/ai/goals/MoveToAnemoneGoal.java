@@ -8,8 +8,8 @@ public class MoveToAnemoneGoal extends Goal {
 
     private final Anemonefish fish;
 
-    int radius;
-    double speedMultiplier;
+    final int radius;
+    final double speedMultiplier;
 
     public MoveToAnemoneGoal(Anemonefish fish, double speedMultiplier, int MaxRadius) {
         this.fish = fish;

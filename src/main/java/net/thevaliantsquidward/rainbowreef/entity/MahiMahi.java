@@ -3,7 +3,6 @@ package net.thevaliantsquidward.rainbowreef.entity;
 import com.google.common.collect.Lists;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.util.random.WeightedRandomList;
@@ -73,7 +72,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     }
 
     public enum MahiMahiVariant implements StringRepresentable {
-        GREEN(1, "green", COMMON, null);
+        GREEN();
 
         private final int variant;
         private final String name;
@@ -81,11 +80,11 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
         @Nullable
         private final TagKey<Biome> biome;
 
-        MahiMahiVariant(int variant, String name, ReefRarities rarity, @Nullable TagKey<Biome> biome) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = rarity;
-            this.biome = biome;
+        MahiMahiVariant() {
+            this.variant = 1;
+            this.name = "green";
+            this.rarity = ReefRarities.COMMON;
+            this.biome = null;
         }
 
         public static MahiMahiVariant getVariantId(int variants) {
@@ -126,7 +125,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
         int variant = MahiMahiVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
         if (spawnData instanceof MahiMahiData) {
@@ -154,11 +153,6 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
         return spawnData;
     }
 
-    static class MahiMahiData implements SpawnGroupData {
-        public final int variantData;
-
-        public MahiMahiData(int variant) {
-            this.variantData = variant;
-        }
+    record MahiMahiData(int variantData) implements SpawnGroupData {
     }
 }

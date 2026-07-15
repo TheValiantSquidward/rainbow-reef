@@ -31,7 +31,7 @@ public class FishDigGoal extends Goal {
 
     public BlockPos digPos = null;
     public MoveControl originalMoveControl;
-    public TagKey<Block> foodBlocks;
+    public final TagKey<Block> foodBlocks;
 
     public FishDigGoal(ReefMob fish, int digtime, int feedCooldownLimit, TagKey<Block> foodBlocks) {
         this.foodBlocks = foodBlocks;

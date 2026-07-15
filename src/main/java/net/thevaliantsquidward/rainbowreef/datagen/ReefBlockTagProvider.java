@@ -25,7 +25,7 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
 
         this.tag(BlockTags.CORAL_PLANTS).add(
                 SHELF_CORAL.get(),

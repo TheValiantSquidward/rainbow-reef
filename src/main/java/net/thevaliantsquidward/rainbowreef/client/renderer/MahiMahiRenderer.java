@@ -9,6 +9,7 @@ import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.client.models.entity.MahiMahiModel;
 import net.thevaliantsquidward.rainbowreef.entity.MahiMahi;
 import net.thevaliantsquidward.rainbowreef.registry.ReefModelLayers;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class MahiMahiRenderer extends MobRenderer<MahiMahi, MahiMahiModel> {
@@ -18,7 +19,7 @@ public class MahiMahiRenderer extends MobRenderer<MahiMahi, MahiMahiModel> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(MahiMahi entity) {
+    public @NotNull ResourceLocation getTextureLocation(MahiMahi entity) {
         MahiMahi.MahiMahiVariant mahiMahiVariant = MahiMahi.MahiMahiVariant.getVariantId(entity.getVariant());
         return RainbowReef.location("textures/entity/mahi_mahi/" + mahiMahiVariant.getSerializedName() + ".png");
     }
