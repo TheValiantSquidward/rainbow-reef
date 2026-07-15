@@ -145,7 +145,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         // shark
 
                         // small shark
-                        variantsByRarity(output, ReefItems.SMALL_SHARK_BUCKET.get(), SmallShark.SmallSharkVariant.values(), SmallShark.SmallSharkVariant::getVariant, SmallShark.SmallSharkVariant::getRarity);
+                        output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
                         output.accept(ReefItems.RAW_SMALL_SHARK.get());
                         output.accept(ReefItems.SHARKBITE_SALAD.get());
 

@@ -6,7 +6,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
@@ -91,8 +90,7 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_SEAHORSE);
         this.item(DRIED_SEAHORSE);
 
-        this.variantBucket(
-        );
+        this.item(SMALL_SHARK_BUCKET);
         this.item(RAW_SMALL_SHARK);
         this.item(SHARKBITE_SALAD);
 
@@ -119,28 +117,14 @@ public class ReefItemModelProvider extends ItemModelProvider {
 
     // item
     private void item(DeferredHolder<Item, Item> item) {
-        generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
-    }
-
-    private void variantBucket() {
-        String base = net.thevaliantsquidward.rainbowreef.registry.ReefItems.SMALL_SHARK_BUCKET.getId().getPath();
-        ItemModelBuilder builder = generated(base, modLoc("item/" + base));
-        for (int i = 0; i < new String[]{"epaulette", "pajama", "horned", "nurse", "zebra", "albino", "piebald", "port_jackson"}.length; i++) {
-            String childName = base + "_" + new String[]{"epaulette", "pajama", "horned", "nurse", "zebra", "albino", "piebald", "port_jackson"}[i];
-            generated(childName, modLoc("item/" + childName));
-            builder.override()
-                    .predicate(RainbowReef.location("variant"), i + 1)
-                    .model(new ModelFile.UncheckedModelFile(modLoc("item/" + childName)))
-                    .end();
-        }
+        this.generated(item.getId().getPath(), modLoc("item/" + item.getId().getPath()));
     }
 
     // utils
-    private ItemModelBuilder generated(String name, ResourceLocation... layers) {
+    private void generated(String name, ResourceLocation... layers) {
         ItemModelBuilder builder = withExistingParent(name, "item/generated");
         for (int i = 0; i < layers.length; i++) {
             builder = builder.texture("layer" + i, layers[i]);
         }
-        return builder;
     }
 }
