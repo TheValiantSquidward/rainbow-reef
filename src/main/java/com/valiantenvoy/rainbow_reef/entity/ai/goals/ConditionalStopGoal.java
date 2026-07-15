@@ -1,0 +1,49 @@
+package com.valiantenvoy.rainbow_reef.entity.ai.goals;
+
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.Goal;
+import com.valiantenvoy.rainbow_reef.entity.Crab;
+
+public class ConditionalStopGoal extends Goal {
+    private PathfinderMob creatura;
+
+    public ConditionalStopGoal(Crab creature) {
+        this.creatura = creature;
+    }
+
+    @Override
+    public boolean requiresUpdateEveryTick() {
+        return true;
+    }
+
+    public PathfinderMob getCreatura() {
+        return creatura;
+    }
+
+    @Override
+    public boolean canUse() {
+        return true;
+    }
+
+    @Override
+    public boolean canContinueToUse() {
+        return true;
+    }
+
+
+    public void start() {
+        //System.out.println("start");
+        this.getCreatura().getNavigation().stop();
+    }
+
+    public void stop() {
+        this.getCreatura().getNavigation().recomputePath();
+    }
+
+    public void tick() {
+        //System.out.println("works");
+        this.creatura.setTarget(null);
+        this.creatura.getNavigation().stop();
+    }
+
+}
