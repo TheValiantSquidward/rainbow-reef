@@ -11,56 +11,47 @@ import net.minecraft.world.item.HoneyBottleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JellyBottleItem extends HoneyBottleItem {
+
     public JellyBottleItem(Properties properties) {
         super(properties);
     }
 
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
-    public @NotNull SoundEvent getDrinkingSound() {
-        return SoundEvents.HONEY_DRINK;
-    }
-
-    public @NotNull SoundEvent getEatingSound() {
+    @Override
+    public SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 
     @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity livingEntity) {
-        if (livingEntity instanceof ServerPlayer serverplayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
-            serverplayer.awardStat(Stats.ITEM_USED.get(this));
-        }
-        if (!level.isClientSide && livingEntity instanceof ServerPlayer serverPlayer) {
+    public SoundEvent getEatingSound() {
+        return SoundEvents.HONEY_DRINK;
+    }
 
-
-            List<MobEffectInstance> effectsToRemove = new ArrayList<>();
-
-            for (MobEffectInstance effect : serverPlayer.getActiveEffects()) {
-                if (!effect.isAmbient() && !effect.getEffect().value().isInstantenous() && !effect.getEffect().value().isBeneficial()) {
-                    effectsToRemove.add(effect);
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+        if (livingEntity instanceof ServerPlayer serverPlayer) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
+            serverPlayer.awardStat(Stats.ITEM_USED.get(this));
+            if (!level.isClientSide) {
+                List<MobEffectInstance> effectsToRemove = new ArrayList<>();
+                for (MobEffectInstance effect : serverPlayer.getActiveEffects()) {
+                    if (!effect.isAmbient() && !effect.getEffect().value().isInstantenous() && !effect.getEffect().value().isBeneficial()) {
+                        effectsToRemove.add(effect);
+                    }
                 }
+                effectsToRemove.forEach(effect -> serverPlayer.removeEffect(effect.getEffect()));
             }
-
-            effectsToRemove.forEach(effect -> serverPlayer.removeEffect(effect.getEffect()));
         }
-
         return super.finishUsingItem(stack, level, livingEntity);
     }
-
-    private void applyRandomEffect(LivingEntity entity, Level level) {
-        List<MobEffectInstance> effectsToAdd = new ArrayList<>();
-
-
-    }
-
 }
 

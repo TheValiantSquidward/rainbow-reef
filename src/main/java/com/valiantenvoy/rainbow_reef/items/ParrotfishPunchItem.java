@@ -10,38 +10,35 @@ import net.minecraft.world.item.HoneyBottleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 public class ParrotfishPunchItem extends HoneyBottleItem {
+
     public ParrotfishPunchItem(Properties properties) {
         super(properties);
     }
 
-    public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
-    public @NotNull SoundEvent getDrinkingSound() {
-        return SoundEvents.HONEY_DRINK;
-    }
-
-    public @NotNull SoundEvent getEatingSound() {
+    @Override
+    public SoundEvent getDrinkingSound() {
         return SoundEvents.HONEY_DRINK;
     }
 
     @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity livingEntity) {
-        if (livingEntity instanceof ServerPlayer serverplayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
-            serverplayer.awardStat(Stats.ITEM_USED.get(this));
-        }
-
-        return super.finishUsingItem(stack, level, livingEntity);
+    public SoundEvent getEatingSound() {
+        return SoundEvents.HONEY_DRINK;
     }
 
-
-    public int getUseDuration(ItemStack stack) {
-        return 80;
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+        if (livingEntity instanceof ServerPlayer serverPlayer) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverPlayer, stack);
+            serverPlayer.awardStat(Stats.ITEM_USED.get(this));
+        }
+        return super.finishUsingItem(stack, level, livingEntity);
     }
 }
 

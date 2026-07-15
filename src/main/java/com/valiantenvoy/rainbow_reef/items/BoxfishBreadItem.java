@@ -6,9 +6,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
 
 public class BoxfishBreadItem extends Item {
 
@@ -17,23 +14,10 @@ public class BoxfishBreadItem extends Item {
     }
 
     @Override
-    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack stack, @NotNull Level world, @NotNull LivingEntity entity) {
-        super.finishUsingItem(stack, world, entity);
-
-
-        if (entity instanceof Player player) {
-
-
-            Random random = new Random();
-
-    if (random.nextInt(100) == 0) {
-            if (!world.isClientSide) {
-                player.hurt(ReefDamageTypes.getDamageSource(world, ReefDamageTypes.ATE_BOXFISH), 10000000);
-            }
-     }
-
-            }
-
-            return stack;
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+        if (livingEntity instanceof Player player && level.getRandom().nextInt(100) == 0 && !level.isClientSide) {
+            player.hurt(ReefDamageTypes.getDamageSource(level, ReefDamageTypes.ATE_BOXFISH), 1000);
+        }
+        return super.finishUsingItem(stack, level, livingEntity);
     }
 }
