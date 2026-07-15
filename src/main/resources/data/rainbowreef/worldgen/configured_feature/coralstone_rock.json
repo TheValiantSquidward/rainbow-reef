@@ -1,8 +1,8 @@
 {
-  "type": "rainbowreef:coralstone_rock",
+  "type": "rainbow_reef:coralstone_rock",
   "config": {
     "state": {
-      "Name": "rainbowreef:coralstone"
+      "Name": "rainbow_reef:coralstone"
     }
   }
 }

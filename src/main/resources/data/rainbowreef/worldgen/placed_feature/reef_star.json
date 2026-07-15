@@ -1,5 +1,5 @@
 {
-  "feature": "rainbowreef:reef_star",
+  "feature": "rainbow_reef:reef_star",
   "placement": [
     {
       "type": "minecraft:noise_based_count",

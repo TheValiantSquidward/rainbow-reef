@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/butterflyfish_mangrove",
+  "spawners": {
+    "type": "rainbow_reef:butterflyfish",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 20
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_epaulette",
+      "predicate": {
+        "rainbow_reef:variant": 1.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_pajama",
+      "predicate": {
+        "rainbow_reef:variant": 2.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_horned",
+      "predicate": {
+        "rainbow_reef:variant": 3.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_nurse",
+      "predicate": {
+        "rainbow_reef:variant": 4.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_zebra",
+      "predicate": {
+        "rainbow_reef:variant": 5.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_albino",
+      "predicate": {
+        "rainbow_reef:variant": 6.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_piebald",
+      "predicate": {
+        "rainbow_reef:variant": 7.0
+      }
+    },
+    {
+      "model": "rainbow_reef:item/small_shark_bucket_port_jackson",
+      "predicate": {
+        "rainbow_reef:variant": 8.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "rainbow_reef:item/small_shark_bucket"
+  }
+}

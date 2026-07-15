@@ -1,8 +1,8 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#rainbowreef:warm_oceans",
+  "biomes": "#rainbow_reef:warm_oceans",
   "features": [
-    "rainbowreef:coralstone_burrow"
+    "rainbow_reef:coralstone_burrow"
   ],
   "step": "vegetal_decoration"
 }

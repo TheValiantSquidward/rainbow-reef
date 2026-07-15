@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "rainbow_reef:block/chiseled_coralstone"
+  }
+}

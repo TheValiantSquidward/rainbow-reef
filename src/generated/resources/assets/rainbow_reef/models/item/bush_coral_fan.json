@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "rainbow_reef:block/bush_coral_fan"
+  }
+}

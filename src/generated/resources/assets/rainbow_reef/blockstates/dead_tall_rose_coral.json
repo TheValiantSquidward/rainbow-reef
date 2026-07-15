@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "rainbow_reef:block/dead_tall_rose_coral_bottom"
+    },
+    "half=upper": {
+      "model": "rainbow_reef:block/dead_tall_rose_coral_top"
+    }
+  }
+}

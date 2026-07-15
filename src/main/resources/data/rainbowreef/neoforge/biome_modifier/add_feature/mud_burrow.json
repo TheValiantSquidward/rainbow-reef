@@ -1,8 +1,8 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#rainbowreef:has_spawn/goby_mangrove",
+  "biomes": "#rainbow_reef:has_spawn/goby_mangrove",
   "features": [
-    "rainbowreef:mud_burrow"
+    "rainbow_reef:mud_burrow"
   ],
   "step": "vegetal_decoration"
 }

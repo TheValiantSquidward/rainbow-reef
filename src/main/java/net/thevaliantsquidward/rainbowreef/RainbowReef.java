@@ -22,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 @Mod(RainbowReef.MOD_ID)
 public class RainbowReef {
 
-    public static final String MOD_ID = "rainbowreef";
+    public static final String MOD_ID = "rainbow_reef";
 
     public static ResourceLocation location(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);

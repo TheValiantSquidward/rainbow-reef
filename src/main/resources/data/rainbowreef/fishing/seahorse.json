@@ -1,8 +1,8 @@
 {
   "input": {
-    "item": "rainbowreef:seahorse"
+    "item": "rainbow_reef:seahorse"
   },
   "result": {
-    "id": "rainbowreef:seahorse"
+    "id": "rainbow_reef:seahorse"
   }
 }

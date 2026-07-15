@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/goby_mangrove",
+  "spawners": {
+    "type": "rainbow_reef:goby",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 15
+  }
+}

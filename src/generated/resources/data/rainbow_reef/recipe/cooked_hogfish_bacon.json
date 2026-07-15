@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "rainbow_reef:hogfish_bacon"
+  },
+  "result": {
+    "count": 1,
+    "id": "rainbow_reef:cooked_hogfish_bacon"
+  }
+}

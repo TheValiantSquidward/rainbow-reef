@@ -1,13 +1,13 @@
 {
   "values": [
-    "rainbowreef:shelf_coral_wall_fan",
-    "rainbowreef:barrel_coral_wall_fan",
-    "rainbowreef:hand_coral_wall_fan",
-    "rainbowreef:chimney_coral_wall_fan",
-    "rainbowreef:tower_coral_wall_fan",
-    "rainbowreef:rose_coral_wall_fan",
-    "rainbowreef:flower_coral_wall_fan",
-    "rainbowreef:ring_coral_wall_fan",
-    "rainbowreef:bush_coral_wall_fan"
+    "rainbow_reef:shelf_coral_wall_fan",
+    "rainbow_reef:barrel_coral_wall_fan",
+    "rainbow_reef:hand_coral_wall_fan",
+    "rainbow_reef:chimney_coral_wall_fan",
+    "rainbow_reef:tower_coral_wall_fan",
+    "rainbow_reef:rose_coral_wall_fan",
+    "rainbow_reef:flower_coral_wall_fan",
+    "rainbow_reef:ring_coral_wall_fan",
+    "rainbow_reef:bush_coral_wall_fan"
   ]
 }

@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "rainbow_reef:block/orange_sea_anemone",
+      "x": -90,
+      "y": -90
+    },
+    "facing=north": {
+      "model": "rainbow_reef:block/orange_sea_anemone",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "rainbow_reef:block/orange_sea_anemone",
+      "x": -90,
+      "z": 180
+    },
+    "facing=west": {
+      "model": "rainbow_reef:block/orange_sea_anemone",
+      "x": 90,
+      "y": -90
+    },
+    "facing=down": {
+      "model": "rainbow_reef:block/orange_sea_anemone",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "rainbow_reef:block/orange_sea_anemone",
+      "x": 0
+    }
+  }
+}

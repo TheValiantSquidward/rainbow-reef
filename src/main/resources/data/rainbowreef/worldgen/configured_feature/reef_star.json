@@ -1,5 +1,5 @@
 {
-  "type": "rainbowreef:reef_star",
+  "type": "rainbow_reef:reef_star",
   "config": {
     "count": 20,
     "search_range": 10,

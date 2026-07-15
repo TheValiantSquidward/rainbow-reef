@@ -1,5 +1,5 @@
 {
-  "feature": "rainbowreef:coralstone_rock",
+  "feature": "rainbow_reef:coralstone_rock",
   "placement": [
     {
       "type": "minecraft:noise_based_count",

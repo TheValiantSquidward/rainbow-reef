@@ -1,8 +1,8 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#rainbowreef:warm_oceans",
+  "biomes": "#rainbow_reef:warm_oceans",
   "features": [
-    "rainbowreef:coralstone_rock"
+    "rainbow_reef:coralstone_rock"
   ],
   "step": "underground_decoration"
 }

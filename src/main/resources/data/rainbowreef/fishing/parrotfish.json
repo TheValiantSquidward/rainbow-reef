@@ -1,8 +1,8 @@
 {
   "input": {
-    "item": "rainbowreef:parrotfish"
+    "item": "rainbow_reef:parrotfish"
   },
   "result": {
-    "id": "rainbowreef:parrotfish"
+    "id": "rainbow_reef:parrotfish"
   }
 }

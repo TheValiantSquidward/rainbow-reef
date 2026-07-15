@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/jellyfish",
+  "spawners": {
+    "type": "rainbow_reef:jellyfish",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 8
+  }
+}

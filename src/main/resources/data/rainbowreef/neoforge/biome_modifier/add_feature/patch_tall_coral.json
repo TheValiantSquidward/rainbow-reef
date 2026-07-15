@@ -1,8 +1,8 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "#rainbowreef:warm_oceans",
+  "biomes": "#rainbow_reef:warm_oceans",
   "features": [
-    "rainbowreef:patch_tall_coral"
+    "rainbow_reef:patch_tall_coral"
   ],
   "step": "vegetal_decoration"
 }

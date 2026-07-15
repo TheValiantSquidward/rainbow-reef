@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/boxfish",
+  "spawners": {
+    "type": "rainbow_reef:boxfish",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 20
+  }
+}

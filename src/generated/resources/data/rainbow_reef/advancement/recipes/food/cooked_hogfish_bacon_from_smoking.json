@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hogfish_bacon": {
+      "conditions": {
+        "items": [
+          {
+            "items": "rainbow_reef:hogfish_bacon"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "rainbow_reef:cooked_hogfish_bacon_from_smoking"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hogfish_bacon"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "rainbow_reef:cooked_hogfish_bacon_from_smoking"
+    ]
+  }
+}
