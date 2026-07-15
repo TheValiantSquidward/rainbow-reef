@@ -1,6 +1,13 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.*;
+import com.valiantenvoy.rainbow_reef.entity.base.DancingEntity;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.entity.utils.DancesToJukebox;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -21,14 +28,6 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
-import com.valiantenvoy.rainbow_reef.entity.base.DancingEntity;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
-import com.valiantenvoy.rainbow_reef.entity.utils.DancesToJukebox;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
-import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

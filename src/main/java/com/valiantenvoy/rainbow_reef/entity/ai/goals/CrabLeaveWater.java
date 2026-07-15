@@ -1,5 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
+import com.valiantenvoy.rainbow_reef.entity.utils.SemiAquatic;
+import com.valiantenvoy.rainbow_reef.utils.ReefBlockPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
@@ -7,8 +9,6 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.utils.SemiAquatic;
-import com.valiantenvoy.rainbow_reef.utils.ReefBlockPos;
 
 import java.util.EnumSet;
 

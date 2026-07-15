@@ -1,15 +1,15 @@
 package com.valiantenvoy.rainbow_reef.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.client.models.entity.ParrotfishModel;
+import com.valiantenvoy.rainbow_reef.entity.Parrotfish;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.client.models.entity.ParrotfishModel;
-import com.valiantenvoy.rainbow_reef.entity.Parrotfish;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)

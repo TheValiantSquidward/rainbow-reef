@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.items.*;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -13,8 +14,6 @@ import net.minecraft.world.item.*;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.items.*;
 
 import java.util.ArrayList;
 import java.util.List;

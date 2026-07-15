@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 
 public class ReefModelLayers {
 

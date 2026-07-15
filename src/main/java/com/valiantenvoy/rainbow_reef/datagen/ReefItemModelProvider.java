@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.datagen;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -8,7 +9,6 @@ import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
 
 import java.util.Objects;
 

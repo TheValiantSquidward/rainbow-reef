@@ -1,5 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
+import com.valiantenvoy.rainbow_reef.entity.Crab;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -15,8 +17,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.Crab;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 
 public class FishDigGoal extends Goal {
 

@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.blocks;
 
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,7 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import org.jetbrains.annotations.NotNull;
 
 public class JellyBlock extends Block {

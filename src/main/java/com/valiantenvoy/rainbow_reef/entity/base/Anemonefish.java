@@ -1,5 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
+import com.valiantenvoy.rainbow_reef.blocks.AnemoneBlock;
+import com.valiantenvoy.rainbow_reef.registry.ReefPoiTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,8 +16,6 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.blocks.AnemoneBlock;
-import com.valiantenvoy.rainbow_reef.registry.ReefPoiTypes;
 
 import java.util.Comparator;
 import java.util.List;

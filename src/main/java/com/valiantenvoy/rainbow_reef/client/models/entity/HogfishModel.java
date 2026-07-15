@@ -2,6 +2,8 @@ package com.valiantenvoy.rainbow_reef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.valiantenvoy.rainbow_reef.client.animations.HogfishAnimations;
+import com.valiantenvoy.rainbow_reef.entity.Hogfish;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -9,8 +11,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import com.valiantenvoy.rainbow_reef.client.animations.HogfishAnimations;
-import com.valiantenvoy.rainbow_reef.entity.Hogfish;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)

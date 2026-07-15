@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
-import net.minecraft.world.entity.ai.goal.Goal;
 import com.valiantenvoy.rainbow_reef.entity.base.Anemonefish;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 public class LocateAnemoneGoal extends Goal {
 

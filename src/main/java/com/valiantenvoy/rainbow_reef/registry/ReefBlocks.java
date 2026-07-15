@@ -1,6 +1,9 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.blocks.*;
+import com.valiantenvoy.rainbow_reef.items.BurrowBlockItem;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -11,10 +14,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.blocks.*;
-import com.valiantenvoy.rainbow_reef.items.BurrowBlockItem;
-import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 
 import java.util.ArrayList;
 import java.util.List;

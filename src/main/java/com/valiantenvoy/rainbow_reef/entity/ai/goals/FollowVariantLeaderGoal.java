@@ -1,8 +1,8 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
 import com.mojang.datafixers.DataFixUtils;
-import net.minecraft.world.entity.ai.goal.Goal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
+import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.List;
 import java.util.function.Predicate;

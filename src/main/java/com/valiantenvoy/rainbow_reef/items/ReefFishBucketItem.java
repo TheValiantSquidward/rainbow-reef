@@ -1,6 +1,8 @@
 package com.valiantenvoy.rainbow_reef.items;
 
 import com.valiantenvoy.rainbow_reef.entity.*;
+import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -15,9 +17,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.fml.ModList;
-import net.thevaliantsquidward.rainbowreef.entity.*;
-import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

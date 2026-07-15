@@ -1,8 +1,8 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
+import com.valiantenvoy.rainbow_reef.entity.base.Anemonefish;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.base.Anemonefish;
 
 public class RestInAnemoneGoal extends RandomStrollGoal {
 

@@ -1,5 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
+import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -35,8 +37,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
-import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;

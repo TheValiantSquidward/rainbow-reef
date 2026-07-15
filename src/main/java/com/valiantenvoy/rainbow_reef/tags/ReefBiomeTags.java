@@ -1,10 +1,10 @@
 package com.valiantenvoy.rainbow_reef.tags;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
 
 public class ReefBiomeTags {
 

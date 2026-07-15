@@ -1,11 +1,11 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.blocks.BurrowBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.blocks.BurrowBlockEntity;
 
 public class ReefBlockEntities {
 

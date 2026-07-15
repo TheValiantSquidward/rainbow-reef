@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
@@ -7,8 +8,6 @@ import net.minecraft.world.entity.MobCategory;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.entity.*;
 
 public class ReefEntities {
 

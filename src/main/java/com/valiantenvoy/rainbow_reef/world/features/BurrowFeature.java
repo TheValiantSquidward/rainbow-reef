@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.world.features;
 
 import com.mojang.serialization.Codec;
+import com.valiantenvoy.rainbow_reef.blocks.BurrowBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
@@ -10,7 +11,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
-import com.valiantenvoy.rainbow_reef.blocks.BurrowBlock;
 
 public class BurrowFeature extends Feature<BlockStateConfiguration> {
 

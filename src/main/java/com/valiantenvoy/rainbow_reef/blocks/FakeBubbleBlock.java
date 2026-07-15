@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.blocks;
 
+import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,7 +29,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

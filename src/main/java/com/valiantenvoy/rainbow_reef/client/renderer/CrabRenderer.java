@@ -1,12 +1,12 @@
 package com.valiantenvoy.rainbow_reef.client.renderer;
 
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.resources.ResourceLocation;
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.client.models.entity.CrabModel;
 import com.valiantenvoy.rainbow_reef.entity.Crab;
 import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class CrabRenderer extends MobRenderer<Crab, CrabModel> {

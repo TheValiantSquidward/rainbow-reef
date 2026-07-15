@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
+import com.valiantenvoy.rainbow_reef.entity.utils.DancesToJukebox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.*;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.utils.DancesToJukebox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

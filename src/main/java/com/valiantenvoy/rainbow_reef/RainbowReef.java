@@ -13,8 +13,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.thevaliantsquidward.rainbowreef.datagen.*;
-import net.thevaliantsquidward.rainbowreef.registry.*;
 
 import java.util.List;
 import java.util.Locale;

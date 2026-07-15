@@ -1,13 +1,12 @@
 package com.valiantenvoy.rainbow_reef.items;
 
+import com.valiantenvoy.rainbow_reef.registry.ReefDamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import com.valiantenvoy.rainbow_reef.registry.ReefDamageTypes;
 import org.jetbrains.annotations.NotNull;
-
 
 import java.util.Random;
 

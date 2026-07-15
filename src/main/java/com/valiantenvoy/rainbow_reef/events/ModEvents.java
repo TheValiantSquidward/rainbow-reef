@@ -1,6 +1,10 @@
 package com.valiantenvoy.rainbow_reef.events;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.*;
+import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -16,11 +20,6 @@ import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.entity.*;
-import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 
 import java.util.List;
 

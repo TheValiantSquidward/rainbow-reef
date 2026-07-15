@@ -1,5 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
+import com.valiantenvoy.rainbow_reef.blocks.BurrowBlockEntity;
+import com.valiantenvoy.rainbow_reef.registry.ReefPoiTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -9,8 +11,6 @@ import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.blocks.BurrowBlockEntity;
-import com.valiantenvoy.rainbow_reef.registry.ReefPoiTypes;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;

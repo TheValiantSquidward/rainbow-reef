@@ -1,12 +1,12 @@
 package com.valiantenvoy.rainbow_reef.tags;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
 
 public final class ReefTags {
     public static final TagKey<Block> CONSIDERED_NEMS = registerBlockTag("considered_nems");

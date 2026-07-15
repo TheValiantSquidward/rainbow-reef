@@ -1,6 +1,11 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefSwimmingMoveControl;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.tags.TagKey;
@@ -22,11 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefSwimmingMoveControl;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;

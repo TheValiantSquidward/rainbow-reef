@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -8,7 +9,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.JumpGoal;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 
 public class FishLeapGoal extends JumpGoal {
 

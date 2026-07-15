@@ -1,6 +1,10 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.base.JellyfishMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -31,10 +35,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
-import com.valiantenvoy.rainbow_reef.entity.base.JellyfishMob;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;

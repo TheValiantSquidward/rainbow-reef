@@ -1,7 +1,13 @@
 package com.valiantenvoy.rainbow_reef.events;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.client.models.entity.*;
 import com.valiantenvoy.rainbow_reef.client.renderer.*;
+import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer;
+import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
+import com.valiantenvoy.rainbow_reef.registry.ReefItemProperties;
+import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -9,14 +15,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.client.models.entity.*;
-import net.thevaliantsquidward.rainbowreef.client.renderer.*;
-import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer;
-import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
-import com.valiantenvoy.rainbow_reef.registry.ReefItemProperties;
-import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
 
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = RainbowReef.MOD_ID, value = Dist.CLIENT)

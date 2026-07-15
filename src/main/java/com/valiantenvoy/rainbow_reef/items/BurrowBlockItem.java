@@ -1,5 +1,10 @@
 package com.valiantenvoy.rainbow_reef.items;
 
+import com.valiantenvoy.rainbow_reef.entity.Basslet;
+import com.valiantenvoy.rainbow_reef.entity.Crab;
+import com.valiantenvoy.rainbow_reef.entity.Goby;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -14,11 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.Block;
-import com.valiantenvoy.rainbow_reef.entity.Basslet;
-import com.valiantenvoy.rainbow_reef.entity.Crab;
-import com.valiantenvoy.rainbow_reef.entity.Goby;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

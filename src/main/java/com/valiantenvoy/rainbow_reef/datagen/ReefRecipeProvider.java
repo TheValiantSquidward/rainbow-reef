@@ -1,5 +1,7 @@
 package com.valiantenvoy.rainbow_reef.datagen;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.tags.ReefItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -13,15 +15,13 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.tags.ReefItemTags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.minecraft.data.recipes.RecipeCategory.FOOD;
 import static com.valiantenvoy.rainbow_reef.registry.ReefBlocks.ANGELFISH_CAKE;
 import static com.valiantenvoy.rainbow_reef.registry.ReefItems.*;
+import static net.minecraft.data.recipes.RecipeCategory.FOOD;
 
 public class ReefRecipeProvider extends RecipeProvider implements IConditionBuilder {
 

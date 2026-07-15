@@ -1,5 +1,8 @@
 package com.valiantenvoy.rainbow_reef.datagen;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
+import com.valiantenvoy.rainbow_reef.tags.ReefBiomeTags;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -14,9 +17,6 @@ import net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifi
 import net.neoforged.neoforge.common.world.BiomeModifiers.AddSpawnsBiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers.RemoveFeaturesBiomeModifier;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
-import com.valiantenvoy.rainbow_reef.tags.ReefBiomeTags;
 
 import java.util.List;
 import java.util.Set;

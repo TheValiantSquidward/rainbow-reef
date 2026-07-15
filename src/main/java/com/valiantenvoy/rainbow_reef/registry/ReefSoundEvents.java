@@ -1,10 +1,10 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
 
 public class ReefSoundEvents {
 

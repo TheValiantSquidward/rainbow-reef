@@ -1,8 +1,8 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
+import com.valiantenvoy.rainbow_reef.entity.Crab;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import com.valiantenvoy.rainbow_reef.entity.Crab;
 
 public class ConditionalStopGoal extends Goal {
     private PathfinderMob creatura;

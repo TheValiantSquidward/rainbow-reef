@@ -1,6 +1,12 @@
 package com.valiantenvoy.rainbow_reef.datagen;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.RainbowReefTab;
 import com.valiantenvoy.rainbow_reef.entity.*;
+import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -10,13 +16,6 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.RainbowReefTab;
-import net.thevaliantsquidward.rainbowreef.entity.*;
-import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import org.apache.commons.lang3.text.WordUtils;
 import org.jetbrains.annotations.NotNull;
 

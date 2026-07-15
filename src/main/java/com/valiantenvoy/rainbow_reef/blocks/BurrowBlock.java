@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.blocks;
 
+import com.valiantenvoy.rainbow_reef.registry.ReefBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -16,7 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import com.valiantenvoy.rainbow_reef.registry.ReefBlockEntities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

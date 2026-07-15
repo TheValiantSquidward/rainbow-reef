@@ -1,12 +1,12 @@
 package com.valiantenvoy.rainbow_reef.registry;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.items.ReefFishBucketItem;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.items.ReefFishBucketItem;
 
 public class ReefItemProperties {
 

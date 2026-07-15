@@ -1,5 +1,12 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.ConditionalStopGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.CrabBottomWander;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.CrabFindWater;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.CrabLeaveWater;
+import com.valiantenvoy.rainbow_reef.entity.base.DancingEntity;
+import com.valiantenvoy.rainbow_reef.entity.utils.DancesToJukebox;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.RandomSource;
@@ -16,13 +23,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.pathfinder.PathType;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.ConditionalStopGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CrabBottomWander;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CrabFindWater;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CrabLeaveWater;
-import com.valiantenvoy.rainbow_reef.entity.base.DancingEntity;
-import com.valiantenvoy.rainbow_reef.entity.utils.DancesToJukebox;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -2,6 +2,9 @@ package com.valiantenvoy.rainbow_reef.client.renderer.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -15,9 +18,6 @@ import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
-import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)

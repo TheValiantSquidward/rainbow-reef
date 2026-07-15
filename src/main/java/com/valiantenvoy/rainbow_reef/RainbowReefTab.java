@@ -1,6 +1,9 @@
 package com.valiantenvoy.rainbow_reef;
 
 import com.valiantenvoy.rainbow_reef.entity.*;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -12,10 +15,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.thevaliantsquidward.rainbowreef.entity.*;
-import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
-import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -2,16 +2,16 @@ package com.valiantenvoy.rainbow_reef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.client.models.entity.SharkModel;
+import com.valiantenvoy.rainbow_reef.entity.Shark;
+import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.client.models.entity.SharkModel;
-import com.valiantenvoy.rainbow_reef.entity.Shark;
-import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
