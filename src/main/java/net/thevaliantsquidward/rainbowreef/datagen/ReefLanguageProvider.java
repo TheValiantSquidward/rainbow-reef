@@ -1,5 +1,6 @@
 package net.thevaliantsquidward.rainbowreef.datagen;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -8,7 +9,6 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.RainbowReefTab;
 import net.thevaliantsquidward.rainbowreef.entity.*;
@@ -34,8 +34,8 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addTab(RainbowReefTab.RAINBOW_REEF_TAB.get(), "Rainbow Reef");
         this.addTab(RainbowReefTab.RAINBOW_REEF_VARIANTS_TAB.get(), "Rainbow Reef Variants");
 
-        ReefBlocks.AUTO_TRANSLATE.forEach(this::forBlocks);
-        ReefItems.AUTO_TRANSLATE.forEach(this::forItems);
+        ReefBlocks.BLOCK_TRANSLATIONS.forEach(this::forBlocks);
+        ReefItems.ITEM_TRANSLATIONS.forEach(this::forItems);
         ReefEntities.ENTITY_TYPES.getEntries().forEach(this::forEntity);
 
         this.addVariantTooltips();

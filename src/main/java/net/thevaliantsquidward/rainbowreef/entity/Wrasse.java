@@ -24,13 +24,13 @@ import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwi
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.COMMON;
 
 public class Wrasse extends ReefMob {
 

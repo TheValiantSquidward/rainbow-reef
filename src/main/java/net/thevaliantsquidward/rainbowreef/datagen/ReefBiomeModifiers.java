@@ -16,7 +16,7 @@ import net.neoforged.neoforge.common.world.BiomeModifiers.RemoveFeaturesBiomeMod
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBiomeTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefBiomeTags;
 
 import java.util.List;
 import java.util.Set;

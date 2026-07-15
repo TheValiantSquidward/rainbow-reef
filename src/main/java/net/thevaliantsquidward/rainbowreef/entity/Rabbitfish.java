@@ -24,7 +24,7 @@ import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwi
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;

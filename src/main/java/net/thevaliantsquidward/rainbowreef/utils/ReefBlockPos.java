@@ -3,6 +3,7 @@ package net.thevaliantsquidward.rainbowreef.utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 
+@Deprecated(forRemoval = true)
 public class ReefBlockPos {
 
     public static BlockPos fromCoords(double x, double y, double z){

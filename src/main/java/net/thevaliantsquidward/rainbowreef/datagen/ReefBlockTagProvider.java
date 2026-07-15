@@ -6,10 +6,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.thevaliantsquidward.rainbowreef.blocks.BurrowBlock;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
+import net.thevaliantsquidward.rainbowreef.blocks.BurrowBlock;
+import net.thevaliantsquidward.rainbowreef.tags.ReefBlockTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

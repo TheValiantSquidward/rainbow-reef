@@ -20,20 +20,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FishDigGoal;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.FollowVariantLeaderGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.VariantSchoolingFish;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
 import net.thevaliantsquidward.rainbowreef.registry.ReefEntities;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.*;
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.ABERRANT;
+import static net.thevaliantsquidward.rainbowreef.entity.base.ReefMob.ReefRarities.COMMON;
 
 public class MoorishIdol extends VariantSchoolingFish {
 

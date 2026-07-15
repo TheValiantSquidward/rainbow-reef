@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.entity.interfaces;
+package net.thevaliantsquidward.rainbowreef.entity.utils;
 
 import net.minecraft.core.BlockPos;
 

@@ -6,7 +6,7 @@
     "north": "minecraft:block/sand",
     "particle": "minecraft:block/sand",
     "south": "minecraft:block/sand",
-    "up": "rainbowreef:block/bubbler_sand",
+    "up": "rainbowreef:block/bubbler",
     "west": "minecraft:block/sand"
   }
 }

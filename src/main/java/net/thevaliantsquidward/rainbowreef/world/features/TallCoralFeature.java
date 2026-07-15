@@ -16,7 +16,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.thevaliantsquidward.rainbowreef.blocks.TallCoralBlock;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefBlockTags;
 
 import java.util.Optional;
 

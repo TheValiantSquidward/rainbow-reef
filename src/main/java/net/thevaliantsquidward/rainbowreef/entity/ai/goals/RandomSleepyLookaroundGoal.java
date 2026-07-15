@@ -1,9 +1,10 @@
 package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
-import java.util.EnumSet;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
+
+import java.util.EnumSet;
 
 public class RandomSleepyLookaroundGoal extends Goal {
     private final Mob mob;

@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.thevaliantsquidward.rainbowreef.blocks.AnemoneBlock;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefTags;
 
 import java.util.Optional;
 

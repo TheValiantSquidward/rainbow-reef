@@ -7,7 +7,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.SemiAquatic;
+import net.thevaliantsquidward.rainbowreef.entity.utils.SemiAquatic;
 import net.thevaliantsquidward.rainbowreef.utils.ReefBlockPos;
 
 import java.util.EnumSet;

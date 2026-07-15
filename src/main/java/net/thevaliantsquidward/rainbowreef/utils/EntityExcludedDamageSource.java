@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
+@Deprecated(forRemoval = true)
 public class EntityExcludedDamageSource extends DamageSource {
     protected final List<EntityType<?>> entities;
 

@@ -11,10 +11,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.MultifaceBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.MultifaceGrowthConfiguration;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefTags;
 
 import java.util.Iterator;
 import java.util.List;

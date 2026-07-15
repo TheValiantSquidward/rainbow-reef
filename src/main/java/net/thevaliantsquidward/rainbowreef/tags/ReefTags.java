@@ -1,4 +1,4 @@
-package net.thevaliantsquidward.rainbowreef.registry.tags;
+package net.thevaliantsquidward.rainbowreef.tags;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;

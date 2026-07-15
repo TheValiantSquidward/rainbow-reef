@@ -1,12 +1,12 @@
 package net.thevaliantsquidward.rainbowreef.registry;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 
 import java.util.Set;

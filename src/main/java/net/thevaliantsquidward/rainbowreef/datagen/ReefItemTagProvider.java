@@ -7,13 +7,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefItemTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefItemTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
 
-import static net.thevaliantsquidward.rainbowreef.registry.ReefItems.*;
+import static net.thevaliantsquidward.rainbowreef.registry.ReefItems.RAW_ARROW_CRAB;
+import static net.thevaliantsquidward.rainbowreef.registry.ReefItems.RAW_CRAB;
 
 public class ReefItemTagProvider extends ItemTagsProvider {
 

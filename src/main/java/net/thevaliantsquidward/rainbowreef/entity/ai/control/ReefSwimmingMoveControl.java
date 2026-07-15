@@ -14,6 +14,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+@Deprecated
 public class ReefSwimmingMoveControl extends MoveControl {
 
 	private final int maxTurnX;

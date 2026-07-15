@@ -22,10 +22,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.CustomizableRandomSwimGoal;
+import net.thevaliantsquidward.rainbowreef.entity.ai.goals.EnterBurrowGoal;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefBlockTags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;

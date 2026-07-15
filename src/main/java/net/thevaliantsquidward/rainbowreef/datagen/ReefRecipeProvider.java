@@ -9,15 +9,18 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.conditions.*;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
+import net.neoforged.neoforge.common.conditions.NotCondition;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefItemTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefItemTags;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.minecraft.data.recipes.RecipeCategory.*;
-import static net.thevaliantsquidward.rainbowreef.registry.ReefBlocks.*;
+import static net.minecraft.data.recipes.RecipeCategory.FOOD;
+import static net.thevaliantsquidward.rainbowreef.registry.ReefBlocks.ANGELFISH_CAKE;
 import static net.thevaliantsquidward.rainbowreef.registry.ReefItems.*;
 
 public class ReefRecipeProvider extends RecipeProvider implements IConditionBuilder {

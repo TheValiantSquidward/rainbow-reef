@@ -1,9 +1,10 @@
 package net.thevaliantsquidward.rainbowreef.entity.ai.goals;
 
-import javax.annotation.Nullable;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.BehaviorUtils;
 import net.minecraft.world.phys.Vec3;
+
+import javax.annotation.Nullable;
 
 public class RandomSleepySwimGoal extends RandomSleepyWanderGoal {
 

@@ -23,11 +23,11 @@ import net.minecraft.world.phys.Vec3;
 import net.thevaliantsquidward.rainbowreef.entity.ai.goals.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.DancingEntity;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
-import net.thevaliantsquidward.rainbowreef.entity.interfaces.DancesToJukebox;
+import net.thevaliantsquidward.rainbowreef.entity.utils.DancesToJukebox;
 import net.thevaliantsquidward.rainbowreef.registry.ReefItems;
 import net.thevaliantsquidward.rainbowreef.registry.ReefSoundEvents;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefBlockTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefTags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

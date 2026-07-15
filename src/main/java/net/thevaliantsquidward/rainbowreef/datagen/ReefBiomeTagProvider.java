@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
-import static net.thevaliantsquidward.rainbowreef.registry.tags.ReefBiomeTags.*;
+import static net.thevaliantsquidward.rainbowreef.tags.ReefBiomeTags.*;
 
 public class ReefBiomeTagProvider extends BiomeTagsProvider {
 

@@ -8,193 +8,185 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.thevaliantsquidward.rainbowreef.RainbowReef;
 import net.thevaliantsquidward.rainbowreef.blocks.*;
 import net.thevaliantsquidward.rainbowreef.items.BurrowBlockItem;
-import net.thevaliantsquidward.rainbowreef.registry.tags.ReefBlockTags;
+import net.thevaliantsquidward.rainbowreef.tags.ReefBlockTags;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class ReefBlocks {
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(BuiltInRegistries.BLOCK, RainbowReef.MOD_ID);
-    public static final List<DeferredHolder<Block, ? extends Block>> AUTO_TRANSLATE = new ArrayList<>();
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(RainbowReef.MOD_ID);
+    public static final List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
-    public static final DeferredHolder<Block, Block> CORALSTONE = registerBlock("coralstone",
+    public static final DeferredBlock<Block> CORALSTONE = registerBlock("coralstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredHolder<Block, Block> JELLY_BLOCK = registerBlock("jelly_block",
+    public static final DeferredBlock<Block> JELLY_BLOCK = registerBlock("jelly_block",
             () -> new JellyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK).friction(0.5F).noOcclusion()));
 
-    public static final DeferredHolder<Block, Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks",
+    public static final DeferredBlock<Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredHolder<Block, Block> POLISHED_CORALSTONE = registerBlock("polished_coralstone",
+    public static final DeferredBlock<Block> POLISHED_CORALSTONE = registerBlock("polished_coralstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredHolder<Block, Block> CHISELED_CORALSTONE = registerBlock("chiseled_coralstone",
+    public static final DeferredBlock<Block> CHISELED_CORALSTONE = registerBlock("chiseled_coralstone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredHolder<Block, Block> BUBBLER = registerBlock("bubbler",
+    public static final DeferredBlock<Block> BUBBLER = registerBlock("bubbler",
             () -> new BubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
-    public static final DeferredHolder<Block, Block> RED_SAND_BUBBLER = registerBlock("red_sand_bubbler",
-            () -> new RedSandBubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.RED_SAND).mapColor(MapColor.TERRACOTTA_ORANGE).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
-
     // burrows
-    public static final DeferredHolder<Block, Block> MUD_BURROW = registerBurrow("mud_burrow",
+    public static final DeferredBlock<Block> MUD_BURROW = registerBurrow("mud_burrow",
             () -> new BurrowBlock(true, ReefBlockTags.BURROWABLE_MUD, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
-    public static final DeferredHolder<Block, Block> SAND_BURROW = registerBurrow("sand_burrow",
+    public static final DeferredBlock<Block> SAND_BURROW = registerBurrow("sand_burrow",
             () -> new BurrowBlock(true, BlockTags.SAND, BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
-    public static final DeferredHolder<Block, Block> STONE_BURROW = registerBurrow("stone_burrow",
+    public static final DeferredBlock<Block> STONE_BURROW = registerBurrow("stone_burrow",
             () -> new BurrowBlock(false, BlockTags.BASE_STONE_OVERWORLD, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
-    public static final DeferredHolder<Block, Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow",
+    public static final DeferredBlock<Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow",
             () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL = registerBlock("dead_shelf_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_SHELF_CORAL = registerBlock("dead_tall_shelf_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL_WALL_FAN = registerBlockWithoutItem("dead_shelf_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_SHELF_CORAL_FAN = registerBlockWithoutItem("dead_shelf_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_SHELF_CORAL = registerBlock("dead_shelf_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_SHELF_CORAL = registerBlock("dead_tall_shelf_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_SHELF_CORAL_WALL_FAN = registerBlockWithoutItem("dead_shelf_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_SHELF_CORAL_FAN = registerBlockWithoutItem("dead_shelf_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> SHELF_CORAL_BLOCK = registerBlock("shelf_coral_block", () -> new CoralBlock(DEAD_SHELF_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_LIGHT_GREEN)));
-    public static final DeferredHolder<Block, Block> SHELF_CORAL = registerBlock("shelf_coral", () -> new CoralPlantBlock(DEAD_SHELF_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
-    public static final DeferredHolder<Block, Block> TALL_SHELF_CORAL = registerBlock("tall_shelf_coral", () -> new TallCoralBlock(DEAD_TALL_SHELF_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
-    public static final DeferredHolder<Block, Block> SHELF_CORAL_WALL_FAN = registerBlockWithoutItem("shelf_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_SHELF_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
-    public static final DeferredHolder<Block, Block> SHELF_CORAL_FAN = registerBlockWithoutItem("shelf_coral_fan", () -> new CoralFanBlock(DEAD_SHELF_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
+    public static final DeferredBlock<Block> SHELF_CORAL_BLOCK = registerBlock("shelf_coral_block", () -> new CoralBlock(DEAD_SHELF_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_LIGHT_GREEN)));
+    public static final DeferredBlock<Block> SHELF_CORAL = registerBlock("shelf_coral", () -> new CoralPlantBlock(DEAD_SHELF_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
+    public static final DeferredBlock<Block> TALL_SHELF_CORAL = registerBlock("tall_shelf_coral", () -> new TallCoralBlock(DEAD_TALL_SHELF_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
+    public static final DeferredBlock<Block> SHELF_CORAL_WALL_FAN = registerBlockWithoutItem("shelf_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_SHELF_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
+    public static final DeferredBlock<Block> SHELF_CORAL_FAN = registerBlockWithoutItem("shelf_coral_fan", () -> new CoralFanBlock(DEAD_SHELF_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_GREEN)));
 
     // barrel coral
-    public static final DeferredHolder<Block, Block> DEAD_BARREL_CORAL_BLOCK = registerBlock("dead_barrel_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_BARREL_CORAL = registerBlock("dead_barrel_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_BARREL_CORAL = registerBlock("dead_tall_barrel_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_BARREL_CORAL_WALL_FAN = registerBlockWithoutItem("dead_barrel_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_BARREL_CORAL_FAN = registerBlockWithoutItem("dead_barrel_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_BARREL_CORAL_BLOCK = registerBlock("dead_barrel_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_BARREL_CORAL = registerBlock("dead_barrel_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_BARREL_CORAL = registerBlock("dead_tall_barrel_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_BARREL_CORAL_WALL_FAN = registerBlockWithoutItem("dead_barrel_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_BARREL_CORAL_FAN = registerBlockWithoutItem("dead_barrel_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> BARREL_CORAL_BLOCK = registerBlock("barrel_coral_block", () -> new CoralBlock(DEAD_BARREL_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> BARREL_CORAL = registerBlock("barrel_coral", () -> new CoralPlantBlock(DEAD_BARREL_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> TALL_BARREL_CORAL = registerBlock("tall_barrel_coral", () -> new TallCoralBlock(DEAD_TALL_BARREL_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> BARREL_CORAL_WALL_FAN = registerBlockWithoutItem("barrel_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_BARREL_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> BARREL_CORAL_FAN = registerBlockWithoutItem("barrel_coral_fan", () -> new CoralFanBlock(DEAD_BARREL_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> BARREL_CORAL_BLOCK = registerBlock("barrel_coral_block", () -> new CoralBlock(DEAD_BARREL_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> BARREL_CORAL = registerBlock("barrel_coral", () -> new CoralPlantBlock(DEAD_BARREL_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> TALL_BARREL_CORAL = registerBlock("tall_barrel_coral", () -> new TallCoralBlock(DEAD_TALL_BARREL_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> BARREL_CORAL_WALL_FAN = registerBlockWithoutItem("barrel_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_BARREL_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> BARREL_CORAL_FAN = registerBlockWithoutItem("barrel_coral_fan", () -> new CoralFanBlock(DEAD_BARREL_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
 
     // hand coral
-    public static final DeferredHolder<Block, Block> DEAD_HAND_CORAL_BLOCK = registerBlock("dead_hand_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_HAND_CORAL = registerBlock("dead_hand_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_HAND_CORAL = registerBlock("dead_tall_hand_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_HAND_CORAL_WALL_FAN = registerBlockWithoutItem("dead_hand_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_HAND_CORAL_FAN = registerBlockWithoutItem("dead_hand_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_HAND_CORAL_BLOCK = registerBlock("dead_hand_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_HAND_CORAL = registerBlock("dead_hand_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_HAND_CORAL = registerBlock("dead_tall_hand_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_HAND_CORAL_WALL_FAN = registerBlockWithoutItem("dead_hand_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_HAND_CORAL_FAN = registerBlockWithoutItem("dead_hand_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> HAND_CORAL_BLOCK = registerBlock("hand_coral_block", () -> new CoralBlock(DEAD_HAND_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_ORANGE)));
-    public static final DeferredHolder<Block, Block> HAND_CORAL = registerBlock("hand_coral", () -> new CoralPlantBlock(DEAD_HAND_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
-    public static final DeferredHolder<Block, Block> TALL_HAND_CORAL = registerBlock("tall_hand_coral", () -> new TallCoralBlock(DEAD_TALL_HAND_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
-    public static final DeferredHolder<Block, Block> HAND_CORAL_WALL_FAN = registerBlockWithoutItem("hand_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_HAND_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
-    public static final DeferredHolder<Block, Block> HAND_CORAL_FAN = registerBlockWithoutItem("hand_coral_fan", () -> new CoralFanBlock(DEAD_HAND_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
+    public static final DeferredBlock<Block> HAND_CORAL_BLOCK = registerBlock("hand_coral_block", () -> new CoralBlock(DEAD_HAND_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_ORANGE)));
+    public static final DeferredBlock<Block> HAND_CORAL = registerBlock("hand_coral", () -> new CoralPlantBlock(DEAD_HAND_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
+    public static final DeferredBlock<Block> TALL_HAND_CORAL = registerBlock("tall_hand_coral", () -> new TallCoralBlock(DEAD_TALL_HAND_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
+    public static final DeferredBlock<Block> HAND_CORAL_WALL_FAN = registerBlockWithoutItem("hand_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_HAND_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
+    public static final DeferredBlock<Block> HAND_CORAL_FAN = registerBlockWithoutItem("hand_coral_fan", () -> new CoralFanBlock(DEAD_HAND_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_ORANGE)));
 
     // chimney coral
-    public static final DeferredHolder<Block, Block> DEAD_CHIMNEY_CORAL_BLOCK = registerBlock("dead_chimney_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_CHIMNEY_CORAL = registerBlock("dead_chimney_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_CHIMNEY_CORAL = registerBlock("dead_tall_chimney_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_CHIMNEY_CORAL_WALL_FAN = registerBlockWithoutItem("dead_chimney_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_CHIMNEY_CORAL_FAN = registerBlockWithoutItem("dead_chimney_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_CHIMNEY_CORAL_BLOCK = registerBlock("dead_chimney_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_CHIMNEY_CORAL = registerBlock("dead_chimney_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_CHIMNEY_CORAL = registerBlock("dead_tall_chimney_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_CHIMNEY_CORAL_WALL_FAN = registerBlockWithoutItem("dead_chimney_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_CHIMNEY_CORAL_FAN = registerBlockWithoutItem("dead_chimney_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> CHIMNEY_CORAL_BLOCK = registerBlock("chimney_coral_block", () -> new CoralBlock(DEAD_CHIMNEY_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_BLACK)));
-    public static final DeferredHolder<Block, Block> CHIMNEY_CORAL = registerBlock("chimney_coral", () -> new CoralPlantBlock(DEAD_CHIMNEY_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
-    public static final DeferredHolder<Block, Block> TALL_CHIMNEY_CORAL = registerBlock("tall_chimney_coral", () -> new TallCoralBlock(DEAD_TALL_CHIMNEY_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
-    public static final DeferredHolder<Block, Block> CHIMNEY_CORAL_WALL_FAN = registerBlockWithoutItem("chimney_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_CHIMNEY_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
-    public static final DeferredHolder<Block, Block> CHIMNEY_CORAL_FAN = registerBlockWithoutItem("chimney_coral_fan", () -> new CoralFanBlock(DEAD_CHIMNEY_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
+    public static final DeferredBlock<Block> CHIMNEY_CORAL_BLOCK = registerBlock("chimney_coral_block", () -> new CoralBlock(DEAD_CHIMNEY_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_BLACK)));
+    public static final DeferredBlock<Block> CHIMNEY_CORAL = registerBlock("chimney_coral", () -> new CoralPlantBlock(DEAD_CHIMNEY_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
+    public static final DeferredBlock<Block> TALL_CHIMNEY_CORAL = registerBlock("tall_chimney_coral", () -> new TallCoralBlock(DEAD_TALL_CHIMNEY_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
+    public static final DeferredBlock<Block> CHIMNEY_CORAL_WALL_FAN = registerBlockWithoutItem("chimney_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_CHIMNEY_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
+    public static final DeferredBlock<Block> CHIMNEY_CORAL_FAN = registerBlockWithoutItem("chimney_coral_fan", () -> new CoralFanBlock(DEAD_CHIMNEY_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_BLACK)));
 
     // tower coral
-    public static final DeferredHolder<Block, Block> DEAD_TOWER_CORAL_BLOCK = registerBlock("dead_tower_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_TOWER_CORAL = registerBlock("dead_tower_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_TOWER_CORAL = registerBlock("dead_tall_tower_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TOWER_CORAL_WALL_FAN = registerBlockWithoutItem("dead_tower_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TOWER_CORAL_FAN = registerBlockWithoutItem("dead_tower_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TOWER_CORAL_BLOCK = registerBlock("dead_tower_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_TOWER_CORAL = registerBlock("dead_tower_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_TOWER_CORAL = registerBlock("dead_tall_tower_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TOWER_CORAL_WALL_FAN = registerBlockWithoutItem("dead_tower_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TOWER_CORAL_FAN = registerBlockWithoutItem("dead_tower_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> TOWER_CORAL_BLOCK = registerBlock("tower_coral_block", () -> new CoralBlock(DEAD_TOWER_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> TOWER_CORAL = registerBlock("tower_coral", () -> new CoralPlantBlock(DEAD_TOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> TALL_TOWER_CORAL = registerBlock("tall_tower_coral", () -> new TallCoralBlock(DEAD_TALL_TOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> TOWER_CORAL_WALL_FAN = registerBlockWithoutItem("tower_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_TOWER_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> TOWER_CORAL_FAN = registerBlockWithoutItem("tower_coral_fan", () -> new CoralFanBlock(DEAD_TOWER_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> TOWER_CORAL_BLOCK = registerBlock("tower_coral_block", () -> new CoralBlock(DEAD_TOWER_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> TOWER_CORAL = registerBlock("tower_coral", () -> new CoralPlantBlock(DEAD_TOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> TALL_TOWER_CORAL = registerBlock("tall_tower_coral", () -> new TallCoralBlock(DEAD_TALL_TOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> TOWER_CORAL_WALL_FAN = registerBlockWithoutItem("tower_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_TOWER_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> TOWER_CORAL_FAN = registerBlockWithoutItem("tower_coral_fan", () -> new CoralFanBlock(DEAD_TOWER_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
 
     // rose coral
-    public static final DeferredHolder<Block, Block> DEAD_ROSE_CORAL_BLOCK = registerBlock("dead_rose_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_ROSE_CORAL = registerBlock("dead_rose_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_ROSE_CORAL = registerBlock("dead_tall_rose_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_ROSE_CORAL_WALL_FAN = registerBlockWithoutItem("dead_rose_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_ROSE_CORAL_FAN = registerBlockWithoutItem("dead_rose_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_ROSE_CORAL_BLOCK = registerBlock("dead_rose_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_ROSE_CORAL = registerBlock("dead_rose_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_ROSE_CORAL = registerBlock("dead_tall_rose_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_ROSE_CORAL_WALL_FAN = registerBlockWithoutItem("dead_rose_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_ROSE_CORAL_FAN = registerBlockWithoutItem("dead_rose_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> ROSE_CORAL_BLOCK = registerBlock("rose_coral_block", () -> new CoralBlock(DEAD_ROSE_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_RED)));
-    public static final DeferredHolder<Block, Block> ROSE_CORAL = registerBlock("rose_coral", () -> new CoralPlantBlock(DEAD_ROSE_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
-    public static final DeferredHolder<Block, Block> TALL_ROSE_CORAL = registerBlock("tall_rose_coral", () -> new TallCoralBlock(DEAD_TALL_ROSE_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
-    public static final DeferredHolder<Block, Block> ROSE_CORAL_WALL_FAN = registerBlockWithoutItem("rose_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_ROSE_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
-    public static final DeferredHolder<Block, Block> ROSE_CORAL_FAN = registerBlockWithoutItem("rose_coral_fan", () -> new CoralFanBlock(DEAD_ROSE_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> ROSE_CORAL_BLOCK = registerBlock("rose_coral_block", () -> new CoralBlock(DEAD_ROSE_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> ROSE_CORAL = registerBlock("rose_coral", () -> new CoralPlantBlock(DEAD_ROSE_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> TALL_ROSE_CORAL = registerBlock("tall_rose_coral", () -> new TallCoralBlock(DEAD_TALL_ROSE_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> ROSE_CORAL_WALL_FAN = registerBlockWithoutItem("rose_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_ROSE_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> ROSE_CORAL_FAN = registerBlockWithoutItem("rose_coral_fan", () -> new CoralFanBlock(DEAD_ROSE_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_RED)));
 
     // flower coral
-    public static final DeferredHolder<Block, Block> DEAD_FLOWER_CORAL_BLOCK = registerBlock("dead_flower_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_FLOWER_CORAL = registerBlock("dead_flower_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_FLOWER_CORAL = registerBlock("dead_tall_flower_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_FLOWER_CORAL_WALL_FAN = registerBlockWithoutItem("dead_flower_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_FLOWER_CORAL_FAN = registerBlockWithoutItem("dead_flower_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_FLOWER_CORAL_BLOCK = registerBlock("dead_flower_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_FLOWER_CORAL = registerBlock("dead_flower_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_FLOWER_CORAL = registerBlock("dead_tall_flower_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_FLOWER_CORAL_WALL_FAN = registerBlockWithoutItem("dead_flower_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_FLOWER_CORAL_FAN = registerBlockWithoutItem("dead_flower_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> FLOWER_CORAL_BLOCK = registerBlock("flower_coral_block", () -> new CoralBlock(DEAD_FLOWER_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_YELLOW)));
-    public static final DeferredHolder<Block, Block> FLOWER_CORAL = registerBlock("flower_coral", () -> new CoralPlantBlock(DEAD_FLOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
-    public static final DeferredHolder<Block, Block> TALL_FLOWER_CORAL = registerBlock("tall_flower_coral", () -> new TallCoralBlock(DEAD_TALL_FLOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
-    public static final DeferredHolder<Block, Block> FLOWER_CORAL_WALL_FAN = registerBlockWithoutItem("flower_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_FLOWER_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
-    public static final DeferredHolder<Block, Block> FLOWER_CORAL_FAN = registerBlockWithoutItem("flower_coral_fan", () -> new CoralFanBlock(DEAD_FLOWER_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
+    public static final DeferredBlock<Block> FLOWER_CORAL_BLOCK = registerBlock("flower_coral_block", () -> new CoralBlock(DEAD_FLOWER_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_YELLOW)));
+    public static final DeferredBlock<Block> FLOWER_CORAL = registerBlock("flower_coral", () -> new CoralPlantBlock(DEAD_FLOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
+    public static final DeferredBlock<Block> TALL_FLOWER_CORAL = registerBlock("tall_flower_coral", () -> new TallCoralBlock(DEAD_TALL_FLOWER_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
+    public static final DeferredBlock<Block> FLOWER_CORAL_WALL_FAN = registerBlockWithoutItem("flower_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_FLOWER_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
+    public static final DeferredBlock<Block> FLOWER_CORAL_FAN = registerBlockWithoutItem("flower_coral_fan", () -> new CoralFanBlock(DEAD_FLOWER_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_YELLOW)));
 
     // ring coral
-    public static final DeferredHolder<Block, Block> DEAD_RING_CORAL_BLOCK = registerBlock("dead_ring_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_RING_CORAL = registerBlock("dead_ring_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_RING_CORAL = registerBlock("dead_tall_ring_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_RING_CORAL_WALL_FAN = registerBlockWithoutItem("dead_ring_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_RING_CORAL_FAN = registerBlockWithoutItem("dead_ring_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_RING_CORAL_BLOCK = registerBlock("dead_ring_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_RING_CORAL = registerBlock("dead_ring_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_RING_CORAL = registerBlock("dead_tall_ring_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_RING_CORAL_WALL_FAN = registerBlockWithoutItem("dead_ring_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_RING_CORAL_FAN = registerBlockWithoutItem("dead_ring_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> RING_CORAL_BLOCK = registerBlock("ring_coral_block", () -> new CoralBlock(DEAD_RING_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> RING_CORAL = registerBlock("ring_coral", () -> new CoralPlantBlock(DEAD_RING_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> TALL_RING_CORAL = registerBlock("tall_ring_coral", () -> new TallCoralBlock(DEAD_TALL_RING_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> RING_CORAL_WALL_FAN = registerBlockWithoutItem("ring_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_RING_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
-    public static final DeferredHolder<Block, Block> RING_CORAL_FAN = registerBlockWithoutItem("ring_coral_fan", () -> new CoralFanBlock(DEAD_RING_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> RING_CORAL_BLOCK = registerBlock("ring_coral_block", () -> new CoralBlock(DEAD_RING_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> RING_CORAL = registerBlock("ring_coral", () -> new CoralPlantBlock(DEAD_RING_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> TALL_RING_CORAL = registerBlock("tall_ring_coral", () -> new TallCoralBlock(DEAD_TALL_RING_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> RING_CORAL_WALL_FAN = registerBlockWithoutItem("ring_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_RING_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
+    public static final DeferredBlock<Block> RING_CORAL_FAN = registerBlockWithoutItem("ring_coral_fan", () -> new CoralFanBlock(DEAD_RING_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_LIGHT_BLUE)));
 
     // bush coral
-    public static final DeferredHolder<Block, Block> DEAD_BUSH_CORAL_BLOCK = registerBlock("dead_bush_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
-    public static final DeferredHolder<Block, Block> DEAD_BUSH_CORAL = registerBlock("dead_bush_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_BUSH_CORAL = registerBlock("dead_tall_bush_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_BUSH_CORAL_WALL_FAN = registerBlockWithoutItem("dead_bush_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_BUSH_CORAL_FAN = registerBlockWithoutItem("dead_bush_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_BUSH_CORAL_BLOCK = registerBlock("dead_bush_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
+    public static final DeferredBlock<Block> DEAD_BUSH_CORAL = registerBlock("dead_bush_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_BUSH_CORAL = registerBlock("dead_tall_bush_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_BUSH_CORAL_WALL_FAN = registerBlockWithoutItem("dead_bush_coral_wall_fan", () -> new BaseCoralWallFanBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_BUSH_CORAL_FAN = registerBlockWithoutItem("dead_bush_coral_fan", () -> new BaseCoralFanBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> BUSH_CORAL_BLOCK = registerBlock("bush_coral_block", () -> new CoralBlock(DEAD_BUSH_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> BUSH_CORAL = registerBlock("bush_coral", () -> new CoralPlantBlock(DEAD_BUSH_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> TALL_BUSH_CORAL = registerBlock("tall_bush_coral", () -> new TallCoralBlock(DEAD_TALL_BUSH_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(BUSH_CORAL.get())));
-    public static final DeferredHolder<Block, Block> BUSH_CORAL_WALL_FAN = registerBlockWithoutItem("bush_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_BUSH_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
-    public static final DeferredHolder<Block, Block> BUSH_CORAL_FAN = registerBlockWithoutItem("bush_coral_fan", () -> new CoralFanBlock(DEAD_BUSH_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> BUSH_CORAL_BLOCK = registerBlock("bush_coral_block", () -> new CoralBlock(DEAD_BUSH_CORAL_BLOCK.get(), ReefBlockProperties.coralBlock(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> BUSH_CORAL = registerBlock("bush_coral", () -> new CoralPlantBlock(DEAD_BUSH_CORAL.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> TALL_BUSH_CORAL = registerBlock("tall_bush_coral", () -> new TallCoralBlock(DEAD_TALL_BUSH_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(BUSH_CORAL.get())));
+    public static final DeferredBlock<Block> BUSH_CORAL_WALL_FAN = registerBlockWithoutItem("bush_coral_wall_fan", () -> new CoralWallFanBlock(DEAD_BUSH_CORAL_WALL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
+    public static final DeferredBlock<Block> BUSH_CORAL_FAN = registerBlockWithoutItem("bush_coral_fan", () -> new CoralFanBlock(DEAD_BUSH_CORAL_FAN.get(), ReefBlockProperties.coral(MapColor.COLOR_PURPLE)));
 
     // tall coral
-    public static final DeferredHolder<Block, Block> DEAD_TALL_TUBE_CORAL = registerBlock("dead_tall_tube_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_HORN_CORAL = registerBlock("dead_tall_horn_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_BUBBLE_CORAL = registerBlock("dead_tall_bubble_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_FIRE_CORAL = registerBlock("dead_tall_fire_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
-    public static final DeferredHolder<Block, Block> DEAD_TALL_BRAIN_CORAL = registerBlock("dead_tall_brain_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_TUBE_CORAL = registerBlock("dead_tall_tube_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_HORN_CORAL = registerBlock("dead_tall_horn_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_BUBBLE_CORAL = registerBlock("dead_tall_bubble_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_FIRE_CORAL = registerBlock("dead_tall_fire_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
+    public static final DeferredBlock<Block> DEAD_TALL_BRAIN_CORAL = registerBlock("dead_tall_brain_coral", () -> new DeadTallCoralBlock(ReefBlockProperties.DEAD_CORAL));
 
-    public static final DeferredHolder<Block, Block> TALL_TUBE_CORAL = registerBlock("tall_tube_coral", () -> new TallCoralBlock(DEAD_TALL_TUBE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.TUBE_CORAL)));
-    public static final DeferredHolder<Block, Block> TALL_HORN_CORAL = registerBlock("tall_horn_coral", () -> new TallCoralBlock(DEAD_TALL_HORN_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.HORN_CORAL)));
-    public static final DeferredHolder<Block, Block> TALL_BUBBLE_CORAL = registerBlock("tall_bubble_coral", () -> new TallCoralBlock(DEAD_TALL_BUBBLE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_CORAL)));
-    public static final DeferredHolder<Block, Block> TALL_FIRE_CORAL = registerBlock("tall_fire_coral", () -> new TallCoralBlock(DEAD_TALL_FIRE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.FIRE_CORAL)));
-    public static final DeferredHolder<Block, Block> TALL_BRAIN_CORAL = registerBlock("tall_brain_coral", () -> new TallCoralBlock(DEAD_TALL_BRAIN_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.BRAIN_CORAL)));
+    public static final DeferredBlock<Block> TALL_TUBE_CORAL = registerBlock("tall_tube_coral", () -> new TallCoralBlock(DEAD_TALL_TUBE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.TUBE_CORAL)));
+    public static final DeferredBlock<Block> TALL_HORN_CORAL = registerBlock("tall_horn_coral", () -> new TallCoralBlock(DEAD_TALL_HORN_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.HORN_CORAL)));
+    public static final DeferredBlock<Block> TALL_BUBBLE_CORAL = registerBlock("tall_bubble_coral", () -> new TallCoralBlock(DEAD_TALL_BUBBLE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_CORAL)));
+    public static final DeferredBlock<Block> TALL_FIRE_CORAL = registerBlock("tall_fire_coral", () -> new TallCoralBlock(DEAD_TALL_FIRE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.FIRE_CORAL)));
+    public static final DeferredBlock<Block> TALL_BRAIN_CORAL = registerBlock("tall_brain_coral", () -> new TallCoralBlock(DEAD_TALL_BRAIN_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.BRAIN_CORAL)));
 
-    public static final DeferredHolder<Block, Block> FAKE_BUBBLES = registerBlockWithoutItem("fake_bubbles",
+    public static final DeferredBlock<Block> FAKE_BUBBLES = registerBlockWithoutItem("fake_bubbles",
             () -> new FakeBubbleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
 
-    public static final DeferredHolder<Block, Block> FAKE_BUBBLES_RED_SAND = registerBlockWithoutItem("fake_bubbles_red_sand",
-            () -> new FakeBubbleBlockRedSand(BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
+    public static final DeferredBlock<Block> ANGELFISH_CAKE = registerBlock("angelfish_cake", () -> new AngelfishCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
-    public static final DeferredHolder<Block, Block> ANGELFISH_CAKE = registerBlock("angelfish_cake", () -> new AngelfishCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
-
-    public static final DeferredHolder<Block, Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
+    public static final DeferredBlock<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN)
                     .strength(0.5F, 0.0F)
                     .sound(SoundType.LANTERN)
@@ -205,92 +197,82 @@ public class ReefBlocks {
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
                             ));
 
-    public static final DeferredHolder<Block, Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
+    public static final DeferredBlock<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
             ));
 
-    public static final DeferredHolder<Block, Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
+    public static final DeferredBlock<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
             () -> new BasePufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
                     Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
                     ));
 
-    public static final DeferredHolder<Block, Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
+    public static final DeferredBlock<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
             () -> new AnemoneBlock(0));
 
-    public static final DeferredHolder<Block, Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
+    public static final DeferredBlock<Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
             () -> new AnemoneBlock(1));
 
-    public static final DeferredHolder<Block, Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
+    public static final DeferredBlock<Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
             () -> new AnemoneBlock(2));
 
 
-    public static final DeferredHolder<Block, Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
+    public static final DeferredBlock<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    public static final DeferredHolder<Block, Block> UMBER_STARFISH = registerBlock("umber_starfish", () ->
+    public static final DeferredBlock<Block> UMBER_STARFISH = registerBlock("umber_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    public static final DeferredHolder<Block, Block> TANGERINE_STARFISH = registerBlock("tangerine_starfish", () ->
+    public static final DeferredBlock<Block> TANGERINE_STARFISH = registerBlock("tangerine_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    public static final DeferredHolder<Block, Block> CARMINE_STARFISH = registerBlock("carmine_starfish", () ->
+    public static final DeferredBlock<Block> CARMINE_STARFISH = registerBlock("carmine_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    public static final DeferredHolder<Block, Block> FUCHSIA_STARFISH = registerBlock("fuchsia_starfish", () ->
+    public static final DeferredBlock<Block> FUCHSIA_STARFISH = registerBlock("fuchsia_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    public static final DeferredHolder<Block, Block> SAFFRON_STARFISH = registerBlock("saffron_starfish", () ->
+    public static final DeferredBlock<Block> SAFFRON_STARFISH = registerBlock("saffron_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    public static final DeferredHolder<Block, Block> CHARTREUSE_STARFISH = registerBlock("chartreuse_starfish", () ->
+    public static final DeferredBlock<Block> CHARTREUSE_STARFISH = registerBlock("chartreuse_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
-    public static final DeferredHolder<Block, Block> VIOLET_STARFISH = registerBlock("violet_starfish", () ->
+    public static final DeferredBlock<Block> VIOLET_STARFISH = registerBlock("violet_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
-    private static DeferredHolder<Block, Block> registerBurrow(String name, Supplier<BurrowBlock> supplier) {
-        DeferredHolder<Block, Block> block = BLOCKS.register(name, supplier);
+    private static <B extends Block> DeferredBlock<B> registerBurrow(String name, Supplier<B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
         ReefItems.ITEMS.register(name, () -> new BurrowBlockItem(block.get(), new Item.Properties()));
-        AUTO_TRANSLATE.add(block);
+        BLOCK_TRANSLATIONS.add(block);
         return block;
     }
 
-    private static <B extends Block> DeferredHolder<Block, B> registerBlock(String name, Supplier<? extends B> supplier) {
-        DeferredHolder<Block, B> block = BLOCKS.register(name, supplier);
+    private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<? extends B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
         ReefItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-        AUTO_TRANSLATE.add(block);
+        BLOCK_TRANSLATIONS.add(block);
         return block;
     }
 
-    private static <B extends Block> DeferredHolder<Block, B> registerBlockNoLang(String name, Supplier<? extends B> supplier) {
-        DeferredHolder<Block, B> block = BLOCKS.register(name, supplier);
+    private static <B extends Block> DeferredBlock<B> registerBlockNoLang(String name, Supplier<? extends B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
         ReefItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
         return block;
     }
 
-    private static <B extends Block> DeferredHolder<Block, B> registerBlockWithoutItem(String name, Supplier<? extends B> supplier) {
-        DeferredHolder<Block, B> block = BLOCKS.register(name, supplier);
-        AUTO_TRANSLATE.add(block);
+    private static <B extends Block> DeferredBlock<B> registerBlockWithoutItem(String name, Supplier<? extends B> supplier) {
+        DeferredBlock<B> block = BLOCKS.register(name, supplier);
+        BLOCK_TRANSLATIONS.add(block);
         return block;
-    }
-
-    private static <B extends Block> DeferredHolder<Block, B> registerBlockWithoutItemNoLang(String name, Supplier<? extends B> supplier) {
-        return BLOCKS.register(name, supplier);
-    }
-
-    private static <B extends Block> Supplier<B> registerBlockWithItem(String name, Supplier<B> block, Function<Supplier<B>, Item> item) {
-        Supplier<B> entry = registerBlockWithoutItem(name, block);
-        ReefItems.ITEMS.register(name, () -> item.apply(entry));
-        return entry;
     }
 }

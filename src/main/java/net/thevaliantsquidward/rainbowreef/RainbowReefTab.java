@@ -7,10 +7,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import net.thevaliantsquidward.rainbowreef.entity.*;
 import net.thevaliantsquidward.rainbowreef.entity.base.ReefMob;
 import net.thevaliantsquidward.rainbowreef.registry.ReefBlocks;
@@ -185,7 +185,6 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefBlocks.VIOLET_STARFISH.get());
 
                         output.accept(ReefBlocks.BUBBLER.get());
-                        output.accept(ReefBlocks.RED_SAND_BUBBLER.get());
                         output.accept(ReefBlocks.JELLY_BLOCK.get());
 
                         output.accept(ReefBlocks.CORALSTONE.get());
