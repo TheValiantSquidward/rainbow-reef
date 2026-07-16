@@ -42,6 +42,7 @@ public class RainbowReef {
         ReefFeatures.FEATURES.register(modEventBus);
         ReefPoiTypes.POI_TYPES.register(modEventBus);
         ReefSoundEvents.SOUND_EVENTS.register(modEventBus);
+        ReefParticleTypes.PARTICLE_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::dataSetup);

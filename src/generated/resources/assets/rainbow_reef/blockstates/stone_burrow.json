@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "occupied=false": {
       "model": "rainbow_reef:block/stone_burrow"
+    },
+    "occupied=true": {
+      "model": "rainbow_reef:block/stone_burrow_occupied"
     }
   }
 }

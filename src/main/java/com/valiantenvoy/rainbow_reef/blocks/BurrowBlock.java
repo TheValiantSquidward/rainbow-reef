@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -17,10 +18,15 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class BurrowBlock extends Block implements EntityBlock {
+
+    public static final BooleanProperty OCCUPIED = BlockStateProperties.OCCUPIED;
 
     private final boolean ground;
     private final TagKey<Block> substrate;
@@ -29,6 +35,7 @@ public class BurrowBlock extends Block implements EntityBlock {
         super(properties);
         this.ground = ground;
         this.substrate = substrate;
+        this.registerDefaultState(this.stateDefinition.any().setValue(OCCUPIED, false));
     }
 
     public boolean isGround() {
@@ -37,6 +44,19 @@ public class BurrowBlock extends Block implements EntityBlock {
 
     public TagKey<Block> substrate() {
         return this.substrate;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+        builder.add(OCCUPIED);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (!level.isClientSide && level.getBlockEntity(pos) instanceof BurrowBlockEntity burrow) {
+            burrow.updateOccupiedState();
+        }
     }
 
     @Nullable

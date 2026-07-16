@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.blocks;
 
 import com.valiantenvoy.rainbow_reef.registry.ReefBlockEntities;
+import com.valiantenvoy.rainbow_reef.registry.ReefParticleTypes;
 import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -34,6 +36,9 @@ public class BurrowBlockEntity extends BlockEntity {
     public static final int MAX_OCCUPANTS = 3;
     private static final int MIN_STAY_TICKS = 400;
     private static final int MAX_STAY_TICKS = 1200;
+    private static final int BUBBLE_INTERVAL_TICKS = 30;
+    private static final double BUBBLE_ENTRANCE_OFFSET = 0.8D;
+    private static final double BUBBLE_SPREAD = 0.06D;
     public static final String COOLDOWN_TAG = "BurrowCooldown";
 
     private final List<Occupant> occupants = new ArrayList<>();
@@ -86,6 +91,21 @@ public class BurrowBlockEntity extends BlockEntity {
         this.level.playSound(null, this.worldPosition, ReefSoundEvents.ENTER_BURROW.get(), SoundSource.BLOCKS, 1.0F, 1.5F);
         mob.discard();
         this.setChanged();
+        this.updateOccupiedState();
+    }
+
+    public void updateOccupiedState() {
+        if (this.level == null || this.level.isClientSide) {
+            return;
+        }
+        BlockState state = this.getBlockState();
+        if (!state.hasProperty(BurrowBlock.OCCUPIED)) {
+            return;
+        }
+        boolean occupied = !this.occupants.isEmpty();
+        if (state.getValue(BurrowBlock.OCCUPIED) != occupied) {
+            this.level.setBlockAndUpdate(this.worldPosition, state.setValue(BurrowBlock.OCCUPIED, occupied));
+        }
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, BurrowBlockEntity burrow) {
@@ -106,6 +126,44 @@ public class BurrowBlockEntity extends BlockEntity {
         if (changed) {
             burrow.setChanged();
         }
+        burrow.updateOccupiedState();
+        if (!burrow.occupants.isEmpty() && level instanceof ServerLevel serverLevel
+                && serverLevel.random.nextInt(BUBBLE_INTERVAL_TICKS) == 0) {
+            bubbleFromEntrance(serverLevel, pos, state);
+        }
+    }
+
+    private static void bubbleFromEntrance(ServerLevel level, BlockPos pos, BlockState state) {
+        Direction entrance = randomOpenEntrance(level, pos, state);
+        if (entrance == null) {
+            return;
+        }
+        double x = pos.getX() + 0.5D + entrance.getStepX() * BUBBLE_ENTRANCE_OFFSET;
+        double y = pos.getY() + 0.5D + entrance.getStepY() * BUBBLE_ENTRANCE_OFFSET;
+        double z = pos.getZ() + 0.5D + entrance.getStepZ() * BUBBLE_ENTRANCE_OFFSET;
+        level.sendParticles(ReefParticleTypes.BURROW_BUBBLE.get(), x, y, z, 1,
+                entrance.getAxis() == Direction.Axis.X ? 0.0D : BUBBLE_SPREAD,
+                entrance.getAxis() == Direction.Axis.Y ? 0.0D : BUBBLE_SPREAD,
+                entrance.getAxis() == Direction.Axis.Z ? 0.0D : BUBBLE_SPREAD,
+                0.0D);
+    }
+
+    @Nullable
+    private static Direction randomOpenEntrance(Level level, BlockPos pos, BlockState state) {
+        if (state.getBlock() instanceof BurrowBlock burrow && burrow.isGround()) {
+            return isWater(level, pos.above()) ? Direction.UP : null;
+        }
+        List<Direction> entrances = new ArrayList<>(4);
+        for (Direction direction : Direction.Plane.HORIZONTAL) {
+            if (isWater(level, pos.relative(direction))) {
+                entrances.add(direction);
+            }
+        }
+        return entrances.isEmpty() ? null : entrances.get(level.random.nextInt(entrances.size()));
+    }
+
+    private static boolean isWater(Level level, BlockPos pos) {
+        return level.getFluidState(pos).is(FluidTags.WATER);
     }
 
     private boolean releaseOccupant(Level level, BlockPos pos, BlockState state, Occupant occupant) {

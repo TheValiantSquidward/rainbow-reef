@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.datagen;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.blocks.BurrowBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -153,14 +154,23 @@ public class ReefBlockstateProvider extends BlockStateProvider {
     }
 
     private void groundBurrow(DeferredHolder<Block, Block> block, ResourceLocation baseTexture) {
-        ModelFile model = this.models().cubeTop(getBlockName(block.get()), baseTexture, this.blockTexture(block.get()));
-        this.simpleBlock(block.get(), model);
-        this.itemModel(block);
+        String name = getBlockName(block.get());
+        ModelFile empty = this.models().cubeTop(name, baseTexture, this.blockTexture(block.get()));
+        ModelFile occupied = this.models().cubeTop(name + "_occupied", baseTexture, this.modLoc(TextureFolder.BLOCK.format(name + "_occupied")));
+        this.burrow(block, empty, occupied);
     }
 
     private void wallBurrow(DeferredHolder<Block, Block> block, ResourceLocation baseTexture) {
-        ModelFile model = this.models().cubeColumn(getBlockName(block.get()), this.blockTexture(block.get()), baseTexture);
-        this.simpleBlock(block.get(), model);
+        String name = getBlockName(block.get());
+        ModelFile empty = this.models().cubeColumn(name, this.blockTexture(block.get()), baseTexture);
+        ModelFile occupied = this.models().cubeColumn(name + "_occupied", this.modLoc(TextureFolder.BLOCK.format(name + "_occupied")), baseTexture);
+        this.burrow(block, empty, occupied);
+    }
+
+    private void burrow(DeferredHolder<Block, Block> block, ModelFile empty, ModelFile occupied) {
+        this.getVariantBuilder(block.get())
+                .partialState().with(BurrowBlock.OCCUPIED, false).addModels(new ConfiguredModel(empty))
+                .partialState().with(BurrowBlock.OCCUPIED, true).addModels(new ConfiguredModel(occupied));
         this.itemModel(block);
     }
 
