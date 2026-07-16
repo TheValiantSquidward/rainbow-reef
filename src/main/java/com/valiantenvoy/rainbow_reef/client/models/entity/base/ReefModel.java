@@ -33,6 +33,7 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
         poseStack.popPose();
     }
 
+    @Deprecated
     protected void animateIdle(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float limbSwingAmount) {
         float scale = Math.clamp(1 - Math.abs(limbSwingAmount), 0, 1);
         animationState.updateTime(ageInTicks, (float) 0.8);
@@ -40,6 +41,7 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
     }
 
     @Override
+    @Deprecated
     protected void animate(@NotNull AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks) {
         this.animate(animationState, definition, ageInTicks, 1.0F);
     }
@@ -54,6 +56,7 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
     }
 
     @Override
+    @Deprecated
     protected void animate(AnimationState animationState, @NotNull AnimationDefinition definition, float ageInTicks, float speed) {
         animationState.updateTime(ageInTicks, speed);
         animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, ReefModel.ANIMATION_VECTOR_CACHE));

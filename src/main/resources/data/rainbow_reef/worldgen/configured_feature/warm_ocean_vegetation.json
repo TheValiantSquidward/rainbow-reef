@@ -1,0 +1,74 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "chance": 0.23,
+        "feature": {
+          "feature": {
+            "config": {},
+            "type": "minecraft:coral_claw"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.23,
+        "feature": {
+          "feature": {
+            "config": {},
+            "type": "minecraft:coral_mushroom"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.23,
+        "feature": {
+          "feature": {
+            "config": {},
+            "type": "minecraft:coral_tree"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.11,
+        "feature": {
+          "feature": {
+            "config": {},
+            "type": "rainbow_reef:large_coral_mushroom"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.11,
+        "feature": {
+          "feature": {
+            "config": {},
+            "type": "rainbow_reef:large_coral_tree"
+          },
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.11,
+        "feature": {
+          "feature": {
+            "config": {},
+            "type": "rainbow_reef:large_coral_claw"
+          },
+          "placement": []
+        }
+      }
+    ],
+    "default": {
+      "feature": {
+        "config": {},
+        "type": "minecraft:coral_claw"
+      },
+      "placement": []
+    }
+  }
+}
