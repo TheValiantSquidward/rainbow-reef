@@ -1,11 +1,11 @@
 {
-  "feature": "rainbow_reef:warm_ocean_vegetation",
+  "feature": "rainbow_reef:reef_rock",
   "placement": [
     {
       "type": "minecraft:noise_based_count",
+      "noise_to_count_ratio": 2,
       "noise_factor": 400,
-      "noise_offset": 0,
-      "noise_to_count_ratio": 14
+      "noise_offset": 0
     },
     {
       "type": "minecraft:in_square"

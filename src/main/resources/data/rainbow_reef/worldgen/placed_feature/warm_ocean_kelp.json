@@ -1,11 +1,13 @@
 {
-  "feature": "rainbow_reef:warm_ocean_vegetation",
+  "feature": "minecraft:kelp",
   "placement": [
     {
-      "type": "minecraft:noise_based_count",
-      "noise_factor": 400,
-      "noise_offset": 0,
-      "noise_to_count_ratio": 14
+      "type": "minecraft:rarity_filter",
+      "chance": 5
+    },
+    {
+      "type": "count",
+      "count": 20
     },
     {
       "type": "minecraft:in_square"

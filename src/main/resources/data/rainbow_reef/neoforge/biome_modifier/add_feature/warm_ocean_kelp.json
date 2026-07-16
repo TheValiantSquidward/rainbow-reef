@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:warm_ocean",
+  "features": [
+    "rainbow_reef:warm_ocean_kelp"
+  ],
+  "step": "vegetal_decoration"
+}

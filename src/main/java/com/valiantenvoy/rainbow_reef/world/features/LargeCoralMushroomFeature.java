@@ -15,21 +15,26 @@ public class LargeCoralMushroomFeature extends CoralFeature {
         super(codec);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     protected boolean placeFeature(LevelAccessor level, RandomSource random, BlockPos blockPos, BlockState state) {
-        int i = random.nextInt(3) + 5;
-        int j = random.nextInt(3) + 5;
-        int k = random.nextInt(3) + 5;
-        int l = random.nextInt(3) + 1;
-        BlockPos.MutableBlockPos blockpos$mutableblockpos = blockPos.mutable();
+        int i = random.nextInt(3) + 4;
+        int j = random.nextInt(3) + 4;
+        int k = random.nextInt(3) + 4;
+        int l = random.nextInt(3) + 2;
+        BlockPos.MutableBlockPos mutable = blockPos.mutable();
 
-        for (int i1 = 0; i1 <= j; i1++) {
-            for (int j1 = 0; j1 <= i; j1++) {
-                for (int k1 = 0; k1 <= k; k1++) {
-                    blockpos$mutableblockpos.set(i1 + blockPos.getX(), j1 + blockPos.getY(), k1 + blockPos.getZ());
-                    blockpos$mutableblockpos.move(Direction.DOWN, l);
-                    if ((i1 != 0 && i1 != j || j1 != 0 && j1 != i) && (k1 != 0 && k1 != k || j1 != 0 && j1 != i) && (i1 != 0 && i1 != j || k1 != 0 && k1 != k) && (i1 == 0 || i1 == j || j1 == 0 || j1 == i || k1 == 0 || k1 == k) && !(random.nextFloat() < 0.1F) && !this.placeCoralBlock(level, random, blockpos$mutableblockpos, state)) {
+        for (int i1 = -1; i1 <= j + 1; i1++) {
+            for (int j1 = -1; j1 <= i + 1; j1++) {
+                for (int k1 = -1; k1 <= k + 1; k1++) {
+                    mutable.set(i1 + blockPos.getX(), j1 + blockPos.getY(), k1 + blockPos.getZ());
+                    mutable.move(Direction.DOWN, l);
+                    boolean outerShell = i1 <= 0 || i1 >= j || j1 <= 0 || j1 >= i || k1 <= 0 || k1 >= k;
+                    boolean edge = i1 == -1 || i1 == j + 1 || k1 == -1 || k1 == k + 1;
+                    if (outerShell && random.nextFloat() >= 0.1F) {
+                        this.placeCoralBlock(level, random, mutable, state);
+                        if (!edge) {
+                            this.placeCoralBlock(level, random, mutable.above(), state);
+                        }
                     }
                 }
             }
