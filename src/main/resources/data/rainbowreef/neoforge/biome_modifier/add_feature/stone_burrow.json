@@ -1,8 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#rainbowreef:has_spawn/crab",
-  "features": [
-    "rainbowreef:stone_burrow"
-  ],
-  "step": "vegetal_decoration"
-}

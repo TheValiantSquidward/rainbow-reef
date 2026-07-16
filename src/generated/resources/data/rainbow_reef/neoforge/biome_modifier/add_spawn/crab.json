@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/crab",
+  "spawners": {
+    "type": "rainbow_reef:crab",
+    "maxCount": 2,
+    "minCount": 2,
+    "weight": 20
+  }
+}

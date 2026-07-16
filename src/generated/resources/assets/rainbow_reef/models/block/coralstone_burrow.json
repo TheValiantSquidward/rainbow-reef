@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "rainbow_reef:block/coralstone",
+    "side": "rainbow_reef:block/coralstone_burrow"
+  }
+}

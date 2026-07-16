@@ -1,0 +1,8 @@
+{
+  "type": "rainbow_reef:burrow",
+  "config": {
+    "state": {
+      "Name": "rainbow_reef:stone_burrow"
+    }
+  }
+}

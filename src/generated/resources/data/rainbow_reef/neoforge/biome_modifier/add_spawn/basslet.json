@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/basslet",
+  "spawners": {
+    "type": "rainbow_reef:basslet",
+    "maxCount": 6,
+    "minCount": 6,
+    "weight": 15
+  }
+}

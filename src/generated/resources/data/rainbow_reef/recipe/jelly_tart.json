@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "rainbow_reef:jelly_bottle"
+    },
+    {
+      "tag": "c:crops/wheat"
+    },
+    {
+      "tag": "c:eggs"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rainbow_reef:jelly_tart"
+  }
+}

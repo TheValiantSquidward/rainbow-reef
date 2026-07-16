@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "rainbow_reef:block/green_puffer_lantern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "rainbow_reef:block/green_puffer_lantern"
+    },
+    "facing=south": {
+      "model": "rainbow_reef:block/green_puffer_lantern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "rainbow_reef:block/green_puffer_lantern",
+      "y": 270
+    }
+  }
+}

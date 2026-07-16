@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "rainbow_reef:dwarf_angelfish"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "c:crops/wheat"
+    },
+    {
+      "tag": "c:eggs"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "rainbow_reef:dwarf_angelfish_tart"
+  }
+}

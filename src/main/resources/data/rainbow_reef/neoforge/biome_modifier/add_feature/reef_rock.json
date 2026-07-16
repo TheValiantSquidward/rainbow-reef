@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:warm_ocean",
+  "features": [
+    "rainbow_reef:reef_rock"
+  ],
+  "step": "underground_decoration"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:has_spawn/pipefish",
+  "spawners": {
+    "type": "rainbow_reef:pipefish",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 10
+  }
+}
