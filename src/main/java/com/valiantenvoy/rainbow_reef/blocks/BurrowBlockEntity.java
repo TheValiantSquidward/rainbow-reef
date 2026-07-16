@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.blocks;
 
 import com.valiantenvoy.rainbow_reef.registry.ReefBlockEntities;
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -82,7 +83,7 @@ public class BurrowBlockEntity extends BlockEntity {
         tag.remove("leash");
         int stay = MIN_STAY_TICKS + this.level.random.nextInt(MAX_STAY_TICKS - MIN_STAY_TICKS);
         this.occupants.add(new Occupant(tag, 0, stay));
-        this.level.playSound(null, this.worldPosition, SoundEvents.BEEHIVE_ENTER, SoundSource.BLOCKS, 1.0F, 1.5F);
+        this.level.playSound(null, this.worldPosition, ReefSoundEvents.ENTER_BURROW.get(), SoundSource.BLOCKS, 1.0F, 1.5F);
         mob.discard();
         this.setChanged();
     }
@@ -118,7 +119,7 @@ public class BurrowBlockEntity extends BlockEntity {
         }
         entity.moveTo(exit.getX() + 0.5D, exit.getY() + 0.1D, exit.getZ() + 0.5D, level.random.nextFloat() * 360.0F, 0.0F);
         applyCooldown(level, entity);
-        level.playSound(null, pos, SoundEvents.BEEHIVE_EXIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+        level.playSound(null, pos, ReefSoundEvents.EXIT_BURROW.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
         return level.addFreshEntity(entity);
     }
 

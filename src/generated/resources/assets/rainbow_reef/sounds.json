@@ -47,6 +47,18 @@
     ],
     "subtitle": "subtitles.rainbowreef.crab_hurt"
   },
+  "enter_burrow": {
+    "sounds": [
+      "rainbow_reef:block/burrow/enter_burrow"
+    ],
+    "subtitle": "subtitles.rainbowreef.enter_burrow"
+  },
+  "exit_burrow": {
+    "sounds": [
+      "rainbow_reef:block/burrow/exit_burrow"
+    ],
+    "subtitle": "subtitles.rainbowreef.exit_burrow"
+  },
   "fish_death": {
     "sounds": [
       "entity/fish/hurt1",

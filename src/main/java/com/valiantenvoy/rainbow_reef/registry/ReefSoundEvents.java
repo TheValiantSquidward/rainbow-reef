@@ -27,6 +27,10 @@ public class ReefSoundEvents {
 
     public static final DeferredHolder<SoundEvent, SoundEvent> CLAW_DISC = registerSoundEvent("claw_disc");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> ENTER_BURROW = registerSoundEvent("enter_burrow");
+    public static final DeferredHolder<SoundEvent, SoundEvent> EXIT_BURROW = registerSoundEvent("exit_burrow");
+
+
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(RainbowReef.location(soundName)));
     }

@@ -75,6 +75,14 @@ public class ReefSoundDefinitionsProvider extends SoundDefinitionsProvider {
                 sound(RainbowReef.modPrefix("block/jelly_block/bounce1"))
         );
 
+        this.sound(ReefSoundEvents.ENTER_BURROW,
+                sound(RainbowReef.modPrefix("block/burrow/enter_burrow"))
+        );
+
+        this.sound(ReefSoundEvents.EXIT_BURROW,
+                sound(RainbowReef.modPrefix("block/burrow/exit_burrow"))
+        );
+
         this.sound(ReefSoundEvents.CLAW_DISC,
                 sound(RainbowReef.modPrefix("music/disc/claw")).stream()
         );
