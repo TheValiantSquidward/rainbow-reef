@@ -1,18 +1,14 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
-import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -25,15 +21,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import java.util.List;
-
-import static com.valiantenvoy.rainbow_reef.entity.base.ReefMob.ReefRarities.COMMON;
-import static com.valiantenvoy.rainbow_reef.entity.base.ReefMob.ReefRarities.UNCOMMON;
 
 public class Seahorse extends ReefMob {
 
@@ -60,104 +47,17 @@ public class Seahorse extends ReefMob {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         return this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
-    @NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.SEAHORSE_BUCKET.get());
     }
 
     @Override
-    public int getVariantCount() {
-        return SeahorseVariant.values().length;
-    }
-
-    @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-    }
-
-    public enum SeahorseVariant implements StringRepresentable {
-        KELP(1, "kelp", COMMON),
-        COBALT(2, "cobalt", COMMON),
-        GOLD(3, "gold", UNCOMMON),
-        AMBER(4, "amber", COMMON),
-        SILVER(5, "silver", UNCOMMON),
-        GARNET(6, "garnet", COMMON),
-        RUBY(7, "ruby", COMMON),
-        SPINEL(8, "spinel", COMMON),
-        CHERT(9, "chert", COMMON),
-        ONYX(10, "onyx", UNCOMMON),
-        PEARLY(11, "pearly", UNCOMMON);
-
-        private final int variant;
-        private final String name;
-        private final ReefRarities rarity;
-        @Nullable
-        private final TagKey<Biome> biome;
-
-        SeahorseVariant(int variant, String name, ReefRarities rarity) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = rarity;
-            this.biome = null;
-        }
-
-        public static SeahorseVariant getVariantId(int variants) {
-            for (SeahorseVariant variant : values()) {
-                if (variant.variant == variants) return variant;
-            }
-            return SeahorseVariant.KELP;
-        }
-
-        public static SeahorseVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<SeahorseVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON).getRandom(random).orElseThrow(), fromBucket);
-            return possibleTypes.get(random.nextInt(possibleTypes.size()));
-        }
-
-        private static List<SeahorseVariant> getPossibleTypes(Holder<Biome> biome, ReefRarities rarity, boolean fromBucket) {
-            List<SeahorseVariant> variants = Lists.newArrayList();
-            for (SeahorseVariant variant : SeahorseVariant.values()) {
-                if ((fromBucket || variant.biome == null || biome.is(variant.biome)) && variant.rarity == rarity) {
-                    variants.add(variant);
-                }
-            }
-            return variants;
-        }
-
-        public int getVariant() {
-            return this.variant;
-        }
-
-        public ReefRarities getRarity() {
-            return this.rarity;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        int variant = SeahorseVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (spawnData instanceof SeahorseData) {
-            variant = ((SeahorseData) spawnData).variantData;
-        } else {
-            if (!this.fromBucket()) {
-                spawnData = new SeahorseData(variant);
-            }
-        }
-        this.setVariant(SeahorseVariant.getVariantId(variant).getVariant());
-        return spawnData;
-    }
-
-    record SeahorseData(int variantData) implements SpawnGroupData {
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/seahorse/seahorse_kelp.png");
     }
 }

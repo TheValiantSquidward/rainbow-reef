@@ -1,18 +1,15 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
-import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishDigGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.tags.ReefTags;
-import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -23,14 +20,6 @@ import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import java.util.List;
-
-import static com.valiantenvoy.rainbow_reef.entity.base.ReefMob.ReefRarities.COMMON;
 
 public class Triggerfish extends ReefMob {
 
@@ -62,89 +51,12 @@ public class Triggerfish extends ReefMob {
     }
 
     @Override
-    @NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.BUTTERFLYFISH_BUCKET.get());
     }
 
     @Override
-    public int getVariantCount() {
-        return TriggerfishVariant.values().length;
-    }
-
-    public enum TriggerfishVariant implements StringRepresentable {
-        BLACK(1, "black"),
-        BLUE(2, "blue"),
-        CLOWN(3, "clown"),
-        PICASSO(4, "picasso"),
-        QUEEN(5, "queen"),
-        ROUGH(6, "rough");
-
-        private final int variant;
-        private final String name;
-        private final ReefRarities rarity;
-        @Nullable
-        private final TagKey<Biome> biome;
-
-        TriggerfishVariant(int variant, String name) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = ReefRarities.COMMON;
-            this.biome = null;
-        }
-
-        public static TriggerfishVariant getVariantId(int variants) {
-            for (TriggerfishVariant variant : values()) {
-                if (variant.variant == variants) return variant;
-            }
-            return TriggerfishVariant.BLACK;
-        }
-
-        public static TriggerfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<TriggerfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON).getRandom(random).orElseThrow(), fromBucket);
-            return possibleTypes.get(random.nextInt(possibleTypes.size()));
-        }
-
-        private static List<TriggerfishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
-            List<TriggerfishVariant> variants = Lists.newArrayList();
-            for (TriggerfishVariant variant : TriggerfishVariant.values()) {
-                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
-                    variants.add(variant);
-                }
-            }
-            return variants;
-        }
-
-        public int getVariant() {
-            return this.variant;
-        }
-
-        public ReefRarities getRarity() {
-            return this.rarity;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        int variant = TriggerfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (spawnData instanceof TriggerfishData) {
-            variant = ((TriggerfishData) spawnData).variantData;
-        } else {
-            if (!this.fromBucket()) {
-                spawnData = new TriggerfishData(variant);
-            }
-        }
-        this.setVariant(TriggerfishVariant.getVariantId(variant).getVariant());
-        return spawnData;
-    }
-
-    record TriggerfishData(int variantData) implements SpawnGroupData {
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/triggerfish/triggerfish_black.png");
     }
 }

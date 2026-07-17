@@ -1,4 +1,4 @@
-package com.valiantenvoy.rainbow_reef.world.features;
+package com.valiantenvoy.rainbow_reef.worldgen.features;
 
 import com.mojang.serialization.Codec;
 import com.valiantenvoy.rainbow_reef.blocks.BurrowBlock;

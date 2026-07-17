@@ -1,17 +1,14 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
-import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -23,14 +20,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import java.util.List;
-
-import static com.valiantenvoy.rainbow_reef.entity.base.ReefMob.ReefRarities.*;
 
 public class Pipefish extends ReefMob {
 
@@ -56,94 +45,17 @@ public class Pipefish extends ReefMob {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         return this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
-    @NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.PIPEFISH_BUCKET.get());
     }
 
     @Override
-    public int getVariantCount() {
-        return PipefishVariant.values().length;
-    }
-
-    public enum PipefishVariant implements StringRepresentable {
-        GREEN(1, "green", COMMON),
-        JANNS(2, "janns", RARE),
-        MULTIBANDED(3, "multibanded", UNCOMMON),
-        ORANGE_STRIPED(4, "orange_striped", COMMON),
-        BLUE_STRIPED(5, "blue_striped", COMMON),
-        PINK(6, "pink", UNCOMMON);
-
-        private final int variant;
-        private final String name;
-        private final ReefRarities rarity;
-        @Nullable
-        private final TagKey<Biome> biome;
-
-        PipefishVariant(int variant, String name, ReefRarities rarity) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = rarity;
-            this.biome = null;
-        }
-
-        public static PipefishVariant getVariantId(int variants) {
-            for (PipefishVariant variant : values()) {
-                if (variant.variant == variants) return variant;
-            }
-            return PipefishVariant.GREEN;
-        }
-
-        public static PipefishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<PipefishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE).getRandom(random).orElseThrow(), fromBucket);
-            return possibleTypes.get(random.nextInt(possibleTypes.size()));
-        }
-
-        private static List<PipefishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
-            List<PipefishVariant> variants = Lists.newArrayList();
-            for (PipefishVariant variant : PipefishVariant.values()) {
-                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
-                    variants.add(variant);
-                }
-            }
-            return variants;
-        }
-
-        public int getVariant() {
-            return this.variant;
-        }
-
-        public ReefRarities getRarity() {
-            return this.rarity;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        int variant = PipefishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-        if (spawnData instanceof PipefishData) {
-            variant = ((PipefishData) spawnData).variantData;
-        } else {
-            if (!this.fromBucket()) {
-                spawnData = new PipefishData(variant);
-            }
-        }
-        this.setVariant(PipefishVariant.getVariantId(variant).getVariant());
-        return spawnData;
-    }
-
-    record PipefishData(int variantData) implements SpawnGroupData {
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/pipefish/pipefish_green.png");
     }
 }

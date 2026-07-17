@@ -2,7 +2,6 @@ package com.valiantenvoy.rainbow_reef.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.client.models.entity.JellyfishModel;
 import com.valiantenvoy.rainbow_reef.entity.Jellyfish;
 import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
@@ -10,11 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
 
     public JellyfishRenderer(EntityRendererProvider.Context context) {
@@ -22,18 +17,12 @@ public class JellyfishRenderer extends MobRenderer<Jellyfish, JellyfishModel> {
     }
 
     @Override
-    protected float getFlipDegrees(@NotNull Jellyfish entity) {
-        return 0.0F;
+    public ResourceLocation getTextureLocation(Jellyfish entity) {
+        return entity.getVariantTexture();
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(Jellyfish entity) {
-        Jellyfish.JellyfishVariant jellyfishVariant = Jellyfish.JellyfishVariant.getVariantId(entity.getVariant());
-        return RainbowReef.location("textures/entity/jellyfish/" + jellyfishVariant.getSerializedName() + ".png");
-    }
-
-    @Override
-    protected void setupRotations(Jellyfish entity, @NotNull PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+    protected void setupRotations(Jellyfish entity, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
         if (entity.isRenderedInTooltip()) {
             return;
         }

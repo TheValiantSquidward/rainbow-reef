@@ -1,17 +1,12 @@
 package com.valiantenvoy.rainbow_reef.client.renderer;
 
-import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.client.models.entity.GobyModel;
 import com.valiantenvoy.rainbow_reef.entity.Goby;
 import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class GobyRenderer extends MobRenderer<Goby, GobyModel> {
 
     public GobyRenderer(EntityRendererProvider.Context context) {
@@ -19,8 +14,7 @@ public class GobyRenderer extends MobRenderer<Goby, GobyModel> {
     }
 
     @Override
-    public @NotNull ResourceLocation getTextureLocation(Goby entity) {
-        Goby.GobyVariant gobyVariant = Goby.GobyVariant.getVariantId(entity.getVariant());
-        return RainbowReef.location("textures/entity/goby/" + gobyVariant.getSerializedName() + ".png");
+    public ResourceLocation getTextureLocation(Goby entity) {
+        return entity.getVariantTexture();
     }
 }

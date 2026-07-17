@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.*;
 import com.valiantenvoy.rainbow_reef.entity.base.DancingEntity;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
@@ -9,11 +10,9 @@ import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import com.valiantenvoy.rainbow_reef.tags.ReefTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -23,17 +22,9 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
-import java.time.LocalDate;
-import java.time.Month;
 
 public class Crab extends DancingEntity implements DancesToJukebox {
 
@@ -82,7 +73,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected PathNavigation createNavigation(Level level) {
         return new CrabPathfinder(Crab.this, level) {
             public boolean isStableDestination(BlockPos pos) {
                 return this.level.getBlockState(pos).getFluidState().isEmpty();
@@ -105,70 +96,12 @@ public class Crab extends DancingEntity implements DancesToJukebox {
     }
 
     @Override
-    @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ReefItems.CRAB_BUCKET.get());
-        if (this.hasCustomName()) {
-            stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
-        }
-        return stack;
+        return new ItemStack(ReefItems.CRAB_BUCKET.get());
     }
 
-    public static String getVariantName(int variant) {
-        return switch (variant) {
-            case 1 -> "halloween";
-            case 2 -> "ghost";
-            case 3 -> "sally";
-            case 4 -> "emerald";
-            case 5 -> "blue";
-            case 6 -> "purple";
-            case 7 -> "candy";
-            case 8 -> "redghost";
-            default -> "vampire";
-        };
-    }
-
-    @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-        Holder<Biome> holder = level.getBiome(this.blockPosition());
-        float spookyVariantChange = this.getRandom().nextFloat();
-        LocalDate currentDate = LocalDate.now();
-        float variantChange = this.getRandom().nextFloat();
-        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
-
-            if (spookyVariantChange <= 0.33) {
-                this.setVariant(1);
-            } else if (spookyVariantChange <= 0.66) {
-                this.setVariant(2);
-            } else if (spookyVariantChange <= 0.10) {
-                this.setVariant(8);
-            } else
-                this.setVariant(0);
-        } else if (holder.is(Biomes.MANGROVE_SWAMP)) {
-            this.setVariant(1);
-        } else if (holder.is(Biomes.BEACH) && variantChange <= 0.10) {
-            this.setVariant(8);
-        } else if (holder.is(Biomes.BEACH) && variantChange > 0.10) {
-            this.setVariant(2);
-        } else if (holder.is(Biomes.STONY_SHORE)) {
-            this.setVariant(3);
-        } else if (holder.is(Biomes.LUKEWARM_OCEAN) || holder.is(Biomes.DEEP_LUKEWARM_OCEAN)) {
-            this.setVariant(4);
-        } else if (holder.is(Biomes.OCEAN) || holder.is(Biomes.DEEP_OCEAN)) {
-            this.setVariant(5);
-        } else if (holder.is(Biomes.COLD_OCEAN) || holder.is(Biomes.DEEP_COLD_OCEAN)) {
-            this.setVariant(6);
-        } else if (holder.is(Biomes.WARM_OCEAN)) {
-            this.setVariant(7);
-        } else {
-            this.setVariant(0);
-        }
-
-        return super.finalizeSpawn(level, difficulty, reason, spawnData);
-    }
-    @Override
-    public void travel(@NotNull Vec3 travelVector) {
+    public void travel(Vec3 travelVector) {
         if (this.isDancing()) {
             travelVector = Vec3.ZERO;
         }
@@ -205,11 +138,16 @@ public class Crab extends DancingEntity implements DancesToJukebox {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return ReefSoundEvents.CRAB_HURT.get();
     }
 
     public static boolean canSpawn(EntityType<? extends ReefMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return !level.getBlockState(pos).isSolid();
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/crab/crab_blue.png");
     }
 }

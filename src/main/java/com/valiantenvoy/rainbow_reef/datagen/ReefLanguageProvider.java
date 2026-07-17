@@ -2,7 +2,6 @@ package com.valiantenvoy.rainbow_reef.datagen;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.RainbowReefTab;
-import com.valiantenvoy.rainbow_reef.entity.*;
 import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
 import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -12,14 +11,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-import org.apache.commons.lang3.text.WordUtils;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -37,8 +32,6 @@ public class ReefLanguageProvider extends LanguageProvider {
         ReefBlocks.BLOCK_TRANSLATIONS.forEach(this::forBlocks);
         ReefItems.ITEM_TRANSLATIONS.forEach(this::forItems);
         ReefEntities.ENTITY_TYPES.getEntries().forEach(this::forEntity);
-
-        this.addVariantTooltips();
 
         this.add("tooltip.rainbowreef.burrow_occupant", "%s %s");
 
@@ -77,74 +70,28 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.sound(ReefSoundEvents.JELLYFISH_HURT, "Jellyfish hurts");
         this.sound(ReefSoundEvents.JELLYFISH_ZAP, "Jellyfish zaps");
         this.sound(ReefSoundEvents.JELLY_BLOCK_BOUNCE, "Jelly Block bounces");
-        this.sound(ReefSoundEvents.CLAW_DISC, "TheValiantSquidward - Claw");
+        this.sound(ReefSoundEvents.CLAW_DISC, "ValiantEnvoy - Claw");
     }
 
     @Override
-    public @NotNull String getName() {
+    public String getName() {
         return  RainbowReef.MOD_ID + " Languages: en_us";
     }
 
     private void forBlocks(Supplier<? extends Block> block) {
-        addBlock(block, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block.get())).getPath()));
+        this.addBlock(block, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(block.get())).getPath()));
     }
 
     private void forItems(Supplier<? extends Item> item) {
-        addItem(item, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item.get())).getPath()));
+        this.addItem(item, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(item.get())).getPath()));
     }
 
     private void forEntity(Supplier<? extends EntityType<?>> entity) {
-        addEntityType(entity, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(entity.get())).getPath()));
+        this.addEntityType(entity, ReefTextUtils.createTranslation(Objects.requireNonNull(BuiltInRegistries.ENTITY_TYPE.getKey(entity.get())).getPath()));
     }
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
-        add("subtitles.rainbowreef." + key.get().getLocation().getPath(), subtitle);
-    }
-
-    private void addVariantTooltips() {
-        for (Angelfish.AngelfishVariant v : Angelfish.AngelfishVariant.values()) variantTooltip("angelfish", v.name().toLowerCase(Locale.ROOT));
-        for (Butterflyfish.ButterflyfishVariant v : Butterflyfish.ButterflyfishVariant.values()) variantTooltip("butterflyfish", v.getSerializedName());
-        for (Basslet.BassletVariant v : Basslet.BassletVariant.values()) variantTooltip("basslet", v.getSerializedName());
-        for (Boxfish.BoxfishVariant v : Boxfish.BoxfishVariant.values()) variantTooltip("boxfish", v.getSerializedName());
-        for (Clownfish.ClownfishVariant v : Clownfish.ClownfishVariant.values()) variantTooltip("clownfish", v.getSerializedName());
-        for (DwarfAngelfish.DwarfAngelfishVariant v : DwarfAngelfish.DwarfAngelfishVariant.values()) variantTooltip("dwarf_angelfish", v.getSerializedName());
-        for (Goby.GobyVariant v : Goby.GobyVariant.values()) variantTooltip("goby", v.getSerializedName());
-        for (Hogfish.HogfishVariant v : Hogfish.HogfishVariant.values()) variantTooltip("hogfish", v.getSerializedName());
-        for (Jellyfish.JellyfishVariant v : Jellyfish.JellyfishVariant.values()) variantTooltip("jellyfish", v.getSerializedName());
-        for (MoorishIdol.MoorishIdolVariant v : MoorishIdol.MoorishIdolVariant.values()) variantTooltip("moorish_idol", v.getSerializedName());
-        for (Parrotfish.ParrotfishVariant v : Parrotfish.ParrotfishVariant.values()) variantTooltip("parrotfish", v.getSerializedName());
-        for (Pipefish.PipefishVariant v : Pipefish.PipefishVariant.values()) variantTooltip("pipefish", v.getSerializedName());
-        for (Ray.RayVariant v : Ray.RayVariant.values()) variantTooltip("ray", v.getSerializedName());
-        for (Seahorse.SeahorseVariant v : Seahorse.SeahorseVariant.values()) variantTooltip("seahorse", v.getSerializedName());
-        for (SmallShark.SmallSharkVariant v : SmallShark.SmallSharkVariant.values()) variantTooltip("small_shark", v.getSerializedName());
-        for (Tang.TangVariant v : Tang.TangVariant.values()) variantTooltip("tang", v.getSerializedName());
-        for (int i = 1; i <= 9; i++) variantTooltip("crab", Crab.getVariantName(i));
-        for (int i = 1; i <= 2; i++) variantTooltip("arrow_crab", ArrowCrab.getVariantName(i));
-    }
-
-    private void variantTooltip(String mob, String variant) {
-        add("entity.rainbowreef." + mob + ".variant_" + variant, ReefTextUtils.createTranslation(variant));
-    }
-
-
-    private String formatEnchantment(String path) {
-        return WordUtils.capitalizeFully(path.replace("_", " ")).replace("Of ", "of ");
-    }
-
-    public void potion(Supplier<? extends Potion> key, String name, String regName) {
-        potions(key.get(), name, regName);
-    }
-
-    public void potions(Potion key, String name, String regName) {
-        add("item.minecraft.potion.effect." + regName, "Potion of " + name);
-        add("item.minecraft.splash_potion.effect." + regName, "Splash Potion of " + name);
-        add("item.minecraft.lingering_potion.effect." + regName, "Lingering Potion of " + name);
-        add("item.minecraft.tipped_arrow.effect." + regName, "Arrow of " + name);
-    }
-
-    protected void painting(String name, String author) {
-        add("painting." + RainbowReef.MOD_ID + "." + name + ".title",  ReefTextUtils.createTranslation(name));
-        add("painting." + RainbowReef.MOD_ID + "." + name + ".author",  author);
+        this.add("subtitles.rainbowreef." + key.get().getLocation().getPath(), subtitle);
     }
 
     public void addTab(CreativeModeTab key, String name){
@@ -161,7 +108,7 @@ public class ReefLanguageProvider extends LanguageProvider {
 
     protected void musicDisc() {
         String disc = ((Supplier<? extends Item>) ReefItems.CLAW_DISC).get().getDescriptionId();
-        add(disc, "Music Disc");
-        add("jukebox_song.rainbowreef." + BuiltInRegistries.ITEM.getKey(((Supplier<? extends Item>) ReefItems.CLAW_DISC).get()).getPath(), "TheValiantSquidward - Claw");
+        this.add(disc, "Music Disc");
+        this.add("jukebox_song.rainbowreef." + BuiltInRegistries.ITEM.getKey(((Supplier<? extends Item>) ReefItems.CLAW_DISC).get()).getPath(), "ValiantEnvoy - Claw");
     }
 }

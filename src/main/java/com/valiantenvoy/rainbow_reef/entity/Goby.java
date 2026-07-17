@@ -1,19 +1,16 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
-import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.EnterBurrowGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -25,17 +22,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.List;
-
-import static com.valiantenvoy.rainbow_reef.entity.base.ReefMob.ReefRarities.*;
 
 public class Goby extends ReefMob {
 
@@ -62,110 +48,17 @@ public class Goby extends ReefMob {
     }
 
     @Override
-    public float getWalkTargetValue(@NotNull BlockPos pos, @NotNull LevelReader level) {
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
         return this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
-    @Nonnull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.GOBY_BUCKET.get());
     }
 
     @Override
-    public int getVariantCount() {
-        return GobyVariant.values().length;
-    }
-
-    public enum GobyVariant implements StringRepresentable {
-        FIRE(1, "fire", COMMON),
-        PURPLE_FIRE(2, "purple_fire", UNCOMMON),
-        CANDYCANE(3, "candycane", UNCOMMON),
-        MANDARIN(4, "mandarin", COMMON),
-        YELLOW_WATCHMAN(5, "yellow_watchman", COMMON),
-        CATALINA(6, "catalina", COMMON),
-        BLACK_RAY(7, "black_ray", COMMON),
-        HELFRICHI(8, "helfrichi", COMMON),
-        BLUE_NEON(9, "blue_neon", UNCOMMON),
-        YELLOW_NEON(10, "yellow_neon", UNCOMMON),
-        NEON_HYBRID(11, "neon_hybrid", EPIC),
-        BLUESTREAK(12, "bluestreak", COMMON),
-        LEOPARD_SPOTTED(13, "leopard_spotted", COMMON),
-        YELLOW_CLOWN(14, "yellow_clown", COMMON),
-        DRACULA(15, "dracula", RARE),
-        BLACKFIN(16, "blackfin", COMMON);
-
-        private final int variant;
-        private final String name;
-        private final ReefRarities rarity;
-        @Nullable
-        private final TagKey<Biome> biome;
-
-        GobyVariant(int variant, String name, ReefRarities rarity) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = rarity;
-            this.biome = null;
-        }
-
-        public static GobyVariant getVariantId(int variants) {
-            for (GobyVariant variant : values()) {
-                if (variant.variant == variants) return variant;
-            }
-            return GobyVariant.FIRE;
-        }
-
-        public static GobyVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<GobyVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(COMMON, UNCOMMON, RARE, EPIC).getRandom(random).orElseThrow(), fromBucket);
-            return possibleTypes.get(random.nextInt(possibleTypes.size()));
-        }
-
-        private static List<GobyVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
-            List<GobyVariant> variants = Lists.newArrayList();
-            for (GobyVariant variant : GobyVariant.values()) {
-                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
-                    variants.add(variant);
-                }
-            }
-            return variants;
-        }
-
-        public int getVariant() {
-            return this.variant;
-        }
-
-        public ReefRarities getRarity() {
-            return this.rarity;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        int variant = GobyVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-
-        LocalDate currentDate = LocalDate.now();
-        if (currentDate.getMonth() == Month.OCTOBER && currentDate.getDayOfMonth() == 31) {
-            variant = GobyVariant.DRACULA.getVariant();
-        }
-
-        if (spawnData instanceof GobyData) {
-            variant = ((GobyData) spawnData).variantData;
-        } else {
-            if (!this.fromBucket()) {
-                spawnData = new GobyData(variant);
-            }
-        }
-        this.setVariant(GobyVariant.getVariantId(variant).getVariant());
-        return spawnData;
-    }
-
-    record GobyData(int variantData) implements SpawnGroupData {
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/goby/goby_candycane.png");
     }
 }

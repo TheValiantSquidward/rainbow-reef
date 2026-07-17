@@ -1,18 +1,15 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
-import com.google.common.collect.Lists;
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishDigGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.tags.ReefTags;
-import net.minecraft.core.Holder;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.StringRepresentable;
-import net.minecraft.util.random.WeightedRandomList;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
@@ -23,14 +20,6 @@ import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nullable;
-import java.util.List;
-
-import static com.valiantenvoy.rainbow_reef.entity.base.ReefMob.ReefRarities.*;
 
 public class DwarfAngelfish extends ReefMob {
 
@@ -57,104 +46,12 @@ public class DwarfAngelfish extends ReefMob {
     }
 
     @Override
-    @NotNull
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.DWARF_ANGELFISH_BUCKET.get());
     }
 
     @Override
-    public int getVariantCount() {
-        return DwarfAngelfishVariant.values().length;
-    }
-
-    public enum DwarfAngelfishVariant implements StringRepresentable {
-        BICOLOR(1, "bicolor", COMMON),
-        CORAL_BEAUTY(2, "coral_beauty", COMMON),
-        FLAME(3, "flame", COMMON),
-        KEYHOLE(4, "keyhole", COMMON),
-        MASKED(5, "masked", COMMON),
-        CHERUB(6, "cherub", COMMON),
-        BLACK_NOX(7, "black_nox", COMMON),
-        LAMARCK(8, "lamarck", COMMON),
-        LEMONPEEL(9, "lemonpeel", COMMON),
-        YELLOW(10, "yellow", UNCOMMON),
-        PEARLSCALE(11, "pearlscale", UNCOMMON),
-        RESPLENDENT(12, "resplendent", UNCOMMON),
-        PEPPERMINT(13, "peppermint", EPIC),
-        BLACKSPOT(17, "blackspot", EPIC),
-        JOCULATOR(18, "joculator", EPIC),
-        JAPANESE(14, "japanese", RARE),
-        YELLOWTAIL(15, "yellowtail", RARE),
-        MULTIBAR(19, "multibar", RARE),
-        ORANGEPEEL(16, "orangepeel", ABERRANT),
-        WHITEBICOLOR(20,"whitebicolor", ABERRANT);
-
-        private final int variant;
-        private final String name;
-        private final ReefRarities rarity;
-        @Nullable
-        private final TagKey<Biome> biome;
-
-        DwarfAngelfishVariant(int variant, String name, ReefRarities rarity) {
-            this.variant = variant;
-            this.name = name;
-            this.rarity = rarity;
-            this.biome = null;
-        }
-
-        public static DwarfAngelfishVariant getVariantId(int variants) {
-            for (DwarfAngelfishVariant variant : values()) {
-                if (variant.variant == variants) return variant;
-            }
-            return DwarfAngelfishVariant.BICOLOR;
-        }
-
-        public static DwarfAngelfishVariant getRandom(RandomSource random, Holder<Biome> biome, boolean fromBucket) {
-            List<DwarfAngelfishVariant> possibleTypes = getPossibleTypes(biome, WeightedRandomList.create(ReefRarities.values()).getRandom(random).orElseThrow(), fromBucket);
-            return possibleTypes.get(random.nextInt(possibleTypes.size()));
-        }
-
-        private static List<DwarfAngelfishVariant> getPossibleTypes(Holder<Biome> category, ReefRarities rarity, boolean fromBucket) {
-            List<DwarfAngelfishVariant> variants = Lists.newArrayList();
-            for (DwarfAngelfishVariant variant : DwarfAngelfishVariant.values()) {
-                if ((fromBucket || variant.biome == null || category.is(variant.biome)) && variant.rarity == rarity) {
-                    variants.add(variant);
-                }
-            }
-            return variants;
-        }
-
-        public int getVariant() {
-            return this.variant;
-        }
-
-        public ReefRarities getRarity() {
-            return this.rarity;
-        }
-
-        @Override
-        public @NotNull String getSerializedName() {
-            return this.name;
-        }
-    }
-
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor level, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
-        spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
-        int variant = DwarfAngelfishVariant.getRandom(this.getRandom(), this.level().getBiome(this.blockPosition()), spawnType == MobSpawnType.BUCKET).getVariant();
-
-        if (spawnData instanceof DwarfAngelfishData) {
-            variant = ((DwarfAngelfishData) spawnData).variantData;
-        } else {
-            if (!this.fromBucket()) {
-                spawnData = new DwarfAngelfishData(variant);
-            }
-        }
-        this.setVariant(DwarfAngelfishVariant.getVariantId(variant).getVariant());
-        return spawnData;
-    }
-
-    record DwarfAngelfishData(int variantData) implements SpawnGroupData {
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/dwarf_angelfish/dwarf_angelfish_bicolor.png");
     }
 }
