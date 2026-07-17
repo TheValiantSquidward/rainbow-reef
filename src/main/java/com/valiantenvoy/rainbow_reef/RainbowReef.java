@@ -30,7 +30,7 @@ public class RainbowReef {
     public RainbowReef(IEventBus modEventBus) {
         RainbowReefTab.register(modEventBus);
 
-        ReefEntities.ENTITY_TYPES.register(modEventBus);
+        ReefEntities.ENTITY_TYPE.register(modEventBus);
         ReefItems.ITEMS.register(modEventBus);
         ReefBlocks.BLOCKS.register(modEventBus);
         ReefBlockEntities.BLOCK_ENTITIES.register(modEventBus);
@@ -41,6 +41,7 @@ public class RainbowReef {
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::dataSetup);
+        modEventBus.addListener(ReefMobVariants::registerVariantRegistries);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

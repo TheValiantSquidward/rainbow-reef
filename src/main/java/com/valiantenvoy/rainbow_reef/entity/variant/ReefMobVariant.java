@@ -6,7 +6,6 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.biome.Biome;
 
 import java.util.Optional;
@@ -17,7 +16,6 @@ public final class ReefMobVariant {
     public static final Codec<ReefMobVariant> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("texture").forGetter(variant -> variant.texture),
             RegistryCodecs.homogeneousList(Registries.BIOME).optionalFieldOf("biomes").forGetter(ReefMobVariant::biomes),
-            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("weight", 1).forGetter(ReefMobVariant::weight),
             Codec.INT.optionalFieldOf("priority", 0).forGetter(ReefMobVariant::priority),
             VariantTime.CODEC.optionalFieldOf("time", VariantTime.ANY).forGetter(ReefMobVariant::time),
             VariantWeather.CODEC.optionalFieldOf("weather", VariantWeather.ANY).forGetter(ReefMobVariant::weather),
@@ -36,7 +34,7 @@ public final class ReefMobVariant {
     private final Optional<Integer> maxSpawnHeight;
     private final VariantRarity rarity;
 
-    public ReefMobVariant(ResourceLocation texture, Optional<HolderSet<Biome>> biomes, int weight, int priority, VariantTime time, VariantWeather weather, Optional<Integer> minSpawnHeight, Optional<Integer> maxSpawnHeight, VariantRarity rarity) {
+    public ReefMobVariant(ResourceLocation texture, Optional<HolderSet<Biome>> biomes, int priority, VariantTime time, VariantWeather weather, Optional<Integer> minSpawnHeight, Optional<Integer> maxSpawnHeight, VariantRarity rarity) {
         this.texture = texture;
         this.biomes = biomes;
         this.weight = rarity.getWeight();

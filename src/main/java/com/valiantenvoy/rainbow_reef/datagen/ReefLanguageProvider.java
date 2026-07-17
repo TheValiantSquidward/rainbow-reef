@@ -31,7 +31,7 @@ public class ReefLanguageProvider extends LanguageProvider {
 
         ReefBlocks.BLOCK_TRANSLATIONS.forEach(this::forBlocks);
         ReefItems.ITEM_TRANSLATIONS.forEach(this::forItems);
-        ReefEntities.ENTITY_TYPES.getEntries().forEach(this::forEntity);
+        ReefEntities.ENTITY_TYPE.getEntries().forEach(this::forEntity);
 
         this.add("tooltip.rainbowreef.burrow_occupant", "%s %s");
 
