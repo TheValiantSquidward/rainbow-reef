@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class ReefMobTooltipRenderer implements ClientTooltipComponent {
+
     private static final int CELL_SIZE = 16;
 
     private final CompoundTag entityTag;

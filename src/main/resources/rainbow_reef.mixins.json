@@ -3,7 +3,9 @@
   "package": "com.valiantenvoy.rainbow_reef.mixins",
   "compatibilityLevel": "JAVA_21",
   "refmap": "rainbow_reef.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "ChestBlockEntityMixin"
+  ],
   "client": [],
   "injectors": {
     "defaultRequire": 1

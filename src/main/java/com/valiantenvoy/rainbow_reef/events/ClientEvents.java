@@ -38,7 +38,6 @@ public class ClientEvents {
         event.registerSpriteSet(ReefParticleTypes.BURROW_BUBBLE.get(), BurrowBubbleParticle.Provider::new);
     }
 
-    // todo: maybe make a generic renderer class since most things are simple here?
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ReefEntities.ANGELFISH.get(), AngelfishRenderer::new);
