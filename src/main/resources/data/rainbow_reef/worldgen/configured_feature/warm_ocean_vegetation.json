@@ -3,7 +3,7 @@
   "config": {
     "features": [
       {
-        "chance": 0.3,
+        "chance": 0.33,
         "feature": {
           "feature": {
             "config": {},
@@ -13,7 +13,7 @@
         }
       },
       {
-        "chance": 0.3,
+        "chance": 0.33,
         "feature": {
           "feature": {
             "config": {},
@@ -23,41 +23,11 @@
         }
       },
       {
-        "chance": 0.3,
+        "chance": 0.33,
         "feature": {
           "feature": {
             "config": {},
             "type": "minecraft:coral_tree"
-          },
-          "placement": []
-        }
-      },
-      {
-        "chance": 0.033,
-        "feature": {
-          "feature": {
-            "config": {},
-            "type": "rainbow_reef:large_coral_mushroom"
-          },
-          "placement": []
-        }
-      },
-      {
-        "chance": 0.033,
-        "feature": {
-          "feature": {
-            "config": {},
-            "type": "rainbow_reef:large_coral_tree"
-          },
-          "placement": []
-        }
-      },
-      {
-        "chance": 0.033,
-        "feature": {
-          "feature": {
-            "config": {},
-            "type": "rainbow_reef:large_coral_claw"
           },
           "placement": []
         }
