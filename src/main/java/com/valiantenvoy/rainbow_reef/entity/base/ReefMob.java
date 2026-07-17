@@ -1,12 +1,11 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Style;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -15,15 +14,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.random.Weight;
-import net.minecraft.util.random.WeightedEntry;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -35,19 +30,17 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.function.UnaryOperator;
 
 @SuppressWarnings("deprecation")
-public abstract class ReefMob extends WaterAnimal implements Bucketable {
+public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVariantMob {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<Integer> FEED_COOLDOWN = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.BOOLEAN);
 
@@ -67,7 +60,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     @Override
-    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+    protected PathNavigation createNavigation(Level level) {
         return new WaterNavigation(this, level, false);
     }
 
@@ -92,40 +85,37 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(VARIANT, 0);
+        builder.define(VARIANT, this.defaultVariant().location().toString());
         builder.define(FROM_BUCKET, false);
         builder.define(FEED_COOLDOWN, 600 + (4 * this.getRandom().nextInt(600)));
         builder.define(LEAPING, false);
     }
 
     @Override
-    public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        compoundTag.putInt("Variant", this.getVariant());
+        this.saveVariant(compoundTag);
         compoundTag.putBoolean("FromBucket", this.fromBucket());
         compoundTag.putInt("FeedingCooldown", this.getFeedCooldown());
     }
 
     @Override
-    public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.setVariant(compoundTag.getInt("Variant"));
+        this.loadVariant(compoundTag);
         this.setFromBucket(compoundTag.getBoolean("FromBucket"));
         this.setFeedCooldown(compoundTag.getInt("FeedingCooldown"));
     }
 
-    public int getVariant() {
+    @Override
+    public String getVariantRawId() {
         return this.entityData.get(VARIANT);
     }
-
-    public void setVariant(int variant) {
-        this.entityData.set(VARIANT, Mth.clamp(variant, 1, this.getVariantCount()));
-    }
-
-    public int getVariantCount() {
-        return 128;
+    @Override
+    public void setVariantRawId(String id) {
+        this.entityData.set(VARIANT, id);
     }
 
     public void setFeedCooldown(int cooldown) {
@@ -155,30 +145,26 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     @Override
-    public void saveToBucketTag(@Nonnull ItemStack bucket) {
-        if (this.hasCustomName()) {
-            bucket.set(DataComponents.CUSTOM_NAME, this.getCustomName());
-        }
-        Bucketable.saveDefaultDataToBucketTag(this, bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, bucket, tag -> tag.putInt("BucketVariantTag", this.getVariant()));
+    public void saveToBucketTag(ItemStack stack) {
+        Bucketable.saveDefaultDataToBucketTag(this, stack);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, this::saveVariant);
+        CompoundTag custom = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        this.saveVariant(custom);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(custom));
     }
 
     @Override
-    public void loadFromBucketTag(@Nonnull CompoundTag compoundTag) {
+    public void loadFromBucketTag(CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
-        if (compoundTag.contains("BucketVariantTag", 3)) {
-            this.setVariant(compoundTag.getInt("BucketVariantTag"));
-        }
+        this.loadVariant(compoundTag);
     }
 
     @Override
-    @Nonnull
-    protected InteractionResult mobInteract(@Nonnull Player player, @Nonnull InteractionHand hand) {
+    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
-    @Nonnull
     public SoundEvent getPickupSound() {
         return SoundEvents.BUCKET_FILL_FISH;
     }
@@ -276,11 +262,11 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
     }
 
     @Override
-    public void travel(@NotNull Vec3 travelVec) {
+    public void travel(Vec3 travelVector) {
         if (this.isEffectiveAi() && this.isInWaterOrBubble()) {
-            this.fishTravel(travelVec);
+            this.fishTravel(travelVector);
         } else {
-            super.travel(travelVec);
+            super.travel(travelVector);
         }
     }
 
@@ -293,31 +279,6 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
         }
     }
 
-    public enum ReefRarities implements WeightedEntry {
-        COMMON(style -> style.withColor(ChatFormatting.GRAY), 60),
-        UNCOMMON(style -> style.withColor(ChatFormatting.YELLOW), 30),
-        RARE(style -> style.withColor(ChatFormatting.AQUA), 15),
-        EPIC(style -> style.withColor(ChatFormatting.LIGHT_PURPLE), 5),
-        ABERRANT(style -> style.withColor(15933054), 1);
-
-        private final UnaryOperator<Style> style;
-        private final Weight weight;
-
-        ReefRarities(UnaryOperator<Style> style, int weight) {
-            this.style = style;
-            this.weight = Weight.of(weight);
-        }
-
-        @Override
-        public @NotNull Weight getWeight() {
-            return this.weight;
-        }
-
-        public UnaryOperator<Style> getStyle() {
-            return this.style;
-        }
-    }
-
     @Override
     @Nullable
     protected SoundEvent getDeathSound() {
@@ -326,12 +287,12 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     @Override
     @Nullable
-    protected SoundEvent getHurtSound(@NotNull DamageSource source) {
+    protected SoundEvent getHurtSound(DamageSource source) {
         return ReefSoundEvents.FISH_HURT.get();
     }
 
     @Override
-    protected void playStepSound(@NotNull BlockPos pos, @NotNull BlockState state) {
+    protected void playStepSound(BlockPos pos, BlockState state) {
     }
 
     protected SoundEvent getFlopSound() {
@@ -340,5 +301,16 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable {
 
     public static boolean canSpawn(EntityType<? extends ReefMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return WaterAnimal.checkSurfaceWaterAnimalSpawnRules(entityType, level, spawnType, pos, random);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        if (spawnType == MobSpawnType.BUCKET) {
+            return data;
+        }
+        this.pickVariantForSpawn(level);
+        return data;
     }
 }

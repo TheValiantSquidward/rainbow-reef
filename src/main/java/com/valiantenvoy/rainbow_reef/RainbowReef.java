@@ -28,10 +28,6 @@ public class RainbowReef {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
-    public static ResourceLocation prefix(String name) {
-        return location(name.toLowerCase(Locale.ROOT));
-    }
-
     public RainbowReef(IEventBus modEventBus) {
         RainbowReefTab.register(modEventBus);
 
@@ -74,9 +70,5 @@ public class RainbowReef {
         generator.addProvider(client, new ReefItemModelProvider(data));
         generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
         generator.addProvider(client, new ReefLanguageProvider(data));
-    }
-
-    public static ResourceLocation modPrefix(String name) {
-        return location(name.toLowerCase(Locale.ROOT));
     }
 }

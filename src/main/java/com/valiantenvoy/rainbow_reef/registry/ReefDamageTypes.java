@@ -17,7 +17,7 @@ public class ReefDamageTypes {
     public static final ResourceKey<DamageType> ATE_BOXFISH = create("ate_boxfish");
 
     public static ResourceKey<DamageType> create(String name) {
-        return ResourceKey.create(Registries.DAMAGE_TYPE, RainbowReef.prefix(name));
+        return ResourceKey.create(Registries.DAMAGE_TYPE, RainbowReef.location(name));
     }
 
     public static DamageSource getDamageSource(Level level, ResourceKey<DamageType> type, EntityType<?>... toIgnore) {

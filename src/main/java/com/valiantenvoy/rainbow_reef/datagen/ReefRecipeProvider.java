@@ -70,7 +70,7 @@ public class ReefRecipeProvider extends RecipeProvider implements IConditionBuil
     }
 
     private static ResourceLocation getSaveLocation(String name) {
-        return RainbowReef.modPrefix(name);
+        return RainbowReef.location(name);
     }
 }
 

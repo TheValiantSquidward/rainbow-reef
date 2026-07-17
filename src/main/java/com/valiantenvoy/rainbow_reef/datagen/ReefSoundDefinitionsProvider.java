@@ -64,27 +64,27 @@ public class ReefSoundDefinitionsProvider extends SoundDefinitionsProvider {
         );
 
         this.sound(ReefSoundEvents.JELLYFISH_HURT,
-                sound(RainbowReef.modPrefix("entity/jellyfish/hurt1"))
+                sound(RainbowReef.location("entity/jellyfish/hurt1"))
         );
         this.sound(ReefSoundEvents.JELLYFISH_ZAP,
-                sound(RainbowReef.modPrefix("entity/jellyfish/zap1")),
-                sound(RainbowReef.modPrefix("entity/jellyfish/zap2"))
+                sound(RainbowReef.location("entity/jellyfish/zap1")),
+                sound(RainbowReef.location("entity/jellyfish/zap2"))
         );
 
         this.sound(ReefSoundEvents.JELLY_BLOCK_BOUNCE,
-                sound(RainbowReef.modPrefix("block/jelly_block/bounce1"))
+                sound(RainbowReef.location("block/jelly_block/bounce1"))
         );
 
         this.sound(ReefSoundEvents.ENTER_BURROW,
-                sound(RainbowReef.modPrefix("block/burrow/enter_burrow"))
+                sound(RainbowReef.location("block/burrow/enter_burrow"))
         );
 
         this.sound(ReefSoundEvents.EXIT_BURROW,
-                sound(RainbowReef.modPrefix("block/burrow/exit_burrow"))
+                sound(RainbowReef.location("block/burrow/exit_burrow"))
         );
 
         this.sound(ReefSoundEvents.CLAW_DISC,
-                sound(RainbowReef.modPrefix("music/disc/claw")).stream()
+                sound(RainbowReef.location("music/disc/claw")).stream()
         );
     }
 
