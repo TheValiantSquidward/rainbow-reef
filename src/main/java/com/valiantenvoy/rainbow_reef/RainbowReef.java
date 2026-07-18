@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef;
 
 import com.valiantenvoy.rainbow_reef.datagen.*;
+import com.valiantenvoy.rainbow_reef.network.ParticlePacket;
 import com.valiantenvoy.rainbow_reef.registry.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
@@ -13,6 +14,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 import java.util.List;
 import java.util.Set;
@@ -40,11 +43,17 @@ public class RainbowReef {
         ReefParticleTypes.PARTICLE_TYPES.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::packetSetup);
         modEventBus.addListener(this::dataSetup);
         modEventBus.addListener(ReefMobVariants::registerVariantRegistries);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(FMLCommonSetupEvent event) {
+    }
+
+    public void packetSetup(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar(MOD_ID).versioned("1.0.0").optional();
+        registrar.playToClient(ParticlePacket.TYPE, ParticlePacket.CODEC, ParticlePacket::handle);
     }
 
     private void dataSetup(GatherDataEvent data) {

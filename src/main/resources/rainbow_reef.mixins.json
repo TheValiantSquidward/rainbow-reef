@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "rainbow_reef.refmap.json",
   "mixins": [
-    "ChestBlockEntityMixin"
+    "ChestBlockEntityMixin",
+    "EnderChestBlockEntityMixin"
   ],
   "client": [],
   "injectors": {
