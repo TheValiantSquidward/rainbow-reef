@@ -4,11 +4,9 @@ import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.JumpGoal;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
 public class FishLeapGoal extends JumpGoal {
@@ -22,6 +20,10 @@ public class FishLeapGoal extends JumpGoal {
 
     public FishLeapGoal(ReefMob mob) {
         this(mob, 10, 0.6D, 0.7D);
+    }
+
+    public FishLeapGoal(ReefMob mob, int interval) {
+        this(mob, interval, 0.6D, 0.7D);
     }
 
     public FishLeapGoal(ReefMob mob, int interval, double jumpDistance, double jumpHeight) {

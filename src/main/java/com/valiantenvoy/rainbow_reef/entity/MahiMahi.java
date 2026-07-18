@@ -2,8 +2,8 @@ package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
@@ -48,7 +48,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 10, 15, 7, 6, true));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(3, new FishLeapGoal(this, 20, 0.6D, 0.7D));
+        this.goalSelector.addGoal(3, new FishLeapGoal(this, 20));
     }
 
     @Override

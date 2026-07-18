@@ -2,8 +2,8 @@ package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefSwimmingMoveControl;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import net.minecraft.core.particles.ParticleTypes;
