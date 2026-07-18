@@ -6,12 +6,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 
-public class WaterColorNoise {
+public class ColorNoise {
 
-    public static final WaterColorNoise INSTANCE = new WaterColorNoise();
+    public static final ColorNoise INSTANCE = new ColorNoise();
     private final PerlinSimplexNoise noise;
 
-    public WaterColorNoise() {
+    public ColorNoise() {
         this.noise = new PerlinSimplexNoise(RandomSource.create(98756L), ImmutableList.of(-1, 0, 1));
     }
 
@@ -21,12 +21,12 @@ public class WaterColorNoise {
 
     public int applyNoise(BlockPos pos, int previousColor, float scale, float intensity){
         double noiseValue = this.getSample(pos.getX(),pos.getZ(),scale);
-        double d1 = noiseValue * 2;
+        double d1 = noiseValue * 16;
         d1 = Math.round(d1);
-        noiseValue = d1 / 2;
+        noiseValue = d1 / 16;
         d1 = this.getSample(pos.getX(), pos.getZ(), 0.2F);
-        int noiseValueInt=blend(previousColor,(float) noiseValue * intensity);
-        return blend(noiseValueInt,(float) d1 * (intensity * 0.6F));
+        int noiseValueInt = this.blend(previousColor,(float) noiseValue * intensity);
+        return this.blend(noiseValueInt,(float) d1 * (intensity * 0.5F));
     }
 
     private float[] getAlphaColorArray(int hex) {

@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:warm_ocean",
+    {
+      "id":"spawn:deep_warm_ocean",
+      "required":false
+    },
+    {
+      "id":"spawn:tropical_island",
+      "required":false
+    },
+    {
+      "id":"spawn:volcanic_island",
+      "required":false
+    }
+  ]
+}

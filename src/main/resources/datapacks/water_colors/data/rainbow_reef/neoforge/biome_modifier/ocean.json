@@ -1,6 +1,11 @@
 {
   "type": "rainbow_reef:modify_colors",
-  "biomes": "minecraft:ocean",
+  "biomes": [
+    "minecraft:beach",
+    "minecraft:stony_shore",
+    "minecraft:ocean",
+    "minecraft:deep_ocean"
+  ],
   "water_color": 1542100,
-  "water_fog_color": 1140144
+  "water_fog_color": 2060971
 }

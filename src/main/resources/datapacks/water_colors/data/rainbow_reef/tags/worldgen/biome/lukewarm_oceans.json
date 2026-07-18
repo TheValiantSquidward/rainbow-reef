@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lukewarm_ocean",
+    "minecraft:deep_lukewarm_ocean",
+    {
+      "id":"spawn:sandy_island",
+      "required":false
+    },
+    {
+      "id":"spawn:rocky_shore",
+      "required":false
+    }
+  ]
+}

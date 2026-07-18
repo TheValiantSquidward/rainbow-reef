@@ -1,6 +1,6 @@
 package com.valiantenvoy.rainbow_reef.mixins.client;
 
-import com.valiantenvoy.rainbow_reef.utils.WaterColorNoise;
+import com.valiantenvoy.rainbow_reef.utils.ColorNoise;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockAndTintGetter;
@@ -14,6 +14,11 @@ public class BiomeColorsMixin {
 
     @Inject(method = "getAverageWaterColor", at=@At("RETURN"), cancellable = true)
     private static void rainbowReef$addWaterColorNoise(BlockAndTintGetter world, BlockPos pos, CallbackInfoReturnable<Integer> info){
-        info.setReturnValue(WaterColorNoise.INSTANCE.applyNoise(pos,info.getReturnValue(), 32.0F, 0.05F));
+        info.setReturnValue(ColorNoise.INSTANCE.applyNoise(pos,info.getReturnValue(), 15.0F, 0.11F));
+    }
+
+    @Inject(method = "getAverageGrassColor", at=@At("RETURN"), cancellable = true)
+    private static void rainbowReef$addGrassColorNoise(BlockAndTintGetter world, BlockPos pos, CallbackInfoReturnable<Integer> info){
+        info.setReturnValue(ColorNoise.INSTANCE.applyNoise(pos,info.getReturnValue(), 15.0F, 0.11F));
     }
 }

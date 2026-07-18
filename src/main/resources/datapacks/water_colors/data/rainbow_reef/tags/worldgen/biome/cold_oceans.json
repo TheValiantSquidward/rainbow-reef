@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:snowy_beach",
+    "minecraft:cold_ocean",
+    "minecraft:deep_cold_ocean",
+    {
+      "id":"spawn:cold_island",
+      "required":false
+    }
+  ]
+}

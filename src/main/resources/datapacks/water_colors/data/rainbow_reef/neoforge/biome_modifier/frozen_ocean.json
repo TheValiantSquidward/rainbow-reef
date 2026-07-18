@@ -1,0 +1,9 @@
+{
+  "type": "rainbow_reef:modify_colors",
+  "biomes": [
+    "minecraft:frozen_ocean",
+    "minecraft:deep_frozen_ocean"
+  ],
+  "water_color": 2446773,
+  "water_fog_color": 2377612
+}
