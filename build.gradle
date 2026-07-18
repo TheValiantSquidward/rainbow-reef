@@ -117,6 +117,8 @@ dependencies {
 
     compileOnly "maven.modrinth:spawn-mod:4.0.4"
     localRuntime "maven.modrinth:spawn-mod:4.0.4"
+
+    localRuntime "maven.modrinth:better-biome-blend:1.21.1-1.4.1-neoforge"
 }
 
 tasks.withType(ProcessResources).configureEach {

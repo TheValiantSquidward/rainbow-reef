@@ -3,17 +3,23 @@ package com.valiantenvoy.rainbow_reef;
 import com.valiantenvoy.rainbow_reef.datagen.*;
 import com.valiantenvoy.rainbow_reef.network.ParticlePacket;
 import com.valiantenvoy.rainbow_reef.registry.*;
+import com.valiantenvoy.rainbow_reef.registry.ReefBiomeModifiers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
@@ -41,11 +47,13 @@ public class RainbowReef {
         ReefPoiTypes.POI_TYPES.register(modEventBus);
         ReefSoundEvents.SOUND_EVENTS.register(modEventBus);
         ReefParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        ReefBiomeModifiers.BIOME_MODIFIERS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::packetSetup);
         modEventBus.addListener(this::dataSetup);
         modEventBus.addListener(ReefMobVariants::registerVariantRegistries);
+        modEventBus.addListener(this::addPackFinders);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -79,5 +87,14 @@ public class RainbowReef {
         generator.addProvider(client, new ReefItemModelProvider(data));
         generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
         generator.addProvider(client, new ReefLanguageProvider(data));
+    }
+
+    public void addPackFinders(AddPackFindersEvent event) {
+        if (event.getPackType() == PackType.CLIENT_RESOURCES) {
+            event.addPackFinders(location("resourcepacks/water_tweaks"), PackType.CLIENT_RESOURCES, Component.literal("Rainbow Reef Water Tweaks"), PackSource.BUILT_IN, true, Pack.Position.TOP);
+        }
+        if (event.getPackType() == PackType.SERVER_DATA) {
+            event.addPackFinders(location("datapacks/water_colors"), PackType.SERVER_DATA, Component.literal("Rainbow Reef Water Color Overrides"), PackSource.BUILT_IN, true, Pack.Position.TOP);
+        }
     }
 }

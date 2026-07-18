@@ -1,0 +1,6 @@
+{
+  "type": "rainbow_reef:modify_colors",
+  "biomes": "minecraft:ocean",
+  "water_color": 1542100,
+  "water_fog_color": 1140144
+}
