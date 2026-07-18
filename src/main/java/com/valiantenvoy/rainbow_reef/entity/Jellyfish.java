@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.JellyfishMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
@@ -46,7 +46,7 @@ public class Jellyfish extends JellyfishMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 60));
+        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1, 60));
     }
 
     @Override

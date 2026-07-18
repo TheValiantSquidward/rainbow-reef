@@ -75,14 +75,8 @@ public class BillfishModel extends ReefModel<Billfish> {
 	@Override
 	public void setupAnim(Billfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-
-		float prevOnLandProgress = entity.prevOnLandProgress;
-		float onLandProgress = entity.onLandProgress;
 		float partialTicks = ageInTicks - entity.tickCount;
-		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
-
         if (!entity.isInWater() && !entity.isLeaping()) {
-            this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
         } else {
             this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
         }

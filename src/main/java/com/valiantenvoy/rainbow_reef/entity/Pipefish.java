@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
@@ -41,7 +41,7 @@ public class Pipefish extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new CustomizableRandomSwimGoal(this, 1, 50));
+        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1, 50));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.resources.ResourceLocation;
@@ -38,7 +38,7 @@ public class Boxfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5D));
-        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 30));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1, 30));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6.0F));
     }

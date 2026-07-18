@@ -103,6 +103,8 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         // lionfish
 
                         // mahi mahi
+                        output.accept(ReefItems.MAHI_MAHI_BUCKET.get());
+                        output.accept(ReefItems.RAW_MAHI_MAHI.get());
 
                         // maori wrasse
 

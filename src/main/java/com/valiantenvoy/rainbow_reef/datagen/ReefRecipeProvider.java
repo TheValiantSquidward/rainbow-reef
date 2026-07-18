@@ -15,7 +15,6 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.common.conditions.NotCondition;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,7 +29,7 @@ public class ReefRecipeProvider extends RecipeProvider implements IConditionBuil
     }
 
     @Override
-    protected void buildRecipes(@NotNull RecipeOutput consumer) {
+    protected void buildRecipes(RecipeOutput consumer) {
         ShapedRecipeBuilder.shaped(FOOD, ANGELFISH_CAKE.get()).define('A', Items.MILK_BUCKET).define('B', Items.SUGAR).define('C', Tags.Items.CROPS_WHEAT).define('D', RAW_ANGELFISH.get()).pattern("DDD").pattern("BAB").pattern("CCC").unlockedBy("has_raw_angelfish", has(RAW_ANGELFISH.get())).save(consumer);
         ShapedRecipeBuilder.shaped(FOOD, BASSLET_COOKIE.get(), 8).define('A', RAW_BASSLET.get()).define('B', Tags.Items.CROPS_WHEAT).pattern("BAB").unlockedBy("has_raw_basslet", has(RAW_BASSLET.get())).save(consumer);
         ShapedRecipeBuilder.shaped(FOOD, BOXFISH_BREAD.get()).define('A', RAW_BOXFISH.get()).define('B', Tags.Items.CROPS_WHEAT).define('C', Items.SUGAR).pattern("BBB").pattern("CAC").pattern("BBB").unlockedBy("has_raw_boxfish", has(RAW_BOXFISH.get())).save(consumer);

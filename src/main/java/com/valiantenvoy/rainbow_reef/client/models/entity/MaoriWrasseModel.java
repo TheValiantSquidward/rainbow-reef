@@ -74,16 +74,10 @@ public class MaoriWrasseModel extends HierarchicalModel<MaoriWrasse> {
 	@Override
 	public void setupAnim(MaoriWrasse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+		float partialTicks = ageInTicks - entity.tickCount;
 		this.animate(entity.flopAnimationState, MaoriWrasseAnimations.FLOP, ageInTicks);
 		this.animate(entity.swimIdleAnimationState, MaoriWrasseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 2.0F);
-
-		float prevOnLandProgress = entity.prevOnLandProgress;
-		float onLandProgress = entity.onLandProgress;
-		float partialTicks = ageInTicks - entity.tickCount;
-		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
-
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
 	}
 
 	@Override

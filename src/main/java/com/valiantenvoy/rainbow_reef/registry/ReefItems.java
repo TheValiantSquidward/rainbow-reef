@@ -113,7 +113,9 @@ public class ReefItems {
     public static final DeferredItem<Item> LIONFISH_SPAWN_EGG = registerSpawnEggItem("lionfish", ReefEntities.LIONFISH, 0x862a34, 0xd2d6dc);
 
     // mahi mahi
-    public static final DeferredItem<Item> MAHI_MAHI_SPAWN_EGG = registerSpawnEggItem("mahi_mahi", ReefEntities.MAHI_MAHI, 0x4b922b, 0xdcd700);
+    public static final DeferredItem<Item> MAHI_MAHI_SPAWN_EGG = registerSpawnEggItem("mahi_mahi", ReefEntities.MAHI_MAHI, 0x85b00c, 0x155e8d);
+    public static final DeferredItem<Item> MAHI_MAHI_BUCKET = registerMobBucketItem("mahi_mahi", ReefEntities.MAHI_MAHI);
+    public static final DeferredItem<Item> RAW_MAHI_MAHI = registerItem("mahi_mahi", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // maori wrasse
     public static final DeferredItem<Item> MAORI_WRASSE_SPAWN_EGG = registerSpawnEggItem("maori_wrasse", ReefEntities.MAORI_WRASSE, 0x1a7e89, 0x0d6c52);

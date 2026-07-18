@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public abstract class VariantSchoolingFish extends ReefMob {
 
     @Nullable
-    private VariantSchoolingFish leader;
+    protected VariantSchoolingFish leader;
     private int schoolSize = 1;
 
     public VariantSchoolingFish(EntityType<? extends WaterAnimal> entityType, Level level) {

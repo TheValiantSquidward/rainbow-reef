@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishDigGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -42,7 +42,7 @@ public class Hogfish extends ReefMob {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishDigGoal(this, 40, 500, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(4, new CustomizableRandomSwimGoal(this, 1, 10));
+        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 10));
     }
 
     @Override

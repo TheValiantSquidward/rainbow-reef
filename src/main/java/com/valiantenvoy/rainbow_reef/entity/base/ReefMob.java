@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
+import com.valiantenvoy.rainbow_reef.entity.utils.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -44,14 +45,15 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     private static final EntityDataAccessor<Integer> FEED_COOLDOWN = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.BOOLEAN);
 
-    public float prevTilt;
-    public float tilt;
+    protected float tilt;
+    protected float prevTilt;
+    protected float roll;
+    protected float prevRoll;
+    protected float lastYRot;
+    protected Vec3 lastMoveDir = Vec3.ZERO;
 
-    public float prevOnLandProgress;
-    public float onLandProgress;
-
-    public final AnimationState swimIdleAnimationState = new AnimationState();
-    public final AnimationState flopAnimationState = new AnimationState();
+    public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
+    public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
 
     public final SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
 
@@ -191,30 +193,10 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     public void tick() {
         super.tick();
 
-        prevTilt = tilt;
-        prevOnLandProgress = onLandProgress;
+        this.prevTilt = this.tilt;
 
-        if (this.level().isClientSide()){
+        if (this.level().isClientSide){
             this.setupAnimationStates();
-        }
-
-        if (this.isInWater()) {
-            final float v = Mth.degreesDifference(this.getYRot(), yRotO);
-            if (Math.abs(v) > 1) {
-                if (Math.abs(tilt) < 25) {
-                    tilt -= Math.signum(v);
-                }
-            } else {
-                if (Math.abs(tilt) > 0) {
-                    final float tiltSign = Math.signum(tilt);
-                    tilt -= tiltSign * 0.85F;
-                    if (tilt * tiltSign < 0) {
-                        tilt = 0;
-                    }
-                }
-            }
-        } else {
-            tilt = 0;
         }
 
         if (this.getFeedCooldown() > 0) {
@@ -227,7 +209,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     // default animations
     public void setupAnimationStates() {
         this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble(), this.tickCount);
+        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isLeaping(), this.tickCount);
     }
 
     @Override
@@ -235,6 +217,36 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
         float f2 = Math.min(f1 * 10.0F, 1.0F);
         this.walkAnimation.update(f2, 0.4F);
+    }
+
+    protected void tickRotations(float maxTilt, float maxRoll, float rollPerYaw) {
+        // tilt
+        this.prevTilt = tilt;
+        float targetTilt = 0.0F;
+        if (this.isInWater() || this.isLeaping()) {
+            Vec3 movement = this.getDeltaMovement();
+            if (movement.lengthSqr() > 1.0E-6) {
+                this.lastMoveDir = movement;
+            }
+            targetTilt = -((float) Mth.atan2(lastMoveDir.y, lastMoveDir.horizontalDistance()) * (180.0F / (float) Math.PI));
+            targetTilt = Mth.clamp(targetTilt, -maxTilt, maxTilt);
+        }
+        this.tilt += (targetTilt - tilt) * 0.2F;
+
+        // roll
+        this.prevRoll = roll;
+        float yawDelta = Mth.wrapDegrees(this.getYRot() - lastYRot);
+        this.lastYRot = this.getYRot();
+        float targetRoll = this.isInWater() ? Mth.clamp(-yawDelta * rollPerYaw, -maxRoll, maxRoll) : 0.0F;
+        this.roll += (targetRoll - roll) * 0.2F;
+    }
+
+    public float getTilt(float partialTicks) {
+        return Mth.lerp(partialTicks, prevTilt, tilt);
+    }
+
+    public float getRoll(float partialTicks) {
+        return Mth.lerp(partialTicks, prevRoll, roll);
     }
 
     public float flopChance() {
@@ -245,15 +257,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         return true;
     }
 
-    // flop here so it can be overridden if needed
     public void tickFlopping() {
-        if (!this.isInWaterOrBubble() && onLandProgress < 5F) {
-            onLandProgress++;
-        }
-        if (this.isInWaterOrBubble() && onLandProgress > 0F) {
-            onLandProgress--;
-        }
-
         if (!this.isInWater() && this.onGround() && this.getRandom().nextFloat() < this.flopChance() && this.shouldFlop()) {
             this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F, 0.5D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F));
             if (this.getRandom().nextFloat() < 0.3F) this.setYRot(this.getRandom().nextFloat() * 360.0F);
@@ -275,7 +279,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         this.move(MoverType.SELF, this.getDeltaMovement());
         this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
         if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.005D, 0.0D));
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.05D, 0.0D));
         }
     }
 

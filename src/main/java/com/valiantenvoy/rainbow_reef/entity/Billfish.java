@@ -2,7 +2,7 @@ package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefSwimmingMoveControl;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
@@ -38,7 +38,7 @@ public class Billfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new FishLeapGoal(this));
-        this.goalSelector.addGoal(2, new CustomizableRandomSwimGoal(this, 1, 10));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1, 10));
     }
 
     @Override

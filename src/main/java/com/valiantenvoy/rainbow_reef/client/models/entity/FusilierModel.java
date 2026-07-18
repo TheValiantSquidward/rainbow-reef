@@ -65,15 +65,9 @@ public class FusilierModel extends HierarchicalModel<Fusilier> {
 	@Override
 	public void setupAnim(Fusilier entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimIdleAnimationState, FusilierAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
-
-		float prevOnLandProgress = entity.prevOnLandProgress;
-		float onLandProgress = entity.onLandProgress;
 		float partialTicks = ageInTicks - entity.tickCount;
-		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
-
+		this.animate(entity.swimIdleAnimationState, FusilierAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
 	}
 
 	@Override

@@ -47,7 +47,7 @@ public class Clownfish extends Anemonefish {
         this.goalSelector.addGoal(4, new MoveToAnemoneGoal(this, 1, 4));
         this.goalSelector.addGoal(5, new LocateAnemoneGoal(this, 200));
         this.goalSelector.addGoal(6, new FishDigGoal(this, 10, 400, ReefTags.CLOWNFISH_DIET));
-        this.goalSelector.addGoal(7, new CustomizableRandomSwimGoal(this, 1, 40));
+        this.goalSelector.addGoal(7, new SwimWanderGoal(this, 1, 40));
         this.goalSelector.addGoal(8, new FollowVariantLeaderGoal(this));
     }
 

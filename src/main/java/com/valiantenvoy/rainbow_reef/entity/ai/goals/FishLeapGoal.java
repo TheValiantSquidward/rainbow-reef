@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
@@ -13,18 +14,18 @@ import net.minecraft.world.phys.Vec3;
 public class FishLeapGoal extends JumpGoal {
 
     private static final int[] STEPS_TO_CHECK = new int[]{0, 1, 4, 5, 6, 7};
-    private final ReefMob reefMob;
-    private final int interval;
+    protected final ReefMob mob;
+    protected final int interval;
     protected boolean breached;
-    private final double jumpDistance;
-    private final double jumpHeight;
+    protected final double jumpDistance;
+    protected final double jumpHeight;
 
-    public FishLeapGoal(ReefMob reefMob) {
-        this(reefMob, 10, 0.6D, 0.7D);
+    public FishLeapGoal(ReefMob mob) {
+        this(mob, 10, 0.6D, 0.7D);
     }
 
-    public FishLeapGoal(ReefMob reefMob, int interval, double jumpDistance, double jumpHeight) {
-        this.reefMob = reefMob;
+    public FishLeapGoal(ReefMob mob, int interval, double jumpDistance, double jumpHeight) {
+        this.mob = mob;
         this.interval = reducedTickDelay(interval);
         this.jumpDistance = jumpDistance;
         this.jumpHeight = jumpHeight;
@@ -32,15 +33,17 @@ public class FishLeapGoal extends JumpGoal {
 
     @Override
     public boolean canUse() {
-        if (this.reefMob.getRandom().nextInt(this.interval) != 0) {
+        if (this.mob.hasControllingPassenger()) {
+            return false;
+        } else if (this.mob.getRandom().nextInt(this.interval) != 0) {
             return false;
         } else {
-            Direction direction = this.reefMob.getMotionDirection();
-            int i = direction.getStepX();
-            int j = direction.getStepZ();
-            BlockPos blockpos = this.reefMob.blockPosition();
-            for (int k : STEPS_TO_CHECK) {
-                if (!this.waterIsClear(blockpos, i, j, k) || !this.surfaceIsClear(blockpos, i, j, k)) {
+            Direction direction = this.mob.getMotionDirection();
+            int stepX = direction.getStepX();
+            int stepZ = direction.getStepZ();
+            BlockPos blockpos = this.mob.blockPosition();
+            for (int steps : STEPS_TO_CHECK) {
+                if (!this.waterIsClear(blockpos, stepX, stepZ, steps) || !this.surfaceIsClear(blockpos, stepX, stepZ, steps)) {
                     return false;
                 }
             }
@@ -48,19 +51,20 @@ public class FishLeapGoal extends JumpGoal {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private boolean waterIsClear(BlockPos pos, int x, int z, int scale) {
         BlockPos blockpos = pos.offset(x * scale, 0, z * scale);
-        return this.reefMob.level().getFluidState(blockpos).is(FluidTags.WATER) && !this.reefMob.level().getBlockState(blockpos).blocksMotion();
+        return this.mob.level().getFluidState(blockpos).is(FluidTags.WATER) && !this.mob.level().getBlockState(blockpos).blocksMotion();
     }
 
-    private boolean surfaceIsClear(BlockPos pos, int dx, int dz, int scale) {
-        return this.reefMob.level().getBlockState(pos.offset(dx * scale, 1, dz * scale)).isAir() && this.reefMob.level().getBlockState(pos.offset(dx * scale, 2, dz * scale)).isAir();
+    private boolean surfaceIsClear(BlockPos pos, int x, int z, int scale) {
+        return this.mob.level().getBlockState(pos.offset(x * scale, 1, z * scale)).isAir() && this.mob.level().getBlockState(pos.offset(x * scale, 2, z * scale)).isAir();
     }
 
     @Override
     public boolean canContinueToUse() {
-        double y = this.reefMob.getDeltaMovement().y;
-        return (!(y * y < (double) 0.03F) || this.reefMob.getXRot() == 0.0F || !(Math.abs(this.reefMob.getXRot()) < 10.0F) || !this.reefMob.isInWater()) && !this.reefMob.onGround();
+        double y = this.mob.getDeltaMovement().y;
+        return (!(y * y < (double) 0.03F) || !this.mob.isInWater()) && !this.mob.onGround() && this.mob.isLeaping();
     }
 
     @Override
@@ -70,38 +74,34 @@ public class FishLeapGoal extends JumpGoal {
 
     @Override
     public void start() {
-        Direction direction = this.reefMob.getMotionDirection();
-        this.reefMob.setDeltaMovement(this.reefMob.getDeltaMovement().add((double) direction.getStepX() * jumpDistance, jumpHeight, (double) direction.getStepZ() * jumpDistance));
-        this.reefMob.getNavigation().stop();
-        this.reefMob.setLeaping(true);
+        this.breached = false;
+        Direction direction = this.mob.getMotionDirection();
+        this.mob.setDeltaMovement(this.mob.getDeltaMovement().add((double) direction.getStepX() * this.jumpDistance, this.jumpHeight, (double) direction.getStepZ() * this.jumpDistance));
+        this.mob.getNavigation().stop();
+        this.mob.setLeaping(true);
     }
 
     @Override
     public void stop() {
-        this.reefMob.setXRot(0.0F);
-        this.reefMob.setLeaping(false);
+        this.mob.setXRot(0.0F);
+        this.mob.setLeaping(false);
     }
 
     @Override
     public void tick() {
-        boolean flag = this.breached;
-        if (!flag) {
-            FluidState fluidstate = this.reefMob.level().getFluidState(this.reefMob.blockPosition());
-            this.breached = fluidstate.is(FluidTags.WATER);
+        if (!this.breached && !this.mob.isInWater()) {
+            this.breached = true;
+            this.mob.playSound(ReefSoundEvents.FISH_JUMP.get(), 1.0F, 1.0F);
         }
 
-        if (this.breached && !flag) {
-            this.reefMob.playSound(SoundEvents.DOLPHIN_JUMP, 1.0F, 1.0F);
+        if (this.breached && this.mob.isInWater()) {
+            this.mob.setLeaping(false);
+            this.breached = false;
         }
 
-        Vec3 vec3 = this.reefMob.getDeltaMovement();
-        if (vec3.y * vec3.y < (double) 0.03F && this.reefMob.getXRot() != 0.0F) {
-            this.reefMob.setXRot(Mth.rotLerp(0.2F, this.reefMob.getXRot(), 0.0F));
-        } else if (vec3.length() > (double) 1.0E-5F) {
-            double horizontalDistance = vec3.horizontalDistance();
-            double xRot = Math.atan2(-vec3.y, horizontalDistance) * (double) (180F / (float) Math.PI);
-            this.reefMob.setXRot((float) xRot);
-            this.reefMob.setYRot(((float) Mth.atan2(reefMob.getMotionDirection().getStepZ(), reefMob.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
+        Vec3 deltaMovement = this.mob.getDeltaMovement();
+        if (deltaMovement.length() > 1.0E-5F) {
+            this.mob.setYRot(((float) Mth.atan2(this.mob.getMotionDirection().getStepZ(), this.mob.getMotionDirection().getStepX())) * Mth.RAD_TO_DEG - 90F);
         }
     }
 }

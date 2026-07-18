@@ -70,6 +70,9 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(JELLY_SANDWICH);
         this.item(JELLY_TART);
 
+        this.item(MAHI_MAHI_BUCKET);
+        this.item(RAW_MAHI_MAHI);
+
         this.item(MOORISH_IDOL_BUCKET);
         this.item(RAW_MOORISH_IDOL);
         this.item(IDOL_COOKIE);

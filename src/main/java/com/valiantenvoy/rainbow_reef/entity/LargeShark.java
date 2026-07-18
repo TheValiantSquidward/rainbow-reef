@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.CustomizableRandomSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AnimationState;
@@ -36,7 +36,7 @@ public class LargeShark extends ReefMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new CustomizableRandomSwimGoal(this, 1, 10));
+        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1, 10));
 
     }
     @Override

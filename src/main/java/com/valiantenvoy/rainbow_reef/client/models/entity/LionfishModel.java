@@ -85,15 +85,9 @@ public class LionfishModel extends HierarchicalModel<Lionfish> {
 	@Override
 	public void setupAnim(Lionfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netheadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimIdleAnimationState, LionfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
-
-		float prevOnLandProgress = entity.prevOnLandProgress;
-		float onLandProgress = entity.onLandProgress;
 		float partialTicks = ageInTicks - entity.tickCount;
-		float landProgress = prevOnLandProgress + (onLandProgress - prevOnLandProgress) * partialTicks;
-
+		this.animate(entity.swimIdleAnimationState, LionfishAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 1.5F);
 		this.root.xRot = (headPitch * (Mth.DEG_TO_RAD));
-		this.root.zRot += landProgress * ((float) Math.toRadians(-90) / 5F);
 	}
 
 	@Override
