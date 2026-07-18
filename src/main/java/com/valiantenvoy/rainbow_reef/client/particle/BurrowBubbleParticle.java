@@ -19,7 +19,7 @@ public class BurrowBubbleParticle extends BubbleColumnUpParticle {
 
     protected BurrowBubbleParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(level, x, y, z, xSpeed, ySpeed, zSpeed);
-        this.lifetime = (int) (20.0F / (Math.random() * 0.8F + 0.2F));
+        this.lifetime = (int) (32.0F / (Math.random() * 0.8F + 0.2F));
     }
 
     @Override

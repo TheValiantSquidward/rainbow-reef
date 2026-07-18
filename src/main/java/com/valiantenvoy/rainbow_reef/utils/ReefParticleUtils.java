@@ -16,7 +16,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 public class ReefParticleUtils {
 
     public static void spawnSingleChestBubbles(Level level, BlockPos pos, double x, double y, double z) {
-        spawnChestBubbles((ServerLevel) level, pos, 12, x, y, z, 0.5, 0.5);
+        spawnChestBubbles((ServerLevel) level, pos, 8, x, y, z, 0.5D, 0.5D);
     }
 
     public static void spawnDoubleChestBubbles(Level level, BlockPos pos, BlockState state, double x, double y, double z) {
@@ -27,7 +27,7 @@ public class ReefParticleUtils {
         } else {
             xRange += 1;
         }
-        spawnChestBubbles((ServerLevel) level, pos, 24, x, y, z, xRange, zRange);
+        spawnChestBubbles((ServerLevel) level, pos, 16, x, y, z, xRange, zRange);
     }
 
     public static void spawnChestBubbles(ServerLevel level, BlockPos pos, int numParticles, double x, double y, double z, double xRange, double zRange) {
