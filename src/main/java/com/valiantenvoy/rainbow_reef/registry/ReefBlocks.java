@@ -250,6 +250,8 @@ public class ReefBlocks {
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
             });
 
+    public static final DeferredBlock<Block> FINE_GLASS = registerBlock("fine_glass", ()-> new ConnectedGlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+
     private static <B extends Block> DeferredBlock<B> registerBurrow(String name, Supplier<B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
         ReefItems.ITEMS.register(name, () -> new BurrowBlockItem(block.get(), new Item.Properties()));

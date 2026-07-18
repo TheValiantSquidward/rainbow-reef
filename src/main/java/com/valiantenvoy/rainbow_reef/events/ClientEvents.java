@@ -6,10 +6,8 @@ import com.valiantenvoy.rainbow_reef.client.particle.BurrowBubbleParticle;
 import com.valiantenvoy.rainbow_reef.client.renderer.*;
 import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer;
 import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
-import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
-import com.valiantenvoy.rainbow_reef.registry.ReefItemProperties;
-import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
-import com.valiantenvoy.rainbow_reef.registry.ReefParticleTypes;
+import com.valiantenvoy.rainbow_reef.registry.*;
+import net.minecraft.client.renderer.BiomeColors;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -17,6 +15,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
 @OnlyIn(Dist.CLIENT)
@@ -104,5 +103,17 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.DAMSELFISH, DamselfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.RABBITFISH, RabbitfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.FUSILIER, FusilierModel::createBodyLayer);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColors(RegisterColorHandlersEvent.Block event) {
+        event.register((state, level, pos, tintIndex) -> {
+                    if (level == null || pos == null) {
+                        return 0x1787d4;
+                    }
+                    return BiomeColors.getAverageWaterColor(level, pos);
+                },
+                ReefBlocks.FINE_GLASS.get()
+        );
     }
 }

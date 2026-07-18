@@ -282,7 +282,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         this.move(MoverType.SELF, this.getDeltaMovement());
         this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
         if (this.horizontalCollision && this.isEyeInFluid(FluidTags.WATER) && this.isPathFinding()) {
-            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.05D, 0.0D));
+            this.setDeltaMovement(this.getDeltaMovement().add(0.0D, 0.01D, 0.0D));
         }
     }
 

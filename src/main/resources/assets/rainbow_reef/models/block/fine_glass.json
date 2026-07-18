@@ -1,0 +1,22 @@
+{
+	"parent": "block/block",
+	"render_type": "translucent",
+	"textures": {
+		"texture": "rainbow_reef:block/fine_glass",
+		"particle": "rainbow_reef:block/fine_glass_all"
+	},
+	"elements": [
+		{
+			"from": [0.005, 0.005, 0.005],
+			"to": [15.995, 15.995, 15.995],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "north", "tintindex": 0},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "east", "tintindex": 0},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "south", "tintindex": 0},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "west", "tintindex": 0},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "up", "tintindex": 0},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#texture", "cullface": "down", "tintindex": 0}
+			}
+		}
+	]
+}

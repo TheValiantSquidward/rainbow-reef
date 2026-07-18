@@ -179,6 +179,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
 
                         output.accept(ReefBlocks.BUBBLER.get());
                         output.accept(ReefBlocks.JELLY_BLOCK.get());
+                        output.accept(ReefBlocks.FINE_GLASS.get());
 
                         output.accept(ReefBlocks.CORALSTONE.get());
                         output.accept(ReefBlocks.CORALSTONE_BRICKS.get());

@@ -1,0 +1,14 @@
+{
+  "parent": "rainbow_reef:block/tinted_cube",
+  "render_type": "cutout_mipped",
+  "textures": {
+    "particle": "rainbow_reef:block/fine_glass_all",
+    "down": "rainbow_reef:block/fine_glass_right",
+    "up": "rainbow_reef:block/fine_glass_right",
+    "north": "rainbow_reef:block/fine_glass_left",
+    "east": "rainbow_reef:block/fine_glass_blank",
+    "south": "rainbow_reef:block/fine_glass_right",
+    "west": "rainbow_reef:block/fine_glass_blank"
+  }
+}
+

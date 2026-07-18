@@ -1,0 +1,7 @@
+{
+  "parent": "rainbow_reef:block/tinted_cube_all",
+  "render_type": "translucent",
+  "textures": {
+    "all": "rainbow_reef:block/fine_glass_all"
+  }
+}
