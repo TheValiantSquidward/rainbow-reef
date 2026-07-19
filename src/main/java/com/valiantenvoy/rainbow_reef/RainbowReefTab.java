@@ -1,22 +1,30 @@
 package com.valiantenvoy.rainbow_reef;
 
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefMobVariant;
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
+import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
+import com.valiantenvoy.rainbow_reef.registry.ReefMobVariants;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Comparator;
+
 public class RainbowReefTab {
-public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-        DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RainbowReef.MOD_ID);
+
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RainbowReef.MOD_ID);
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RAINBOW_REEF_TAB = CREATIVE_MODE_TABS.register("rainbow_reef_tab",
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ReefItems.RAW_TANG.get()))
@@ -285,30 +293,21 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                     .withTabsBefore(RAINBOW_REEF_TAB.getId())
                     .title(Component.translatable("creativetab.rainbow_reef_variants_tab"))
                     .displayItems((parameters, output) -> {
+                        variantsByRarity(parameters, output, ReefItems.BILLFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BILLFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.MAHI_MAHI_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MAHI_MAHI.get()));
+                        variantsByRarity(parameters, output, ReefItems.SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SHARK.get()));
                     })
                     .build());
 
-    private static void variantBucket(CreativeModeTab.Output output, Item bucket, int variant) {
-        ItemStack stack = new ItemStack(bucket);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, tag -> tag.putInt("BucketVariantTag", variant));
-        output.accept(stack);
+    private static void variantsByRarity(CreativeModeTab.ItemDisplayParameters parameters, CreativeModeTab.Output output, Item bucket, ResourceKey<Registry<ReefMobVariant>> registryKey) {
+        parameters.holders().lookupOrThrow(registryKey).listElements().sorted(Comparator.comparing((Holder.Reference<ReefMobVariant> holder) ->
+                        holder.value().rarity()).thenComparing(holder ->
+                        holder.key().location())).forEach(holder -> variantBucket(output, bucket, holder));
     }
 
-//    private static <E extends Enum<E>> void variantsByRarity(CreativeModeTab.Output output, Item bucket, E[] values,
-//                                                             ToIntFunction<E> id, Function<E, ReefMob.ReefRarities> rarity) {
-//        Arrays.stream(values)
-//                .sorted(Comparator.<E>comparingInt(e -> rarity.apply(e).ordinal()).thenComparing(Enum::name))
-//                .forEach(e -> variantBucket(output, bucket, id.applyAsInt(e)));
-//    }
-//
-//    private static void variantsByName(CreativeModeTab.Output output, Item bucket, int count, IntFunction<String> name) {
-//        IntStream.rangeClosed(1, count)
-//                .boxed()
-//                .sorted(Comparator.comparing(name::apply))
-//                .forEach(variant -> variantBucket(output, bucket, variant));
-//    }
-
-    public static void register(IEventBus eventBus) {
-        CREATIVE_MODE_TABS.register(eventBus);
+    private static void variantBucket(CreativeModeTab.Output output, Item bucket, Holder.Reference<ReefMobVariant> variant) {
+        ItemStack stack = new ItemStack(bucket);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, tag -> tag.putString(ReefVariantMob.VARIANT_TAG, variant.key().location().toString()));
+        output.accept(stack);
     }
 }

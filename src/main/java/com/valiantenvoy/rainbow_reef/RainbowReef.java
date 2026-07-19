@@ -40,7 +40,6 @@ public class RainbowReef {
     }
 
     public RainbowReef(IEventBus modEventBus, ModContainer modContainer) {
-        RainbowReefTab.register(modEventBus);
 
         ReefEntities.ENTITY_TYPE.register(modEventBus);
         ReefItems.ITEMS.register(modEventBus);
@@ -51,6 +50,7 @@ public class RainbowReef {
         ReefSoundEvents.SOUND_EVENTS.register(modEventBus);
         ReefParticleTypes.PARTICLE_TYPES.register(modEventBus);
         ReefBiomeModifiers.BIOME_MODIFIERS.register(modEventBus);
+        RainbowReefTab.CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::packetSetup);
