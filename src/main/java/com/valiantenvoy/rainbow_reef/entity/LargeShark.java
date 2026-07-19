@@ -42,7 +42,7 @@ public class LargeShark extends ReefMob {
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
-//        this.biteAnimationState.animateWhen(this.isAlive(), this.tickCount);
+//        this.attackAnimationState.animateWhen(this.isAlive(), this.tickCount);
     }
 
     @Override

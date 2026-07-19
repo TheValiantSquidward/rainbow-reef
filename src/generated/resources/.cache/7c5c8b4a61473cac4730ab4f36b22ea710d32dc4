@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-17T21:32:24.8447273	Item Models: rainbow_reef
+// 1.21.1	2026-07-19T10:59:49.3694546	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -83,6 +83,7 @@ b2d4255cade977b7f16130987b1ccc27cce1b922 assets/rainbow_reef/models/item/roasted
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/seahorse_spawn_egg.json
 c7cefa2e547b7205c1a9cb1d8be7e9fd60275572 assets/rainbow_reef/models/item/seasugar_sorbet.json
 1ef8b56904a6ca536d785b81e788c8543658b099 assets/rainbow_reef/models/item/sharkbite_salad.json
+7d245c1ec6576afb81b05d890a6a317b48434922 assets/rainbow_reef/models/item/shark_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/shark_spawn_egg.json
 86106959dd1269531e7f1448237997fab0b34a5a assets/rainbow_reef/models/item/small_shark.json
 eedc30b73fc994bc0d430a863c84f25dc391ad62 assets/rainbow_reef/models/item/small_shark_bucket.json

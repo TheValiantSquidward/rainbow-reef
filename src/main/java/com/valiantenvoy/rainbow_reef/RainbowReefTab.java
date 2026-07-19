@@ -136,6 +136,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.DRIED_SEAHORSE.get());
 
                         // shark
+                        output.accept(ReefItems.SHARK_BUCKET.get());
 
                         // small shark
                         output.accept(ReefItems.SMALL_SHARK_BUCKET.get());

@@ -154,7 +154,8 @@ public class ReefItems {
     public static final DeferredItem<Item> DRIED_SEAHORSE = registerItem("dried_seahorse", () -> new CleansingSnackItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.4F).fast().alwaysEdible().build())));
 
     // shark
-    public static final DeferredItem<Item> SHARK_SPAWN_EGG = registerSpawnEggItem("shark", ReefEntities.SHARK, 0x686963, 0xb0a5a2);
+    public static final DeferredItem<Item> SHARK_SPAWN_EGG = registerSpawnEggItem("shark", ReefEntities.SHARK, 0x8b867b, 0x312b26);
+    public static final DeferredItem<Item> SHARK_BUCKET = registerMobBucketItem("shark", ReefEntities.SHARK);
 
     // small shark
     public static final DeferredItem<Item> SMALL_SHARK_SPAWN_EGG = registerSpawnEggItem("small_shark", ReefEntities.SMALL_SHARK, 0xe0a33b, 0xa35a1d);

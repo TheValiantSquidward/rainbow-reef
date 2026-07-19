@@ -40,19 +40,19 @@ public class ReefEntities {
     public static final DeferredHolder<EntityType<?>, EntityType<Rabbitfish>> RABBITFISH = registerEntity("rabbitfish", Rabbitfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Ray>> RAY = registerEntity("ray", Ray::new, MobCategory.WATER_CREATURE, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Seahorse>> SEAHORSE = registerEntity("seahorse", Seahorse::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<Shark>> SHARK = registerEntity("shark", Shark::new, MobCategory.WATER_CREATURE, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Shark>> SHARK = registerEntity("shark", Shark::new, MobCategory.WATER_CREATURE, builder -> builder.sized(1.25F, 0.9F).eyeHeight(0.45F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<SmallShark>> SMALL_SHARK = registerEntity("small_shark", SmallShark::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Tang>> TANG = registerEntity("tang", Tang::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Triggerfish>> TRIGGERFISH = registerEntity("triggerfish", Triggerfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Wrasse>> WRASSE = registerEntity("wrasse", Wrasse::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
 
     public static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> registerEntity(String name, EntityType.EntityFactory<E> factory, MobCategory entityClassification, Consumer<EntityType.Builder<E>> builderConsumer) {
+        if (entityClassification != MobCategory.MISC) {
+            ReefMobVariants.register(name);
+        }
         return ENTITY_TYPE.register(name, () -> {
             var builder = EntityType.Builder.of(factory, entityClassification);
             builderConsumer.accept(builder);
-            if (entityClassification != MobCategory.MISC) {
-                ReefMobVariants.register(name);
-            }
             return builder.build(RainbowReef.MOD_ID + ":" + name);
         });
     }

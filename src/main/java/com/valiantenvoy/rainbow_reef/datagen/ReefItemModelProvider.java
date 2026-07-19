@@ -93,6 +93,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_SEAHORSE);
         this.item(DRIED_SEAHORSE);
 
+        this.item(SHARK_BUCKET);
+
         this.item(SMALL_SHARK_BUCKET);
         this.item(RAW_SMALL_SHARK);
         this.item(SHARKBITE_SALAD);

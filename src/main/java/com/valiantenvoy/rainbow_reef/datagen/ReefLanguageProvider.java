@@ -52,6 +52,7 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addItem(ReefItems.PIPEFISH_BUCKET, "Bucket of Pipefish");
         this.addItem(ReefItems.RAY_BUCKET, "Bucket of Ray");
         this.addItem(ReefItems.SEAHORSE_BUCKET, "Bucket of Seahorse");
+        this.addItem(ReefItems.SHARK_BUCKET, "Bucket of Shark");
         this.addItem(ReefItems.SMALL_SHARK_BUCKET, "Bucket of Small Shark");
         this.addItem(ReefItems.TANG_BUCKET, "Bucket of Tang");
 

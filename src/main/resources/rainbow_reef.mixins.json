@@ -10,7 +10,8 @@
     "FishingRodItemMixin"
   ],
   "client": [
-    "client.BiomeColorsMixin"
+    "client.BiomeColorsMixin",
+    "client.WaterDropParticleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

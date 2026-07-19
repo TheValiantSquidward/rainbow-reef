@@ -13,7 +13,7 @@ public enum VariantRarity implements StringRepresentable {
     UNCOMMON("uncommon", style -> style.withColor(ChatFormatting.YELLOW), 30),
     RARE("rare", style -> style.withColor(ChatFormatting.AQUA), 15),
     EPIC("epic", style -> style.withColor(ChatFormatting.LIGHT_PURPLE), 5),
-    ABERRANT("aberrant", style -> style.withColor(15933054), 1);
+    ABERRANT("aberrant", style -> style.withColor(0xf31e7e), 1);
 
     public static final Codec<VariantRarity> CODEC = StringRepresentable.fromEnum(VariantRarity::values);
 
