@@ -21,12 +21,12 @@ public class ColorNoise {
 
     public int applyNoise(BlockPos pos, int previousColor, float scale, float intensity){
         double noiseValue = this.getSample(pos.getX(),pos.getZ(),scale);
-        double d1 = noiseValue * 16;
-        d1 = Math.round(d1);
-        noiseValue = d1 / 16;
-        d1 = this.getSample(pos.getX(), pos.getZ(), 0.2F);
+        double rounded = noiseValue * 2;
+        rounded = Math.round(rounded);
+        noiseValue = rounded / 2;
+        rounded = this.getSample(pos.getX(), pos.getZ(), 0.2F);
         int noiseValueInt = this.blend(previousColor,(float) noiseValue * intensity);
-        return this.blend(noiseValueInt,(float) d1 * (intensity * 0.5F));
+        return this.blend(noiseValueInt,(float) rounded * (intensity * 0.6F));
     }
 
     private float[] getAlphaColorArray(int hex) {
@@ -41,6 +41,6 @@ public class ColorNoise {
         final float[] rgb1 = this.getAlphaColorArray(color1);
         final float[] rgb2 = this.getAlphaColorArray(0);
         final float negative = 1-ratio;
-        return this.toIntColor(new float[]{Mth.clamp(rgb2[0] * ratio + rgb1[0] * negative,0,1), Mth.clamp(rgb2[1] * ratio + rgb1[1] * negative,0,1), Mth.clamp(rgb2[2] * ratio + rgb1[2] * negative,0,1), Mth.clamp(rgb2[3] * ratio + rgb1[3] * negative,0,1)});
+        return this.toIntColor(new float[]{Mth.clamp(rgb2[0] * ratio + rgb1[0] * negative, 0, 1), Mth.clamp(rgb2[1] * ratio + rgb1[1] * negative, 0, 1), Mth.clamp(rgb2[2] * ratio + rgb1[2] * negative, 0, 1), Mth.clamp(rgb2[3] * ratio + rgb1[3] * negative, 0, 1)});
     }
 }

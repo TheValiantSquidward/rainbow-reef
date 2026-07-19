@@ -1,0 +1,6 @@
+{
+  "type": "rainbow_reef:modify_colors",
+  "biomes": "#rainbow_reef:deserts",
+  "water_color": 3319192,
+  "water_fog_color": 2651501
+}

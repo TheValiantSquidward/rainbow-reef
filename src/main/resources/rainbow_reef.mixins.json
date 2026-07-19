@@ -5,7 +5,9 @@
   "refmap": "rainbow_reef.refmap.json",
   "mixins": [
     "ChestBlockEntityMixin",
-    "EnderChestBlockEntityMixin"
+    "EnderChestBlockEntityMixin",
+    "FishingHookMixin",
+    "FishingRodItemMixin"
   ],
   "client": [
     "client.BiomeColorsMixin"

@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.events;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.client.models.entity.*;
 import com.valiantenvoy.rainbow_reef.client.particle.BurrowBubbleParticle;
 import com.valiantenvoy.rainbow_reef.client.renderer.*;
@@ -8,8 +9,10 @@ import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer
 import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
 import com.valiantenvoy.rainbow_reef.registry.*;
 import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
@@ -35,6 +38,13 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ReefParticleTypes.BURROW_BUBBLE.get(), BurrowBubbleParticle.Provider::new);
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void registerVanillaEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        if (RainbowReefConfig.DYEABLE_FISHING_RODS.getAsBoolean()) {
+            event.registerEntityRenderer(EntityType.FISHING_BOBBER, ReefFishingHookRenderer::new);
+        }
     }
 
     @SubscribeEvent

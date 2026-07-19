@@ -6,9 +6,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.concurrent.CompletableFuture;
@@ -23,7 +24,7 @@ public class ReefItemTagProvider extends ItemTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider provider) {
+    protected void addTags(HolderLookup.Provider provider) {
 
         this.tag(ReefItemTags.RAINBOW_REEF_CRABS).add(
                 RAW_CRAB.get(),
@@ -31,10 +32,12 @@ public class ReefItemTagProvider extends ItemTagsProvider {
         );
 
         this.tag(ReefItemTags.CRABS).addTag(ReefItemTags.RAINBOW_REEF_CRABS).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "shore_crab")).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "horseshoe_crab"));
+
+        this.tag(ItemTags.DYEABLE).add(Items.FISHING_ROD);
     }
 
     @Override
-    public @NotNull String getName() {
+    public String getName() {
         return RainbowReef.MOD_ID + " Item Tags";
     }
 }

@@ -1,4 +1,4 @@
-package com.valiantenvoy.rainbow_reef.client.renderer.layer;
+package com.valiantenvoy.rainbow_reef.client.renderer.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.valiantenvoy.rainbow_reef.client.models.entity.ParrotfishModel;

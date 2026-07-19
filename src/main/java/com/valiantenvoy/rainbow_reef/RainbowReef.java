@@ -15,7 +15,9 @@ import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -36,7 +38,7 @@ public class RainbowReef {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 
-    public RainbowReef(IEventBus modEventBus) {
+    public RainbowReef(IEventBus modEventBus, ModContainer modContainer) {
         RainbowReefTab.register(modEventBus);
 
         ReefEntities.ENTITY_TYPE.register(modEventBus);
@@ -54,6 +56,8 @@ public class RainbowReef {
         modEventBus.addListener(this::dataSetup);
         modEventBus.addListener(ReefMobVariants::registerVariantRegistries);
         modEventBus.addListener(this::addPackFinders);
+
+        modContainer.registerConfig(ModConfig.Type.CLIENT, RainbowReefConfig.CLIENT_CONFIG, "rainbow-reef-client.toml");
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
