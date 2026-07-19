@@ -91,12 +91,12 @@ public class FishLeapGoal extends JumpGoal {
 
     @Override
     public void tick() {
-        if (!this.breached && !this.mob.isInWater()) {
+        if (!this.breached && !this.mob.level().getFluidState(this.mob.blockPosition()).is(FluidTags.WATER)) {
             this.breached = true;
             this.mob.playSound(ReefSoundEvents.FISH_JUMP.get(), 1.0F, 1.0F);
         }
 
-        if (this.breached && this.mob.isInWater()) {
+        if (this.breached && this.mob.level().getFluidState(this.mob.blockPosition()).is(FluidTags.WATER)) {
             this.mob.setLeaping(false);
             this.breached = false;
         }

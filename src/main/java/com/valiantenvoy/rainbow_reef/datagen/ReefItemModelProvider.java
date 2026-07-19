@@ -32,6 +32,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_BASSLET);
         this.item(BASSLET_COOKIE);
 
+        this.item(BILLFISH_BUCKET);
+
         this.item(BOXFISH_BUCKET);
         this.item(RAW_BOXFISH);
         this.item(BOXFISH_BREAD);

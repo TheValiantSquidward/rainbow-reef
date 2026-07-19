@@ -4,7 +4,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
-import com.valiantenvoy.rainbow_reef.entity.utils.SmoothAnimationState;
+import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;

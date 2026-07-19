@@ -1,14 +1,14 @@
 package com.valiantenvoy.rainbow_reef.client.models.entity.base;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.valiantenvoy.rainbow_reef.entity.utils.SmoothAnimationState;
+import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.AnimationState;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.joml.Vector3f;
 
@@ -17,9 +17,11 @@ import java.util.function.Function;
 public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
 
     private static final Vector3f ANIMATION_VECTOR_CACHE = new Vector3f();
+    protected static final float IDLE_FADE_SCALE = 2.5F;
+    protected static final float ACTIVE_THRESHOLD = 0.05F;
 
     public ReefModel() {
-        this(RenderType::entityCutoutNoCull);
+        super();
     }
 
     public ReefModel(Function<ResourceLocation, RenderType> renderType) {
@@ -27,23 +29,16 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        poseStack.pushPose();
-        this.root().render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-        poseStack.popPose();
+    public void setupAnim(E entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.setupAnimations(entity, limbSwing, limbSwingAmount, ageInTicks, ageInTicks - entity.tickCount, netHeadYaw, headPitch);
     }
 
-    @Deprecated
-    protected void animateIdle(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float limbSwingAmount) {
-        float scale = Math.clamp(1 - Math.abs(limbSwingAmount), 0, 1);
-        animationState.updateTime(ageInTicks, (float) 0.8);
-        animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), scale, ReefModel.ANIMATION_VECTOR_CACHE));
-    }
+    protected abstract void setupAnimations(E entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch);
 
     @Override
-    @Deprecated
-    protected void animate(AnimationState animationState, AnimationDefinition definition, float ageInTicks) {
-        this.animate(animationState, definition, ageInTicks, 1.0F);
+    protected void applyStatic(AnimationDefinition definition) {
+        KeyframeAnimations.animate(this, definition, 0L, 1.0F, ReefModel.ANIMATION_VECTOR_CACHE);
     }
 
     @Override
@@ -55,47 +50,48 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
         }
     }
 
-    @Override
-    @Deprecated
-    protected void animate(AnimationState animationState, AnimationDefinition definition, float ageInTicks, float speed) {
-        animationState.updateTime(ageInTicks, speed);
-        animationState.ifStarted((state) -> KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), 1.0F, ReefModel.ANIMATION_VECTOR_CACHE));
+    protected void animateSmooth(SmoothAnimationState state, AnimationDefinition definition, float ageInTicks, float partialTicks) {
+        this.animateSmooth(state, definition, ageInTicks, partialTicks, 1.0F);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount) {
-        if (!animationState.isActive(partialTicks)) {
+    protected void animateSmooth(SmoothAnimationState state, AnimationDefinition definition, float ageInTicks, float partialTicks, float speed) {
+        float factor = state.factor(partialTicks);
+        if (factor <= ACTIVE_THRESHOLD) {
             return;
         }
-        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, 1.5F, 1.0F);
+        state.updateTime(ageInTicks, speed);
+        KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), factor, ANIMATION_VECTOR_CACHE);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor) {
-        if (!animationState.isActive(partialTicks)) {
+    protected void animateWalkSmooth(SmoothAnimationState state, AnimationDefinition definition, float limbSwing, float limbSwingAmount, float partialTicks) {
+        this.animateWalkSmooth(state, definition, limbSwing, limbSwingAmount, 1.5F, 2.5F, partialTicks);
+    }
+
+    protected void animateWalkSmooth(SmoothAnimationState state, AnimationDefinition definition, float limbSwing, float limbSwingAmount, float maxAnimationSpeed, float animationScaleFactor, float partialTicks) {
+        float factor = state.factor(partialTicks);
+        if (factor <= ACTIVE_THRESHOLD || limbSwingAmount <= 0.0F) {
             return;
         }
-        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, 1.0F);
+        long time = (long) (limbSwing * 50.0F * maxAnimationSpeed);
+        float weight = Math.min(limbSwingAmount * animationScaleFactor, 1.0F) * factor;
+        KeyframeAnimations.animate(this, definition, time, weight, ANIMATION_VECTOR_CACHE);
     }
 
-    protected void animateIdleSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float speed) {
-        if (!animationState.isActive(partialTicks)) {
+    protected void animateIdleSmooth(SmoothAnimationState state, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount) {
+        this.animateIdleSmooth(state, definition, ageInTicks, partialTicks, limbSwingAmount, IDLE_FADE_SCALE, 1.0F);
+    }
+
+    protected void animateIdleSmooth(SmoothAnimationState state, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount, float animationScaleFactor, float speed) {
+        float factor = state.factor(partialTicks) * (1.0F - Math.min(limbSwingAmount * animationScaleFactor, 1.0F));
+        if (factor <= ACTIVE_THRESHOLD) {
             return;
         }
-        animationState.animateIdle(this, definition, ageInTicks, partialTicks, limbSwingAmount, animationScaleFactor, speed);
+        state.updateTime(ageInTicks, speed);
+        KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), factor, ANIMATION_VECTOR_CACHE);
     }
 
-    protected void animateSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks) {
-        this.animateSmooth(animationState, definition, ageInTicks, partialTicks, 1.0F);
-    }
-
-    protected void animateSmooth(SmoothAnimationState animationState, AnimationDefinition definition, float ageInTicks, float partialTicks, float speed) {
-        if (!animationState.isActive(partialTicks)) {
-            return;
-        }
-        animationState.animate(this, definition, ageInTicks, partialTicks, speed);
-    }
-
-    @Override
-    protected void applyStatic(AnimationDefinition definition) {
-        KeyframeAnimations.animate(this, definition, 0L, 1.0F, ReefModel.ANIMATION_VECTOR_CACHE);
+    protected void applyRollAndTilt(ReefMob entity, ModelPart modelPart, float partialTicks) {
+        modelPart.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
+        modelPart.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
     }
 }

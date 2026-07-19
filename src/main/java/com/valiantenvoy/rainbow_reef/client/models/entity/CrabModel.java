@@ -2,7 +2,7 @@ package com.valiantenvoy.rainbow_reef.client.models.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.valiantenvoy.rainbow_reef.client.animations.CrabAnimations;
+import com.valiantenvoy.rainbow_reef.client.models.entity.animations.CrabAnimations;
 import com.valiantenvoy.rainbow_reef.entity.Crab;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;

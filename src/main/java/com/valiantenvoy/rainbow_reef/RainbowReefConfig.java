@@ -19,7 +19,7 @@ public class RainbowReefConfig {
         WATER_COLOR_NOISE = CLIENT_BUILDER.comment("Whether water colors should have a Perlin noise overlay").define("waterColorNoise", true);
         GRASS_COLOR_NOISE = CLIENT_BUILDER.comment("Whether grass colors should have a Perlin noise overlay").define("grassColorNoise", true);
         BIOME_COLOR_NOISE_SCALE = CLIENT_BUILDER.comment("Scale for biome color noise").defineInRange("biomeColorNoiseScale", 15.0D, Double.MIN_VALUE, Double.MAX_VALUE);
-        BIOME_COLOR_NOISE_INTENSITY = CLIENT_BUILDER.comment("Intensity for biome color noise").defineInRange("biomeColorNoiseIntensity", 0.075D, 0.0D, Double.MAX_VALUE);
+        BIOME_COLOR_NOISE_INTENSITY = CLIENT_BUILDER.comment("Intensity for biome color noise").defineInRange("biomeColorNoiseIntensity", 0.05D, 0.0D, Double.MAX_VALUE);
         // technically has stuff on the server too, but it's only called for the renderer replacement
         DYEABLE_FISHING_RODS = CLIENT_BUILDER.comment("Whether fishing bobber renderer should be replaced for dyed lines and bobbers").define("dyeableFishingRods", true);
 

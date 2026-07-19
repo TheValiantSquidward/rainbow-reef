@@ -45,6 +45,7 @@ public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
                         output.accept(ReefItems.BASSLET_COOKIE.get());
 
                         // billfish
+                        output.accept(ReefItems.BILLFISH_BUCKET.get());
 
                         // boxfish
                         output.accept(ReefItems.BOXFISH_BUCKET.get());

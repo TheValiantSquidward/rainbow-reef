@@ -1,11 +1,11 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefSwimmingMoveControl;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -13,6 +13,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.item.ItemStack;
@@ -21,16 +22,20 @@ import net.minecraft.world.phys.Vec3;
 
 public class Billfish extends ReefMob {
 
+    private static final float MAX_TILT = 45.0F;
+    private static final float MAX_ROLL = 17.5F;
+    private static final float ROLL_PER_YAW = 2.0F;
+
     public Billfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new ReefSwimmingMoveControl(this, 20, 10, 0.02F, 0.1F);
-        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 45, 5, 0.05F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 5);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.9F)
+                .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .build();
     }
 
@@ -38,7 +43,7 @@ public class Billfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new FishLeapGoal(this));
-        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1, 10));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 10, 20, 7, 4, true));
     }
 
     @Override
@@ -49,6 +54,7 @@ public class Billfish extends ReefMob {
     @Override
     public void tick() {
         super.tick();
+        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
         if (this.level().isClientSide) {
             if (this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.05D) {
                 Vec3 vec31 = this.getViewVector(0.0F);
@@ -58,17 +64,12 @@ public class Billfish extends ReefMob {
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
-    }
-
-    @Override
     public ItemStack getBucketItemStack() {
-        return ItemStack.EMPTY;
+        return new ItemStack((ReefItems.BILLFISH_BUCKET.get()));
     }
 
     @Override
     public ResourceLocation fallbackVariantTexture() {
-        return RainbowReef.location("textures/entity/billfish/billfish_sailfish.png");
+        return RainbowReef.location("textures/entity/billfish/billfish_swordfish.png");
     }
 }

@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-19T10:59:49.3694546	Item Models: rainbow_reef
+// 1.21.1	2026-07-19T17:07:35.0669992	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -9,6 +9,7 @@ fe4fa004f81ea815a08f1d2eb232f5a19f472e43 assets/rainbow_reef/models/item/arrow_c
 a9f7d677d704ebefd084cdc0714ff113a4d63d2f assets/rainbow_reef/models/item/basslet_bucket.json
 bcbd61d324ecad276a23133a0c3ff7b706915293 assets/rainbow_reef/models/item/basslet_cookie.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/basslet_spawn_egg.json
+7a210e9212389cd47f9e9e7e7aa532543d6cadb5 assets/rainbow_reef/models/item/billfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/billfish_spawn_egg.json
 027791a16b3ddc6dcd3569e47aab02dad05dbe2b assets/rainbow_reef/models/item/boxfish.json
 7fb7d97ebb7027ee8ba9278763d828672fc6a962 assets/rainbow_reef/models/item/boxfish_bread.json

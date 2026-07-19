@@ -1,6 +1,6 @@
 package com.valiantenvoy.rainbow_reef.client.models.entity;
 
-import com.valiantenvoy.rainbow_reef.client.animations.MahiMahiAnimations;
+import com.valiantenvoy.rainbow_reef.client.models.entity.animations.MahiMahiAnimations;
 import com.valiantenvoy.rainbow_reef.client.models.entity.base.ReefModel;
 import com.valiantenvoy.rainbow_reef.entity.MahiMahi;
 import net.minecraft.client.model.geom.ModelPart;
@@ -37,6 +37,19 @@ public class MahiMahiModel extends ReefModel<MahiMahi> {
 		this.tail2 = this.tail1.getChild("tail2");
 	}
 
+	@Override
+	public ModelPart root() {
+		return this.root;
+	}
+
+	@Override
+	public void setupAnimations(MahiMahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
+		this.animateWalkSmooth(entity.swimAnimationState, MahiMahiAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
+		this.animateIdleSmooth(entity.swimIdleAnimationState, MahiMahiAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, MahiMahiAnimations.FLOP, ageInTicks, partialTicks);
+		this.applyRollAndTilt(entity, this.swim_control, partialTicks);
+	}
+
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
@@ -65,23 +78,5 @@ public class MahiMahiModel extends ReefModel<MahiMahi> {
 		PartDefinition tail2 = tail1.addOrReplaceChild("tail2", CubeListBuilder.create().texOffs(10, 24).addBox(0.0F, -6.0F, 0.0F, 0.0F, 12.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 11.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
-	}
-
-	@Override
-	public void setupAnim(MahiMahi entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		float partialTicks = ageInTicks - entity.tickCount;
-		if (entity.isInWaterOrBubble() || entity.isLeaping()) {
-			this.animateWalk(MahiMahiAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 2.5F);
-		}
-		this.animateIdleSmooth(entity.swimIdleAnimationState, MahiMahiAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
-		this.animateSmooth(entity.flopAnimationState, MahiMahiAnimations.FLOP, ageInTicks, partialTicks);
-		this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
-		this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
-	}
-
-	@Override
-	public ModelPart root() {
-		return this.root;
 	}
 }

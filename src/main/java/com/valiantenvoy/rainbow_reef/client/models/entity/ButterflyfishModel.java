@@ -1,17 +1,13 @@
 package com.valiantenvoy.rainbow_reef.client.models.entity;
 
-import com.valiantenvoy.rainbow_reef.client.animations.ButterfishAnimations;
+import com.valiantenvoy.rainbow_reef.client.models.entity.animations.ButterfishAnimations;
 import com.valiantenvoy.rainbow_reef.client.models.entity.base.ReefModel;
 import com.valiantenvoy.rainbow_reef.entity.Butterflyfish;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class ButterflyfishModel extends ReefModel<Butterflyfish> {
 
@@ -44,6 +40,19 @@ public class ButterflyfishModel extends ReefModel<Butterflyfish> {
         this.RightFin = this.Body.getChild("RightFin");
         this.Tail = this.Body.getChild("Tail");
 	}
+
+    @Override
+    public ModelPart root() {
+        return this.Root;
+    }
+
+    @Override
+    protected void setupAnimations(Butterflyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
+        this.Root.xRot = headPitch * Mth.DEG_TO_RAD;
+        this.animateWalk(ButterfishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 2.5F);
+        this.animateIdleSmooth(entity.swimIdleAnimationState, ButterfishAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+        this.animate(entity.flopAnimationState, ButterfishAnimations.FLOP, ageInTicks);
+    }
 
 	public static LayerDefinition createBodyLayer() {
         MeshDefinition meshdefinition = new MeshDefinition();
@@ -81,19 +90,5 @@ public class ButterflyfishModel extends ReefModel<Butterflyfish> {
         PartDefinition Tail = Body.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(28, 26).addBox(0.0F, -3.5F, 0.0F, 0.0F, 7.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(-0.5F, -1.0F, 2.5F));
 
         return LayerDefinition.create(meshdefinition, 64, 64);
-	}
-
-	@Override
-	public void setupAnim(Butterflyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.Root.xRot = headPitch * Mth.DEG_TO_RAD;
-		this.animateWalk(ButterfishAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 3);
-		this.animateIdle(entity.swimIdleAnimationState, ButterfishAnimations.IDLE, ageInTicks, limbSwingAmount * 3);
-		this.animate(entity.flopAnimationState, ButterfishAnimations.FLOP, ageInTicks);
-	}
-
-	@Override
-	public @NotNull ModelPart root() {
-		return this.Root;
 	}
 }

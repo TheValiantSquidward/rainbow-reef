@@ -1,13 +1,12 @@
 package com.valiantenvoy.rainbow_reef.client.models.entity;
 
-import com.valiantenvoy.rainbow_reef.client.animations.SharkAnimations;
+import com.valiantenvoy.rainbow_reef.client.models.entity.animations.SharkAnimations;
 import com.valiantenvoy.rainbow_reef.client.models.entity.base.ReefModel;
 import com.valiantenvoy.rainbow_reef.entity.Shark;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.util.Mth;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class SharkModel extends ReefModel<Shark> {
@@ -43,6 +42,20 @@ public class SharkModel extends ReefModel<Shark> {
 		this.tail2 = this.tail1.getChild("tail2");
 		this.fin_pelvic_left = this.tail1.getChild("fin_pelvic_left");
 		this.fin_pelvic_right = this.tail1.getChild("fin_pelvic_right");
+	}
+
+	@Override
+	public ModelPart root() {
+		return this.root;
+	}
+
+	@Override
+	public void setupAnimations(Shark entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
+		this.animateWalkSmooth(entity.swimAnimationState, SharkAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
+		this.animateIdleSmooth(entity.swimIdleAnimationState, SharkAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, SharkAnimations.BEACHED1, ageInTicks, partialTicks);
+		this.animateSmooth(entity.attackAnimationState, SharkAnimations.BITE_BLEND, ageInTicks, partialTicks);
+		this.applyRollAndTilt(entity, this.swim_control, partialTicks);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -86,24 +99,5 @@ public class SharkModel extends ReefModel<Shark> {
 				.texOffs(52, 22).mirror().addBox(-5.0F, 0.0F, 3.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.0F, 2.0F, 2.0F, 0.0F, 0.0F, -0.3927F));
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
-	}
-
-	@Override
-	public void setupAnim(Shark entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		float partialTicks = ageInTicks - entity.tickCount;
-		if (entity.isInWaterOrBubble()) {
-			this.animateWalk(SharkAnimations.SWIM, limbSwing, limbSwingAmount, 1.5F, 2.5F);
-		}
-		this.animateIdleSmooth(entity.swimIdleAnimationState, SharkAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount, 2.5F);
-		this.animateSmooth(entity.flopAnimationState, SharkAnimations.BEACHED1, ageInTicks, partialTicks);
-		this.animateSmooth(entity.attackAnimationState, SharkAnimations.BITE_BLEND, ageInTicks, partialTicks);
-		this.swim_control.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
-		this.swim_control.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
-	}
-
-	@Override
-	public ModelPart root() {
-		return this.root;
 	}
 }

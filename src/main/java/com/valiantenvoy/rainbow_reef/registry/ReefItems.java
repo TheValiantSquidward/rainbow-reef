@@ -41,7 +41,8 @@ public class ReefItems {
     public static final DeferredItem<Item> BASSLET_COOKIE = registerItem("basslet_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1F).build())));
 
     // billfish
-    public static final DeferredItem<Item> BILLFISH_SPAWN_EGG = registerSpawnEggItem("billfish", ReefEntities.BILLFISH, 0x1750ca, 0xe9ce85);
+    public static final DeferredItem<Item> BILLFISH_SPAWN_EGG = registerSpawnEggItem("billfish", ReefEntities.BILLFISH, 0x313248, 0xcfc9d8);
+    public static final DeferredItem<Item> BILLFISH_BUCKET = registerMobBucketItem("billfish", ReefEntities.BILLFISH);
 
     // boxfish
     public static final DeferredItem<Item> BOXFISH_SPAWN_EGG = registerSpawnEggItem("boxfish", ReefEntities.BOXFISH, 0xfeda47, 0x62260a);

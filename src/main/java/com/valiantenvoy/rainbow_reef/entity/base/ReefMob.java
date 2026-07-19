@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
-import com.valiantenvoy.rainbow_reef.entity.utils.SmoothAnimationState;
+import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefSoundEvents;
 import net.minecraft.core.BlockPos;
@@ -19,10 +19,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -55,6 +52,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     protected float lastYRot;
     protected Vec3 lastMoveDir = Vec3.ZERO;
 
+    public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
 
@@ -209,10 +207,13 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         this.tickFlopping();
     }
 
-    // default animations
+    // animations
     public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isInWaterOrBubble(), this.tickCount);
-        this.flopAnimationState.animateWhen(!this.isInWaterOrBubble() && !this.isLeaping(), this.tickCount);
+        boolean inWater = this.isInWaterOrBubble();
+        boolean leaping = this.isLeaping();
+        this.swimAnimationState.animateWhen((inWater || leaping), this.tickCount);
+        this.swimIdleAnimationState.animateWhen(inWater, this.tickCount);
+        this.flopAnimationState.animateWhen(!inWater && !leaping, this.tickCount);
     }
 
     @Override
