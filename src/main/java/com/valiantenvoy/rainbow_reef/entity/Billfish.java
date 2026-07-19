@@ -6,6 +6,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.phys.Vec3;
 
 public class Billfish extends ReefMob {
@@ -28,8 +30,8 @@ public class Billfish extends ReefMob {
 
     public Billfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 45, 5, 0.05F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 5);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 45, 4, 0.05F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier createAttributes() {
@@ -49,6 +51,14 @@ public class Billfish extends ReefMob {
     @Override
     protected PathNavigation createNavigation(Level level) {
         return new WaterNavigation(this, level, true);
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+        if (this.getRandom().nextFloat() <= 0.33F) {
+            return super.getWalkTargetValue(pos, level);
+        }
+        return this.getSurfacePathfindingFavor(pos, level);
     }
 
     @Override

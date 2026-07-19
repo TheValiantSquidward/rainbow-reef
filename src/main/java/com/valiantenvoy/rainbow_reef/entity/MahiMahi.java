@@ -4,6 +4,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -52,15 +54,8 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
-        if (this.level().isClientSide) {
-            if (this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.05D) {
-                Vec3 viewVector = this.getViewVector(0.0F);
-                this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(0.3D) - viewVector.x * 1.1D, this.getRandomY() - viewVector.y * 0.3D, this.getRandomZ(0.3D) - viewVector.z * 1.1D, 0.0D, 0.0D, 0.0D);
-            }
-        }
+    protected PathNavigation createNavigation(Level level) {
+        return new WaterNavigation(this, level, true);
     }
 
     @Override
@@ -79,6 +74,18 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     @Override
     public boolean inRangeOfLeader() {
         return this.distanceToSqr(Objects.requireNonNull(this.leader)) <= 256.0D;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
+        if (this.level().isClientSide) {
+            if (this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.05D) {
+                Vec3 viewVector = this.getViewVector(0.0F);
+                this.level().addParticle(ParticleTypes.BUBBLE, this.getRandomX(0.3D) - viewVector.x * 1.1D, this.getRandomY() - viewVector.y * 0.3D, this.getRandomZ(0.3D) - viewVector.z * 1.1D, 0.0D, 0.0D, 0.0D);
+            }
+        }
     }
 
     @Override

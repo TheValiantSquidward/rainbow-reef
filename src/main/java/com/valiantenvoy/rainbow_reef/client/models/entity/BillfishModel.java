@@ -6,6 +6,7 @@ import com.valiantenvoy.rainbow_reef.entity.Billfish;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 
 @SuppressWarnings("FieldCanBeLocal, unused")
 public class BillfishModel extends ReefModel<Billfish> {
@@ -23,6 +24,7 @@ public class BillfishModel extends ReefModel<Billfish> {
     private final ModelPart tail2;
 
 	public BillfishModel(ModelPart root) {
+        super(RenderType::entityCutout);
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
         this.body = this.swim_control.getChild("body");
