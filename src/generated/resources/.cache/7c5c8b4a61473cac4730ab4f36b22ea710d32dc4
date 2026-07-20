@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-19T17:07:35.0669992	Item Models: rainbow_reef
+// 1.21.1	2026-07-19T18:12:43.962791	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -95,6 +95,8 @@ c6a353b98784e85c3e0e30b61f6832b7189f465e assets/rainbow_reef/models/item/sweet_t
 763c522f70f4ba96d940536b7a47dad2911d4b99 assets/rainbow_reef/models/item/tangy_soup.json
 07199b1d8370062e5794f7f623f566ff594d6e92 assets/rainbow_reef/models/item/tang_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/tang_spawn_egg.json
+b7ac99d767775a02bd828df536ca57e8a3401583 assets/rainbow_reef/models/item/triggerfish.json
+e0896b4d2e2535c477db0ad3550519dab6b942ea assets/rainbow_reef/models/item/triggerfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/triggerfish_spawn_egg.json
 46b08949e68427c6566efcbd7ab15599f33ef430 assets/rainbow_reef/models/item/tropical_fishsticks.json
 5322fb9916ba93266bf5ded554bf41abba67d80c assets/rainbow_reef/models/item/ultra_bacon_sandwich.json

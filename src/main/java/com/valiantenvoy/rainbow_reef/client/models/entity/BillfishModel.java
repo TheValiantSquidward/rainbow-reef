@@ -48,7 +48,7 @@ public class BillfishModel extends ReefModel<Billfish> {
         this.animateWalkSmooth(entity.swimAnimationState, BillfishAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
         this.animateIdleSmooth(entity.swimIdleAnimationState, BillfishAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
         this.animateSmooth(entity.flopAnimationState, BillfishAnimations.FLOP, ageInTicks, partialTicks);
-        this.applyRollAndTilt(entity, this.root, partialTicks);
+        this.applyRollAndTilt(entity, this.swim_control, partialTicks);
     }
 
 	public static LayerDefinition createBodyLayer() {

@@ -171,7 +171,9 @@ public class ReefItems {
     public static final DeferredItem<Item> TANGY_SOUP = registerItem("tangy_soup", () -> new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(12).saturationModifier(0.8F).effect(new MobEffectInstance(MobEffects.GLOWING, 600, 1), 1.0F).usingConvertsTo(Items.BOWL).build())));
 
     // triggerfish
-    public static final DeferredItem<Item> TRIGGERFISH_SPAWN_EGG = registerSpawnEggItem("triggerfish", ReefEntities.TRIGGERFISH, 0x121418, 0xaa8e23);
+    public static final DeferredItem<Item> TRIGGERFISH_SPAWN_EGG = registerSpawnEggItem("triggerfish", ReefEntities.TRIGGERFISH, 0x2465c6, 0x1f2575);
+    public static final DeferredItem<Item> TRIGGERFISH_BUCKET = registerMobBucketItem("triggerfish", ReefEntities.TRIGGERFISH);
+    public static final DeferredItem<Item> RAW_TRIGGERFISH = registerItem("triggerfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // wrasse
     public static final DeferredItem<Item> WRASSE_SPAWN_EGG = registerSpawnEggItem("wrasse", ReefEntities.WRASSE, 0xde608d, 0x1481bc);
