@@ -165,7 +165,7 @@ public class ReefItems {
     public static final DeferredItem<Item> SHARKBITE_SALAD = registerItem("sharkbite_salad", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.8F).usingConvertsTo(Items.BOWL).build())));
 
     // tang
-    public static final DeferredItem<Item> TANG_SPAWN_EGG = registerSpawnEggItem("tang", ReefEntities.TANG, 0x445bca, 0xefb032);
+    public static final DeferredItem<Item> TANG_SPAWN_EGG = registerSpawnEggItem("tang", ReefEntities.TANG, 0x3738de, 0x1b1d26);
     public static final DeferredItem<Item> TANG_BUCKET = registerMobBucketItem("tang", ReefEntities.TANG);
     public static final DeferredItem<Item> RAW_TANG = registerItem("tang", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> TANGY_SOUP = registerItem("tangy_soup", () -> new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(12).saturationModifier(0.8F).effect(new MobEffectInstance(MobEffects.GLOWING, 600, 1), 1.0F).usingConvertsTo(Items.BOWL).build())));

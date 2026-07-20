@@ -298,6 +298,7 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.BILLFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BILLFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.MAHI_MAHI_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MAHI_MAHI.get()));
                         variantsByRarity(parameters, output, ReefItems.SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SHARK.get()));
+                        variantsByRarity(parameters, output, ReefItems.TANG_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TANG.get()));
                         variantsByRarity(parameters, output, ReefItems.TRIGGERFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TRIGGERFISH.get()));
                     })
                     .build());

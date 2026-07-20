@@ -50,7 +50,6 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     protected float roll;
     protected float prevRoll;
     protected float lastYRot;
-    protected Vec3 lastMoveDir = Vec3.ZERO;
 
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -229,10 +228,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         float targetTilt = 0.0F;
         if (this.isInWater() || this.isLeaping()) {
             Vec3 movement = this.getDeltaMovement();
-            if (movement.lengthSqr() > 1.0E-6) {
-                this.lastMoveDir = movement;
-            }
-            targetTilt = -((float) Mth.atan2(lastMoveDir.y, lastMoveDir.horizontalDistance()) * (180.0F / (float) Math.PI));
+            targetTilt = -((float) Mth.atan2(movement.y, movement.horizontalDistance()) * (180.0F / (float) Math.PI));
             targetTilt = Mth.clamp(targetTilt, -maxTilt, maxTilt);
         }
         this.tilt += (targetTilt - tilt) * 0.2F;
