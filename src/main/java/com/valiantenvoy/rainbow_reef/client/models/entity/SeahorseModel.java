@@ -1,66 +1,73 @@
 package com.valiantenvoy.rainbow_reef.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.valiantenvoy.rainbow_reef.client.models.entity.animations.SeahorseAnimations;
+import com.valiantenvoy.rainbow_reef.client.models.entity.base.ReefModel;
 import com.valiantenvoy.rainbow_reef.entity.Seahorse;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
-@SuppressWarnings("FieldCanBeLocal, unused")
-public class SeahorseModel extends HierarchicalModel<Seahorse> {
+public class SeahorseModel extends ReefModel<Seahorse> {
 
 	private final ModelPart root;
-	private final ModelPart core;
-	private final ModelPart head;
-	private final ModelPart body;
-	private final ModelPart back_fin;
-	private final ModelPart tail;
+	private final ModelPart swim_control;
 
 	public SeahorseModel(ModelPart root) {
 		this.root = root.getChild("root");
-		this.core = this.root.getChild("core");
-		this.head = this.core.getChild("head");
-		this.body = this.core.getChild("body");
-		this.back_fin = this.body.getChild("back_fin");
-		this.tail = this.body.getChild("tail");
+		this.swim_control = this.root.getChild("swim_control");
+	}
+
+	@Override
+	public ModelPart root() {
+		return this.root;
+	}
+
+	@Override
+	public void setupAnimations(Seahorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
+		this.animateWalkSmooth(entity.swimAnimationState, SeahorseAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
+		this.animateIdleSmooth(entity.swimIdleAnimationState, SeahorseAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, SeahorseAnimations.FLOP, ageInTicks, partialTicks);
+		this.applyPitchAndRoll(entity, this.swim_control, partialTicks);
+		if (entity.getDeltaMovement().lengthSqr() <= 0.0002D || !entity.isInWaterOrBubble()) {
+			this.applyStatic(SeahorseAnimations.TAIL_IDLE_OVERLAY);
+		} else {
+			this.applyStatic(SeahorseAnimations.TAIL_SWIM_OVERLAY);
+		}
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
-		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 22.0F, 0.0F));
-		PartDefinition core = root.addOrReplaceChild("core", CubeListBuilder.create(), PartPose.offset(0.0F, -2.0F, 0.0F));
-		PartDefinition head = core.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 1.0F));
-		PartDefinition head_r1 = head.addOrReplaceChild("head_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-1.5F, -3.5F, -2.0F, 3.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)).texOffs(10, 0).addBox(-1.5F, -2.5F, -2.0F, 3.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).texOffs(0, 13).addBox(-0.5F, -1.5F, -5.0F, 1.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -0.5F, 0.0F, 0.2618F, 0.0F, 0.0F));
-		PartDefinition body = core.addOrReplaceChild("body", CubeListBuilder.create().texOffs(6, 8).addBox(-1.0F, -2.0F, -2.0F, 2.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
-		PartDefinition back_fin = body.addOrReplaceChild("back_fin", CubeListBuilder.create().texOffs(14, 4).addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 2.0F));
-		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, -2.0F, -4.0F, 0.0F, 7.0F, 5.0F, new CubeDeformation(0.0F)).texOffs(8, 16).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 3.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 1.0F));
-		return LayerDefinition.create(meshdefinition, 32, 32);
-	}
 
-	@Override
-	public void setupAnim(Seahorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.animate(entity.swimIdleAnimationState, SeahorseAnimations.SWIM, ageInTicks, 0.5F + limbSwingAmount * 4.0F);
-		this.animate(entity.flopAnimationState, SeahorseAnimations.FLOP, ageInTicks);
-		this.root.xRot = headPitch * (Mth.DEG_TO_RAD);
-	}
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		this.root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
+		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, -9.0F, 0.0F));
 
-	@Override
-	public @NotNull ModelPart root() {
-		return this.root;
+		PartDefinition body_main = swim_control.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, -1.0F, 0.0F));
+
+		PartDefinition head = body_main.addOrReplaceChild("head", CubeListBuilder.create().texOffs(22, 10).addBox(-0.5F, 3.0F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(20, 14).addBox(-0.5F, 3.0F, -2.0F, 1.0F, 4.0F, 2.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-1.5F, -1.0F, -3.0F, 3.0F, 4.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(22, 6).addBox(-1.5F, -1.0F, -4.0F, 3.0F, 3.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 17).addBox(0.0F, -4.0F, -7.0F, 0.0F, 8.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -2.0F, 0.0F, -1.5708F, 0.0F, 0.0F));
+
+        head.addOrReplaceChild("fin_head_left", CubeListBuilder.create().texOffs(26, 8).addBox(0.0F, -2.0F, -1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, 0.0F, -1.0F, 0.0F, 0.0F, 0.3491F));
+
+        head.addOrReplaceChild("fin_head_right", CubeListBuilder.create().texOffs(26, 8).addBox(0.0F, -2.0F, -1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5F, 0.0F, -1.0F, 0.0F, 0.0F, -0.3491F));
+
+        head.addOrReplaceChild("fin_eye_left", CubeListBuilder.create().texOffs(26, 12).addBox(0.0F, 0.0F, -2.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, 1.0F, -3.0F, -0.7854F, -0.3491F, 0.0F));
+
+        head.addOrReplaceChild("fin_eye_right", CubeListBuilder.create().texOffs(26, 12).addBox(0.0F, 0.0F, -2.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5F, 1.0F, -3.0F, -0.7854F, 0.3491F, 0.0F));
+
+        PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(18, 20).addBox(-1.0F, -4.0F, -1.0F, 2.0F, 5.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(12, 0).addBox(-1.0F, -3.0F, -2.0F, 2.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 0.0F));
+
+        body.addOrReplaceChild("fin_back", CubeListBuilder.create().texOffs(20, 7).addBox(0.0F, -3.0F, 0.0F, 0.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, 2.0F));
+
+        body.addOrReplaceChild("tail_swimming", CubeListBuilder.create().texOffs(0, -3).addBox(0.0F, -2.5F, -1.0F, 0.0F, 7.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 2.0F));
+
+        body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 5).addBox(0.0F, -1.55F, -6.0F, 0.0F, 10.0F, 9.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.55F, 1.0F));
+
+        return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 }

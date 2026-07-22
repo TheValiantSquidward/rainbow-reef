@@ -32,7 +32,7 @@ public class Tang extends VariantSchoolingFish {
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.9F)
+                .add(Attributes.MOVEMENT_SPEED, 0.85F)
                 .build();
     }
 

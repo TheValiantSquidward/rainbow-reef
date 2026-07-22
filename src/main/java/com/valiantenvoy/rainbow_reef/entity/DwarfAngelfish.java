@@ -31,7 +31,7 @@ public class DwarfAngelfish extends ReefMob {
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .add(Attributes.MOVEMENT_SPEED, 0.75F)
                 .build();
     }
 

@@ -149,7 +149,7 @@ public class ReefItems {
     public static final DeferredItem<Item> CHOCOLATE_RAY_MUFFIN = registerItem("chocolate_ray_muffin", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEdible().nutrition(7).saturationModifier(0.3F).build())));
 
     // seahorse
-    public static final DeferredItem<Item> SEAHORSE_SPAWN_EGG = registerSpawnEggItem("seahorse", ReefEntities.SEAHORSE, 0xd6d126, 0x7a8e1e);
+    public static final DeferredItem<Item> SEAHORSE_SPAWN_EGG = registerSpawnEggItem("seahorse", ReefEntities.SEAHORSE, 0xbba63e, 0x87611d);
     public static final DeferredItem<Item> SEAHORSE_BUCKET = registerMobBucketItem("seahorse", ReefEntities.SEAHORSE);
     public static final DeferredItem<Item> RAW_SEAHORSE = registerItem("seahorse", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> DRIED_SEAHORSE = registerItem("dried_seahorse", () -> new CleansingSnackItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.4F).fast().alwaysEdible().build())));
