@@ -7,7 +7,6 @@ import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -19,9 +18,7 @@ import net.minecraft.world.level.Level;
 
 public class Shark extends VariantSchoolingFish {
 
-    private static final float MAX_TILT = 45.0F;
-    private static final float MAX_ROLL = 17.5F;
-    private static final float ROLL_PER_YAW = 2.0F;
+    private static final float PITCH_CLAMP = 45.0F;
 
     public final SmoothAnimationState attackAnimationState = new SmoothAnimationState(1.0F);
 
@@ -51,22 +48,14 @@ public class Shark extends VariantSchoolingFish {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
+    protected float getPitchClamp() {
+        return PITCH_CLAMP;
     }
 
     @Override
     public void setupAnimationStates() {
         super.setupAnimationStates();
 //        this.attackAnimationState.animateWhen(this.isAlive(), this.tickCount);
-    }
-
-    @Override
-    public void calculateEntityAnimation(boolean flying) {
-        float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-        float f2 = Math.min(f1 * 20.0F, 1.0F);
-        this.walkAnimation.update(f2, 0.4F);
     }
 
     @Override

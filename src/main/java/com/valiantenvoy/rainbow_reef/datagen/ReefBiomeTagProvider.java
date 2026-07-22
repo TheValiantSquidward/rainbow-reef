@@ -22,7 +22,7 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
 
     @Override
     public void addTags(@NotNull Provider provider) {
-        this.tag(WARM_OCEANS).add(Biomes.WARM_OCEAN).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "warm_reef"));
+        this.tag(WARM_OCEANS).add(Biomes.WARM_OCEAN);
 
         this.tag(HAS_ANGELFISH).addTag(WARM_OCEANS);
         this.tag(HAS_ARROW_CRAB).addTag(WARM_OCEANS);
@@ -46,7 +46,7 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
                 Biomes.JUNGLE,
                 Biomes.SWAMP,
                 Biomes.MANGROVE_SWAMP
-        ).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "warm_reef"));;
+        );
 
         this.tag(HAS_DWARF_ANGELFISH).addTag(WARM_OCEANS);
         this.tag(HAS_GOBY).addTag(WARM_OCEANS);
@@ -70,6 +70,6 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
 
         this.tag(HAS_SMALL_SHARK).addTag(WARM_OCEANS).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
 
-        this.tag(HAS_TANG).addTag(WARM_OCEANS);
+        this.tag(HAS_TANG).add(Biomes.WARM_OCEAN);
     }
 }

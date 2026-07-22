@@ -22,10 +22,6 @@ import net.minecraft.world.level.Level;
 
 public class Triggerfish extends ReefMob {
 
-    private static final float MAX_TILT = 85.0F;
-    private static final float MAX_ROLL = 15.0F;
-    private static final float ROLL_PER_YAW = 2.0F;
-
     public Triggerfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
@@ -45,12 +41,6 @@ public class Triggerfish extends ReefMob {
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(2, new FishDigGoal(this, 15, 600, ReefTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1, 80));
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
     }
 
     @Override

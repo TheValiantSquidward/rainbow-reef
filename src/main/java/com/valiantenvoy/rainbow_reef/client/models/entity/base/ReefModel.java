@@ -38,16 +38,7 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
 
     @Override
     protected void applyStatic(AnimationDefinition definition) {
-        KeyframeAnimations.animate(this, definition, 0L, 1.0F, ReefModel.ANIMATION_VECTOR_CACHE);
-    }
-
-    @Override
-    protected void animateWalk(AnimationDefinition definition, float limbSwing, float limbSwingAmount, float maxAnimationSpeed, float animationScaleFactor) {
-        if (limbSwing != 0 && limbSwingAmount != 0) {
-            long i = (long) (limbSwing * 50.0F * maxAnimationSpeed);
-            float f = Math.min(limbSwingAmount * animationScaleFactor, 1.0F);
-            KeyframeAnimations.animate(this, definition, i, f, ReefModel.ANIMATION_VECTOR_CACHE);
-        }
+        KeyframeAnimations.animate(this, definition, 0L, 1.0F, ANIMATION_VECTOR_CACHE);
     }
 
     protected void animateSmooth(SmoothAnimationState state, AnimationDefinition definition, float ageInTicks, float partialTicks) {
@@ -90,8 +81,8 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
         KeyframeAnimations.animate(this, definition, state.getAccumulatedTime(), factor, ANIMATION_VECTOR_CACHE);
     }
 
-    protected void applyRollAndTilt(ReefMob entity, ModelPart modelPart, float partialTicks) {
-        modelPart.xRot = entity.getTilt(partialTicks) * Mth.DEG_TO_RAD;
-        modelPart.zRot = entity.getRoll(partialTicks) * Mth.DEG_TO_RAD;
+    protected void applyPitchAndRoll(ReefMob entity, ModelPart modelPart, float partialTicks) {
+        modelPart.xRot += entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD;
+        modelPart.zRot += -entity.getSwimRoll(partialTicks) * Mth.DEG_TO_RAD;
     }
 }

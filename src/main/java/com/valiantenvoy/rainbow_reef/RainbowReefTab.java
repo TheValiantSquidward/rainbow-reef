@@ -296,6 +296,7 @@ public class RainbowReefTab {
                     .title(Component.translatable("creativetab.rainbow_reef_variants_tab"))
                     .displayItems((parameters, output) -> {
                         variantsByRarity(parameters, output, ReefItems.BILLFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BILLFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.DWARF_ANGELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DWARF_ANGELFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.MAHI_MAHI_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MAHI_MAHI.get()));
                         variantsByRarity(parameters, output, ReefItems.SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SHARK.get()));
                         variantsByRarity(parameters, output, ReefItems.TANG_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TANG.get()));

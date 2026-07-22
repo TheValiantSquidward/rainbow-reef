@@ -45,11 +45,19 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     private static final EntityDataAccessor<Integer> FEED_COOLDOWN = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.BOOLEAN);
 
-    protected float tilt;
-    protected float prevTilt;
-    protected float roll;
-    protected float prevRoll;
-    protected float lastYRot;
+    protected static final double PITCH_MIN = 0.01D;
+    protected static final double PITCH_MAX = 0.05D;
+    protected static final float PITCH_LERP = 0.2F;
+    protected static final float DEFAULT_PITCH_CLAMP = 85.0F;
+
+    protected static final float ROLL_DECAY = 0.9F;
+    protected static final float DEFAULT_ROLL_CLAMP = 20.0F;
+
+    public float prevSwimRoll;
+    public float swimRoll;
+
+    public float prevSwimPitch;
+    public float swimPitch;
 
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -193,10 +201,10 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     public void tick() {
         super.tick();
 
-        this.prevTilt = this.tilt;
-
-        if (this.level().isClientSide){
+        if (this.level().isClientSide) {
             this.setupAnimationStates();
+            this.updateTilt();
+            this.updateSwimPitch();
         }
 
         if (this.getFeedCooldown() > 0) {
@@ -222,31 +230,58 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         this.walkAnimation.update(f2, 0.4F);
     }
 
-    protected void tickRotations(float maxTilt, float maxRoll, float rollPerYaw) {
-        // tilt
-        this.prevTilt = tilt;
-        float targetTilt = 0.0F;
-        if (this.isInWater() || this.isLeaping()) {
-            Vec3 movement = this.getDeltaMovement();
-            targetTilt = -((float) Mth.atan2(movement.y, movement.horizontalDistance()) * (180.0F / (float) Math.PI));
-            targetTilt = Mth.clamp(targetTilt, -maxTilt, maxTilt);
+    protected void updateTilt() {
+        this.prevSwimRoll = this.swimRoll;
+        if (this.isInWater()) {
+            float turn = Mth.degreesDifference(this.getYRot(), this.yRotO);
+            if (Math.abs(turn) > 1.0F) {
+                if (Math.abs(this.swimRoll) < this.getRollClamp()) {
+                    this.swimRoll -= Math.signum(turn);
+                }
+            } else if (this.swimRoll != 0.0F) {
+                float sign = Math.signum(this.swimRoll);
+                this.swimRoll -= sign * ROLL_DECAY;
+                if (this.swimRoll * sign < 0.0F) {
+                    this.swimRoll = 0.0F;
+                }
+            }
+        } else {
+            this.swimRoll = 0.0F;
         }
-        this.tilt += (targetTilt - tilt) * 0.2F;
-
-        // roll
-        this.prevRoll = roll;
-        float yawDelta = Mth.wrapDegrees(this.getYRot() - lastYRot);
-        this.lastYRot = this.getYRot();
-        float targetRoll = this.isInWater() ? Mth.clamp(-yawDelta * rollPerYaw, -maxRoll, maxRoll) : 0.0F;
-        this.roll += (targetRoll - roll) * 0.2F;
     }
 
-    public float getTilt(float partialTicks) {
-        return Mth.lerp(partialTicks, prevTilt, tilt);
+    protected void updateSwimPitch() {
+        this.prevSwimPitch = this.swimPitch;
+        float target = 0.0F;
+        if (this.isInWater()) {
+            double dx = this.getX() - this.xo;
+            double dy = this.getY() - this.yo;
+            double dz = this.getZ() - this.zo;
+            double horizontal = Math.sqrt(dx * dx + dz * dz);
+            double speed = Math.sqrt(horizontal * horizontal + dy * dy);
+            float speedFactor = (float) Mth.clamp((speed - PITCH_MIN) / (PITCH_MAX - PITCH_MIN), 0.0D, 1.0D);
+            if (speedFactor > 0.0F) {
+                float angle = (float) (-(Mth.atan2(dy, horizontal) * (180.0D / Math.PI)));
+                target = Mth.clamp(angle, -this.getPitchClamp(), this.getPitchClamp()) * speedFactor;
+            }
+        }
+        this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
     }
 
-    public float getRoll(float partialTicks) {
-        return Mth.lerp(partialTicks, prevRoll, roll);
+    public float getSwimRoll(float partialTick) {
+        return Mth.lerp(partialTick, this.prevSwimRoll, this.swimRoll);
+    }
+
+    public float getSwimPitch(float partialTick) {
+        return Mth.lerp(partialTick, this.prevSwimPitch, this.swimPitch);
+    }
+
+    protected float getPitchClamp() {
+        return DEFAULT_PITCH_CLAMP;
+    }
+
+    protected float getRollClamp() {
+        return DEFAULT_ROLL_CLAMP;
     }
 
     public float flopChance() {

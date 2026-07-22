@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 
 public enum VariantWeather implements StringRepresentable {
+
     ANY("any"),
     CLEAR("clear"),
     RAIN("rain"),

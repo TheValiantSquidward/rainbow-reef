@@ -21,6 +21,8 @@ import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactori
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
+import static com.valiantenvoy.rainbow_reef.client.renderer.ReefMobRenderer.createRenderer;
+
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(modid = RainbowReef.MOD_ID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -61,7 +63,7 @@ public class ClientEvents {
         event.registerEntityRenderer(ReefEntities.TANG.get(), TangRenderer::new);
         event.registerEntityRenderer(ReefEntities.BUTTERFLYFISH.get(), ButterflyfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.ARROW_CRAB.get(), ArrowCrabRenderer::new);
-        event.registerEntityRenderer(ReefEntities.DWARF_ANGELFISH.get(), DwarfAngelfishRenderer::new);
+        event.registerEntityRenderer(ReefEntities.DWARF_ANGELFISH.get(), createRenderer(ReefModelLayers.DWARF_ANGELFISH, DwarfAngelfishModel::new, 0.3F));
         event.registerEntityRenderer(ReefEntities.BOXFISH.get(), BoxfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.BASSLET.get(), BassletRenderer::new);
         event.registerEntityRenderer(ReefEntities.MOORISH_IDOL.get(), MoorishIdolRenderer::new);

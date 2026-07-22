@@ -8,28 +8,15 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 
-@SuppressWarnings("FieldCanBeLocal, unused")
 public class TriggerfishModel extends ReefModel<Triggerfish> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
-	private final ModelPart body;
-	private final ModelPart fin_top;
-	private final ModelPart fin_bottom;
-	private final ModelPart fin_left;
-	private final ModelPart fin_right;
-	private final ModelPart tail;
 
 	public TriggerfishModel(ModelPart root) {
 		super(RenderType::entityCutout);
 		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
-		this.body = this.swim_control.getChild("body");
-		this.fin_top = this.body.getChild("fin_top");
-		this.fin_bottom = this.body.getChild("fin_bottom");
-		this.fin_left = this.body.getChild("fin_left");
-		this.fin_right = this.body.getChild("fin_right");
-		this.tail = this.body.getChild("tail");
 	}
 
 	@Override
@@ -42,7 +29,7 @@ public class TriggerfishModel extends ReefModel<Triggerfish> {
 		this.animateWalkSmooth(entity.swimAnimationState, TriggerfishAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
 		this.animateIdleSmooth(entity.swimIdleAnimationState, TriggerfishAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
 		this.animateSmooth(entity.flopAnimationState, TriggerfishAnimations.FLOP, ageInTicks, partialTicks);
-		this.applyRollAndTilt(entity, this.swim_control, partialTicks);
+		this.applyPitchAndRoll(entity, this.swim_control, partialTicks);
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -58,16 +45,16 @@ public class TriggerfishModel extends ReefModel<Triggerfish> {
 				.texOffs(22, 11).addBox(0.0F, -2.0F, -5.0F, 1.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
 				.texOffs(22, 6).addBox(0.5F, -5.0F, -3.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition fin_top = body.addOrReplaceChild("fin_top", CubeListBuilder.create().texOffs(14, -5).addBox(0.0F, -5.0F, -1.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -3.0F, 0.0F));
+        body.addOrReplaceChild("fin_top", CubeListBuilder.create().texOffs(14, -5).addBox(0.0F, -5.0F, -1.0F, 0.0F, 6.0F, 7.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -3.0F, 0.0F));
 
-		PartDefinition fin_bottom = body.addOrReplaceChild("fin_bottom", CubeListBuilder.create().texOffs(0, 8).addBox(0.0F, -2.0F, -1.0F, 0.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 4.0F, 0.0F));
+        body.addOrReplaceChild("fin_bottom", CubeListBuilder.create().texOffs(0, 8).addBox(0.0F, -2.0F, -1.0F, 0.0F, 7.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, 4.0F, 0.0F));
 
-		PartDefinition fin_left = body.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(2, -1).addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, -0.5F, -1.0F, 0.0F, 0.3927F, 0.0F));
+        body.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(2, -1).addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, -0.5F, -1.0F, 0.0F, 0.3927F, 0.0F));
 
-		PartDefinition fin_right = body.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(2, -1).mirror().addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.0F, -0.5F, -1.0F, 0.0F, -0.3927F, 0.0F));
+        body.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(2, -1).mirror().addBox(0.0F, -1.5F, 0.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.0F, -0.5F, -1.0F, 0.0F, -0.3927F, 0.0F));
 
-		PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(13, 6).addBox(0.0F, -4.0F, 0.0F, 0.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -1.0F, 4.0F));
+        body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(13, 6).addBox(0.0F, -4.0F, 0.0F, 0.0F, 10.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.5F, -1.0F, 4.0F));
 
-		return LayerDefinition.create(meshdefinition, 32, 32);
+        return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 }

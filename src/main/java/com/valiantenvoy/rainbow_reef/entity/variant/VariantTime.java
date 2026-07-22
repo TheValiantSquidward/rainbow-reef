@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 
 public enum VariantTime implements StringRepresentable {
+
     ANY("any"),
     DAY("day"),
     NIGHT("night");

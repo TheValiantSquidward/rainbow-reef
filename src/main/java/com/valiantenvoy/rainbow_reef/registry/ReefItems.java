@@ -74,7 +74,7 @@ public class ReefItems {
     public static final DeferredItem<Item> DAMSELFISH_SPAWN_EGG = registerSpawnEggItem("damselfish", ReefEntities.DAMSELFISH, 0x15f578, 0x4ba2c4);
 
     // dwarf angelfish
-    public static final DeferredItem<Item> DWARF_ANGELFISH_SPAWN_EGG = registerSpawnEggItem("dwarf_angelfish", ReefEntities.DWARF_ANGELFISH, 0xfed638, 0x294cc7);
+    public static final DeferredItem<Item> DWARF_ANGELFISH_SPAWN_EGG = registerSpawnEggItem("dwarf_angelfish", ReefEntities.DWARF_ANGELFISH, 0x0f0a7b, 0xffce1e);
     public static final DeferredItem<Item> DWARF_ANGELFISH_BUCKET = registerMobBucketItem("dwarf_angelfish", ReefEntities.DWARF_ANGELFISH);
     public static final DeferredItem<Item> RAW_DWARF_ANGELFISH = registerItem("dwarf_angelfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> DWARF_ANGELFISH_TART = registerItem("dwarf_angelfish_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.5F).build())));

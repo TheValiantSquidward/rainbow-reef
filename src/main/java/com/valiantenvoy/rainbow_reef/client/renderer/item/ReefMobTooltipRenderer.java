@@ -16,11 +16,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
 public class ReefMobTooltipRenderer implements ClientTooltipComponent {
 
     private static final int CELL_SIZE = 16;
@@ -32,7 +28,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
     }
 
     @Override
-    public int getWidth(@NotNull Font font) {
+    public int getWidth(Font font) {
         return CELL_SIZE + 8;
     }
 
@@ -42,7 +38,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
     }
 
     @Override
-    public void renderImage(@NotNull Font font, int x, int y, @NotNull GuiGraphics graphics) {
+    public void renderImage(Font font, int x, int y, GuiGraphics graphics) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
 

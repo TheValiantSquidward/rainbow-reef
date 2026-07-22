@@ -23,10 +23,6 @@ import net.minecraft.world.level.Level;
 
 public class Tang extends VariantSchoolingFish {
 
-    private static final float MAX_TILT = 85.0F;
-    private static final float MAX_ROLL = 15.0F;
-    private static final float ROLL_PER_YAW = 2.0F;
-
     public Tang(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 6, 0.02F, 0.1F, false);
@@ -52,12 +48,6 @@ public class Tang extends VariantSchoolingFish {
     @Override
     public int getMaxSchoolSize() {
         return 20;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
     }
 
     @Override

@@ -24,9 +24,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class Billfish extends ReefMob {
 
-    private static final float MAX_TILT = 45.0F;
-    private static final float MAX_ROLL = 17.5F;
-    private static final float ROLL_PER_YAW = 2.0F;
+    private static final float PITCH_CLAMP = 45.0F;
 
     public Billfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
@@ -62,9 +60,13 @@ public class Billfish extends ReefMob {
     }
 
     @Override
+    protected float getPitchClamp() {
+        return PITCH_CLAMP;
+    }
+
+    @Override
     public void tick() {
         super.tick();
-        this.tickRotations(MAX_TILT, MAX_ROLL, ROLL_PER_YAW);
         if (this.level().isClientSide) {
             if (this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.05D) {
                 Vec3 vec31 = this.getViewVector(0.0F);

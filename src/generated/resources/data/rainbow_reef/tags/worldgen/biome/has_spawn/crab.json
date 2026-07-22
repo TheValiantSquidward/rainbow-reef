@@ -11,10 +11,6 @@
     "minecraft:stony_shore",
     "minecraft:jungle",
     "minecraft:swamp",
-    "minecraft:mangrove_swamp",
-    {
-      "id": "seafarer:warm_reef",
-      "required": false
-    }
+    "minecraft:mangrove_swamp"
   ]
 }

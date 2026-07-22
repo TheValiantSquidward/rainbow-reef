@@ -53,6 +53,10 @@ public interface ReefVariantMob {
         return this.getVariantHolder().map(holder -> holder.value().rawTexture()).orElseGet(this::fallbackVariantTexture);
     }
 
+    default VariantRenderType getVariantRenderType() {
+        return this.getVariantHolder().map(holder -> holder.value().renderType()).orElse(VariantRenderType.ENTITY_CUTOUT);
+    }
+
     default void saveVariant(CompoundTag tag) {
         tag.putString(VARIANT_TAG, this.getVariantId().toString());
     }

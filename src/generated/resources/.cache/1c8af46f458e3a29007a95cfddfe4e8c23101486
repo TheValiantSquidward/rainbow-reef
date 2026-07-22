@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-17T16:32:25.5766342	Tags for minecraft:worldgen/biome mod id rainbow_reef
+// 1.21.1	2026-07-20T23:41:50.1462837	Tags for minecraft:worldgen/biome mod id rainbow_reef
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/angelfish.json
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/arrow_crab.json
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/basslet.json
@@ -6,7 +6,7 @@ b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/h
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/butterflyfish.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbow_reef/tags/worldgen/biome/has_spawn/butterflyfish_mangrove.json
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/clownfish.json
-dc4a109a6120a6e576eadc77d6e51055074c50fa data/rainbow_reef/tags/worldgen/biome/has_spawn/crab.json
+5e403f8774006aed8a66a6bd4bd1acee352bec7d data/rainbow_reef/tags/worldgen/biome/has_spawn/crab.json
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/dwarf_angelfish.json
 b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/goby.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbow_reef/tags/worldgen/biome/has_spawn/goby_mangrove.json
@@ -19,5 +19,5 @@ a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbow_reef/tags/worldgen/biome/h
 e2e1677b4fcae4afcf03328c1a9c235328d0c516 data/rainbow_reef/tags/worldgen/biome/has_spawn/ray.json
 a89db273d286fd3ab70ac94efba0bd9125840f7d data/rainbow_reef/tags/worldgen/biome/has_spawn/seahorse.json
 10973822db0a9e3bd094a9a14e017b311246f32a data/rainbow_reef/tags/worldgen/biome/has_spawn/small_shark.json
-b85499547fdb9b2de52e06823db7a5682a0450df data/rainbow_reef/tags/worldgen/biome/has_spawn/tang.json
-17b7b81059637d098a82b7055845bd860ac0ef6b data/rainbow_reef/tags/worldgen/biome/warm_oceans.json
+6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbow_reef/tags/worldgen/biome/has_spawn/tang.json
+6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbow_reef/tags/worldgen/biome/warm_oceans.json

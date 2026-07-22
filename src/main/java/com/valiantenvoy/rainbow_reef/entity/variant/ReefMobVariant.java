@@ -21,7 +21,8 @@ public final class ReefMobVariant {
             VariantWeather.CODEC.optionalFieldOf("weather", VariantWeather.ANY).forGetter(ReefMobVariant::weather),
             Codec.INT.optionalFieldOf("min_spawn_height").forGetter(ReefMobVariant::minSpawnHeight),
             Codec.INT.optionalFieldOf("max_spawn_height").forGetter(ReefMobVariant::maxSpawnHeight),
-            VariantRarity.CODEC.optionalFieldOf("rarity", VariantRarity.COMMON).forGetter(ReefMobVariant::rarity)
+            VariantRarity.CODEC.optionalFieldOf("rarity", VariantRarity.COMMON).forGetter(ReefMobVariant::rarity),
+            VariantRenderType.CODEC.optionalFieldOf("render_type", VariantRenderType.ENTITY_CUTOUT).forGetter(ReefMobVariant::renderType)
     ).apply(instance, ReefMobVariant::new));
 
     private final ResourceLocation texture;
@@ -33,8 +34,9 @@ public final class ReefMobVariant {
     private final Optional<Integer> minSpawnHeight;
     private final Optional<Integer> maxSpawnHeight;
     private final VariantRarity rarity;
+    private final VariantRenderType renderType;
 
-    public ReefMobVariant(ResourceLocation texture, Optional<HolderSet<Biome>> biomes, int priority, VariantTime time, VariantWeather weather, Optional<Integer> minSpawnHeight, Optional<Integer> maxSpawnHeight, VariantRarity rarity) {
+    public ReefMobVariant(ResourceLocation texture, Optional<HolderSet<Biome>> biomes, int priority, VariantTime time, VariantWeather weather, Optional<Integer> minSpawnHeight, Optional<Integer> maxSpawnHeight, VariantRarity rarity, VariantRenderType renderType) {
         this.texture = texture;
         this.biomes = biomes;
         this.weight = rarity.getWeight();
@@ -44,6 +46,7 @@ public final class ReefMobVariant {
         this.minSpawnHeight = minSpawnHeight;
         this.maxSpawnHeight = maxSpawnHeight;
         this.rarity = rarity;
+        this.renderType = renderType;
     }
 
     public ResourceLocation texture() {
@@ -84,6 +87,10 @@ public final class ReefMobVariant {
 
     public VariantRarity rarity() {
         return this.rarity;
+    }
+
+    public VariantRenderType renderType() {
+        return this.renderType;
     }
 
     public static ResourceLocation fullTextureId(ResourceLocation texture) {
