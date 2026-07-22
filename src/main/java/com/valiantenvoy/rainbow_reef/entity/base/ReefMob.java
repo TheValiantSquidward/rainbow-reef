@@ -19,7 +19,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -253,7 +256,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     protected void updateSwimPitch() {
         this.prevSwimPitch = this.swimPitch;
         float target = 0.0F;
-        if (this.isInWater()) {
+        if (this.isInWater() || this.isLeaping()) {
             double dx = this.getX() - this.xo;
             double dy = this.getY() - this.yo;
             double dz = this.getZ() - this.zo;
