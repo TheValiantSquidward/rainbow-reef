@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,25 +25,24 @@ public class Butterflyfish extends VariantSchoolingFish {
 
     public Butterflyfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 30, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 15);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 6, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 6);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 6.0D)
-                .add(Attributes.MOVEMENT_SPEED, 1.0F)
+                .add(Attributes.MAX_HEALTH, 4.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.85F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishDigGoal(this, 15, 600, ReefTags.BUTTERFLY_DIET));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 10));
-        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new FishDigGoal(this, 15, 600, ReefTags.BUTTERFLY_DIET));
+        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 40));
+        this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }
 
     @Override

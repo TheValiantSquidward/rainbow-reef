@@ -51,7 +51,7 @@ public class ReefItems {
     public static final DeferredItem<Item> BOXFISH_BREAD = registerItem("boxfish_bread", () -> new BoxfishBreadItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.4F).build())));
 
     // butterflyfish
-    public static final DeferredItem<Item> BUTTERFLYFISH_SPAWN_EGG = registerSpawnEggItem("butterflyfish", ReefEntities.BUTTERFLYFISH, 0xdb8f1a, 0xfffdf6);
+    public static final DeferredItem<Item> BUTTERFLYFISH_SPAWN_EGG = registerSpawnEggItem("butterflyfish", ReefEntities.BUTTERFLYFISH, 0xeae0cd, 0xb96b0b);
     public static final DeferredItem<Item> BUTTERFLYFISH_BUCKET = registerMobBucketItem("butterflyfish", ReefEntities.BUTTERFLYFISH);
     public static final DeferredItem<Item> RAW_BUTTERFLYFISH = registerItem("butterflyfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> BUTTERED_TOAST = registerItem("buttered_toast", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(8).saturationModifier(0F).build())));
@@ -100,7 +100,7 @@ public class ReefItems {
     public static final DeferredItem<Item> ULTRA_BACON_SANDWICH = registerItem("ultra_bacon_sandwich", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(14).saturationModifier(0.7F).effect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, 0), 1.0F).build())));
 
     // jellyfish
-    public static final DeferredItem<Item> JELLYFISH_SPAWN_EGG = registerSpawnEggItem("jellyfish", ReefEntities.JELLYFISH, 0xf6b7dd, 0xef8298);
+    public static final DeferredItem<Item> JELLYFISH_SPAWN_EGG = registerSpawnEggItem("jellyfish", ReefEntities.JELLYFISH, 0xf7b7dc, 0xbe1e2f);
     public static final DeferredItem<Item> JELLYFISH_BUCKET = registerMobBucketItem("jellyfish", ReefEntities.JELLYFISH);
     public static final DeferredItem<Item> GLOB_OF_JELLY = registerItem("glob_of_jelly", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> JELLY_BOTTLE = registerItem("jelly_bottle", () -> new JellyBottleItem(new Item.Properties().stacksTo(16).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.5F).alwaysEdible().build())));

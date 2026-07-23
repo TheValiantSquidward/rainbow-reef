@@ -1,0 +1,6 @@
+{
+  "texture": "rainbow_reef:entity/butterflyfish/butterflyfish_six_spined",
+  "rarity": "uncommon",
+  "biomes": "minecraft:mangrove_swamp",
+  "priority": 100
+}

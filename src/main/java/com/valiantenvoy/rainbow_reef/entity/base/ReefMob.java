@@ -48,9 +48,9 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     private static final EntityDataAccessor<Integer> FEED_COOLDOWN = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(ReefMob.class, EntityDataSerializers.BOOLEAN);
 
-    protected static final double PITCH_MIN = 0.01D;
-    protected static final double PITCH_MAX = 0.05D;
-    protected static final float PITCH_LERP = 0.2F;
+    private static final double PITCH_MIN = 0.01D;
+    private static final double PITCH_MAX = 0.05D;
+    private static final float PITCH_LERP = 0.2F;
     protected static final float DEFAULT_PITCH_CLAMP = 85.0F;
 
     protected static final float ROLL_DECAY = 0.9F;

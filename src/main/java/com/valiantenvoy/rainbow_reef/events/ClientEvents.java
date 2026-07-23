@@ -4,6 +4,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.client.models.entity.*;
 import com.valiantenvoy.rainbow_reef.client.particle.BurrowBubbleParticle;
+import com.valiantenvoy.rainbow_reef.client.renderer.JellyfishRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.ParrotfishRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.ReefFishingHookRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer;
@@ -68,7 +69,7 @@ public class ClientEvents {
         event.registerEntityRenderer(ReefEntities.BOXFISH.get(), createRenderer(ReefModelLayers.BOXFISH, BoxfishModel::new, 0.3F));
         event.registerEntityRenderer(ReefEntities.BASSLET.get(), createRenderer(ReefModelLayers.BASSLET, BassletModel::new, 0.3F));
         event.registerEntityRenderer(ReefEntities.MOORISH_IDOL.get(), createRenderer(ReefModelLayers.MOORISH_IDOL, MoorishIdolModel::new, 0.3F));
-        event.registerEntityRenderer(ReefEntities.JELLYFISH.get(), createRenderer(ReefModelLayers.JELLYFISH, JellyfishModel::new, 0.3F));
+        event.registerEntityRenderer(ReefEntities.JELLYFISH.get(), JellyfishRenderer::new);
         event.registerEntityRenderer(ReefEntities.HOGFISH.get(), createRenderer(ReefModelLayers.HOGFISH, HogfishModel::new, 0.3F));
         event.registerEntityRenderer(ReefEntities.GOBY.get(), createRenderer(ReefModelLayers.GOBY, GobyModel::new, 0.3F));
         event.registerEntityRenderer(ReefEntities.LIONFISH.get(), createRenderer(ReefModelLayers.LIONFISH, LionfishModel::new, 0.3F));

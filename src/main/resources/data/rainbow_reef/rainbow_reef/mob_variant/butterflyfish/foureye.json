@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/butterflyfish/butterflyfish_foureye",
+  "biomes": "minecraft:mangrove_swamp",
+  "priority": 100
+}
