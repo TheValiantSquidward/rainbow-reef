@@ -14,6 +14,7 @@ public enum VariantRenderType implements StringRepresentable {
     ENTITY_CUTOUT_NO_CULL("entity_cutout_no_cull", RenderType::entityCutoutNoCull),
     ENTITY_CUTOUT_MIPPED("entity_cutout_mipped", NeoForgeRenderTypes::getEntityCutoutMipped),
     ENTITY_TRANSLUCENT("entity_translucent",  RenderType::entityTranslucent),
+    ENTITY_TRANSLUCENT_CULL("entity_translucent_cull",  RenderType::entityTranslucentCull),
     ENTITY_TRANSLUCENT_EMISSIVE("entity_translucent_emissive",  RenderType::entityTranslucentEmissive);
 
     public static final Codec<VariantRenderType> CODEC = StringRepresentable.fromEnum(VariantRenderType::values);

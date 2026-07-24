@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishDigGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishNibbleBlockGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -35,7 +35,7 @@ public class Lionfish extends ReefMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new FishDigGoal(this, 30, 500, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(1, new FishNibbleBlockGoal(this, 30, 500, ReefTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1, 10));
     }
 

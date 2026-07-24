@@ -6,7 +6,6 @@ import com.valiantenvoy.rainbow_reef.entity.MahiMahi;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 
 public class MahiMahiModel extends ReefModel<MahiMahi> {
 
@@ -16,7 +15,6 @@ public class MahiMahiModel extends ReefModel<MahiMahi> {
     private final ModelPart tail2;
 
     public MahiMahiModel(ModelPart root) {
-        super(RenderType::entityCutout);
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
         ModelPart body = this.swim_control.getChild("body");

@@ -82,7 +82,7 @@ public class JellyfishModel extends ReefModel<Jellyfish> {
 
         PartDefinition tentacle2 = tentacle_control.addOrReplaceChild("tentacle2", CubeListBuilder.create(), PartPose.offset(-6.0F, -2.0F, 0.5F));
 
-        tentacle2.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(0, 49).addBox(0.0F, 0.0F, -6.0F, 0.0F, 23.0F, 11.0F, new CubeDeformation(0.0001F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.5F, 0.0F, 0.0F, 0.2618F));
+        tentacle2.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(22, 38).addBox(0.0F, 0.0F, -6.0F, 0.0F, 23.0F, 11.0F, new CubeDeformation(0.0001F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.5F, 0.0F, 0.0F, 0.2618F));
 
         PartDefinition tentacle3 = tentacle_control.addOrReplaceChild("tentacle3", CubeListBuilder.create(), PartPose.offset(-0.5F, -2.0F, -6.0F));
 
@@ -90,7 +90,7 @@ public class JellyfishModel extends ReefModel<Jellyfish> {
 
         PartDefinition tentacle4 = tentacle_control.addOrReplaceChild("tentacle4", CubeListBuilder.create(), PartPose.offset(5.0F, -2.0F, 0.5F));
 
-        tentacle4.addOrReplaceChild("cube_r6", CubeListBuilder.create().texOffs(0, 49).addBox(0.0F, 0.0F, -6.0F, 0.0F, 23.0F, 11.0F, new CubeDeformation(0.0001F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.5F, 0.0F, 0.0F, -0.2618F));
+        tentacle4.addOrReplaceChild("cube_r6", CubeListBuilder.create().texOffs(22, 38).addBox(0.0F, 0.0F, -6.0F, 0.0F, 23.0F, 11.0F, new CubeDeformation(0.0001F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.5F, 0.0F, 0.0F, -0.2618F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
 	}

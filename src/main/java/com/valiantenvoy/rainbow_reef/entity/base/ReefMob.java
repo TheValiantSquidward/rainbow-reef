@@ -23,8 +23,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -65,8 +63,6 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState flopAnimationState = new SmoothAnimationState();
-
-    public final SmoothSwimmingMoveControl feedingController = new SmoothSwimmingMoveControl(this, 1000, 10, 0.02F, 0.1F, false);
 
     protected ReefMob(EntityType<? extends WaterAnimal> entityType, Level level) {
         super(entityType, level);
@@ -182,16 +178,11 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-    public void setMoveControl(MoveControl newControl) {
-        this.moveControl = newControl;
-    }
-
     private boolean renderedInTooltip;
 
     public void setTooltipWaterState() {
         this.wasTouchingWater = true;
     }
-
     public void setRenderedInTooltip(boolean renderedInTooltip) {
         this.renderedInTooltip = renderedInTooltip;
     }
@@ -271,12 +262,12 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
     }
 
-    public float getSwimRoll(float partialTick) {
-        return Mth.lerp(partialTick, this.prevSwimRoll, this.swimRoll);
+    public float getSwimRoll(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevSwimRoll, this.swimRoll);
     }
 
-    public float getSwimPitch(float partialTick) {
-        return Mth.lerp(partialTick, this.prevSwimPitch, this.swimPitch);
+    public float getSwimPitch(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
     }
 
     protected float getPitchClamp() {

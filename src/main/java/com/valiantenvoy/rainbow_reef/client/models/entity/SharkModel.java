@@ -6,7 +6,6 @@ import com.valiantenvoy.rainbow_reef.entity.Shark;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 
 public class SharkModel extends ReefModel<Shark> {
 
@@ -16,7 +15,6 @@ public class SharkModel extends ReefModel<Shark> {
 	private final ModelPart tail2;
 
 	public SharkModel(ModelPart root) {
-		super(RenderType::entityCutout);
 		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
         ModelPart body_main = this.swim_control.getChild("body_main");

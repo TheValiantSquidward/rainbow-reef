@@ -11,6 +11,7 @@
   ],
   "client": [
     "client.BiomeColorsMixin",
+    "client.EntityRenderDispatcherMixin",
     "client.WaterDropParticleMixin"
   ],
   "injectors": {

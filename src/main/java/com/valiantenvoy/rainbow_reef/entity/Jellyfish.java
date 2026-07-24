@@ -24,6 +24,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -32,14 +34,14 @@ import java.util.function.Predicate;
 public class Jellyfish extends ReefMob {
 
     private static final int PULSE_INTERVAL = 20;
-    private static final double PULSE_FORCE = 0.16D;
-    private static final float PITCH_LERP = 0.075F;
+    private static final double PULSE_FORCE = 0.2D;
+    private static final float PITCH_LERP = 0.05F;
 
     private static final Predicate<LivingEntity> CAN_STING = (entity) -> {
         if (entity instanceof Player && ((Player) entity).isCreative()) {
             return false;
         }
-        return !entity.isSpectator() && !(entity instanceof Jellyfish);
+        return !entity.isSpectator() && entity instanceof Player;
     };
 
     private int pulseCooldown = 0;
@@ -54,7 +56,7 @@ public class Jellyfish extends ReefMob {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35F)
-                .add(Attributes.ATTACK_DAMAGE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .build();
     }
 
@@ -81,16 +83,16 @@ public class Jellyfish extends ReefMob {
 
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
-        if (!level().isClientSide) {
-            if (itemstack.getItem() == Items.GLASS_BOTTLE) {
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                this.spawnAtLocation(ReefItems.JELLY_BOTTLE.get());
-                this.playSound(SoundEvents.BOTTLE_FILL, 1.0F, 1.0F);
-                return InteractionResult.SUCCESS;
+        ItemStack itemStack = player.getItemInHand(hand);
+        if (!this.level().isClientSide && itemStack.getItem() == Items.GLASS_BOTTLE) {
+            if (!player.isCreative()) {
+                itemStack.shrink(1);
             }
+            if (!player.addItem(new ItemStack(ReefItems.JELLY_BOTTLE.get()))) {
+                player.spawnAtLocation(ReefItems.JELLY_BOTTLE.get());
+            }
+            this.playSound(SoundEvents.BOTTLE_FILL_DRAGONBREATH, 0.5F, this.getRandom().nextFloat() * 0.2F + 1.0F);
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
     }
@@ -104,13 +106,21 @@ public class Jellyfish extends ReefMob {
     @Override
     public void tick() {
         super.tick();
-        if (this.isAlive() && this.tickCount % 4 == 0) {
-            for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.15D), CAN_STING)) {
+        if (this.isAlive()) {
+            for (LivingEntity entity : this.level().getEntitiesOfClass(LivingEntity.class, this.getStingHitbox(), CAN_STING)) {
                 if (entity.isAlive()) {
                     this.stingEntity(entity);
                 }
             }
         }
+    }
+
+    public AABB getStingHitbox() {
+        Vec3 vec3 = this.getDeltaMovement().lengthSqr() > 1.0E-5D ? this.getLookAngle().multiply(-1.25F, -1.25F, -1.25F) : new Vec3(0.0F, -0.9F, 0.0F);
+        if (!this.isInWaterOrBubble()) {
+            return this.getBoundingBox().inflate(0.6F, -0.4F, 0.6F).move(0.0F, -0.4F, 0.0F);
+        }
+        return this.getBoundingBox().inflate(0.25F).move(vec3);
     }
 
     @Override
@@ -131,6 +141,9 @@ public class Jellyfish extends ReefMob {
     protected void updateSwimPitch() {
         this.prevSwimPitch = this.swimPitch;
         float target = this.getDeltaMovement().lengthSqr() > 1.0E-5D ? this.getXRot() + 90.0F : 0.0F;
+        if (!this.isInWaterOrBubble()) {
+            target = 0.0F;
+        }
         this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
     }
 

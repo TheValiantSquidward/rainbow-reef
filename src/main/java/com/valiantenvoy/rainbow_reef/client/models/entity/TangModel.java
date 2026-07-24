@@ -6,7 +6,6 @@ import com.valiantenvoy.rainbow_reef.entity.Tang;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.RenderType;
 
 public class TangModel extends ReefModel<Tang> {
 
@@ -14,7 +13,6 @@ public class TangModel extends ReefModel<Tang> {
 	private final ModelPart swim_control;
 
 	public TangModel(ModelPart root) {
-		super(RenderType::entityCutout);
 		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
 	}

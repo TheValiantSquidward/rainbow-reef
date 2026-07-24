@@ -6,13 +6,9 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import org.joml.Vector3f;
-
-import java.util.function.Function;
 
 public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
 
@@ -22,10 +18,6 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
 
     public ReefModel() {
         super();
-    }
-
-    public ReefModel(Function<ResourceLocation, RenderType> renderType) {
-        super(renderType);
     }
 
     @Override
@@ -64,8 +56,8 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
             return;
         }
         long time = (long) (limbSwing * 50.0F * maxAnimationSpeed);
-        float weight = Math.min(limbSwingAmount * animationScaleFactor, 1.0F) * factor;
-        KeyframeAnimations.animate(this, definition, time, weight, ANIMATION_VECTOR_CACHE);
+        float scale = Math.min(limbSwingAmount * animationScaleFactor, 1.0F) * factor;
+        KeyframeAnimations.animate(this, definition, time, scale, ANIMATION_VECTOR_CACHE);
     }
 
     protected void animateIdleSmooth(SmoothAnimationState state, AnimationDefinition definition, float ageInTicks, float partialTicks, float limbSwingAmount) {

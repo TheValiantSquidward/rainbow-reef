@@ -4,6 +4,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.client.models.entity.*;
 import com.valiantenvoy.rainbow_reef.client.particle.BurrowBubbleParticle;
+import com.valiantenvoy.rainbow_reef.client.particle.EepyParticle;
 import com.valiantenvoy.rainbow_reef.client.renderer.JellyfishRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.ParrotfishRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.ReefFishingHookRenderer;
@@ -42,6 +43,8 @@ public class ClientEvents {
     @SubscribeEvent
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ReefParticleTypes.BURROW_BUBBLE.get(), BurrowBubbleParticle.Provider::new);
+        event.registerSpriteSet(ReefParticleTypes.EEPY.get(), EepyParticle.Provider::new);
+
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)

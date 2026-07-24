@@ -83,6 +83,14 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
             renderX += 3;
             renderY += 0;
         }
+        if (type == ReefEntities.SEAHORSE.get()) {
+            renderX -= 1;
+            renderY += 8;
+        }
+        if (type == ReefEntities.PARROTFISH.get()) {
+            renderX += 2;
+            renderY += 2;
+        }
 
         float time = (mc.level.getGameTime() + mc.getTimer().getGameTimeDeltaPartialTick(false)) / 20.0F;
         float bob = (float) Math.sin(time * Math.PI * 0.5F) * 0.05F;

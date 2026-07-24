@@ -86,7 +86,7 @@ public class ReefItems {
     public static final DeferredItem<Item> FUSILIER_SPAWN_EGG = registerSpawnEggItem("fusilier", ReefEntities.FUSILIER, 0x2d70c4, 0xf0f24e);
 
     // goby
-    public static final DeferredItem<Item> GOBY_SPAWN_EGG = registerSpawnEggItem("goby", ReefEntities.GOBY, 0xdb3f1f, 0xffffff);
+    public static final DeferredItem<Item> GOBY_SPAWN_EGG = registerSpawnEggItem("goby", ReefEntities.GOBY, 0xffffff, 0xb9321a);
     public static final DeferredItem<Item> GOBY_BUCKET = registerMobBucketItem("goby", ReefEntities.GOBY);
     public static final DeferredItem<Item> RAW_GOBY = registerItem("goby", () -> new Item(foodItem(ReefFoodValues.RAW_GOBY)));
     public static final DeferredItem<Item> GOBY_GUMMY = registerItem("goby_gummy", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.5F).fast().build())));
@@ -128,7 +128,7 @@ public class ReefItems {
     public static final DeferredItem<Item> IDOL_COOKIE = registerItem("idol_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1F).build())));
 
     // parrotfish
-    public static final DeferredItem<Item> PARROTFISH_SPAWN_EGG = registerSpawnEggItem("parrotfish", ReefEntities.PARROTFISH, 0x3998e7, 0x7351ff);
+    public static final DeferredItem<Item> PARROTFISH_SPAWN_EGG = registerSpawnEggItem("parrotfish", ReefEntities.PARROTFISH, 0x2178fd, 0x15128c);
     public static final DeferredItem<Item> PARROTFISH_BUCKET = registerMobBucketItem("parrotfish", ReefEntities.PARROTFISH);
     public static final DeferredItem<Item> RAW_PARROTFISH = registerItem("parrotfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.8F).build())));
     public static final DeferredItem<Item> PARROTFISH_PUNCH = registerItem("parrotfish_punch", () -> new ParrotfishPunchItem(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(5).saturationModifier(1.2F).alwaysEdible().effect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 1), 1F).effect(new MobEffectInstance(MobEffects.REGENERATION, 300, 0), 1F).build())));

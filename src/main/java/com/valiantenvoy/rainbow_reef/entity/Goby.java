@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -34,17 +33,16 @@ public class Goby extends ReefMob {
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 4.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.9F)
+                .add(Attributes.MOVEMENT_SPEED, 0.65F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new EnterBurrowGoal(this, 1.2D, ReefBlockTags.BURROWS));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 75));
+        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(2, new EnterBurrowGoal(this, 1.2D, ReefBlockTags.BURROWS));
+        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1, 100));
     }
 
     @Override
@@ -59,6 +57,6 @@ public class Goby extends ReefMob {
 
     @Override
     public ResourceLocation fallbackVariantTexture() {
-        return RainbowReef.location("textures/entity/goby/goby_candycane.png");
+        return RainbowReef.location("textures/entity/goby/goby_fire.png");
     }
 }

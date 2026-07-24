@@ -64,7 +64,7 @@ public class Crab extends DancingEntity implements DancesToJukebox {
                 return crab.isDancing();
             }
         });
-        this.goalSelector.addGoal(0, new FishDigGoal(this, 120, 700, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(0, new FishNibbleBlockGoal(this, 120, 700, ReefTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(1, new CrabFindWater(this));
         this.goalSelector.addGoal(1, new CrabLeaveWater(this));
         this.goalSelector.addGoal(2, new EnterBurrowGoal(this, 1.0D, ReefBlockTags.BURROWS));

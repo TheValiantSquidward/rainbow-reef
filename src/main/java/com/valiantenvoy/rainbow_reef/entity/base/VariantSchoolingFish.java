@@ -4,7 +4,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 
@@ -19,7 +18,7 @@ public abstract class VariantSchoolingFish extends ReefMob {
     protected VariantSchoolingFish leader;
     private int schoolSize = 1;
 
-    public VariantSchoolingFish(EntityType<? extends WaterAnimal> entityType, Level level) {
+    public VariantSchoolingFish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -40,18 +39,18 @@ public abstract class VariantSchoolingFish extends ReefMob {
         this.leader = fish;
         fish.addFollower();
     }
-
     public void stopFollowing() {
-        Objects.requireNonNull(this.leader).removeFollower();
+        if (this.leader != null) {
+            this.leader.removeFollower();
+        }
         this.leader = null;
     }
 
     private void addFollower() {
-        ++this.schoolSize;
+        this.schoolSize--;
     }
-
     private void removeFollower() {
-        --this.schoolSize;
+        this.schoolSize--;
     }
 
     public boolean canBeFollowed() {

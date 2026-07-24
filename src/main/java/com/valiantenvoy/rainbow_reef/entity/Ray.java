@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishDigGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishNibbleBlockGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
@@ -38,7 +38,7 @@ public class Ray extends VariantSchoolingFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new FishDigGoal(this, 40, 1200, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 40, 1200, ReefTags.HOG_DIGGABLE));
         this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1, 10));
         this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }

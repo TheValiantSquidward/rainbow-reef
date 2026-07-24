@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishDigGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishNibbleBlockGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -39,7 +39,7 @@ public class Triggerfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new FishDigGoal(this, 15, 600, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 15, 600, ReefTags.ANGELFISH_DIET));
         this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1, 80));
     }
 

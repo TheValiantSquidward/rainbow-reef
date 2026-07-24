@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
 
 public class JellyfishOuterLayer extends RenderLayer<Jellyfish, JellyfishModel> {
 
@@ -17,14 +16,10 @@ public class JellyfishOuterLayer extends RenderLayer<Jellyfish, JellyfishModel> 
         super(renderer);
     }
 
-    public ResourceLocation getOuterTexture(Jellyfish entity) {
-        return entity.getVariantTexture();
-    }
-
     @Override
     public void render(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, Jellyfish entity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!entity.isInvisible()) {
-            VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityTranslucent(this.getOuterTexture(entity)));
+            VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityTranslucent(entity.getVariantTexture()));
             this.getParentModel().renderOuterBody(poseStack, consumer, packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F));
         }
     }

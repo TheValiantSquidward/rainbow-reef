@@ -11,5 +11,7 @@ public class ReefParticleTypes {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(BuiltInRegistries.PARTICLE_TYPE, RainbowReef.MOD_ID);
 
-    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> BURROW_BUBBLE = PARTICLE_TYPES.register("burrow_bubble", () -> new SimpleParticleType(false) {});
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> BURROW_BUBBLE = PARTICLE_TYPES.register("burrow_bubble", () -> new SimpleParticleType(false));
+    public static final DeferredHolder<ParticleType<?>, SimpleParticleType> EEPY = PARTICLE_TYPES.register("eepy", ()-> new SimpleParticleType(false));
+
 }
