@@ -1,13 +1,12 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishNibbleBlockGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -15,37 +14,82 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class Ray extends VariantSchoolingFish {
 
+    private static final float PITCH_CLAMP = 45.0F;
+    private static final float ROLL_CLAMP = 30.0F;
+    private static final float TAIL_LAG = 0.1F;
+
+    public float prevTailPitch;
+    public float tailPitch;
+
+    public float bodyYaw;
+    public float prevBodyYaw;
+    public float tailYaw;
+    public float prevTailYaw;
+
     public Ray(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 360, 2, 0.02F, 0.1F, false);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 45, 4, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 4);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 12.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .add(Attributes.MAX_HEALTH, 10.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.75F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 40, 1200, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1, 10));
-        this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 50, 15, 7, 4));
+        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return 4;
+        return 3;
+    }
+
+    @Override
+    protected float getPitchClamp() {
+        return PITCH_CLAMP;
+    }
+
+    @Override
+    protected float getRollClamp() {
+        return ROLL_CLAMP;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide) {
+            this.prevBodyYaw = this.bodyYaw;
+            this.prevTailPitch = this.tailPitch;
+            this.prevTailYaw = this.tailYaw;
+
+            this.bodyYaw += Mth.clamp(Mth.wrapDegrees(this.yBodyRot - this.bodyYaw), -this.getRollClamp(), this.getRollClamp());
+            this.tailYaw += (this.bodyYaw - this.tailYaw) * TAIL_LAG;
+            this.tailPitch += (this.swimPitch - this.tailPitch) * TAIL_LAG;
+        }
+    }
+
+    public float getBodyYaw(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevBodyYaw, this.bodyYaw);
+    }
+
+    public float getTailYaw(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevTailYaw, this.tailYaw);
+    }
+
+    public float getTailPitch(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevTailPitch, this.tailPitch);
     }
 
     @Override

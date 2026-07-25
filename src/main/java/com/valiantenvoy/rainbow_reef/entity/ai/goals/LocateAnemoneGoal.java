@@ -1,22 +1,21 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
-import com.valiantenvoy.rainbow_reef.entity.base.Anemonefish;
+import com.valiantenvoy.rainbow_reef.entity.Clownfish;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 public class LocateAnemoneGoal extends Goal {
 
-    private final Anemonefish fish;
-    final int cooldown;
+    private final Clownfish clownfish;
+    private final int cooldown;
 
-    public LocateAnemoneGoal(Anemonefish fish, int cooldown) {
-        super();
-        this.fish = fish;
+    public LocateAnemoneGoal(Clownfish clownfish, int cooldown) {
+        this.clownfish = clownfish;
         this.cooldown = cooldown;
     }
 
     @Override
     public boolean canUse() {
-        return !this.fish.hasAnemone() && this.fish.anemoneSearchCooldown <= 0;
+        return !this.clownfish.hasAnemone() && this.clownfish.anemoneSearchCooldown <= 0;
     }
 
     @Override
@@ -26,7 +25,7 @@ public class LocateAnemoneGoal extends Goal {
 
     @Override
     public void start() {
-        this.fish.anemoneSearchCooldown = this.cooldown;
-        this.fish.findAndSetAnemone();
+        this.clownfish.anemoneSearchCooldown = this.cooldown;
+        this.clownfish.findAndSetAnemone();
     }
 }

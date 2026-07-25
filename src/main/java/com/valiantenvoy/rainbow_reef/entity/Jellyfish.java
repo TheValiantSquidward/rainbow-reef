@@ -33,9 +33,7 @@ import java.util.function.Predicate;
 
 public class Jellyfish extends ReefMob {
 
-    private static final int PULSE_INTERVAL = 20;
-    private static final double PULSE_FORCE = 0.2D;
-    private static final float PITCH_LERP = 0.05F;
+    private static final float PITCH_LERP = 0.1F;
 
     private static final Predicate<LivingEntity> CAN_STING = (entity) -> {
         if (entity instanceof Player && ((Player) entity).isCreative()) {
@@ -43,8 +41,6 @@ public class Jellyfish extends ReefMob {
         }
         return !entity.isSpectator() && entity instanceof Player;
     };
-
-    private int pulseCooldown = 0;
 
     public Jellyfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
@@ -55,14 +51,14 @@ public class Jellyfish extends ReefMob {
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35F)
+                .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimWanderGoal(this, 1.0D, 100));
+        this.goalSelector.addGoal(0, new SwimWanderGoal(this, 1.0D, 120));
     }
 
     @SuppressWarnings("deprecation")
@@ -124,20 +120,6 @@ public class Jellyfish extends ReefMob {
     }
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-        if (!this.level().isClientSide && this.isAlive()) {
-            if (this.pulseCooldown > 0) {
-                this.pulseCooldown--;
-            }
-            if (this.isInWater() && this.pulseCooldown <= 0 && this.getMoveControl().hasWanted()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(this.getLookAngle().normalize().scale(PULSE_FORCE)));
-                this.pulseCooldown = PULSE_INTERVAL;
-            }
-        }
-    }
-
-    @Override
     protected void updateSwimPitch() {
         this.prevSwimPitch = this.swimPitch;
         float target = this.getDeltaMovement().lengthSqr() > 1.0E-5D ? this.getXRot() + 90.0F : 0.0F;
@@ -145,15 +127,6 @@ public class Jellyfish extends ReefMob {
             target = 0.0F;
         }
         this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
-    }
-
-    @Override
-    public void setupAnimationStates() {
-        boolean inWater = this.isInWaterOrBubble();
-        boolean moving = this.getDeltaMovement().lengthSqr() > 1.0E-5D;
-        this.swimAnimationState.animateWhen(inWater && moving, this.tickCount);
-        this.swimIdleAnimationState.animateWhen(inWater && !moving, this.tickCount);
-        this.flopAnimationState.animateWhen(!inWater, this.tickCount);
     }
 
     @Override

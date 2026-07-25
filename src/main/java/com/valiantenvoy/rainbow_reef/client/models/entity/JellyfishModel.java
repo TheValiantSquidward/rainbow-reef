@@ -30,8 +30,8 @@ public class JellyfishModel extends ReefModel<Jellyfish> {
 
 	@Override
 	protected void setupAnimations(Jellyfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
-		this.animateSmooth(entity.swimAnimationState, JellyfishAnimations.SWIM, ageInTicks, partialTicks);
-		this.animateSmooth(entity.swimIdleAnimationState, JellyfishAnimations.IDLE, ageInTicks, partialTicks);
+		this.animateWalkSmooth(entity.swimAnimationState, JellyfishAnimations.SWIM, limbSwing, limbSwingAmount, 1.0F, 2.5F, partialTicks);
+		this.animateIdleSmooth(entity.swimIdleAnimationState, JellyfishAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
 		this.animateSmooth(entity.flopAnimationState, JellyfishAnimations.FLOP, ageInTicks, partialTicks);
 		this.swim_control.xRot += entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD;
 	}

@@ -1,47 +1,48 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
-import com.valiantenvoy.rainbow_reef.entity.base.Anemonefish;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.phys.Vec3;
+import com.valiantenvoy.rainbow_reef.entity.Clownfish;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.ai.goal.Goal;
 
-public class RestInAnemoneGoal extends RandomStrollGoal {
+import java.util.EnumSet;
 
-    private final Anemonefish fish;
+public class RestInAnemoneGoal extends Goal {
 
-    final double speedMultiplier;
+    private final Clownfish clownfish;
+    private final double speedModifier;
+    private final int interval;
+    private int timer;
+    private double wantedX;
+    private double wantedY;
+    private double wantedZ;
 
-    int timer;
-
-    public RestInAnemoneGoal(Anemonefish fish, double speedMultiplier, int restInterval, int restTimer) {
-        super(fish, speedMultiplier, restInterval, true);
-        this.fish = fish;
-        this.speedMultiplier = speedMultiplier;
-        this.timer = restTimer + this.mob.getRandom().nextIntBetweenInclusive(0, 200);
+    public RestInAnemoneGoal(Clownfish clownfish, double speedModifier, int interval, int timer) {
+        this.clownfish = clownfish;
+        this.speedModifier = speedModifier;
+        this.interval = interval;
+        this.timer = timer + clownfish.getRandom().nextInt(200);
+        this.setFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
     public boolean canUse() {
-        if (this.fish.hasAnemone() && !this.fish.level().isClientSide) {
-            if (!this.forceTrigger) {
-                if (this.mob.getNoActionTime() >= 100) {
-                    return false;
-                }
-
-                if (this.mob.getRandom().nextIntBetweenInclusive(0, reducedTickDelay(this.interval)) != 0) {
-                    return false;
-                }
-            }
-
-            Vec3 vec3 = this.getPosition();
-            if (vec3 == null) {
+        if (this.clownfish.hasAnemone()) {
+            if (this.clownfish.getNoActionTime() >= 100) {
                 return false;
-            } else {
-                this.wantedX = vec3.x;
-                this.wantedY = vec3.y;
-                this.wantedZ = vec3.z;
-                this.forceTrigger = false;
-                this.mob.setNoActionTime(1200 + this.mob.getRandom().nextIntBetweenInclusive(0, this.interval));
-                return fish.isInWater();
+            }
+            if (this.clownfish.getRandom().nextInt(reducedTickDelay(this.interval)) != 0) {
+                return false;
+            }
+            BlockPos anemonePos = this.clownfish.getAnemonePos();
+            if (anemonePos == null) {
+                return false;
+            }
+            else {
+                this.wantedX = anemonePos.getX() + 0.5F;
+                this.wantedY = anemonePos.getY() + 0.5F;
+                this.wantedZ = anemonePos.getZ() + 0.5F;
+                this.clownfish.setNoActionTime(1200 + this.clownfish.getRandom().nextInt(this.interval));
+                return this.clownfish.isInWater();
             }
         }
         return false;
@@ -49,7 +50,7 @@ public class RestInAnemoneGoal extends RandomStrollGoal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.fish.hasAnemone() && fish.isInWater() && this.timer >= 0;
+        return this.clownfish.hasAnemone() && this.clownfish.isInWater() && this.timer >= 0;
     }
 
     @Override
@@ -59,8 +60,7 @@ public class RestInAnemoneGoal extends RandomStrollGoal {
 
     @Override
     public void start() {
-        this.fish.getNavigation().stop();
-        this.fish.getMoveControl().setWantedPosition(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.2F, this.fish.getAnemonePos().getZ() + 0.5F, 1F);
-        this.fish.getNavigation().moveTo(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.2F, this.fish.getAnemonePos().getZ() + 0.5F, 1F);
+        this.clownfish.getNavigation().stop();
+        this.clownfish.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
     }
 }

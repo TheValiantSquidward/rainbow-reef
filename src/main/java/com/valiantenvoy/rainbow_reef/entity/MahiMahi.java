@@ -46,7 +46,7 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 10, 15, 7, 6, true));
+        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 10, 15, 7, 6));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
         this.goalSelector.addGoal(3, new FishLeapGoal(this, 20));
     }

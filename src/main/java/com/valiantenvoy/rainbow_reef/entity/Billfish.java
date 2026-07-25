@@ -43,7 +43,7 @@ public class Billfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new FishLeapGoal(this));
-        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 10, 20, 7, 4, true));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 10, 20, 7, 4));
     }
 
     @Override

@@ -1,63 +1,61 @@
 package com.valiantenvoy.rainbow_reef.entity.ai.goals;
 
-import com.valiantenvoy.rainbow_reef.entity.base.Anemonefish;
+import com.valiantenvoy.rainbow_reef.entity.Clownfish;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.phys.Vec3;
 
 public class MoveToAnemoneGoal extends Goal {
 
-    private final Anemonefish fish;
+    private final Clownfish clownfish;
+    private final double radiusSqr;
+    private final double speedMultiplier;
+    private double wantedX;
+    private double wantedY;
+    private double wantedZ;
 
-    final int radius;
-    final double speedMultiplier;
-
-    public MoveToAnemoneGoal(Anemonefish fish, double speedMultiplier, int MaxRadius) {
-        this.fish = fish;
-        this.radius = MaxRadius;
+    public MoveToAnemoneGoal(Clownfish clownfish, double speedMultiplier, double radiusSqr) {
+        this.clownfish = clownfish;
+        this.radiusSqr = radiusSqr;
         this.speedMultiplier = speedMultiplier;
     }
 
     @Override
     public boolean canUse() {
-        if (this.fish.hasAnemone() && !this.fish.level().isClientSide) {
-
-            Vec3 nempos = new Vec3(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.1F, this.fish.getAnemonePos().getZ() + 0.5F);
-            return this.fish.position().distanceTo(nempos) > this.radius && fish.isInWater();
-            //if the fish is farther than the given radius to the nem, then allowed to use
-
-        } else {
+        if (this.clownfish.hasAnemone()) {
+            BlockPos anemonePos = this.clownfish.getAnemonePos();
+            if (anemonePos == null) {
+                return false;
+            }
+            else {
+                this.wantedX = anemonePos.getX() + 0.5F;
+                this.wantedY = anemonePos.getY() + 0.5F;
+                this.wantedZ = anemonePos.getZ() + 0.5F;
+                return this.clownfish.position().distanceToSqr(this.wantedX, this.wantedY, this.wantedZ) > this.radiusSqr && clownfish.isInWater();
+            }
+        }
+        else {
             return false;
         }
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (this.fish.hasAnemone()) {
-
-            Vec3 nempos = new Vec3(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.1F, this.fish.getAnemonePos().getZ() + 0.5F);
-            //System.out.println(this.fish.position().distanceTo(nempos) > this.radius && fish.isInWater());
-            //System.out.println(this.fish.position().distanceTo(nempos));
-            //System.out.println(this.radius);
-            return (this.fish.position().distanceTo(nempos) > radius) && fish.isInWater();
-
-        } else {
+        if (this.clownfish.hasAnemone()) {
+            return this.clownfish.position().distanceToSqr(this.wantedX, this.wantedY, this.wantedZ) > this.radiusSqr && this.clownfish.isInWater();
+        }
+        else {
             return false;
         }
-
-        //second part cancels the goal if the animal gets close enough, but if the distance is greater than the maximum distance it keeps running
     }
 
     @Override
     public void tick() {
-        this.fish.getNavigation().moveTo(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.1F, this.fish.getAnemonePos().getZ() + 0.5F, 1F);
+        this.clownfish.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedMultiplier);
     }
-
 
     @Override
     public void start() {
-        this.fish.getNavigation().stop();
-        this.fish.setSpeed(fish.getSpeed() * 4);
-        this.fish.getMoveControl().setWantedPosition(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.1F, this.fish.getAnemonePos().getZ() + 0.5F, 1F);
-        this.fish.getNavigation().moveTo(this.fish.getAnemonePos().getX() + 0.5F, this.fish.getAnemonePos().getY() + 0.1F, this.fish.getAnemonePos().getZ() + 0.5F, 1F);
+        this.clownfish.getNavigation().stop();
+        this.clownfish.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedMultiplier);
     }
 }

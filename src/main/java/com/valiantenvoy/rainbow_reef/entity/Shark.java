@@ -38,7 +38,7 @@ public class Shark extends VariantSchoolingFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 10, 15, 7, 3, true));
+        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 10, 15, 7, 4));
         this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
     }
 
