@@ -1,0 +1,7 @@
+{
+  "texture": "rainbow_reef:entity/crab/crab_red_ghost",
+  "biomes": "minecraft:beach",
+  "rarity": "rare",
+  "render_type": "entity_cutout_no_cull",
+  "priority": 100
+}

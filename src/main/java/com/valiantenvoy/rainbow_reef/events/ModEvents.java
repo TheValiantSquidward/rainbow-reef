@@ -117,7 +117,7 @@ public class ModEvents {
         event.put(ReefEntities.CRAB.get(), Crab.createAttributes());
         event.put(ReefEntities.MOORISH_IDOL.get(), MoorishIdol.createAttributes());
         event.put(ReefEntities.ANGELFISH.get(), Angelfish.createAttributes());
-        event.put(ReefEntities.ARROW_CRAB.get(), ArrowCrab.setAttributes());
+        event.put(ReefEntities.ARROW_CRAB.get(), ArrowCrab.createAttributes());
         event.put(ReefEntities.JELLYFISH.get(), Jellyfish.createAttributes());
         event.put(ReefEntities.LIONFISH.get(), Lionfish.createAttributes());
         event.put(ReefEntities.MAHI_MAHI.get(), MahiMahi.createAttributes());

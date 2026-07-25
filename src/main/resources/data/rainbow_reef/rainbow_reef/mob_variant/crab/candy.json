@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/crab/crab_candy",
+  "rarity": "epic",
+  "render_type": "entity_cutout_no_cull"
+}

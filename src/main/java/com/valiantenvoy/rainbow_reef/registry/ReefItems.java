@@ -30,7 +30,7 @@ public class ReefItems {
     public static final DeferredItem<Item> RAW_ANGELFISH = registerItem("angelfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // arrow crab
-    public static final DeferredItem<Item> ARROW_CRAB_SPAWN_EGG = registerSpawnEggItem("arrow_crab", ReefEntities.ARROW_CRAB, 0x4b3827, 0xd94b19);
+    public static final DeferredItem<Item> ARROW_CRAB_SPAWN_EGG = registerSpawnEggItem("arrow_crab", ReefEntities.ARROW_CRAB, 0x4b3827, 0xee8023);
     public static final DeferredItem<Item> ARROW_CRAB_BUCKET = registerMobBucketItem("arrow_crab", ReefEntities.ARROW_CRAB);
     public static final DeferredItem<Item> RAW_ARROW_CRAB = registerItem("arrow_crab", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
@@ -63,7 +63,7 @@ public class ReefItems {
     public static final DeferredItem<Item> CLOWNFISH_CUPCAKE = registerItem("clownfish_cupcake", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEdible().nutrition(1).saturationModifier(1F).build())));
 
     // crab
-    public static final DeferredItem<Item> CRAB_SPAWN_EGG = registerSpawnEggItem("crab", ReefEntities.CRAB, 0x261f4e, 0xf78b21);
+    public static final DeferredItem<Item> CRAB_SPAWN_EGG = registerSpawnEggItem("crab", ReefEntities.CRAB, 0x581fa8, 0xf7892e);
     public static final DeferredItem<Item> CRAB_BUCKET = registerMobBucketItem("crab", ReefEntities.CRAB);
     public static final DeferredItem<Item> RAW_CRAB = registerItem("crab", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> ROASTED_CRAB = registerItem("roasted_crab", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.6F).build())));
@@ -114,12 +114,13 @@ public class ReefItems {
     public static final DeferredItem<Item> LIONFISH_SPAWN_EGG = registerSpawnEggItem("lionfish", ReefEntities.LIONFISH, 0x862a34, 0xd2d6dc);
 
     // mahi mahi
-    public static final DeferredItem<Item> MAHI_MAHI_SPAWN_EGG = registerSpawnEggItem("mahi_mahi", ReefEntities.MAHI_MAHI, 0x85b00c, 0x155e8d);
+    public static final DeferredItem<Item> MAHI_MAHI_SPAWN_EGG = registerSpawnEggItemNoLang("mahi_mahi", ReefEntities.MAHI_MAHI, 0x85b00c, 0x155e8d);
     public static final DeferredItem<Item> MAHI_MAHI_BUCKET = registerMobBucketItem("mahi_mahi", ReefEntities.MAHI_MAHI);
-    public static final DeferredItem<Item> RAW_MAHI_MAHI = registerItem("mahi_mahi", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
+    public static final DeferredItem<Item> RAW_MAHI_MAHI = registerItemNoLang("mahi_mahi", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // maori wrasse
-    public static final DeferredItem<Item> MAORI_WRASSE_SPAWN_EGG = registerSpawnEggItem("maori_wrasse", ReefEntities.MAORI_WRASSE, 0x1a7e89, 0x0d6c52);
+    public static final DeferredItem<Item> MAORI_WRASSE_SPAWN_EGG = registerSpawnEggItem("maori_wrasse", ReefEntities.MAORI_WRASSE, 0x25cbb7, 0x07582d);
+    public static final DeferredItem<Item> MAORI_WRASSE_BUCKET = registerMobBucketItem("maori_wrasse", ReefEntities.MAORI_WRASSE);
 
     // moorish idol
     public static final DeferredItem<Item> MOORISH_IDOL_SPAWN_EGG = registerSpawnEggItem("moorish_idol", ReefEntities.MOORISH_IDOL, 0x322b2f, 0xf2c447);
@@ -240,6 +241,10 @@ public class ReefItems {
 
     private static DeferredItem<Item> registerSpawnEggItem(String name, Supplier<? extends EntityType<? extends Mob>> type, int baseColor, int spotColor) {
         return registerItem(name + "_spawn_egg", () -> new DeferredSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
+    }
+
+    private static DeferredItem<Item> registerSpawnEggItemNoLang(String name, Supplier<? extends EntityType<? extends Mob>> type, int baseColor, int spotColor) {
+        return registerItemNoLang(name + "_spawn_egg", () -> new DeferredSpawnEggItem(type, baseColor, spotColor, new Item.Properties()));
     }
 
     private static DeferredItem<Item> registerMobBucketItem(String name, Supplier<? extends EntityType<?>> type) {

@@ -40,13 +40,19 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
     @Override
     public void renderImage(Font font, int x, int y, GuiGraphics graphics) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.level == null) return;
+        if (mc.level == null) {
+            return;
+        }
 
         EntityType<?> type = EntityType.byString(this.entityTag.getString("id")).orElse(null);
-        if (type == null) return;
+        if (type == null) {
+            return;
+        }
 
         Entity entity = type.create(mc.level);
-        if (!(entity instanceof LivingEntity living)) return;
+        if (!(entity instanceof LivingEntity living)) {
+            return;
+        }
 
         CompoundTag fishTag = this.entityTag.copy();
         fishTag.remove("id");
@@ -67,9 +73,17 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
 
         float renderX = x + (this.getWidth(font) / 2F);
         float renderY = y + (this.getHeight() / 2F);
+        boolean shouldBob = true;
+
         if (type == ReefEntities.ARROW_CRAB.get()) {
             renderX += 10;
             renderY += 3;
+            shouldBob = false;
+        }
+        if (type == ReefEntities.CRAB.get()) {
+            renderX += 10;
+            renderY += 3;
+            shouldBob = false;
         }
         if (type == ReefEntities.PIPEFISH.get()) {
             renderX += 10;
@@ -93,7 +107,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         }
 
         float time = (mc.level.getGameTime() + mc.getTimer().getGameTimeDeltaPartialTick(false)) / 20.0F;
-        float bob = (float) Math.sin(time * Math.PI * 0.5F) * 0.05F;
+        float bob = shouldBob ? (float) Math.sin(time * Math.PI * 0.5F) * 0.05F : 0.0F;
 
         PoseStack stack = graphics.pose();
         stack.pushPose();

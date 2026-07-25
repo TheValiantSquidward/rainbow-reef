@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-19T18:12:43.962791	Item Models: rainbow_reef
+// 1.21.1	2026-07-24T22:46:32.9949213	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -61,6 +61,7 @@ de1654d694c990a12a96f2b78b04eddb96fbc591 assets/rainbow_reef/models/item/jelly_t
 1199264728fe1af1bb2a071d7ea31027af3bd2a1 assets/rainbow_reef/models/item/mahi_mahi.json
 f51790d3f6cfc0aece53f5f91812225af450e338 assets/rainbow_reef/models/item/mahi_mahi_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/mahi_mahi_spawn_egg.json
+d1a6975fdbd1aa5acc31dcbd33c8470b107bfdc0 assets/rainbow_reef/models/item/maori_wrasse_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/maori_wrasse_spawn_egg.json
 b515787dda509d5a6ec95dd70e335ea93b7ee982 assets/rainbow_reef/models/item/moorish_idol.json
 db5b70e743edf99d1e4b704af8b330320db38d6a assets/rainbow_reef/models/item/moorish_idol_bucket.json

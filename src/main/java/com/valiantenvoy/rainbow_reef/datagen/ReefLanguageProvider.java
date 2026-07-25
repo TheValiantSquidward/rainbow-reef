@@ -47,7 +47,8 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addItem(ReefItems.GOBY_BUCKET, "Bucket of Goby");
         this.addItem(ReefItems.HOGFISH_BUCKET, "Bucket of Hogfish");
         this.addItem(ReefItems.JELLYFISH_BUCKET, "Bucket of Jellyfish");
-        this.addItem(ReefItems.MAHI_MAHI_BUCKET, "Bucket of Mahi Mahi");
+        this.addItem(ReefItems.MAHI_MAHI_BUCKET, "Bucket of Mahi-mahi");
+        this.addItem(ReefItems.MAORI_WRASSE_BUCKET, "Bucket of Maori Wrasse");
         this.addItem(ReefItems.MOORISH_IDOL_BUCKET, "Bucket of Moorish Idol");
         this.addItem(ReefItems.PARROTFISH_BUCKET, "Bucket of Parrotfish");
         this.addItem(ReefItems.PIPEFISH_BUCKET, "Bucket of Pipefish");
@@ -59,6 +60,9 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addItem(ReefItems.TRIGGERFISH_BUCKET, "Bucket of Triggerfish");
 
         this.addItem(ReefItems.SURF_N_TURF, "Surf 'N' Turf");
+
+        this.addItem(ReefItems.MAHI_MAHI_SPAWN_EGG, "Mahi-mahi Spawn Egg");
+        this.addItem(ReefItems.RAW_MAHI_MAHI, "Mahi-mahi");
 
         this.musicDisc();
 
