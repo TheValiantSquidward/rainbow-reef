@@ -186,28 +186,9 @@ public class ReefBlocks {
 
     public static final DeferredBlock<Block> ANGELFISH_CAKE = registerBlock("angelfish_cake", () -> new AngelfishCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
-    public static final DeferredBlock<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN)
-                    .strength(0.5F, 0.0F)
-                    .sound(SoundType.LANTERN)
-                    .lightLevel((state) -> 15)
-                    .noOcclusion()
-                    .pushReaction(PushReaction.DESTROY),
-                    Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
-                    Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
-                            ));
-
-    public static final DeferredBlock<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY),
-                    Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
-                    Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
-            ));
-
-    public static final DeferredBlock<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern",
-            () -> new BasePufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY),
-                    Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D),
-                    Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D)
-                    ));
+    public static final DeferredBlock<Block> BLUE_PUFFER_LANTERN = registerBlock("blue_puffer_lantern", () -> new PufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel((state) -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern", () -> new PufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final DeferredBlock<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern", () -> new PufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
     public static final DeferredBlock<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
             () -> new AnemoneBlock(0));

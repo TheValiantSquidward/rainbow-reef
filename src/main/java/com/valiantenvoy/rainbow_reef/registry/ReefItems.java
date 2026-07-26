@@ -68,7 +68,6 @@ public class ReefItems {
     public static final DeferredItem<Item> RAW_CRAB = registerItem("crab", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> ROASTED_CRAB = registerItem("roasted_crab", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.6F).build())));
     public static final DeferredItem<Item> CRAB_CAKE = registerItem("crab_cake", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.5F).build())));
-    public static final DeferredItem<Item> CRAB_ROE = registerItem("crab_roe", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3F).build())));
 
     // damselfish
     public static final DeferredItem<Item> DAMSELFISH_SPAWN_EGG = registerSpawnEggItem("damselfish", ReefEntities.DAMSELFISH, 0x15f578, 0x4ba2c4);
@@ -80,7 +79,9 @@ public class ReefItems {
     public static final DeferredItem<Item> DWARF_ANGELFISH_TART = registerItem("dwarf_angelfish_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.5F).build())));
 
     // frogfish
-    public static final DeferredItem<Item> FROGFISH_SPAWN_EGG = registerSpawnEggItem("frogfish", ReefEntities.FROGFISH, 0xe4eef7, 0xbc4911);
+    public static final DeferredItem<Item> FROGFISH_SPAWN_EGG = registerSpawnEggItem("frogfish", ReefEntities.FROGFISH, 0xfff4f1, 0xb75547);
+    public static final DeferredItem<Item> FROGFISH_BUCKET = registerMobBucketItem("frogfish", ReefEntities.FROGFISH);
+    public static final DeferredItem<Item> RAW_FROGFISH = registerItem("frogfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // fusilier
     public static final DeferredItem<Item> FUSILIER_SPAWN_EGG = registerSpawnEggItem("fusilier", ReefEntities.FUSILIER, 0x2d70c4, 0xf0f24e);

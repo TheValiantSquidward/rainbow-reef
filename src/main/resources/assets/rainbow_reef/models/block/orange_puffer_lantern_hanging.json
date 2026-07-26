@@ -1,5 +1,5 @@
 {
-  "parent": "rainbow_reef:block/template_puffer_lantern",
+  "parent": "rainbow_reef:block/template_puffer_lantern_hanging",
   "textures": {
     "lantern": "rainbow_reef:block/orange_puffer_lantern",
     "particle": "rainbow_reef:block/orange_puffer_lantern_particle"

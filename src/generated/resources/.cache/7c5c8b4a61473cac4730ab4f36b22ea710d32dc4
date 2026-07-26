@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-25T12:59:45.3196781	Item Models: rainbow_reef
+// 1.21.1	2026-07-25T21:12:24.061708	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -29,7 +29,6 @@ d4a5a2bb29cf93b84d219e4993c1e42dda7132b0 assets/rainbow_reef/models/item/clownfi
 78b501f5f82f73619a3c82b03747d08c29ef5d1c assets/rainbow_reef/models/item/crab.json
 d08c282aa0a3322b37f440cc347a25ed201c2f7d assets/rainbow_reef/models/item/crab_bucket.json
 67b39466af879f6ac9981461d92296e312a9665c assets/rainbow_reef/models/item/crab_cake.json
-99e212fda75161c1c620ee6877daa2ce9498c224 assets/rainbow_reef/models/item/crab_roe.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/crab_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/damselfish_spawn_egg.json
 6b8b8ef992395d7d696e48fd68bd2aef507d7616 assets/rainbow_reef/models/item/dried_seahorse.json
@@ -38,6 +37,8 @@ a7bc421fcf27b0148f467ef1e2c71c16bae49906 assets/rainbow_reef/models/item/dwarf_a
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/dwarf_angelfish_spawn_egg.json
 eb9842ffa743b980e6a7ffe9f5734435d7e82315 assets/rainbow_reef/models/item/dwarf_angelfish_tart.json
 dd640d8832b9d01f0261ada42f371e3406d377a4 assets/rainbow_reef/models/item/forbidden_soup.json
+ebfc0f6db74a6cab747229e28dee02993569472f assets/rainbow_reef/models/item/frogfish.json
+ef7c95733e67068eaf27140dff77a21bc9f3c3e2 assets/rainbow_reef/models/item/frogfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/frogfish_spawn_egg.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/fusilier_spawn_egg.json
 b614ee6bded0177faf4ab0d376429d1b02d1d974 assets/rainbow_reef/models/item/glob_of_jelly.json

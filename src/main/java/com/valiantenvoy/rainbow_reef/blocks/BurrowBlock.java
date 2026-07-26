@@ -69,7 +69,7 @@ public class BurrowBlock extends Block implements EntityBlock {
     @Override
     @SuppressWarnings("unchecked")
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
-        if (!level.isClientSide && type == ReefBlockEntities.BURROW.get()) {
+        if (!level.isClientSide && type == ReefBlockEntities.BURROW_BLOCK_ENTITY.get()) {
             return (BlockEntityTicker<T>) (BlockEntityTicker<BurrowBlockEntity>) BurrowBlockEntity::serverTick;
         }
         return null;

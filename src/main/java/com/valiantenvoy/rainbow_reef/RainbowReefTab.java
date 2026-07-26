@@ -38,133 +38,77 @@ public class RainbowReefTab {
                             }
                         });
 
-                        // angelfish
                         output.accept(ReefItems.ANGELFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_ANGELFISH.get());
-                        output.accept(ReefBlocks.ANGELFISH_CAKE.get());
-
-                        // arrow crab
                         output.accept(ReefItems.ARROW_CRAB_BUCKET.get());
-                        output.accept(ReefItems.RAW_ARROW_CRAB.get());
-
-                        // basslet
                         output.accept(ReefItems.BASSLET_BUCKET.get());
-                        output.accept(ReefItems.RAW_BASSLET.get());
-                        output.accept(ReefItems.BASSLET_COOKIE.get());
-
-                        // billfish
                         output.accept(ReefItems.BILLFISH_BUCKET.get());
-
-                        // boxfish
                         output.accept(ReefItems.BOXFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_BOXFISH.get());
-                        output.accept(ReefItems.BOXFISH_BREAD.get());
-
-                        // butterflyfish
                         output.accept(ReefItems.BUTTERFLYFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_BUTTERFLYFISH.get());
-                        output.accept(ReefItems.BUTTERED_TOAST.get());
-
-                        // clownfish
                         output.accept(ReefItems.CLOWNFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_CLOWNFISH.get());
-                        output.accept(ReefItems.CLOWNFISH_CUPCAKE.get());
-
-                        // crab
                         output.accept(ReefItems.CRAB_BUCKET.get());
+                        output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
+                        output.accept(ReefItems.FROGFISH_BUCKET.get());
+                        output.accept(ReefItems.GOBY_BUCKET.get());
+                        output.accept(ReefItems.HOGFISH_BUCKET.get());
+                        output.accept(ReefItems.JELLYFISH_BUCKET.get());
+                        output.accept(ReefItems.LIONFISH_BUCKET.get());
+                        output.accept(ReefItems.MAHI_MAHI_BUCKET.get());
+                        output.accept(ReefItems.MAORI_WRASSE_BUCKET.get());
+                        output.accept(ReefItems.MOORISH_IDOL_BUCKET.get());
+                        output.accept(ReefItems.PARROTFISH_BUCKET.get());
+                        output.accept(ReefItems.PIPEFISH_BUCKET.get());
+                        output.accept(ReefItems.RAY_BUCKET.get());
+                        output.accept(ReefItems.SEAHORSE_BUCKET.get());
+                        output.accept(ReefItems.SHARK_BUCKET.get());
+                        output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
+                        output.accept(ReefItems.TANG_BUCKET.get());
+                        output.accept(ReefItems.TRIGGERFISH_BUCKET.get());
+
+                        output.accept(ReefItems.RAW_ANGELFISH.get());
+                        output.accept(ReefItems.RAW_ARROW_CRAB.get());
+                        output.accept(ReefItems.RAW_BASSLET.get());
+                        output.accept(ReefItems.RAW_BOXFISH.get());
+                        output.accept(ReefItems.RAW_BUTTERFLYFISH.get());
+                        output.accept(ReefItems.RAW_CLOWNFISH.get());
                         output.accept(ReefItems.RAW_CRAB.get());
+                        output.accept(ReefItems.RAW_DWARF_ANGELFISH.get());
+                        output.accept(ReefItems.RAW_FROGFISH.get());
+                        output.accept(ReefItems.RAW_GOBY.get());
+                        output.accept(ReefItems.RAW_HOGFISH.get());
+                        output.accept(ReefItems.GLOB_OF_JELLY.get());
+                        output.accept(ReefItems.RAW_LIONFISH.get());
+                        output.accept(ReefItems.RAW_MAHI_MAHI.get());
+                        output.accept(ReefItems.RAW_MOORISH_IDOL.get());
+                        output.accept(ReefItems.RAW_PARROTFISH.get());
+                        output.accept(ReefItems.RAW_PIPEFISH.get());
+                        output.accept(ReefItems.RAW_RAY.get());
+                        output.accept(ReefItems.RAW_SEAHORSE.get());
+                        output.accept(ReefItems.RAW_SMALL_SHARK.get());
+                        output.accept(ReefItems.RAW_TANG.get());
+                        output.accept(ReefItems.RAW_TRIGGERFISH.get());
+
+                        output.accept(ReefBlocks.ANGELFISH_CAKE.get());
+                        output.accept(ReefItems.BASSLET_COOKIE.get());
+                        output.accept(ReefItems.BOXFISH_BREAD.get());
+                        output.accept(ReefItems.BUTTERED_TOAST.get());
+                        output.accept(ReefItems.CLOWNFISH_CUPCAKE.get());
                         output.accept(ReefItems.ROASTED_CRAB.get());
                         output.accept(ReefItems.CRAB_CAKE.get());
-                        output.accept(ReefItems.CRAB_ROE.get());
-
-                        // damselfish
-
-                        // dwarf angelfish
-                        output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_DWARF_ANGELFISH.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_TART.get());
-
-                        // frogfish
-
-                        // fusilier
-
-                        // goby
-                        output.accept(ReefItems.GOBY_BUCKET.get());
-                        output.accept(ReefItems.RAW_GOBY.get());
                         output.accept(ReefItems.GOBY_GUMMY.get());
-
-                        // hogfish
-                        output.accept(ReefItems.HOGFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_HOGFISH.get());
                         output.accept(ReefItems.HOGFISH_BACON.get());
                         output.accept(ReefItems.COOKED_HOGFISH_BACON.get());
                         output.accept(ReefItems.ULTRA_BACON_SANDWICH.get());
-
-                        // jellyfish
-                        output.accept(ReefItems.JELLYFISH_BUCKET.get());
-                        output.accept(ReefItems.GLOB_OF_JELLY.get());
                         output.accept(ReefItems.JELLY_BOTTLE.get());
                         output.accept(ReefItems.JELLY_SANDWICH.get());
                         output.accept(ReefItems.JELLY_TART.get());
-
-                        // large shark
-
-                        // lionfish
-                        output.accept(ReefItems.LIONFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_LIONFISH.get());
-
-                        // mahi mahi
-                        output.accept(ReefItems.MAHI_MAHI_BUCKET.get());
-                        output.accept(ReefItems.RAW_MAHI_MAHI.get());
-
-                        // maori wrasse
-                        output.accept(ReefItems.MAORI_WRASSE_BUCKET.get());
-
-                        // moorish idol
-                        output.accept(ReefItems.MOORISH_IDOL_BUCKET.get());
-                        output.accept(ReefItems.RAW_MOORISH_IDOL.get());
                         output.accept(ReefItems.IDOL_COOKIE.get());
-
-                        // parrotfish
-                        output.accept(ReefItems.PARROTFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_PARROTFISH.get());
                         output.accept(ReefItems.PARROTFISH_PUNCH.get());
-
-                        // pipefish
-                        output.accept(ReefItems.PIPEFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_PIPEFISH.get());
                         output.accept(ReefItems.PIPEFISH_SUSHI.get());
-
-                        // rabbitfish
-
-                        // ray
-                        output.accept(ReefItems.RAY_BUCKET.get());
-                        output.accept(ReefItems.RAW_RAY.get());
                         output.accept(ReefItems.CHOCOLATE_RAY_MUFFIN.get());
-
-                        // seahorse
-                        output.accept(ReefItems.SEAHORSE_BUCKET.get());
-                        output.accept(ReefItems.RAW_SEAHORSE.get());
                         output.accept(ReefItems.DRIED_SEAHORSE.get());
-
-                        // shark
-                        output.accept(ReefItems.SHARK_BUCKET.get());
-
-                        // small shark
-                        output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
-                        output.accept(ReefItems.RAW_SMALL_SHARK.get());
                         output.accept(ReefItems.SHARKBITE_SALAD.get());
-
-                        // tang
-                        output.accept(ReefItems.TANG_BUCKET.get());
-                        output.accept(ReefItems.RAW_TANG.get());
                         output.accept(ReefItems.TANGY_SOUP.get());
-
-                        // triggerfish
-                        output.accept(ReefItems.TRIGGERFISH_BUCKET.get());
-                        output.accept(ReefItems.RAW_TRIGGERFISH.get());
-
-                        // wrasse
 
                         output.accept(ReefItems.SEASUGAR_SORBET.get());
                         output.accept(ReefItems.ROCKFISH_CANDY.get());
@@ -304,6 +248,7 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.CLOWNFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.CLOWNFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.CRAB_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.CRAB.get()));
                         variantsByRarity(parameters, output, ReefItems.DWARF_ANGELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DWARF_ANGELFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.FROGFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FROGFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.GOBY_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.GOBY.get()));
                         variantsByRarity(parameters, output, ReefItems.JELLYFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.JELLYFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.LIONFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.LIONFISH.get()));

@@ -50,7 +50,6 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_CRAB);
         this.item(ROASTED_CRAB);
         this.item(CRAB_CAKE);
-        this.item(CRAB_ROE);
 
         this.item(DWARF_ANGELFISH_BUCKET);
         this.item(RAW_DWARF_ANGELFISH);
@@ -59,6 +58,9 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(GOBY_BUCKET);
         this.item(RAW_GOBY);
         this.item(GOBY_GUMMY);
+
+        this.item(FROGFISH_BUCKET);
+        this.item(RAW_FROGFISH);
 
         this.item(HOGFISH_BUCKET);
         this.item(RAW_HOGFISH);

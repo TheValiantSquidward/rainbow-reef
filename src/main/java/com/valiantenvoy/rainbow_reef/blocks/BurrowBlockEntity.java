@@ -44,7 +44,7 @@ public class BurrowBlockEntity extends BlockEntity {
     private boolean keepOccupantsOnBreak;
 
     public BurrowBlockEntity(BlockPos pos, BlockState state) {
-        super(ReefBlockEntities.BURROW.get(), pos, state);
+        super(ReefBlockEntities.BURROW_BLOCK_ENTITY.get(), pos, state);
     }
 
     public boolean isEmpty() {

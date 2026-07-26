@@ -8,6 +8,7 @@ import com.valiantenvoy.rainbow_reef.client.particle.EepyParticle;
 import com.valiantenvoy.rainbow_reef.client.renderer.JellyfishRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.ParrotfishRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.ReefFishingHookRenderer;
+import com.valiantenvoy.rainbow_reef.client.renderer.block.PufferLanternBlockRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer;
 import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
 import com.valiantenvoy.rainbow_reef.registry.*;
@@ -52,6 +53,11 @@ public class ClientEvents {
         if (RainbowReefConfig.DYEABLE_FISHING_RODS.getAsBoolean()) {
             event.registerEntityRenderer(EntityType.FISHING_BOBBER, ReefFishingHookRenderer::new);
         }
+    }
+
+    @SubscribeEvent
+    public static void registerBlockEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerBlockEntityRenderer(ReefBlockEntities.PUFFER_LANTERN_BLOCK_ENTITY.get(), PufferLanternBlockRenderer::new);
     }
 
     @SubscribeEvent

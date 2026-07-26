@@ -1,3 +1,6 @@
 {
-  "parent": "rainbow_reef:block/green_puffer_lantern"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "rainbow_reef:item/green_puffer_lantern"
+  }
 }

@@ -1,90 +1,72 @@
 package com.valiantenvoy.rainbow_reef.client.models.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.valiantenvoy.rainbow_reef.client.models.entity.animations.FrogfishAnimations;
+import com.valiantenvoy.rainbow_reef.client.models.entity.base.ReefModel;
 import com.valiantenvoy.rainbow_reef.entity.Frogfish;
-import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
-@SuppressWarnings("FieldCanBeLocal, unused")
-public class FrogfishModel extends HierarchicalModel<Frogfish> {
+public class FrogfishModel extends ReefModel<Frogfish> {
 
-	private final ModelPart Root;
-	private final ModelPart Core;
-	private final ModelPart Body;
-	private final ModelPart Fin;
-	private final ModelPart Lure;
-	private final ModelPart LeftBottomFin;
-	private final ModelPart RightBottomFin;
-	private final ModelPart LeftFin;
-	private final ModelPart RightFin;
-	private final ModelPart Mouth;
-	private final ModelPart Tail;
+	private final ModelPart root;
 
 	public FrogfishModel(ModelPart root) {
-		this.Root = root.getChild("Root");
-		this.Core = this.Root.getChild("Core");
-		this.Body = this.Core.getChild("Body");
-		this.Fin = this.Body.getChild("Fin");
-		this.Lure = this.Body.getChild("Lure");
-		this.LeftBottomFin = this.Body.getChild("LeftBottomFin");
-		this.RightBottomFin = this.Body.getChild("RightBottomFin");
-		this.LeftFin = this.Body.getChild("LeftFin");
-		this.RightFin = this.Body.getChild("RightFin");
-		this.Mouth = this.Body.getChild("Mouth");
-		this.Tail = this.Core.getChild("Tail");
+		this.root = root.getChild("root");
+	}
+
+	@Override
+	public ModelPart root() {
+		return this.root;
+	}
+
+	@Override
+	protected void setupAnimations(Frogfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
+		this.animateWalkSmooth(entity.walkAnimationState, FrogfishAnimations.WALK, limbSwing, limbSwingAmount, partialTicks);
+		this.animateIdleSmooth(entity.idleAnimationState, FrogfishAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
+		this.animateSmooth(entity.flopAnimationState, FrogfishAnimations.FLOP, ageInTicks, partialTicks);
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition Root = partdefinition.addOrReplaceChild("Root", CubeListBuilder.create(), PartPose.offset(0.0F, 21.0F, 0.0F));
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition Core = Root.addOrReplaceChild("Core", CubeListBuilder.create(), PartPose.offset(0.0F, -1.0F, -2.0F));
+		PartDefinition body_main = root.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, -8.0F, 0.0F));
 
-		PartDefinition Body = Core.addOrReplaceChild("Body", CubeListBuilder.create().texOffs(22, 21).addBox(0.0F, 2.0F, 1.0F, 0.0F, 1.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(-2.0F, -3.0F, -3.0F, 4.0F, 5.0F, 6.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 11).addBox(-2.0F, -4.0F, -3.0F, 4.0F, 1.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 2.0F));
+		PartDefinition leg_control = body_main.addOrReplaceChild("leg_control", CubeListBuilder.create(), PartPose.offset(2.0F, 6.0F, -1.0F));
 
-		PartDefinition Fin = Body.addOrReplaceChild("Fin", CubeListBuilder.create().texOffs(0, 17).addBox(0.0F, -4.0F, -1.0F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, 1.0F));
+        leg_control.addOrReplaceChild("leg_left", CubeListBuilder.create().texOffs(12, 14).addBox(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(12, 12).addBox(0.0F, 2.0F, -3.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 0.0F));
 
-		PartDefinition Lure = Body.addOrReplaceChild("Lure", CubeListBuilder.create().texOffs(20, -1).addBox(0.0F, -3.0F, -3.0F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -3.0F, -3.0F));
+        leg_control.addOrReplaceChild("leg_right", CubeListBuilder.create().texOffs(12, 14).addBox(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
+                .texOffs(12, 12).mirror().addBox(-4.0F, 2.0F, -3.0F, 4.0F, 0.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-4.0F, 0.0F, 0.0F));
 
-		PartDefinition LeftBottomFin = Body.addOrReplaceChild("LeftBottomFin", CubeListBuilder.create().texOffs(22, 17).addBox(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 2.0F, -1.0F, 0.0F, 0.0F, -0.3927F));
+        PartDefinition body = body_main.addOrReplaceChild("body", CubeListBuilder.create().texOffs(12, 10).addBox(0.0F, -6.0F, -5.0F, 0.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 4.0F, 1.0F));
 
-		PartDefinition RightBottomFin = Body.addOrReplaceChild("RightBottomFin", CubeListBuilder.create().texOffs(22, 17).mirror().addBox(0.0F, 0.0F, -1.0F, 0.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-1.0F, 2.0F, -1.0F, 0.0F, 0.0F, 0.3927F));
+        body.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-2.0F, -3.0F, -2.0F, 4.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, -2.0F, -0.0436F, 0.0F, 0.0F));
 
-		PartDefinition LeftFin = Body.addOrReplaceChild("LeftFin", CubeListBuilder.create().texOffs(10, 17).addBox(0.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(2.0F, 2.0F, 0.0F, 0.0F, 0.0F, -0.3927F));
+        PartDefinition jaw = body.addOrReplaceChild("jaw", CubeListBuilder.create(), PartPose.offset(0.0F, 1.0F, -4.0F));
 
-		PartDefinition RightFin = Body.addOrReplaceChild("RightFin", CubeListBuilder.create().texOffs(10, 17).mirror().addBox(-2.0F, -1.0F, -2.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(-2.0F, 2.0F, 0.0F, 0.0F, 0.0F, 0.3927F));
+        jaw.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(14, 0).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 4.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.2618F, 0.0F, 0.0F));
 
-		PartDefinition Mouth = Body.addOrReplaceChild("Mouth", CubeListBuilder.create().texOffs(10, 23).addBox(-1.0F, -1.0F, 0.0F, 2.0F, 1.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, -3.0F, 0.3927F, 0.0F, 0.0F));
+        body.addOrReplaceChild("fin_top", CubeListBuilder.create().texOffs(0, 13).addBox(0.0F, -4.0F, -2.0F, 0.0F, 5.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -4.0F, 0.0F));
 
-		PartDefinition Tail = Core.addOrReplaceChild("Tail", CubeListBuilder.create().texOffs(20, 9).addBox(0.0F, -2.0F, 0.0F, 0.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, 5.0F));
+        body.addOrReplaceChild("fin_bottom", CubeListBuilder.create().texOffs(10, 14).addBox(0.0F, 0.0F, -1.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 1.0F));
 
-		return LayerDefinition.create(meshdefinition, 32, 32);
-	}
+        PartDefinition fin_left = body.addOrReplaceChild("fin_left", CubeListBuilder.create(), PartPose.offset(0.0F, 2.0F, -2.0F));
 
-	@Override
-	public void setupAnim(@NotNull Frogfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		this.root().getAllParts().forEach(ModelPart::resetPose);
+        fin_left.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(0, 0).addBox(0.0F, 0.0F, -1.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.5236F));
 
-	}
+        PartDefinition fin_right = body.addOrReplaceChild("fin_right", CubeListBuilder.create(), PartPose.offset(0.0F, 2.0F, -2.0F));
 
-	@Override
-	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		this.Root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
+        fin_right.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(0, 0).mirror().addBox(0.0F, 0.0F, -1.0F, 0.0F, 3.0F, 3.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.5236F));
 
-	@Override
-	public @NotNull ModelPart root() {
-		return this.Root;
+        PartDefinition tail = body.addOrReplaceChild("tail", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 2.0F));
+
+        tail.addOrReplaceChild("cube_r5", CubeListBuilder.create().texOffs(0, 6).addBox(0.0F, -2.0F, 4.0F, 0.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, -4.0F, -0.0436F, 0.0F, 0.0F));
+
+        return LayerDefinition.create(meshdefinition, 32, 32);
 	}
 }
