@@ -1,4 +1,3 @@
 {
-  "texture": "rainbow_reef:entity/maori_wrasse/maori_wrasse",
-  "render_type": "entity_cutout_no_cull"
+  "texture": "rainbow_reef:entity/maori_wrasse/maori_wrasse"
 }

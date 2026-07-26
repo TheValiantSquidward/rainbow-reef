@@ -48,16 +48,9 @@ public class PufferLanternBlock extends BaseEntityBlock implements SimpleWaterlo
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-        for (Direction direction : context.getNearestLookingDirections()) {
-            if (direction.getAxis() == Direction.Axis.Y) {
-                BlockState blockstate = this.defaultBlockState().setValue(HANGING, direction == Direction.UP);
-                if (blockstate.canSurvive(context.getLevel(), context.getClickedPos())) {
-                    return blockstate.setValue(ROTATION, RotationSegment.convertToSegment(context.getRotation())).setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
-                }
-            }
-        }
-        return null;
+        FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
+        boolean hanging = context.getLevel().getBlockState(context.getClickedPos().above()).isFaceSturdy(context.getLevel(), context.getClickedPos().above(), Direction.DOWN);
+        return this.defaultBlockState().setValue(HANGING, hanging).setValue(ROTATION, RotationSegment.convertToSegment(context.getRotation())).setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
     }
 
     @Override
@@ -85,8 +78,9 @@ public class PufferLanternBlock extends BaseEntityBlock implements SimpleWaterlo
         if (state.getValue(WATERLOGGED)) {
             level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }
-        if (direction == Direction.UP && state.getValue(HANGING)) {
-            return state.setValue(HANGING, false);
+        if (direction == Direction.UP) {
+            boolean hanging = neighborState.isFaceSturdy(level, neighborPos, Direction.DOWN);
+            return state.setValue(HANGING, hanging);
         }
         return super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
