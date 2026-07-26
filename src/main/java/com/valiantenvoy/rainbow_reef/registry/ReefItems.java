@@ -109,7 +109,8 @@ public class ReefItems {
     public static final DeferredItem<Item> JELLY_SANDWICH = registerItem("jelly_sandwich", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().alwaysEdible().nutrition(8).saturationModifier(0.5F).build())));
 
     // large shark
-    public static final DeferredItem<Item> LARGE_SHARK_SPAWN_EGG = registerSpawnEggItem("large_shark", ReefEntities.LARGE_SHARK, 0x564637, 0xacaba3);
+    public static final DeferredItem<Item> LARGE_SHARK_SPAWN_EGG = registerSpawnEggItem("large_shark", ReefEntities.LARGE_SHARK, 0x796c54, 0x564637);
+    public static final DeferredItem<Item> LARGE_SHARK_BUCKET = registerMobBucketItem("large_shark", ReefEntities.LARGE_SHARK);
 
     // lionfish
     public static final DeferredItem<Item> LIONFISH_SPAWN_EGG = registerSpawnEggItem("lionfish", ReefEntities.LIONFISH, 0x862a34, 0xd2d6dc);
@@ -126,7 +127,7 @@ public class ReefItems {
     public static final DeferredItem<Item> MAORI_WRASSE_BUCKET = registerMobBucketItem("maori_wrasse", ReefEntities.MAORI_WRASSE);
 
     // moorish idol
-    public static final DeferredItem<Item> MOORISH_IDOL_SPAWN_EGG = registerSpawnEggItem("moorish_idol", ReefEntities.MOORISH_IDOL, 0x322b2f, 0xf2c447);
+    public static final DeferredItem<Item> MOORISH_IDOL_SPAWN_EGG = registerSpawnEggItem("moorish_idol", ReefEntities.MOORISH_IDOL, 0x413b2e, 0xf0c340);
     public static final DeferredItem<Item> MOORISH_IDOL_BUCKET = registerMobBucketItem("moorish_idol", ReefEntities.MOORISH_IDOL);
     public static final DeferredItem<Item> RAW_MOORISH_IDOL = registerItem("moorish_idol", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> IDOL_COOKIE = registerItem("idol_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1F).build())));

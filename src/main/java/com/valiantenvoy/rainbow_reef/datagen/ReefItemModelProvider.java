@@ -77,6 +77,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(MAHI_MAHI_BUCKET);
         this.item(RAW_MAHI_MAHI);
 
+        this.item(LARGE_SHARK_BUCKET);
+
         this.item(LIONFISH_BUCKET);
         this.item(RAW_LIONFISH);
 

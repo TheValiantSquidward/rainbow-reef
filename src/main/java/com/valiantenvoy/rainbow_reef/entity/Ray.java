@@ -21,15 +21,6 @@ public class Ray extends VariantSchoolingFish {
 
     private static final float PITCH_CLAMP = 45.0F;
     private static final float ROLL_CLAMP = 30.0F;
-    private static final float TAIL_LAG = 0.1F;
-
-    public float prevTailPitch;
-    public float tailPitch;
-
-    public float bodyYaw;
-    public float prevBodyYaw;
-    public float tailYaw;
-    public float prevTailYaw;
 
     public Ray(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
@@ -70,26 +61,8 @@ public class Ray extends VariantSchoolingFish {
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
-            this.prevBodyYaw = this.bodyYaw;
-            this.prevTailPitch = this.tailPitch;
-            this.prevTailYaw = this.tailYaw;
-
-            this.bodyYaw += Mth.clamp(Mth.wrapDegrees(this.yBodyRot - this.bodyYaw), -this.getRollClamp(), this.getRollClamp());
-            this.tailYaw += (this.bodyYaw - this.tailYaw) * TAIL_LAG;
-            this.tailPitch += (this.swimPitch - this.tailPitch) * TAIL_LAG;
+            this.updateTailYawAndPitch();
         }
-    }
-
-    public float getBodyYaw(float partialTicks) {
-        return Mth.lerp(partialTicks, this.prevBodyYaw, this.bodyYaw);
-    }
-
-    public float getTailYaw(float partialTicks) {
-        return Mth.lerp(partialTicks, this.prevTailYaw, this.tailYaw);
-    }
-
-    public float getTailPitch(float partialTicks) {
-        return Mth.lerp(partialTicks, this.prevTailPitch, this.tailPitch);
     }
 
     @Override

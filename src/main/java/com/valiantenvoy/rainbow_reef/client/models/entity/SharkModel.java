@@ -6,20 +6,19 @@ import com.valiantenvoy.rainbow_reef.entity.Shark;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 
 public class SharkModel extends ReefModel<Shark> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
     private final ModelPart tail1;
-	private final ModelPart tail2;
 
 	public SharkModel(ModelPart root) {
 		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
         ModelPart body_main = this.swim_control.getChild("body_main");
 		this.tail1 = body_main.getChild("tail1");
-		this.tail2 = this.tail1.getChild("tail2");
 	}
 
 	@Override
@@ -30,19 +29,34 @@ public class SharkModel extends ReefModel<Shark> {
 	@Override
 	public void setupAnimations(Shark entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
 		this.animateWalkSmooth(entity.swimAnimationState, SharkAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
+		this.animateWalkSmooth(entity.swimFastAnimationState, SharkAnimations.SWIM_FAST, limbSwing, limbSwingAmount, partialTicks);
 		this.animateIdleSmooth(entity.swimIdleAnimationState, SharkAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
-		this.animateSmooth(entity.flopAnimationState, SharkAnimations.BEACHED1, ageInTicks, partialTicks);
+		if ((entity.getId() & 1) == 0) {
+			this.animateSmooth(entity.flopAnimationState, SharkAnimations.BEACHED1, ageInTicks, partialTicks);
+		} else {
+			this.animateSmooth(entity.flopAnimationState, SharkAnimations.BEACHED2, ageInTicks, partialTicks);
+		}
 		this.animateSmooth(entity.attackAnimationState, SharkAnimations.BITE_BLEND, ageInTicks, partialTicks);
+		this.animateSmooth(entity.rotatedAnimationState, SharkAnimations.FLIPPED_OVERLAY, ageInTicks, partialTicks);
 		this.applyPitchAndRoll(entity, this.swim_control, partialTicks);
+
+		float swimPitch = entity.getSwimPitch(partialTicks);
+		float tailPitch = (swimPitch - entity.getTailPitch(partialTicks)) * Mth.DEG_TO_RAD * 1.5F;
+
+		float bodyYaw = entity.getBodyYaw(partialTicks);
+		float yawLag = (bodyYaw - entity.getTailYaw(partialTicks)) * Mth.DEG_TO_RAD * 1.5F;
+
+		this.tail1.xRot -= tailPitch * 0.2F;
+		this.tail1.yRot -= yawLag * 0.2F;
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 16.0F, 0.0F));
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 24.0F, 0.0F));
 
-		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, 3.0F, -3.0F));
+		PartDefinition swim_control = root.addOrReplaceChild("swim_control", CubeListBuilder.create(), PartPose.offset(0.0F, -5.0F, -3.0F));
 
 		PartDefinition body_main = swim_control.addOrReplaceChild("body_main", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 2.0F));
 

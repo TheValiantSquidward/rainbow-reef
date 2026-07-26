@@ -216,6 +216,7 @@
   "item.rainbow_reef.jelly_tart": "Jelly Tart",
   "item.rainbow_reef.jellyfish_bucket": "Bucket of Jellyfish",
   "item.rainbow_reef.jellyfish_spawn_egg": "Jellyfish Spawn Egg",
+  "item.rainbow_reef.large_shark_bucket": "Bucket of Large Shark",
   "item.rainbow_reef.large_shark_spawn_egg": "Large Shark Spawn Egg",
   "item.rainbow_reef.lionfish": "Lionfish",
   "item.rainbow_reef.lionfish_bucket": "Bucket of Lionfish",
@@ -276,5 +277,7 @@
   "subtitles.rainbowreef.jelly_block_bounce": "Jelly Block bounces",
   "subtitles.rainbowreef.jellyfish_hurt": "Jellyfish hurts",
   "subtitles.rainbowreef.jellyfish_zap": "Jellyfish zaps",
+  "subtitles.rainbowreef.shark_attack": "Shark attacks",
+  "subtitles.rainbowreef.shark_warn": "Shark warns",
   "tooltip.rainbowreef.burrow_occupant": "%s %s"
 }

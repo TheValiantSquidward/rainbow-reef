@@ -49,16 +49,28 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     private static final double PITCH_MIN = 0.01D;
     private static final double PITCH_MAX = 0.05D;
     private static final float PITCH_LERP = 0.2F;
-    protected static final float DEFAULT_PITCH_CLAMP = 85.0F;
+    private static final float DEFAULT_PITCH_CLAMP = 85.0F;
 
-    protected static final float ROLL_DECAY = 0.9F;
-    protected static final float DEFAULT_ROLL_CLAMP = 20.0F;
+    private static final float ROLL_DECAY = 0.9F;
+    private static final float DEFAULT_ROLL_CLAMP = 20.0F;
+
+    private static final float DEFAULT_TAIL_LAG = 0.1F;
+    private static final float DEFAULT_TAIL_CLAMP = 35.0F;
+
+    public float bodyYaw;
+    public float prevBodyYaw;
 
     public float prevSwimRoll;
     public float swimRoll;
 
     public float prevSwimPitch;
     public float swimPitch;
+
+    public float prevTailPitch;
+    public float tailPitch;
+
+    public float tailYaw;
+    public float prevTailYaw;
 
     public final SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -266,6 +278,16 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
     }
 
+    protected void updateTailYawAndPitch() {
+        this.prevBodyYaw = this.bodyYaw;
+        this.prevTailPitch = this.tailPitch;
+        this.prevTailYaw = this.tailYaw;
+
+        this.bodyYaw += Mth.clamp(Mth.wrapDegrees(this.yBodyRot - this.bodyYaw), -this.getTailClamp(), this.getTailClamp());
+        this.tailYaw += (this.bodyYaw - this.tailYaw) * this.getTailLag();
+        this.tailPitch += (this.swimPitch - this.tailPitch) * this.getTailLag();
+    }
+
     public float getSwimRoll(float partialTicks) {
         return Mth.lerp(partialTicks, this.prevSwimRoll, this.swimRoll);
     }
@@ -274,12 +296,32 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
     }
 
+    public float getBodyYaw(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevBodyYaw, this.bodyYaw);
+    }
+
+    public float getTailYaw(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevTailYaw, this.tailYaw);
+    }
+
+    public float getTailPitch(float partialTicks) {
+        return Mth.lerp(partialTicks, this.prevTailPitch, this.tailPitch);
+    }
+
     protected float getPitchClamp() {
         return DEFAULT_PITCH_CLAMP;
     }
 
     protected float getRollClamp() {
         return DEFAULT_ROLL_CLAMP;
+    }
+
+    protected float getTailClamp() {
+        return DEFAULT_TAIL_CLAMP;
+    }
+
+    protected float getTailLag() {
+        return DEFAULT_TAIL_LAG;
     }
 
     public float flopChance() {

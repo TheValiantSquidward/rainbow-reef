@@ -30,6 +30,8 @@ public class ReefSoundEvents {
     public static final DeferredHolder<SoundEvent, SoundEvent> ENTER_BURROW = registerSoundEvent("enter_burrow");
     public static final DeferredHolder<SoundEvent, SoundEvent> EXIT_BURROW = registerSoundEvent("exit_burrow");
 
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHARK_WARN = registerSoundEvent("shark_warn");
+    public static final DeferredHolder<SoundEvent, SoundEvent> SHARK_ATTACK = registerSoundEvent("shark_attack");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(final String soundName) {
         return SOUND_EVENTS.register(soundName, () -> SoundEvent.createVariableRangeEvent(RainbowReef.location(soundName)));

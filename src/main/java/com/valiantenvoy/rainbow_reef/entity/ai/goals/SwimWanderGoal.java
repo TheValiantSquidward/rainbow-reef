@@ -44,7 +44,7 @@ public class SwimWanderGoal extends RandomStrollGoal {
     @Override
     public void tick() {
         this.recalculateTime++;
-        final int recalculateThreshold = this.interval * 2;
+        final int recalculateThreshold = this.interval * 3;
         if (this.recalculateTime > recalculateThreshold) {
             this.recalculateTime = 0;
             Vec3 vec3 = this.getPosition();

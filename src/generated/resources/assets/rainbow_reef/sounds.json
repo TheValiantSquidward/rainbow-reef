@@ -133,5 +133,19 @@
       "rainbow_reef:entity/jellyfish/zap2"
     ],
     "subtitle": "subtitles.rainbowreef.jellyfish_zap"
+  },
+  "shark_attack": {
+    "sounds": [
+      "rainbow_reef:entity/shark/attack1"
+    ],
+    "subtitle": "subtitles.rainbowreef.shark_attack"
+  },
+  "shark_warn": {
+    "sounds": [
+      "rainbow_reef:entity/shark/warn1",
+      "rainbow_reef:entity/shark/warn2",
+      "rainbow_reef:entity/shark/warn3"
+    ],
+    "subtitle": "subtitles.rainbowreef.shark_warn"
   }
 }

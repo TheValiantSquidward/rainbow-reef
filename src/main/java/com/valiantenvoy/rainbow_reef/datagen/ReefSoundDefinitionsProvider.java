@@ -86,6 +86,15 @@ public class ReefSoundDefinitionsProvider extends SoundDefinitionsProvider {
         this.sound(ReefSoundEvents.CLAW_DISC,
                 sound(RainbowReef.location("music/disc/claw")).stream()
         );
+
+        this.sound(ReefSoundEvents.SHARK_WARN,
+                sound(RainbowReef.location("entity/shark/warn1")),
+                sound(RainbowReef.location("entity/shark/warn2")),
+                sound(RainbowReef.location("entity/shark/warn3"))
+        );
+        this.sound(ReefSoundEvents.SHARK_ATTACK,
+                sound(RainbowReef.location("entity/shark/attack1"))
+        );
     }
 
     private void soundDefinition(Supplier<SoundEvent> soundEvent, String subtitle, SoundDefinition.Sound... sounds) {

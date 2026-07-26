@@ -60,6 +60,7 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addItem(ReefItems.TANG_BUCKET, "Bucket of Tang");
         this.addItem(ReefItems.TRIGGERFISH_BUCKET, "Bucket of Triggerfish");
         this.addItem(ReefItems.LIONFISH_BUCKET, "Bucket of Lionfish");
+        this.addItem(ReefItems.LARGE_SHARK_BUCKET, "Bucket of Large Shark");
 
         this.addItem(ReefItems.SURF_N_TURF, "Surf 'N' Turf");
 
@@ -76,6 +77,9 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.sound(ReefSoundEvents.CRAB_DEATH, "Crab dies");
         this.sound(ReefSoundEvents.CRAB_HURT, "Crab hurts");
         this.sound(ReefSoundEvents.CRAB_FLOP, "Crab flops");
+
+        this.sound(ReefSoundEvents.SHARK_WARN, "Shark warns");
+        this.sound(ReefSoundEvents.SHARK_ATTACK, "Shark attacks");
 
         this.sound(ReefSoundEvents.JELLYFISH_HURT, "Jellyfish hurts");
         this.sound(ReefSoundEvents.JELLYFISH_ZAP, "Jellyfish zaps");

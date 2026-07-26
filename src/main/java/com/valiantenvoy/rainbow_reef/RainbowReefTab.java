@@ -51,6 +51,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.GOBY_BUCKET.get());
                         output.accept(ReefItems.HOGFISH_BUCKET.get());
                         output.accept(ReefItems.JELLYFISH_BUCKET.get());
+                        output.accept(ReefItems.LARGE_SHARK_BUCKET.get());
                         output.accept(ReefItems.LIONFISH_BUCKET.get());
                         output.accept(ReefItems.MAHI_MAHI_BUCKET.get());
                         output.accept(ReefItems.MAORI_WRASSE_BUCKET.get());
@@ -251,9 +252,11 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.FROGFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FROGFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.GOBY_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.GOBY.get()));
                         variantsByRarity(parameters, output, ReefItems.JELLYFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.JELLYFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.LARGE_SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.LARGE_SHARK.get()));
                         variantsByRarity(parameters, output, ReefItems.LIONFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.LIONFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.MAHI_MAHI_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MAHI_MAHI.get()));
                         variantsByRarity(parameters, output, ReefItems.MAORI_WRASSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MAORI_WRASSE.get()));
+                        variantsByRarity(parameters, output, ReefItems.MOORISH_IDOL_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MOORISH_IDOL.get()));
                         variantsByRarity(parameters, output, ReefItems.PARROTFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.PARROTFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.SEAHORSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SEAHORSE.get()));
                         variantsByRarity(parameters, output, ReefItems.SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SHARK.get()));
