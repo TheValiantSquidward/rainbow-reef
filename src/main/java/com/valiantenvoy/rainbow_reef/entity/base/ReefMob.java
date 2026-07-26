@@ -220,8 +220,12 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     @Override
     public void calculateEntityAnimation(boolean flying) {
         float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
-        float f2 = Math.min(f1 * 10.0F, 1.0F);
+        float f2 = Math.min(f1 * this.getWalkAnimationSpeed(), 1.0F);
         this.walkAnimation.update(f2, 0.4F);
+    }
+
+    protected float getWalkAnimationSpeed() {
+        return 10.0F;
     }
 
     protected void updateTilt() {

@@ -47,6 +47,9 @@ public class Goby extends ReefMob {
 
     @Override
     public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+        if (this.getRandom().nextFloat() < 0.25F) {
+            return super.getWalkTargetValue(pos, level);
+        }
         return this.getDepthPathfindingFavor(pos, level);
     }
 

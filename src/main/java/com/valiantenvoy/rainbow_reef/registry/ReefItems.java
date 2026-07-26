@@ -79,7 +79,7 @@ public class ReefItems {
     public static final DeferredItem<Item> DWARF_ANGELFISH_TART = registerItem("dwarf_angelfish_tart", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.5F).build())));
 
     // frogfish
-    public static final DeferredItem<Item> FROGFISH_SPAWN_EGG = registerSpawnEggItem("frogfish", ReefEntities.FROGFISH, 0xfff4f1, 0xb75547);
+    public static final DeferredItem<Item> FROGFISH_SPAWN_EGG = registerSpawnEggItem("frogfish", ReefEntities.FROGFISH, 0xc9c646, 0x908002);
     public static final DeferredItem<Item> FROGFISH_BUCKET = registerMobBucketItem("frogfish", ReefEntities.FROGFISH);
     public static final DeferredItem<Item> RAW_FROGFISH = registerItem("frogfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 

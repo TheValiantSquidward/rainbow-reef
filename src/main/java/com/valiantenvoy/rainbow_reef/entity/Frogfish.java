@@ -94,12 +94,17 @@ public class Frogfish extends ReefMob {
     }
 
     @Override
+    protected float getWalkAnimationSpeed() {
+        return 17.5F;
+    }
+
+    @Override
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.FROGFISH_BUCKET.get());
     }
 
     @Override
     public ResourceLocation fallbackVariantTexture() {
-        return RainbowReef.location("textures/entity/frogfish/frogfish_clown.png");
+        return RainbowReef.location("textures/entity/frogfish/frogfish_yellow_longlure.png");
     }
 }
