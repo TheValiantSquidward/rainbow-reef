@@ -97,7 +97,7 @@ public class ReefItems {
     public static final DeferredItem<Item> GOBY_GUMMY = registerItem("goby_gummy", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.5F).fast().build())));
 
     // hogfish
-    public static final DeferredItem<Item> HOGFISH_SPAWN_EGG = registerSpawnEggItem("hogfish", ReefEntities.HOGFISH, 0xca2418, 0xf3bc15);
+    public static final DeferredItem<Item> HOGFISH_SPAWN_EGG = registerSpawnEggItem("hogfish", ReefEntities.HOGFISH, 0xcf103b, 0x0f3e8c);
     public static final DeferredItem<Item> HOGFISH_BUCKET = registerMobBucketItem("hogfish", ReefEntities.HOGFISH);
     public static final DeferredItem<Item> RAW_HOGFISH = registerItem("hogfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> HOGFISH_BACON = registerItem("hogfish_bacon", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.5F).build())));
