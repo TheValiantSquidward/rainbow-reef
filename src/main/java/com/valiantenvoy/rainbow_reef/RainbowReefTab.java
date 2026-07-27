@@ -49,6 +49,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.DAMSELFISH_BUCKET.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
                         output.accept(ReefItems.FROGFISH_BUCKET.get());
+                        output.accept(ReefItems.FUSILIER_BUCKET.get());
                         output.accept(ReefItems.GOBY_BUCKET.get());
                         output.accept(ReefItems.HOGFISH_BUCKET.get());
                         output.accept(ReefItems.JELLYFISH_BUCKET.get());
@@ -76,6 +77,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.RAW_DAMSELFISH.get());
                         output.accept(ReefItems.RAW_DWARF_ANGELFISH.get());
                         output.accept(ReefItems.RAW_FROGFISH.get());
+                        output.accept(ReefItems.RAW_FUSILIER.get());
                         output.accept(ReefItems.RAW_GOBY.get());
                         output.accept(ReefItems.RAW_HOGFISH.get());
                         output.accept(ReefItems.GLOB_OF_JELLY.get());
@@ -246,6 +248,7 @@ public class RainbowReefTab {
                     .title(Component.translatable("creativetab.rainbow_reef_variants_tab"))
                     .displayItems((parameters, output) -> {
                         variantsByRarity(parameters, output, ReefItems.ARROW_CRAB_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.ARROW_CRAB.get()));
+                        variantsByRarity(parameters, output, ReefItems.BASSLET_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BASSLET.get()));
                         variantsByRarity(parameters, output, ReefItems.BILLFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BILLFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.BOXFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BOXFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.BUTTERFLYFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BUTTERFLYFISH.get()));
@@ -254,6 +257,7 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.DAMSELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DAMSELFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.DWARF_ANGELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DWARF_ANGELFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.FROGFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FROGFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.FUSILIER_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FUSILIER.get()));
                         variantsByRarity(parameters, output, ReefItems.GOBY_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.GOBY.get()));
                         variantsByRarity(parameters, output, ReefItems.JELLYFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.JELLYFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.LARGE_SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.LARGE_SHARK.get()));

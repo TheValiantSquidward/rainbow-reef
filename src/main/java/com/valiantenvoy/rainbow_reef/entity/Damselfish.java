@@ -1,9 +1,9 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
-import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.JoinShoalGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.ShoalSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.base.VariantShoalingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntitySelector;
@@ -19,9 +19,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class Damselfish extends VariantSchoolingFish {
+public class Damselfish extends VariantShoalingFish {
 
-    public Damselfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
+    public Damselfish(EntityType<? extends VariantShoalingFish> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
@@ -30,7 +30,7 @@ public class Damselfish extends VariantSchoolingFish {
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.85F)
+                .add(Attributes.MOVEMENT_SPEED, 0.9F)
                 .build();
     }
 
@@ -38,12 +38,12 @@ public class Damselfish extends VariantSchoolingFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 40));
-        this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(3, new ShoalSwimGoal(this));
+        this.goalSelector.addGoal(4, new JoinShoalGoal(this));
     }
 
     @Override
-    public int getMaxSchoolSize() {
+    public int getMaxShoalSize() {
         return 24;
     }
 

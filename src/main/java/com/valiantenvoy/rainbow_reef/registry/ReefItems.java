@@ -35,7 +35,7 @@ public class ReefItems {
     public static final DeferredItem<Item> RAW_ARROW_CRAB = registerItem("arrow_crab", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // basslet
-    public static final DeferredItem<Item> BASSLET_SPAWN_EGG = registerSpawnEggItem("basslet", ReefEntities.BASSLET, 0xcb28f9, 0xf9b628);
+    public static final DeferredItem<Item> BASSLET_SPAWN_EGG = registerSpawnEggItem("basslet", ReefEntities.BASSLET, 0x8e0d86, 0xfdec31);
     public static final DeferredItem<Item> BASSLET_BUCKET = registerMobBucketItem("basslet", ReefEntities.BASSLET);
     public static final DeferredItem<Item> RAW_BASSLET = registerItem("basslet", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> BASSLET_COOKIE = registerItem("basslet_cookie", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1F).build())));
@@ -86,7 +86,9 @@ public class ReefItems {
     public static final DeferredItem<Item> RAW_FROGFISH = registerItem("frogfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // fusilier
-    public static final DeferredItem<Item> FUSILIER_SPAWN_EGG = registerSpawnEggItem("fusilier", ReefEntities.FUSILIER, 0x2d70c4, 0xf0f24e);
+    public static final DeferredItem<Item> FUSILIER_SPAWN_EGG = registerSpawnEggItem("fusilier", ReefEntities.FUSILIER, 0x246ab9, 0xfcea06);
+    public static final DeferredItem<Item> FUSILIER_BUCKET = registerMobBucketItem("fusilier", ReefEntities.FUSILIER);
+    public static final DeferredItem<Item> RAW_FUSILIER = registerItem("fusilier", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // goby
     public static final DeferredItem<Item> GOBY_SPAWN_EGG = registerSpawnEggItem("goby", ReefEntities.GOBY, 0xffffff, 0xb9321a);
