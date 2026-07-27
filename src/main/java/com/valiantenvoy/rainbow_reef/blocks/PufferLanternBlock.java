@@ -49,7 +49,7 @@ public class PufferLanternBlock extends BaseEntityBlock implements SimpleWaterlo
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluid = context.getLevel().getFluidState(context.getClickedPos());
-        boolean hanging = context.getLevel().getBlockState(context.getClickedPos().above()).isFaceSturdy(context.getLevel(), context.getClickedPos().above(), Direction.DOWN);
+        boolean hanging = context.getLevel().getBlockState(context.getClickedPos().above()).isFaceSturdy(context.getLevel(), context.getClickedPos().above(), Direction.DOWN, SupportType.CENTER);
         return this.defaultBlockState().setValue(HANGING, hanging).setValue(ROTATION, RotationSegment.convertToSegment(context.getRotation())).setValue(WATERLOGGED, fluid.getType() == Fluids.WATER);
     }
 

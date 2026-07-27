@@ -45,7 +45,7 @@ public class ReefItems {
     public static final DeferredItem<Item> BILLFISH_BUCKET = registerMobBucketItem("billfish", ReefEntities.BILLFISH);
 
     // boxfish
-    public static final DeferredItem<Item> BOXFISH_SPAWN_EGG = registerSpawnEggItem("boxfish", ReefEntities.BOXFISH, 0xfeda47, 0x62260a);
+    public static final DeferredItem<Item> BOXFISH_SPAWN_EGG = registerSpawnEggItem("boxfish", ReefEntities.BOXFISH, 0xced60e, 0x665b27);
     public static final DeferredItem<Item> BOXFISH_BUCKET = registerMobBucketItem("boxfish", ReefEntities.BOXFISH);
     public static final DeferredItem<Item> RAW_BOXFISH = registerItem("boxfish", () -> new Item(foodItem(ReefFoodValues.RAW_BOXFISH)));
     public static final DeferredItem<Item> BOXFISH_BREAD = registerItem("boxfish_bread", () -> new BoxfishBreadItem(new Item.Properties().food(new FoodProperties.Builder().nutrition(8).saturationModifier(0.4F).build())));
@@ -71,6 +71,8 @@ public class ReefItems {
 
     // damselfish
     public static final DeferredItem<Item> DAMSELFISH_SPAWN_EGG = registerSpawnEggItem("damselfish", ReefEntities.DAMSELFISH, 0x15f578, 0x4ba2c4);
+    public static final DeferredItem<Item> DAMSELFISH_BUCKET = registerMobBucketItem("damselfish", ReefEntities.DAMSELFISH);
+    public static final DeferredItem<Item> RAW_DAMSELFISH = registerItem("damselfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // dwarf angelfish
     public static final DeferredItem<Item> DWARF_ANGELFISH_SPAWN_EGG = registerSpawnEggItem("dwarf_angelfish", ReefEntities.DWARF_ANGELFISH, 0x0f0a7b, 0xffce1e);

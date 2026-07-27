@@ -15,7 +15,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,29 +23,23 @@ public class Damselfish extends VariantSchoolingFish {
 
     public Damselfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 30, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 15);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 3.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.9F)
+                .add(Attributes.MOVEMENT_SPEED, 0.85F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 10, 20, 20, 3));
-        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
-    }
-
-    @Override
-    public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
+        this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 40));
+        this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }
 
     @Override
@@ -56,11 +49,11 @@ public class Damselfish extends VariantSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ReefItems.BUTTERFLYFISH_BUCKET.get());
+        return new ItemStack(ReefItems.DAMSELFISH_BUCKET.get());
     }
 
     @Override
     public ResourceLocation fallbackVariantTexture() {
-        return RainbowReef.location("textures/entity/damselfish/damselfish_azure.png");
+        return RainbowReef.location("textures/entity/damselfish/damselfish_green.png");
     }
 }
