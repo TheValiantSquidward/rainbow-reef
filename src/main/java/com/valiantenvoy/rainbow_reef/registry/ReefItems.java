@@ -143,7 +143,7 @@ public class ReefItems {
     public static final DeferredItem<Item> PARROTFISH_PUNCH = registerItem("parrotfish_punch", () -> new ParrotfishPunchItem(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(5).saturationModifier(1.2F).alwaysEdible().effect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 1), 1F).effect(new MobEffectInstance(MobEffects.REGENERATION, 300, 0), 1F).build())));
 
     // pipefish
-    public static final DeferredItem<Item> PIPEFISH_SPAWN_EGG = registerSpawnEggItem("pipefish", ReefEntities.PIPEFISH, 0x7c7f16, 0x3c3112);
+    public static final DeferredItem<Item> PIPEFISH_SPAWN_EGG = registerSpawnEggItem("pipefish", ReefEntities.PIPEFISH, 0x7a8e1e, 0x294e2b);
     public static final DeferredItem<Item> PIPEFISH_BUCKET = registerMobBucketItem("pipefish", ReefEntities.PIPEFISH);
     public static final DeferredItem<Item> RAW_PIPEFISH = registerItem("pipefish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> PIPEFISH_SUSHI = registerItem("pipefish_sushi", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(0).saturationModifier(0F).alwaysEdible().effect(new MobEffectInstance(MobEffects.HEAL, 1, 1), 1F).build())));
@@ -170,7 +170,7 @@ public class ReefItems {
     public static final DeferredItem<Item> SHARK_BUCKET = registerMobBucketItem("shark", ReefEntities.SHARK);
 
     // small shark
-    public static final DeferredItem<Item> SMALL_SHARK_SPAWN_EGG = registerSpawnEggItem("small_shark", ReefEntities.SMALL_SHARK, 0xe0a33b, 0xa35a1d);
+    public static final DeferredItem<Item> SMALL_SHARK_SPAWN_EGG = registerSpawnEggItem("small_shark", ReefEntities.SMALL_SHARK, 0xb88959, 0x312f1f);
     public static final DeferredItem<Item> SMALL_SHARK_BUCKET = registerMobBucketItem("small_shark", ReefEntities.SMALL_SHARK);
     public static final DeferredItem<Item> RAW_SMALL_SHARK = registerItem("small_shark", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.8F).build())));
     public static final DeferredItem<Item> SHARKBITE_SALAD = registerItem("sharkbite_salad", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.8F).usingConvertsTo(Items.BOWL).build())));

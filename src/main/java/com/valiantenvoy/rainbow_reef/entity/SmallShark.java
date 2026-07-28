@@ -16,7 +16,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,34 +26,39 @@ public class SmallShark extends ReefMob {
 
     public SmallShark(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 3, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     public static AttributeSupplier createAttributes() {
         return Animal.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.8F)
+                .add(Attributes.MAX_HEALTH, 6.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.7F)
                 .build();
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 40, 600, ReefTags.HOG_DIGGABLE));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 100));
+        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 40, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1.0D, 120));
     }
 
     @Override
     public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+        if (this.getRandom().nextFloat() < 0.15F) {
+            return super.getWalkTargetValue(pos, level);
+        }
         return this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide) {
+            this.updateTailYawAndPitch();
+        }
     }
 
     @Override
