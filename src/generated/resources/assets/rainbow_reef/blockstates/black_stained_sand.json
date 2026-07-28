@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "rainbow_reef:block/black_stained_sand"
+      },
+      {
+        "model": "rainbow_reef:block/black_stained_sand",
+        "y": 90
+      },
+      {
+        "model": "rainbow_reef:block/black_stained_sand",
+        "y": 180
+      },
+      {
+        "model": "rainbow_reef:block/black_stained_sand",
+        "y": 270
+      }
+    ]
+  }
+}

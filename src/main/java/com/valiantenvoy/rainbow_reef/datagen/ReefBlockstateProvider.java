@@ -136,6 +136,41 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.groundBurrow(SAND_BURROW, this.mcLoc("block/sand"));
         this.wallBurrow(STONE_BURROW, this.mcLoc("block/stone"));
         this.wallBurrow(CORALSTONE_BURROW, this.blockTexture(CORALSTONE.get()));
+
+        this.rotatedVariantBlock(WHITE_STAINED_SAND);
+        this.rotatedVariantBlock(LIGHT_GRAY_STAINED_SAND);
+        this.rotatedVariantBlock(GRAY_STAINED_SAND);
+        this.rotatedVariantBlock(BLACK_STAINED_SAND);
+        this.rotatedVariantBlock(BROWN_STAINED_SAND);
+        this.rotatedVariantBlock(RED_STAINED_SAND);
+        this.rotatedVariantBlock(ORANGE_STAINED_SAND);
+        this.rotatedVariantBlock(YELLOW_STAINED_SAND);
+        this.rotatedVariantBlock(LIME_STAINED_SAND);
+        this.rotatedVariantBlock(GREEN_STAINED_SAND);
+        this.rotatedVariantBlock(CYAN_STAINED_SAND);
+        this.rotatedVariantBlock(LIGHT_BLUE_STAINED_SAND);
+        this.rotatedVariantBlock(BLUE_STAINED_SAND);
+        this.rotatedVariantBlock(PURPLE_STAINED_SAND);
+        this.rotatedVariantBlock(MAGENTA_STAINED_SAND);
+        this.rotatedVariantBlock(PINK_STAINED_SAND);
+
+        this.cubeAllBlock(FINE_SAND);
+        this.cubeAllBlock(WHITE_STAINED_FINE_SAND);
+        this.cubeAllBlock(LIGHT_GRAY_STAINED_FINE_SAND);
+        this.cubeAllBlock(GRAY_STAINED_FINE_SAND);
+        this.cubeAllBlock(BLACK_STAINED_FINE_SAND);
+        this.cubeAllBlock(BROWN_STAINED_FINE_SAND);
+        this.cubeAllBlock(RED_STAINED_FINE_SAND);
+        this.cubeAllBlock(ORANGE_STAINED_FINE_SAND);
+        this.cubeAllBlock(YELLOW_STAINED_FINE_SAND);
+        this.cubeAllBlock(LIME_STAINED_FINE_SAND);
+        this.cubeAllBlock(GREEN_STAINED_FINE_SAND);
+        this.cubeAllBlock(CYAN_STAINED_FINE_SAND);
+        this.cubeAllBlock(LIGHT_BLUE_STAINED_FINE_SAND);
+        this.cubeAllBlock(BLUE_STAINED_FINE_SAND);
+        this.cubeAllBlock(PURPLE_STAINED_FINE_SAND);
+        this.cubeAllBlock(MAGENTA_STAINED_FINE_SAND);
+        this.cubeAllBlock(PINK_STAINED_FINE_SAND);
     }
 
     // item
@@ -150,6 +185,12 @@ public class ReefBlockstateProvider extends BlockStateProvider {
 
     private void cubeAllBlock(DeferredHolder<Block, Block> block) {
         this.simpleBlock(block.get());
+        this.itemModel(block);
+    }
+
+    private void rotatedVariantBlock(DeferredHolder<Block, Block> block) {
+        ModelFile model = this.models().cubeAll(getBlockName(block.get()), this.blockTexture(block.get()));
+        this.getVariantBuilder(block.get()).partialState().addModels(ConfiguredModel.builder().modelFile(model).rotationY(0).nextModel().modelFile(model).rotationY(90).nextModel().modelFile(model).rotationY(180).nextModel().modelFile(model).rotationY(270).build());
         this.itemModel(block);
     }
 

@@ -5,6 +5,7 @@ import com.valiantenvoy.rainbow_reef.blocks.*;
 import com.valiantenvoy.rainbow_reef.items.BurrowBlockItem;
 import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -232,6 +233,43 @@ public class ReefBlocks {
             });
 
     public static final DeferredBlock<Block> FINE_GLASS = registerBlock("fine_glass", ()-> new ConnectedGlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
+
+    // stained sand
+    public static final DeferredBlock<Block> WHITE_STAINED_SAND = registerBlock("white_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> LIGHT_GRAY_STAINED_SAND = registerBlock("light_gray_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> GRAY_STAINED_SAND = registerBlock("gray_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> BLACK_STAINED_SAND = registerBlock("black_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> BROWN_STAINED_SAND = registerBlock("brown_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> RED_STAINED_SAND = registerBlock("red_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> ORANGE_STAINED_SAND = registerBlock("orange_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> YELLOW_STAINED_SAND = registerBlock("yellow_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> LIME_STAINED_SAND = registerBlock("lime_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> GREEN_STAINED_SAND = registerBlock("green_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> CYAN_STAINED_SAND = registerBlock("cyan_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> LIGHT_BLUE_STAINED_SAND = registerBlock("light_blue_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> BLUE_STAINED_SAND = registerBlock("blue_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> PURPLE_STAINED_SAND = registerBlock("purple_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> MAGENTA_STAINED_SAND = registerBlock("magenta_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> PINK_STAINED_SAND = registerBlock("pink_stained_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+
+    public static final DeferredBlock<Block> FINE_SAND = registerBlock("fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+
+    public static final DeferredBlock<Block> WHITE_STAINED_FINE_SAND = registerBlock("white_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> LIGHT_GRAY_STAINED_FINE_SAND = registerBlock("light_gray_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> GRAY_STAINED_FINE_SAND = registerBlock("gray_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> BLACK_STAINED_FINE_SAND = registerBlock("black_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> BROWN_STAINED_FINE_SAND = registerBlock("brown_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> RED_STAINED_FINE_SAND = registerBlock("red_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> ORANGE_STAINED_FINE_SAND = registerBlock("orange_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> YELLOW_STAINED_FINE_SAND = registerBlock("yellow_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> LIME_STAINED_FINE_SAND = registerBlock("lime_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> GREEN_STAINED_FINE_SAND = registerBlock("green_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> CYAN_STAINED_FINE_SAND = registerBlock("cyan_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> LIGHT_BLUE_STAINED_FINE_SAND = registerBlock("light_blue_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> BLUE_STAINED_FINE_SAND = registerBlock("blue_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> PURPLE_STAINED_FINE_SAND = registerBlock("purple_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> MAGENTA_STAINED_FINE_SAND = registerBlock("magenta_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> PINK_STAINED_FINE_SAND = registerBlock("pink_stained_fine_sand", () -> new ColoredFallingBlock(new ColorRGBA(14406560), BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
 
     private static <B extends Block> DeferredBlock<B> registerBurrow(String name, Supplier<B> supplier) {
         DeferredBlock<B> block = BLOCKS.register(name, supplier);
