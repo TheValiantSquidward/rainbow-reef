@@ -25,7 +25,7 @@ public class ReefItems {
     public static final List<DeferredItem<? extends Item>> ITEM_TRANSLATIONS = new ArrayList<>();
 
     // angelfish
-    public static final DeferredItem<Item> ANGELFISH_SPAWN_EGG = registerSpawnEggItem("angelfish", ReefEntities.ANGELFISH, 0x2e4284, 0xcfc24b);
+    public static final DeferredItem<Item> ANGELFISH_SPAWN_EGG = registerSpawnEggItem("angelfish", ReefEntities.ANGELFISH, 0x0179a3, 0xf2b814);
     public static final DeferredItem<Item> ANGELFISH_BUCKET = registerMobBucketItem("angelfish", ReefEntities.ANGELFISH);
     public static final DeferredItem<Item> RAW_ANGELFISH = registerItem("angelfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
@@ -149,7 +149,9 @@ public class ReefItems {
     public static final DeferredItem<Item> PIPEFISH_SUSHI = registerItem("pipefish_sushi", () -> new Item(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(0).saturationModifier(0F).alwaysEdible().effect(new MobEffectInstance(MobEffects.HEAL, 1, 1), 1F).build())));
 
     // rabbitfish
-    public static final DeferredItem<Item> RABBITFISH_SPAWN_EGG = registerSpawnEggItem("rabbitfish", ReefEntities.RABBITFISH, 0xe8c417, 0x282339);
+    public static final DeferredItem<Item> RABBITFISH_SPAWN_EGG = registerSpawnEggItem("rabbitfish", ReefEntities.RABBITFISH, 0xfbdf5f, 0x282339);
+    public static final DeferredItem<Item> RABBITFISH_BUCKET = registerMobBucketItem("rabbitfish", ReefEntities.RABBITFISH);
+    public static final DeferredItem<Item> RAW_RABBITFISH = registerItem("rabbitfish", () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.8F).build())));
 
     // ray
     public static final DeferredItem<Item> RAY_SPAWN_EGG = registerSpawnEggItem("ray", ReefEntities.RAY, 0x504860, 0xc4c2d4);
@@ -174,7 +176,7 @@ public class ReefItems {
     public static final DeferredItem<Item> SHARKBITE_SALAD = registerItem("sharkbite_salad", () -> new Item(new Item.Properties().stacksTo(16).food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.8F).usingConvertsTo(Items.BOWL).build())));
 
     // tang
-    public static final DeferredItem<Item> TANG_SPAWN_EGG = registerSpawnEggItem("tang", ReefEntities.TANG, 0x3738de, 0x1b1d26);
+    public static final DeferredItem<Item> TANG_SPAWN_EGG = registerSpawnEggItem("tang", ReefEntities.TANG, 0x4e5ffa, 0x292b35);
     public static final DeferredItem<Item> TANG_BUCKET = registerMobBucketItem("tang", ReefEntities.TANG);
     public static final DeferredItem<Item> RAW_TANG = registerItem("tang", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
     public static final DeferredItem<Item> TANGY_SOUP = registerItem("tangy_soup", () -> new Item(new Item.Properties().stacksTo(1).craftRemainder(Items.GLASS_BOTTLE).food(new FoodProperties.Builder().nutrition(12).saturationModifier(0.8F).effect(new MobEffectInstance(MobEffects.GLOWING, 600, 1), 1.0F).usingConvertsTo(Items.BOWL).build())));
@@ -185,7 +187,9 @@ public class ReefItems {
     public static final DeferredItem<Item> RAW_TRIGGERFISH = registerItem("triggerfish", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // wrasse
-    public static final DeferredItem<Item> WRASSE_SPAWN_EGG = registerSpawnEggItem("wrasse", ReefEntities.WRASSE, 0xde608d, 0x1481bc);
+    public static final DeferredItem<Item> WRASSE_SPAWN_EGG = registerSpawnEggItem("wrasse", ReefEntities.WRASSE, 0x1ca2a6, 0x094d59);
+    public static final DeferredItem<Item> WRASSE_BUCKET = registerMobBucketItem("wrasse", ReefEntities.WRASSE);
+    public static final DeferredItem<Item> RAW_WRASSE = registerItem("wrasse", () -> new Item(foodItem(ReefFoodValues.RAW_FISH)));
 
     // special meals
     public static final DeferredItem<Item> ROCKFISH_CANDY = registerItem("rockfish_candy", () -> new StickFoodItem(new Item.Properties().craftRemainder(Items.BUCKET).food(new FoodProperties.Builder().nutrition(5).saturationModifier(0.8F).fast().build())));

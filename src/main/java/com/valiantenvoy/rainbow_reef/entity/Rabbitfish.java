@@ -6,6 +6,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
@@ -20,13 +21,14 @@ import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 
 public class Rabbitfish extends ReefMob {
 
     public Rabbitfish(EntityType<? extends ReefMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 5, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 7, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 7);
     }
 
     public static AttributeSupplier createAttributes() {
@@ -41,18 +43,21 @@ public class Rabbitfish extends ReefMob {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 15, 600, ReefTags.BUTTERFLY_DIET));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 10));
+        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 15, ReefTags.BUTTERFLY_DIET));
+        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1.0D, 30));
     }
 
     @Override
-    public void setupAnimationStates() {
-        this.swimIdleAnimationState.animateWhen(this.isAlive(), this.tickCount);
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+        if (this.getRandom().nextBoolean()) {
+            return super.getWalkTargetValue(pos, level);
+        }
+        return this.getDepthPathfindingFavor(pos, level);
     }
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ReefItems.BUTTERFLYFISH_BUCKET.get());
+        return new ItemStack(ReefItems.RABBITFISH_BUCKET.get());
     }
 
     @Override

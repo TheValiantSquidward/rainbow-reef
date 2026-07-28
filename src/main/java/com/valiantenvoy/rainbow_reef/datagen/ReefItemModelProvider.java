@@ -102,6 +102,9 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(RAW_PIPEFISH);
         this.item(PIPEFISH_SUSHI);
 
+        this.item(RABBITFISH_BUCKET);
+        this.item(RAW_RABBITFISH);
+
         this.item(RAY_BUCKET);
         this.item(RAW_RAY);
         this.item(CHOCOLATE_RAY_MUFFIN);
@@ -122,6 +125,9 @@ public class ReefItemModelProvider extends ItemModelProvider {
 
         this.item(TRIGGERFISH_BUCKET);
         this.item(RAW_TRIGGERFISH);
+
+        this.item(WRASSE_BUCKET);
+        this.item(RAW_WRASSE);
 
         this.item(ROCKFISH_CANDY);
         this.item(FORBIDDEN_SOUP);

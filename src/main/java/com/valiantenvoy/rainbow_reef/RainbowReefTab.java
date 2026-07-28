@@ -60,12 +60,14 @@ public class RainbowReefTab {
                         output.accept(ReefItems.MOORISH_IDOL_BUCKET.get());
                         output.accept(ReefItems.PARROTFISH_BUCKET.get());
                         output.accept(ReefItems.PIPEFISH_BUCKET.get());
+                        output.accept(ReefItems.RABBITFISH_BUCKET.get());
                         output.accept(ReefItems.RAY_BUCKET.get());
                         output.accept(ReefItems.SEAHORSE_BUCKET.get());
                         output.accept(ReefItems.SHARK_BUCKET.get());
                         output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
                         output.accept(ReefItems.TANG_BUCKET.get());
                         output.accept(ReefItems.TRIGGERFISH_BUCKET.get());
+                        output.accept(ReefItems.WRASSE_BUCKET.get());
 
                         output.accept(ReefItems.RAW_ANGELFISH.get());
                         output.accept(ReefItems.RAW_ARROW_CRAB.get());
@@ -86,11 +88,13 @@ public class RainbowReefTab {
                         output.accept(ReefItems.RAW_MOORISH_IDOL.get());
                         output.accept(ReefItems.RAW_PARROTFISH.get());
                         output.accept(ReefItems.RAW_PIPEFISH.get());
+                        output.accept(ReefItems.RAW_RABBITFISH.get());
                         output.accept(ReefItems.RAW_RAY.get());
                         output.accept(ReefItems.RAW_SEAHORSE.get());
                         output.accept(ReefItems.RAW_SMALL_SHARK.get());
                         output.accept(ReefItems.RAW_TANG.get());
                         output.accept(ReefItems.RAW_TRIGGERFISH.get());
+                        output.accept(ReefItems.RAW_WRASSE.get());
 
                         output.accept(ReefBlocks.ANGELFISH_CAKE.get());
                         output.accept(ReefItems.BASSLET_COOKIE.get());
@@ -247,6 +251,7 @@ public class RainbowReefTab {
                     .withTabsBefore(RAINBOW_REEF_TAB.getId())
                     .title(Component.translatable("creativetab.rainbow_reef_variants_tab"))
                     .displayItems((parameters, output) -> {
+                        variantsByRarity(parameters, output, ReefItems.ANGELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.ANGELFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.ARROW_CRAB_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.ARROW_CRAB.get()));
                         variantsByRarity(parameters, output, ReefItems.BASSLET_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BASSLET.get()));
                         variantsByRarity(parameters, output, ReefItems.BILLFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.BILLFISH.get()));
@@ -267,10 +272,13 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.MAORI_WRASSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MAORI_WRASSE.get()));
                         variantsByRarity(parameters, output, ReefItems.MOORISH_IDOL_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.MOORISH_IDOL.get()));
                         variantsByRarity(parameters, output, ReefItems.PARROTFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.PARROTFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.RABBITFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.RABBITFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.RAY_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.RAY.get()));
                         variantsByRarity(parameters, output, ReefItems.SEAHORSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SEAHORSE.get()));
                         variantsByRarity(parameters, output, ReefItems.SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SHARK.get()));
                         variantsByRarity(parameters, output, ReefItems.TANG_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TANG.get()));
                         variantsByRarity(parameters, output, ReefItems.TRIGGERFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TRIGGERFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.WRASSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.WRASSE.get()));
                     })
                     .build());
 

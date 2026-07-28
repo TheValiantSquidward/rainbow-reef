@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-26T21:10:42.2653908	Item Models: rainbow_reef
+// 1.21.1	2026-07-27T21:20:42.7996563	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -82,6 +82,8 @@ ceb205a39b85d9e4f94cd19880ef4879b0d950a4 assets/rainbow_reef/models/item/parrotf
 640638f3f42675b92753ed3b47ffa397b6dc889b assets/rainbow_reef/models/item/pipefish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/pipefish_spawn_egg.json
 32593ba54006eda37bec9b690ed23710fe50a04d assets/rainbow_reef/models/item/pipefish_sushi.json
+4241aaed707f9e99cf099e41c0f0432feaca191c assets/rainbow_reef/models/item/rabbitfish.json
+3a8d0d48fe849d567ec2f85930793034e07222fe assets/rainbow_reef/models/item/rabbitfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/rabbitfish_spawn_egg.json
 58256f20d011b5f8450804dfdde94c3258d2de81 assets/rainbow_reef/models/item/ray.json
 2680a43b793208c094c83f4d47aed380574e39d3 assets/rainbow_reef/models/item/ray_bucket.json
@@ -109,4 +111,6 @@ e0896b4d2e2535c477db0ad3550519dab6b942ea assets/rainbow_reef/models/item/trigger
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/triggerfish_spawn_egg.json
 46b08949e68427c6566efcbd7ab15599f33ef430 assets/rainbow_reef/models/item/tropical_fishsticks.json
 5322fb9916ba93266bf5ded554bf41abba67d80c assets/rainbow_reef/models/item/ultra_bacon_sandwich.json
+e1b4b2aa6360454ca222887b17ef93f38b0d722d assets/rainbow_reef/models/item/wrasse.json
+0e19073396a7cfb14a410523890b99480ae5e55f assets/rainbow_reef/models/item/wrasse_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/wrasse_spawn_egg.json

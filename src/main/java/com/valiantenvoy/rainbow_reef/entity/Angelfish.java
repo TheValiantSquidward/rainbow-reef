@@ -17,7 +17,6 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -26,8 +25,8 @@ public class Angelfish extends VariantSchoolingFish {
 
     public Angelfish(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 1000, 5, 0.02F, 0.1F, false);
-        this.lookControl = new SmoothSwimmingLookControl(this, 4);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 6, 0.02F, 0.1F, false);
+        this.lookControl = new SmoothSwimmingLookControl(this, 6);
     }
 
     public static AttributeSupplier createAttributes() {
@@ -39,17 +38,16 @@ public class Angelfish extends VariantSchoolingFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
         this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 20, 300, ReefTags.ANGELFISH_DIET));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 10));
+        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1.0D, 50));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }
 
     @Override
     public int getMaxSchoolSize() {
-        return 3;
+        return 4;
     }
 
     @Override
