@@ -1,0 +1,124 @@
+{
+	"parent": "block/block",
+	"render_type": "cutout",
+	"ambientocclusion": false,
+	"texture_size": [128, 128],
+	"elements": [
+		{
+			"name": "Tentacles",
+			"from": [13.5, 4, 0],
+			"to": [13.5, 16, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [13.5, 5, 8]},
+			"faces": {
+				"east": {"uv": [0, 4, 2, 5.5], "texture": "#anemone"},
+				"west": {"uv": [2, 4, 4, 5.5], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "Tentacles",
+			"from": [2.5, 4, 0],
+			"to": [2.5, 16, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.5, 5, 8]},
+			"faces": {
+				"east": {"uv": [4, 4, 2, 5.5], "texture": "#anemone"},
+				"west": {"uv": [2, 4, 0, 5.5], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "Tentacles",
+			"from": [0, 4, 2.5],
+			"to": [16, 16, 2.5],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5, 2.5]},
+			"faces": {
+				"north": {"uv": [4.125, 3.625, 6.125, 5.125], "texture": "#anemone"},
+				"south": {"uv": [6.125, 3.625, 8.125, 5.125], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "Tentacles",
+			"from": [0, 4, 12.5],
+			"to": [16, 16, 12.5],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5, 12.5]},
+			"faces": {
+				"north": {"uv": [6.125, 3.625, 4.125, 5.125], "texture": "#anemone"},
+				"south": {"uv": [8.125, 3.625, 6.125, 5.125], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "CenterTentacles",
+			"from": [4, 5, 0],
+			"to": [4, 18, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 7, 8]},
+			"faces": {
+				"east": {"uv": [6.125, 3.625, 8.125, 5.25], "texture": "#anemone"},
+				"west": {"uv": [4.125, 3.625, 6.125, 5.25], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "CenterTentacles",
+			"from": [12, 5, 0],
+			"to": [12, 18, 16],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [12, 7, 8]},
+			"faces": {
+				"east": {"uv": [6.125, 3.625, 8.125, 5.25], "texture": "#anemone"},
+				"west": {"uv": [4.125, 3.625, 6.125, 5.25], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "CenterTentacles",
+			"from": [0, 5, 12],
+			"to": [16, 18, 12],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 12]},
+			"faces": {
+				"north": {"uv": [4.125, 3.625, 6.125, 5.25], "texture": "#anemone"},
+				"south": {"uv": [6.125, 3.625, 8.125, 5.25], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "CenterTentacles",
+			"from": [0, 5, 4],
+			"to": [16, 18, 4],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 7, 4]},
+			"faces": {
+				"north": {"uv": [4.125, 3.625, 6.125, 5.25], "texture": "#anemone"},
+				"south": {"uv": [6.125, 3.625, 8.125, 5.25], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "Base",
+			"from": [3, 0, 3],
+			"to": [13, 2, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+			"faces": {
+				"north": {"uv": [5.375, 3.25, 6.625, 3.5], "texture": "#anemone"},
+				"east": {"uv": [4.125, 3.25, 5.375, 3.5], "texture": "#anemone"},
+				"south": {"uv": [7.875, 3.25, 9.125, 3.5], "texture": "#anemone"},
+				"west": {"uv": [6.625, 3.25, 7.875, 3.5], "texture": "#anemone"},
+				"up": {"uv": [6.625, 3.25, 5.375, 2], "texture": "#anemone"},
+				"down": {"uv": [7.875, 2, 6.625, 3.25], "texture": "#anemone"}
+			}
+		},
+		{
+			"name": "Base",
+			"from": [2, 2, 2],
+			"to": [14, 5, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 3, 8]},
+			"faces": {
+				"north": {"uv": [1.5, 1.5, 3, 1.875], "texture": "#anemone"},
+				"east": {"uv": [0, 1.5, 1.5, 1.875], "texture": "#anemone"},
+				"south": {"uv": [4.5, 1.5, 6, 1.875], "texture": "#anemone"},
+				"west": {"uv": [3, 1.5, 4.5, 1.875], "texture": "#anemone"},
+				"up": {"uv": [3, 1.5, 1.5, 0], "texture": "#anemone"},
+				"down": {"uv": [4.5, 0, 3, 1.5], "texture": "#anemone"}
+			}
+		}
+	]
+}
