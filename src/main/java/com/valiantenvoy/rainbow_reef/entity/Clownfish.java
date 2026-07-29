@@ -1,7 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.blocks.AnemoneBlock;
+import com.valiantenvoy.rainbow_reef.blocks.SeaAnemoneBlock;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.*;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -101,7 +101,7 @@ public class Clownfish extends VariantSchoolingFish {
         if (anemonePos == null) {
             return false;
         }
-        if (!(this.level().getBlockState(anemonePos).getBlock() instanceof AnemoneBlock)) {
+        if (!(this.level().getBlockState(anemonePos).getBlock() instanceof SeaAnemoneBlock)) {
             this.setAnemonePos(BlockPos.ZERO);
             this.findAndSetAnemone();
             return false;
@@ -147,7 +147,7 @@ public class Clownfish extends VariantSchoolingFish {
     public void checkAnemonePos() {
         BlockPos anemonePos = this.getAnemonePos();
         if (anemonePos != null) {
-            if (!(this.level().getBlockState(anemonePos).getBlock() instanceof AnemoneBlock)) {
+            if (!(this.level().getBlockState(anemonePos).getBlock() instanceof SeaAnemoneBlock)) {
                 this.setAnemonePos(BlockPos.ZERO);
                 this.anemoneSearchCooldown = 0;
             }

@@ -191,15 +191,11 @@ public class ReefBlocks {
     public static final DeferredBlock<Block> GREEN_PUFFER_LANTERN = registerBlock("green_puffer_lantern", () -> new PufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final DeferredBlock<Block> ORANGE_PUFFER_LANTERN = registerBlock("orange_puffer_lantern", () -> new PufferLanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN).strength(0.5F, 0.0F).sound(SoundType.LANTERN).lightLevel(state -> 15).noOcclusion().pushReaction(PushReaction.DESTROY)));
 
-    public static final DeferredBlock<Block> YELLOW_SEA_ANEMONE = registerBlock("yellow_sea_anemone",
-            () -> new AnemoneBlock(0));
-
-    public static final DeferredBlock<Block> ORANGE_SEA_ANEMONE = registerBlock("orange_sea_anemone",
-            () -> new AnemoneBlock(1));
-
-    public static final DeferredBlock<Block> GREEN_SEA_ANEMONE = registerBlock("green_sea_anemone",
-            () -> new AnemoneBlock(2));
-
+    public static final DeferredBlock<Block> PINK_SEA_ANEMONE = registerBlock("pink_sea_anemone", SeaAnemoneBlock::new);
+    public static final DeferredBlock<Block> BROWN_SEA_ANEMONE = registerBlock("brown_sea_anemone", SeaAnemoneBlock::new);
+    public static final DeferredBlock<Block> PURPLE_SEA_ANEMONE = registerBlock("purple_sea_anemone", SeaAnemoneBlock::new);
+    public static final DeferredBlock<Block> MAGENTA_SEA_ANEMONE = registerBlock("magenta_sea_anemone", SeaAnemoneBlock::new);
+    public static final DeferredBlock<Block> RED_SEA_ANEMONE = registerBlock("red_sea_anemone", SeaAnemoneBlock::new);
 
     public static final DeferredBlock<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
             new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {

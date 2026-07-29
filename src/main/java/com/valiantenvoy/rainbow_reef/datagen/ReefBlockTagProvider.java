@@ -46,9 +46,11 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 RING_CORAL_FAN.get(),
                 BUSH_CORAL.get(),
                 BUSH_CORAL_FAN.get(),
-                GREEN_SEA_ANEMONE.get(),
-                ORANGE_SEA_ANEMONE.get(),
-                YELLOW_SEA_ANEMONE.get()
+                PURPLE_SEA_ANEMONE.get(),
+                BROWN_SEA_ANEMONE.get(),
+                PINK_SEA_ANEMONE.get(),
+                RED_SEA_ANEMONE.get(),
+                MAGENTA_SEA_ANEMONE.get()
         );
 
         this.tag(BlockTags.CORAL_BLOCKS).add(

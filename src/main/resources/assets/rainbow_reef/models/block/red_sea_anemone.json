@@ -1,0 +1,7 @@
+{
+  "parent": "rainbow_reef:block/template_sea_anemone",
+  "textures": {
+    "anemone": "rainbow_reef:block/red_sea_anemone",
+    "particle": "rainbow_reef:block/red_sea_anemone_particle"
+  }
+}
