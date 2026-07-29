@@ -21,8 +21,22 @@ public class ReefBlockEntities {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PufferLanternBlockEntity>> PUFFER_LANTERN_BLOCK_ENTITY = BLOCK_ENTITIES.register("puffer_lantern_block_entity",
             () -> BlockEntityType.Builder.of(PufferLanternBlockEntity::new,
-                    ReefBlocks.BLUE_PUFFER_LANTERN.get(),
+                    ReefBlocks.PUFFER_LANTERN.get(),
+                    ReefBlocks.WHITE_PUFFER_LANTERN.get(),
+                    ReefBlocks.LIGHT_GRAY_PUFFER_LANTERN.get(),
+                    ReefBlocks.GRAY_PUFFER_LANTERN.get(),
+                    ReefBlocks.BLACK_PUFFER_LANTERN.get(),
+                    ReefBlocks.BROWN_PUFFER_LANTERN.get(),
+                    ReefBlocks.RED_PUFFER_LANTERN.get(),
+                    ReefBlocks.ORANGE_PUFFER_LANTERN.get(),
+                    ReefBlocks.YELLOW_PUFFER_LANTERN.get(),
+                    ReefBlocks.LIME_PUFFER_LANTERN.get(),
                     ReefBlocks.GREEN_PUFFER_LANTERN.get(),
-                    ReefBlocks.ORANGE_PUFFER_LANTERN.get()).build(null));
+                    ReefBlocks.CYAN_PUFFER_LANTERN.get(),
+                    ReefBlocks.LIGHT_BLUE_PUFFER_LANTERN.get(),
+                    ReefBlocks.BLUE_PUFFER_LANTERN.get(),
+                    ReefBlocks.PURPLE_PUFFER_LANTERN.get(),
+                    ReefBlocks.MAGENTA_PUFFER_LANTERN.get(),
+                    ReefBlocks.PINK_PUFFER_LANTERN.get()).build(null));
 
 }

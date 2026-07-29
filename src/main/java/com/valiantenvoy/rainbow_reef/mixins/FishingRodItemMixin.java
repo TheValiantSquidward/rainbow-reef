@@ -1,6 +1,6 @@
 package com.valiantenvoy.rainbow_reef.mixins;
 
-import com.valiantenvoy.rainbow_reef.entity.utils.FishingHookAccessor;
+import com.valiantenvoy.rainbow_reef.entity.utils.FishingHookAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -22,8 +22,8 @@ public class FishingRodItemMixin {
             if (player != null) {
                 ItemStack rod = player.getItemInHand(player.getUsedItemHand());
                 DyedItemColor color = rod.get(DataComponents.DYED_COLOR);
-                ((FishingHookAccessor) hook).rainbowReef$setHasColor(color != null);
-                ((FishingHookAccessor) hook).rainbowReef$setColor(color != null ? color.rgb() : 0x000000);
+                ((FishingHookAccess) hook).rainbowReef$setHasColor(color != null);
+                ((FishingHookAccess) hook).rainbowReef$setColor(color != null ? color.rgb() : 0x000000);
             }
         }
         return entity;

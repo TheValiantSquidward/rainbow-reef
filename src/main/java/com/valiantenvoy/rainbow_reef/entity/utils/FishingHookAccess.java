@@ -1,6 +1,6 @@
 package com.valiantenvoy.rainbow_reef.entity.utils;
 
-public interface FishingHookAccessor {
+public interface FishingHookAccess {
     int rainbowReef$getColor();
     void rainbowReef$setColor(int color);
 

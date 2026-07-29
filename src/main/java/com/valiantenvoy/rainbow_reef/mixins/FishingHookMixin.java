@@ -1,6 +1,6 @@
 package com.valiantenvoy.rainbow_reef.mixins;
 
-import com.valiantenvoy.rainbow_reef.entity.utils.FishingHookAccessor;
+import com.valiantenvoy.rainbow_reef.entity.utils.FishingHookAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @SuppressWarnings({"WrongEntityDataParameterClass", "AddedMixinMembersNamePattern"})
 @Mixin(FishingHook.class)
-public abstract class FishingHookMixin extends Entity implements FishingHookAccessor {
+public abstract class FishingHookMixin extends Entity implements FishingHookAccess {
 
     @Unique
     private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(FishingHook.class, EntityDataSerializers.INT);

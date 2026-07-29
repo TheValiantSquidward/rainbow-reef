@@ -1,0 +1,7 @@
+{
+  "parent": "rainbow_reef:block/template_puffer_lantern",
+  "textures": {
+    "lantern": "rainbow_reef:block/gray_puffer_lantern",
+    "particle": "rainbow_reef:block/gray_puffer_lantern_particle"
+  }
+}

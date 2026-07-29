@@ -129,9 +129,7 @@ public class RainbowReefTab {
 
                         output.accept(ReefItems.CLAW_DISC.get());
 
-                        output.accept(ReefBlocks.ORANGE_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.GREEN_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.BLUE_PUFFER_LANTERN.get());
+
                         output.accept(ReefBlocks.BROWN_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.RED_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.PURPLE_SEA_ANEMONE.get());
@@ -150,6 +148,24 @@ public class RainbowReefTab {
                         output.accept(ReefBlocks.JELLY_BLOCK.get());
 
                         output.accept(ReefBlocks.BUBBLER.get());
+
+                        output.accept(ReefBlocks.PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.WHITE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.LIGHT_GRAY_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.GRAY_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.BLACK_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.BROWN_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.RED_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.ORANGE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.YELLOW_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.LIME_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.GREEN_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.CYAN_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.LIGHT_BLUE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.BLUE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.PURPLE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.MAGENTA_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.PINK_PUFFER_LANTERN.get());
 
                         output.accept(ReefBlocks.WHITE_STAINED_SAND.get());
                         output.accept(ReefBlocks.LIGHT_GRAY_STAINED_SAND.get());

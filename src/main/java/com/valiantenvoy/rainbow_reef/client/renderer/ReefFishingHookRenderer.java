@@ -3,7 +3,7 @@ package com.valiantenvoy.rainbow_reef.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.utils.FishingHookAccessor;
+import com.valiantenvoy.rainbow_reef.entity.utils.FishingHookAccess;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -50,8 +50,8 @@ public class ReefFishingHookRenderer extends EntityRenderer<FishingHook> {
             vertex(consumer, lastPose, packedLight, 0.0F, 1, 0, 0, 1, 1, 1);
 
             // render the dyed overlay if the rod is dyed
-            if (((FishingHookAccessor) entity).rainbowReef$hasColor()) {
-                int color = ((FishingHookAccessor) entity).rainbowReef$getColor();
+            if (((FishingHookAccess) entity).rainbowReef$hasColor()) {
+                int color = ((FishingHookAccess) entity).rainbowReef$getColor();
                 float r = ((color >> 16) & 255) / 255.0F;
                 float g = ((color >> 8) & 255) / 255.0F;
                 float b = (color & 255) / 255.0F;
@@ -129,7 +129,7 @@ public class ReefFishingHookRenderer extends EntityRenderer<FishingHook> {
         f3 /= f6;
         f4 /= f6;
         f5 /= f6;
-        int color = ((FishingHookAccessor) entity).rainbowReef$getColor();
+        int color = ((FishingHookAccess) entity).rainbowReef$getColor();
         float r = ((color >> 16) & 255) / 255.0F;
         float g = ((color >> 8) & 255) / 255.0F;
         float b = (color & 255) / 255.0F;

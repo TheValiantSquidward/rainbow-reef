@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -24,8 +23,8 @@ public class SeaAnemoneBlock extends BushBlock implements LiquidBlockContainer {
     protected static final VoxelShape COLLISION_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 5.0, 15.0);
     protected static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
 
-    public SeaAnemoneBlock() {
-        super(Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(0.5F).sound(SoundType.CORAL_BLOCK).noOcclusion());
+    public SeaAnemoneBlock(Properties properties) {
+        super(properties);
     }
 
     @Nullable

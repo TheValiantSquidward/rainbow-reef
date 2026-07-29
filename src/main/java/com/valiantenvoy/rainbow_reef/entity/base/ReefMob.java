@@ -209,7 +209,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
 
         if (this.level().isClientSide) {
             this.setupAnimationStates();
-            this.updateTilt();
+            this.updateSwimRoll();
             this.updateSwimPitch();
         }
 
@@ -240,7 +240,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         return 10.0F;
     }
 
-    protected void updateTilt() {
+    protected void updateSwimRoll() {
         this.prevSwimRoll = this.swimRoll;
         if (this.isInWater()) {
             float turn = Mth.degreesDifference(this.getYRot(), this.yRotO);

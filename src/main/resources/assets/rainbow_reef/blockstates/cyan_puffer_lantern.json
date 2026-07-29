@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "rainbow_reef:block/cyan_puffer_lantern"
+    },
+    "hanging=true": {
+      "model": "rainbow_reef:block/cyan_puffer_lantern_hanging"
+    }
+  }
+}
