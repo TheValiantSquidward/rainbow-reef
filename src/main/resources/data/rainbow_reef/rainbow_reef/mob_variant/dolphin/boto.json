@@ -1,5 +1,8 @@
 {
   "texture": "rainbow_reef:entity/dolphin/dolphin_boto",
-  "biomes": "minecraft:river",
+  "biomes": [
+    "minecraft:river",
+    "minecraft:swamp"
+  ],
   "priority": 100
 }
