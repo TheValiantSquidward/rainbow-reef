@@ -59,6 +59,7 @@ public class RainbowReef {
         modEventBus.addListener(this::addPackFinders);
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, RainbowReefConfig.CLIENT_CONFIG, "rainbow-reef-client.toml");
+        modContainer.registerConfig(ModConfig.Type.COMMON, RainbowReefConfig.COMMON_CONFIG, "rainbow-reef-common.toml");
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

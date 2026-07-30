@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.mixins;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinFollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinLeapGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
@@ -15,7 +16,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.DolphinJumpGoal;
@@ -74,8 +78,10 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(EntityType<? extends Dolphin> entityType, Level level, CallbackInfo ci) {
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 6, 0.02F, 0.1F, true);
-        this.lookControl = new SmoothSwimmingLookControl(this, 6);
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+            this.moveControl = new SmoothSwimmingMoveControl(this, 85, 6, 0.02F, 0.1F, true);
+            this.lookControl = new SmoothSwimmingLookControl(this, 6);
+        }
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
@@ -119,12 +125,14 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     protected void registerGoals(CallbackInfo ci) {
-        Dolphin dolphin = (Dolphin) (Object) this;
-        List<Goal> goalOverrides = dolphin.goalSelector.getAvailableGoals().stream().map(WrappedGoal::getGoal).filter(goal -> goal instanceof RandomSwimmingGoal || goal instanceof DolphinJumpGoal).toList();
-        goalOverrides.forEach(dolphin.goalSelector::removeGoal);
-        dolphin.goalSelector.addGoal(4, new SwimWanderGoal(dolphin, 1.0D, 10, 20, 7, 3));
-        dolphin.goalSelector.addGoal(5, new DolphinLeapGoal(dolphin, 10));
-        this.goalSelector.addGoal(5, new DolphinFollowVariantLeaderGoal(dolphin));
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+            Dolphin dolphin = (Dolphin) (Object) this;
+            List<Goal> goalOverrides = dolphin.goalSelector.getAvailableGoals().stream().map(WrappedGoal::getGoal).filter(goal -> goal instanceof RandomSwimmingGoal || goal instanceof DolphinJumpGoal).toList();
+            goalOverrides.forEach(dolphin.goalSelector::removeGoal);
+            dolphin.goalSelector.addGoal(4, new SwimWanderGoal(dolphin, 1.0D, 10, 20, 7, 3));
+            dolphin.goalSelector.addGoal(5, new DolphinLeapGoal(dolphin, 10));
+            this.goalSelector.addGoal(5, new DolphinFollowVariantLeaderGoal(dolphin));
+        }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
@@ -135,9 +143,12 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
             this.updateSwimPitch();
             this.setupAnimationStates();
         }
+
         // fix death by drowning by simply not drowning!
-        if (dolphin.getAirSupply() <= 10) {
-            dolphin.setAirSupply(dolphin.getMaxAirSupply());
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+            if (dolphin.getAirSupply() <= 10) {
+                dolphin.setAirSupply(dolphin.getMaxAirSupply());
+            }
         }
     }
 
@@ -148,7 +159,10 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Override
     public int getMaxSpawnClusterSize() {
-        return this.getMaxSchoolSize();
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+            return this.getMaxSchoolSize();
+        }
+        return super.getMaxSpawnClusterSize();
     }
 
     public @Unique int getMaxSchoolSize() {
@@ -157,10 +171,13 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Override
     public float getWalkTargetValue(BlockPos pos, LevelReader level) {
-        if (this.getRandom().nextBoolean()) {
-            return super.getWalkTargetValue(pos, level);
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+            if (this.getRandom().nextBoolean()) {
+                return super.getWalkTargetValue(pos, level);
+            }
+            return this.getSurfacePathfindingFavor(pos, level);
         }
-        return this.getSurfacePathfindingFavor(pos, level);
+        return super.getWalkTargetValue(pos, level);
     }
 
     private @Unique float getSurfacePathfindingFavor(BlockPos pos, LevelReader level) {

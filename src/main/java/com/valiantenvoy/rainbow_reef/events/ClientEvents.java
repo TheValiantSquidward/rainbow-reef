@@ -54,7 +54,9 @@ public class ClientEvents {
         if (RainbowReefConfig.DYEABLE_FISHING_RODS.getAsBoolean()) {
             event.registerEntityRenderer(EntityType.FISHING_BOBBER, ReefFishingHookRenderer::new);
         }
-        event.registerEntityRenderer(EntityType.DOLPHIN, ReefDolphinRenderer::new);
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+            event.registerEntityRenderer(EntityType.DOLPHIN, ReefDolphinRenderer::new);
+        }
     }
 
     @SubscribeEvent
