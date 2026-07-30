@@ -5,10 +5,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.client.models.entity.*;
 import com.valiantenvoy.rainbow_reef.client.particle.BurrowBubbleParticle;
 import com.valiantenvoy.rainbow_reef.client.particle.EepyParticle;
-import com.valiantenvoy.rainbow_reef.client.renderer.JellyfishRenderer;
-import com.valiantenvoy.rainbow_reef.client.renderer.ParrotfishRenderer;
-import com.valiantenvoy.rainbow_reef.client.renderer.ReefDolphinRenderer;
-import com.valiantenvoy.rainbow_reef.client.renderer.ReefFishingHookRenderer;
+import com.valiantenvoy.rainbow_reef.client.renderer.*;
 import com.valiantenvoy.rainbow_reef.client.renderer.block.PufferLanternBlockRenderer;
 import com.valiantenvoy.rainbow_reef.client.renderer.item.ReefMobTooltipRenderer;
 import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
@@ -56,6 +53,9 @@ public class ClientEvents {
         }
         if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
             event.registerEntityRenderer(EntityType.DOLPHIN, ReefDolphinRenderer::new);
+        }
+        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+            event.registerEntityRenderer(EntityType.TURTLE, ReefTurtleRenderer::new);
         }
     }
 
@@ -131,6 +131,7 @@ public class ClientEvents {
         event.registerLayerDefinition(ReefModelLayers.RABBITFISH, RabbitfishModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.FUSILIER, FusilierModel::createBodyLayer);
         event.registerLayerDefinition(ReefModelLayers.DOLPHIN, ReefDolphinModel::createBodyLayer);
+        event.registerLayerDefinition(ReefModelLayers.TURTLE, ReefTurtleModel::createBodyLayer);
     }
 
     @SubscribeEvent

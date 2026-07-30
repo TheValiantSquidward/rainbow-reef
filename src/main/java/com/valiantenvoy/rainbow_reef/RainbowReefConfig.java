@@ -17,6 +17,7 @@ public class RainbowReefConfig {
 
     // common
     public static ModConfigSpec.BooleanValue DOLPHIN_OVERHAUL;
+    public static ModConfigSpec.BooleanValue SEA_TURTLE_OVERHAUL;
 
     static {
         ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
@@ -30,6 +31,7 @@ public class RainbowReefConfig {
 
         ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
         DOLPHIN_OVERHAUL = COMMON_BUILDER.comment("Whether dolphin changes should be enabled").define("dolphinOverhaul", true);
+        SEA_TURTLE_OVERHAUL = COMMON_BUILDER.comment("Whether sea turtle changes should be enabled").define("seaTurtleOverhaul", true);
         COMMON_CONFIG = COMMON_BUILDER.build();
     }
 }

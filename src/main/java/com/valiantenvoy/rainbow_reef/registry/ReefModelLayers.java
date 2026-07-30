@@ -36,6 +36,7 @@ public class ReefModelLayers {
     public static final ModelLayerLocation TRIGGERFISH = register("triggerfish");
     public static final ModelLayerLocation WRASSE = register("wrasse");
     public static final ModelLayerLocation DOLPHIN = register("dolphin");
+    public static final ModelLayerLocation TURTLE = register("turtle");
 
     private static ModelLayerLocation register(String id) {
         return new ModelLayerLocation(RainbowReef.location(id), "main");

@@ -145,14 +145,13 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
             goalOverrides.forEach(dolphin.goalSelector::removeGoal);
             dolphin.goalSelector.addGoal(4, new SwimWanderGoal(dolphin, 1.0D, 10, 20, 7, 3));
             dolphin.goalSelector.addGoal(5, new DolphinLeapGoal(dolphin, 10));
-            this.goalSelector.addGoal(5, new DolphinFollowVariantLeaderGoal(dolphin));
+            dolphin.goalSelector.addGoal(5, new DolphinFollowVariantLeaderGoal(dolphin));
         }
     }
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void rainbowReef$tickDolphin(CallbackInfo ci) {
-        Dolphin dolphin = (Dolphin) (Object) this;
-        if (dolphin.level().isClientSide) {
+        if (this.level().isClientSide) {
             this.updateSwimRoll();
             this.updateSwimPitch();
             this.setupAnimationStates();
@@ -160,8 +159,8 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
         // fix death by drowning by simply not drowning!
         if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
-            if (dolphin.getAirSupply() <= 10) {
-                dolphin.setAirSupply(dolphin.getMaxAirSupply());
+            if (this.getAirSupply() <= 10) {
+                this.setAirSupply(this.getMaxAirSupply());
             }
         }
     }
@@ -234,10 +233,9 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Unique
     protected void updateSwimRoll() {
-        Dolphin dolphin = (Dolphin) (Object) this;
         this.prevSwimRoll = this.swimRoll;
-        if (dolphin.isInWater()) {
-            float turn = Mth.degreesDifference(dolphin.getYRot(), dolphin.yRotO);
+        if (this.isInWater()) {
+            float turn = Mth.degreesDifference(this.getYRot(), this.yRotO);
             if (Math.abs(turn) > 1.0F) {
                 if (Math.abs(this.swimRoll) < ROLL_CLAMP) {
                     this.swimRoll -= Math.signum(turn);

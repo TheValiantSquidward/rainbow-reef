@@ -9,7 +9,8 @@
     "EnderChestBlockEntityMixin",
     "FishingHookMixin",
     "FishingRodItemMixin",
-    "SquidMixin"
+    "SquidMixin",
+    "TurtleMixin"
   ],
   "client": [
     "client.BiomeColorsMixin",
