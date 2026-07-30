@@ -7,6 +7,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.utils.DolphinAccess;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,10 +15,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.DolphinJumpGoal;
@@ -26,6 +24,7 @@ import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -41,7 +40,7 @@ import java.util.stream.Stream;
 
 @SuppressWarnings({"WrongEntityDataParameterClass", "AddedMixinMembersNamePattern"})
 @Mixin(Dolphin.class)
-public abstract class DolphinMixin extends Mob implements DolphinAccess, ReefVariantMob {
+public abstract class DolphinMixin extends PathfinderMob implements DolphinAccess, ReefVariantMob {
 
     private static final @Unique EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Dolphin.class, EntityDataSerializers.STRING);
     private static final @Unique EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Dolphin.class, EntityDataSerializers.BOOLEAN);
@@ -69,7 +68,7 @@ public abstract class DolphinMixin extends Mob implements DolphinAccess, ReefVar
     public final @Unique SmoothAnimationState flopAnimationState = new SmoothAnimationState();
     public final @Unique SmoothAnimationState jumpAnimationState = new SmoothAnimationState();
 
-    protected DolphinMixin(EntityType<? extends Mob> entityType, Level level) {
+    protected DolphinMixin(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -156,6 +155,19 @@ public abstract class DolphinMixin extends Mob implements DolphinAccess, ReefVar
         return 5;
     }
 
+    @Override
+    public float getWalkTargetValue(BlockPos pos, LevelReader level) {
+        if (this.getRandom().nextBoolean()) {
+            return super.getWalkTargetValue(pos, level);
+        }
+        return this.getSurfacePathfindingFavor(pos, level);
+    }
+
+    private @Unique float getSurfacePathfindingFavor(BlockPos pos, LevelReader level) {
+        int y = Math.abs(level.getMaxBuildHeight()) - pos.getY();
+        return 1.0F / (float) (y == 0 ? 1 : y);
+    }
+
     public SmoothAnimationState getSwimAnimationState() {
         return this.swimAnimationState;
     }
@@ -206,18 +218,19 @@ public abstract class DolphinMixin extends Mob implements DolphinAccess, ReefVar
 
     @Unique
     protected void updateSwimPitch() {
-        Dolphin dolphin = (Dolphin) (Object) this;
         this.prevSwimPitch = this.swimPitch;
         float target = 0.0F;
-        double dx = dolphin.getX() - dolphin.xo;
-        double dy = dolphin.getY() - dolphin.yo;
-        double dz = dolphin.getZ() - dolphin.zo;
-        double horizontal = Math.sqrt(dx * dx + dz * dz);
-        double speed = Math.sqrt(horizontal * horizontal + dy * dy);
-        float speedFactor = (float) Mth.clamp((speed - PITCH_MIN) / (PITCH_MAX - PITCH_MIN), 0.0D, 1.0D);
-        if (speedFactor > 0.0F) {
-            float angle = (float) (-(Mth.atan2(dy, horizontal) * (180.0D / Math.PI)));
-            target = Mth.clamp(angle, -PITCH_CLAMP, PITCH_CLAMP) * speedFactor;
+        if (this.isInWater() || this.isLeaping()) {
+            double dx = this.getX() - this.xo;
+            double dy = this.getY() - this.yo;
+            double dz = this.getZ() - this.zo;
+            double horizontal = Math.sqrt(dx * dx + dz * dz);
+            double speed = Math.sqrt(horizontal * horizontal + dy * dy);
+            float speedFactor = (float) Mth.clamp((speed - PITCH_MIN) / (PITCH_MAX - PITCH_MIN), 0.0D, 1.0D);
+            if (speedFactor > 0.0F) {
+                float angle = (float) (-(Mth.atan2(dy, horizontal) * (180.0D / Math.PI)));
+                target = Mth.clamp(angle, -PITCH_CLAMP, PITCH_CLAMP) * speedFactor;
+            }
         }
         this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
     }
