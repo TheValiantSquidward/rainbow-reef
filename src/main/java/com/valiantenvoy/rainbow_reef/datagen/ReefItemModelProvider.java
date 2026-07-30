@@ -129,6 +129,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(WRASSE_BUCKET);
         this.item(RAW_WRASSE);
 
+        this.item(DOLPHIN_BUCKET);
+
         this.item(ROCKFISH_CANDY);
         this.item(FORBIDDEN_SOUP);
         this.item(SWEET_TOOTH_SEABURGER);

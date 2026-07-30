@@ -12,10 +12,13 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,6 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -261,13 +265,13 @@ public class Shark extends VariantSchoolingFish {
                 Vec3 orbitPos = this.getCirclePos(target);
                 this.shark.getNavigation().moveTo(orbitPos.x, orbitPos.y, orbitPos.z, 1.0D);
                 if (this.circlingTime % 60 == 0) {
-                    this.shark.playSound(ReefSoundEvents.SHARK_WARN.get(), 0.5F, this.soundPitch + this.shark.getRandom().nextFloat() * 0.2F);
+                    this.shark.playSound(ReefSoundEvents.SHARK_WARN.get(), 1.0F, this.soundPitch + this.shark.getRandom().nextFloat() * 0.2F);
                 }
             }
             else {
                 this.lookAtTarget(target, 30.0F, 30.0F);
                 if (!this.playedAttackSound) {
-                    this.shark.playSound(ReefSoundEvents.SHARK_ATTACK.get(), 1.0F, this.soundPitch + this.shark.getRandom().nextFloat() * 0.2F);
+                    this.shark.playSound(ReefSoundEvents.SHARK_ATTACK.get(), 1.25F, this.soundPitch + this.shark.getRandom().nextFloat() * 0.2F);
                     this.playedAttackSound = true;
                 }
                 this.shark.setSprinting(true);
@@ -287,7 +291,15 @@ public class Shark extends VariantSchoolingFish {
             this.timer++;
             if (this.timer == 5) {
                 if (this.isInAttackRange(target, 1.25D)) {
-                    this.shark.doHurtTarget(target);
+                    if (this.targetWearingChainmail(target)) {
+                        float strength = (float) this.shark.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+                        target.knockback(strength * 0.5F, Mth.sin(this.shark.getYRot() * ((float) Math.PI / 180F)), -Mth.cos(this.shark.getYRot() * ((float) Math.PI / 180F)));
+                        target.hurtMarked = true;
+                        this.shark.level().playSound(null, target.blockPosition(), SoundEvents.CHAIN_BREAK, SoundSource.NEUTRAL, 1.0F, 0.9F + target.getRandom().nextFloat() * 0.25F);
+                    }
+                    else {
+                        this.shark.doHurtTarget(target);
+                    }
                 }
             }
             if (this.timer > 10) {
@@ -299,7 +311,14 @@ public class Shark extends VariantSchoolingFish {
             }
         }
 
-        public Vec3 getCirclePos(LivingEntity target) {
+        private boolean targetWearingChainmail(LivingEntity target) {
+            return target.getItemBySlot(EquipmentSlot.HEAD).is(Items.CHAINMAIL_HELMET) &&
+                    target.getItemBySlot(EquipmentSlot.CHEST).is(Items.CHAINMAIL_CHESTPLATE) &&
+                    target.getItemBySlot(EquipmentSlot.LEGS).is(Items.CHAINMAIL_LEGGINGS) &&
+                    target.getItemBySlot(EquipmentSlot.FEET).is(Items.CHAINMAIL_BOOTS);
+        }
+
+        private Vec3 getCirclePos(LivingEntity target) {
             float angle = (0.0174532925F * (this.clockwise ? -this.circlingTime : this.circlingTime));
             double extraX = this.circleDistance * Mth.sin(angle);
             double extraZ = this.circleDistance * Mth.cos(angle);

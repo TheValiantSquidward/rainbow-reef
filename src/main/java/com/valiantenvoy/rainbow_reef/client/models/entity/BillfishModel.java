@@ -11,15 +11,10 @@ public class BillfishModel extends ReefModel<Billfish> {
 
     private final ModelPart root;
     private final ModelPart swim_control;
-    private final ModelPart tail1;
-    private final ModelPart tail2;
 
 	public BillfishModel(ModelPart root) {
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
-        ModelPart body = this.swim_control.getChild("body");
-        this.tail1 = body.getChild("tail1");
-        this.tail2 = this.tail1.getChild("tail2");
 	}
 
     @Override
@@ -30,6 +25,7 @@ public class BillfishModel extends ReefModel<Billfish> {
     @Override
     protected void setupAnimations(Billfish entity, float limbSwing, float limbSwingAmount, float ageInTicks, float partialTicks, float netHeadYaw, float headPitch) {
         this.animateWalkSmooth(entity.swimAnimationState, BillfishAnimations.SWIM, limbSwing, limbSwingAmount, partialTicks);
+        this.animateWalkSmooth(entity.swimFastAnimationState, BillfishAnimations.SWIM_FAST, limbSwing, limbSwingAmount, partialTicks);
         this.animateIdleSmooth(entity.swimIdleAnimationState, BillfishAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
         this.animateSmooth(entity.flopAnimationState, BillfishAnimations.FLOP, ageInTicks, partialTicks);
         this.applyPitchAndRoll(entity, this.swim_control, partialTicks);

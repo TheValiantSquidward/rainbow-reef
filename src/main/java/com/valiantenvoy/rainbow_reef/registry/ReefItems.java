@@ -204,6 +204,8 @@ public class ReefItems {
     public static final ResourceKey<JukeboxSong> CLAW_SONG = ResourceKey.create(Registries.JUKEBOX_SONG, RainbowReef.location("claw_disc"));
     public static final DeferredItem<Item> CLAW_DISC = registerItemNoLang("claw_disc", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(CLAW_SONG)));
 
+    public static final DeferredItem<Item> DOLPHIN_BUCKET = registerMobBucketItem("dolphin", () -> EntityType.DOLPHIN);
+
     // shelf coral
     public static final DeferredItem<Item> DEAD_SHELF_CORAL_FAN = registerItemNoLang("dead_shelf_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.DEAD_SHELF_CORAL_FAN.get(), ReefBlocks.DEAD_SHELF_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));
     public static final DeferredItem<Item> SHELF_CORAL_FAN = registerItemNoLang("shelf_coral_fan", () -> new StandingAndWallBlockItem(ReefBlocks.SHELF_CORAL_FAN.get(), ReefBlocks.SHELF_CORAL_WALL_FAN.get(), new Item.Properties(), Direction.DOWN));

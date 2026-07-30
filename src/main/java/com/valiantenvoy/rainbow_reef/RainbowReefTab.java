@@ -12,6 +12,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -47,6 +48,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.CLOWNFISH_BUCKET.get());
                         output.accept(ReefItems.CRAB_BUCKET.get());
                         output.accept(ReefItems.DAMSELFISH_BUCKET.get());
+                        output.accept(ReefItems.DOLPHIN_BUCKET.get());
                         output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
                         output.accept(ReefItems.FROGFISH_BUCKET.get());
                         output.accept(ReefItems.FUSILIER_BUCKET.get());
@@ -321,6 +323,7 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.CLOWNFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.CLOWNFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.CRAB_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.CRAB.get()));
                         variantsByRarity(parameters, output, ReefItems.DAMSELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DAMSELFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.DOLPHIN_BUCKET.get(), ReefMobVariants.registryFor(EntityType.DOLPHIN));
                         variantsByRarity(parameters, output, ReefItems.DWARF_ANGELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DWARF_ANGELFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.FROGFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FROGFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.FUSILIER_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FUSILIER.get()));

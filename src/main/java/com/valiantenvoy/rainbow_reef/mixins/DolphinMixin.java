@@ -8,14 +8,20 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.utils.DolphinAccess;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -26,7 +32,11 @@ import net.minecraft.world.entity.ai.goal.DolphinJumpGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Dolphin;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -44,10 +54,11 @@ import java.util.stream.Stream;
 
 @SuppressWarnings({"WrongEntityDataParameterClass", "AddedMixinMembersNamePattern"})
 @Mixin(Dolphin.class)
-public abstract class DolphinMixin extends PathfinderMob implements DolphinAccess, ReefVariantMob {
+public abstract class DolphinMixin extends PathfinderMob implements DolphinAccess, ReefVariantMob, Bucketable {
 
     private static final @Unique EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Dolphin.class, EntityDataSerializers.STRING);
     private static final @Unique EntityDataAccessor<Boolean> LEAPING = SynchedEntityData.defineId(Dolphin.class, EntityDataSerializers.BOOLEAN);
+    private static final @Unique EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Dolphin.class, EntityDataSerializers.BOOLEAN);
 
     private static final @Unique double PITCH_MIN = 0.01D;
     private static final @Unique double PITCH_MAX = 0.05D;
@@ -88,16 +99,19 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
     public void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(VARIANT, this.defaultVariant().location().toString());
         builder.define(LEAPING, false);
+        builder.define(FROM_BUCKET, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
         this.saveVariant(compoundTag);
+        compoundTag.putBoolean("FromBucket", this.fromBucket());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
         this.loadVariant(compoundTag);
+        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
     }
 
     @Override
@@ -152,9 +166,16 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
         }
     }
 
+    @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true)
+    public void rainbowReef$bucketDolphin(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        cir.setReturnValue(Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand)));
+    }
+
     @Inject(method = "finalizeSpawn", at = @At("HEAD"))
     public void rainbowReef$finalizeSpawnDolphin(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        this.pickVariantForSpawn(level);
+        if (!this.fromBucket()) {
+            this.pickVariantForSpawn(level);
+        }
     }
 
     @Override
@@ -260,6 +281,43 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
     @Override
     public float getSwimPitch(float partialTicks) {
         return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void saveToBucketTag(ItemStack stack) {
+        Bucketable.saveDefaultDataToBucketTag(this, stack);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, this::saveVariant);
+        CompoundTag custom = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        this.saveVariant(custom);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(custom));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void loadFromBucketTag(CompoundTag compoundTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+        this.loadVariant(compoundTag);
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(ReefItems.DOLPHIN_BUCKET.get());
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 
     @Override

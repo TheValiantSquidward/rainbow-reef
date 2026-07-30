@@ -335,7 +335,9 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     public void tickFlopping() {
         if (!this.isInWater() && this.onGround() && this.getRandom().nextFloat() < this.flopChance() && this.shouldFlop()) {
             this.setDeltaMovement(this.getDeltaMovement().add((this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F, 0.5D, (this.getRandom().nextFloat() * 2.0F - 1.0F) * 0.2F));
-            if (this.getRandom().nextFloat() < 0.3F) this.setYRot(this.getRandom().nextFloat() * 360.0F);
+            if (this.getRandom().nextFloat() < 0.2F) {
+                this.setYRot(this.getRandom().nextFloat() * 360.0F);
+            }
             this.playSound(this.getFlopSound(), this.getSoundVolume(), this.getVoicePitch());
         }
     }
@@ -386,7 +388,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
         SpawnGroupData data = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-        if (spawnType == MobSpawnType.BUCKET) {
+        if (this.fromBucket()) {
             return data;
         }
         this.pickVariantForSpawn(level);

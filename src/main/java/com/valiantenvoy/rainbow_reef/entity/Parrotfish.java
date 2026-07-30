@@ -176,6 +176,7 @@ public class Parrotfish extends VariantSchoolingFish {
             if (this.parrotfish.getMoveControl().hasWanted()) {
                 this.parrotfish.getMoveControl().setWantedPosition(this.parrotfish.getX(), this.parrotfish.getY(), this.parrotfish.getZ(), 0.0D);
             }
+            this.parrotfish.setDeltaMovement(this.parrotfish.getDeltaMovement().add(0.0D, -0.005D, 0.0D));
         }
 
         public boolean canSleep() {
