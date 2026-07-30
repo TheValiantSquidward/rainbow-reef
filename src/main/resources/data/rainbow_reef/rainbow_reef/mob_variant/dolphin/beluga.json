@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/dolphin/dolphin_beluga",
+  "biomes": "minecraft:deep_frozen_ocean",
+  "priority": 100
+}

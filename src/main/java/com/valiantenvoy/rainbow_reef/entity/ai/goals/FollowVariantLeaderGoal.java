@@ -34,17 +34,19 @@ public class FollowVariantLeaderGoal extends Goal {
         } else {
             this.nextStartTick = this.nextStartTick(this.fish);
             Predicate<VariantSchoolingFish> predicate = (fishy) -> fishy.canBeFollowed() || !fishy.isFollower();
-            List<? extends VariantSchoolingFish> list = this.fish.level().getEntitiesOfClass(this.fish.getClass(), this.fish.getBoundingBox().inflate(10.0D, 10.0D, 10.0D), predicate);
+            List<? extends VariantSchoolingFish> list = this.fish.level().getEntitiesOfClass(this.fish.getClass(), this.fish.getBoundingBox().inflate(10.0D), predicate);
             VariantSchoolingFish schoolingFish = DataFixUtils.orElse(list.stream().filter(VariantSchoolingFish::canBeFollowed).findAny(), this.fish);
             schoolingFish.addFollowers(list.stream().filter((fishy2) -> !fishy2.isFollower()));
             return this.fish.isFollower();
         }
     }
 
+    @Override
     public boolean canContinueToUse() {
         return this.fish.isFollower() && this.fish.inRangeOfLeader();
     }
 
+    @Override
     public void start() {
         this.timeToRecalcPath = 0;
     }

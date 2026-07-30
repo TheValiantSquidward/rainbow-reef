@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/dolphin/dolphin_hourglass",
+  "biomes": "minecraft:frozen_ocean",
+  "priority": 100
+}

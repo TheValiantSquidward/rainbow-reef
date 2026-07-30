@@ -47,7 +47,7 @@ public abstract class VariantSchoolingFish extends ReefMob {
     }
 
     private void addFollower() {
-        this.schoolSize--;
+        this.schoolSize++;
     }
     private void removeFollower() {
         this.schoolSize--;

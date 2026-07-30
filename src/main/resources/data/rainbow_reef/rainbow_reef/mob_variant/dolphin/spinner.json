@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/dolphin/dolphin_spinner",
+  "biomes": "minecraft:lukewarm_ocean",
+  "priority": 100
+}

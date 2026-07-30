@@ -16,6 +16,8 @@ public class ReefMobVariants {
 
     public static final Set<ResourceKey<Registry<ReefMobVariant>>> REGISTRIES = new HashSet<>();
 
+    public static final ResourceKey<Registry<ReefMobVariant>> DOLPHIN_VARIANT = register("dolphin");
+
     public static ResourceKey<Registry<ReefMobVariant>> register(String name) {
         ResourceKey<Registry<ReefMobVariant>> key = registryFor(name);
         REGISTRIES.add(key);

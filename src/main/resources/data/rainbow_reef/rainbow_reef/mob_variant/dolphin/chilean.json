@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/dolphin/dolphin_chilean",
+  "biomes": "minecraft:cold_ocean",
+  "priority": 100
+}

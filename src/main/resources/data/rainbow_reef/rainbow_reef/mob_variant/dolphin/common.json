@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/dolphin/dolphin_common",
+  "biomes": "minecraft:warm_ocean",
+  "priority": 100
+}
