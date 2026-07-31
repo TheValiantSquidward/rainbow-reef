@@ -2,6 +2,7 @@ package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishLeapGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishPanicGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.navigation.WaterNavigation;
@@ -16,7 +17,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.ItemStack;
@@ -45,10 +45,10 @@ public class MahiMahi extends VariantSchoolingFish implements Bucketable {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(1, new SwimWanderGoal(this, 1.0D, 20, 15, 7, 6));
-        this.goalSelector.addGoal(2, new FollowVariantLeaderGoal(this));
-        this.goalSelector.addGoal(3, new FishLeapGoal(this, 20));
+        this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 20, 15, 7, 6, 40));
+        this.goalSelector.addGoal(3, new FollowVariantLeaderGoal(this));
+        this.goalSelector.addGoal(4, new FishLeapGoal(this, 20));
     }
 
     @Override

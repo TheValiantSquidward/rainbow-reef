@@ -1,9 +1,17 @@
 package com.valiantenvoy.rainbow_reef.items;
 
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefMobVariant;
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefMobVariantUtils;
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
 import com.valiantenvoy.rainbow_reef.items.tooltip.ReefMobTooltipData;
+import com.valiantenvoy.rainbow_reef.registry.ReefMobVariants;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
@@ -14,11 +22,12 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.fml.ModList;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public class ReefFishBucketItem extends MobBucketItem {
 
@@ -34,129 +43,29 @@ public class ReefFishBucketItem extends MobBucketItem {
     }
 
     @Override
-    public @NotNull Optional<TooltipComponent> getTooltipImage(@NotNull ItemStack stack) {
-        if (ModList.get().isLoaded("spawn")) {
-            CompoundTag tag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
-            tag.putString("id", EntityType.getKey(this.getFishType()).toString());
-            return Optional.of(new ReefMobTooltipData(tag));
+    public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
+        if (ModList.get().isLoaded("teallib")) {
+            CompoundTag compoundTag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
+            compoundTag.putString("id", EntityType.getKey(this.getFishType()).toString());
+            return Optional.of(new ReefMobTooltipData(compoundTag));
         }
         return super.getTooltipImage(stack);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull Item.TooltipContext context, @NotNull List<Component> tooltip, @NotNull TooltipFlag flag) {
-        EntityType<?> fishType = getFishType();
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        EntityType<?> fishType = this.getFishType();
+        ResourceLocation fishId = EntityType.getKey(fishType);
+        CompoundTag compoundTag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
+        if (!compoundTag.contains(ReefVariantMob.VARIANT_TAG, 8)) {
+            return;
+        }
+        ResourceLocation variantId = ResourceLocation.parse(compoundTag.getString(ReefVariantMob.VARIANT_TAG));
 
-//        CompoundTag compoundnbt = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).getUnsafe();
-//        if (!compoundnbt.contains("BucketVariantTag", 3)) {
-//            return;
-//        }
-//        int variant = compoundnbt.getInt("BucketVariantTag");
-//
-//        if (fishType == ReefEntities.ANGELFISH.get()) {
-//            Angelfish.AngelfishVariant angelfishVariant = Angelfish.AngelfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.angelfish.variant_" + angelfishVariant.name().toLowerCase(Locale.ROOT);
-//            tooltip.add((Component.translatable(name)).withStyle(angelfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.ARROW_CRAB.get()) {
-//            String name = "entity.rainbowreef.arrow_crab.variant_" + ArrowCrab.getVariantName(variant);
-//            tooltip.add((Component.translatable(name)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.BASSLET.get()) {
-//            Basslet.BassletVariant bassletVariant = Basslet.BassletVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.basslet.variant_" + bassletVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(bassletVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.BOXFISH.get()) {
-//            Boxfish.BoxfishVariant boxfishVariant = Boxfish.BoxfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.boxfish.variant_" + boxfishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(boxfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.BUTTERFLYFISH.get()) {
-//            Butterflyfish.ButterflyfishVariant butterflyfishVariant = Butterflyfish.ButterflyfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.butterflyfish.variant_" + butterflyfishVariant.name().toLowerCase(Locale.ROOT);
-//            tooltip.add((Component.translatable(name)).withStyle(butterflyfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.CLOWNFISH.get()) {
-//            Clownfish.ClownfishVariant clownfishVariant = Clownfish.ClownfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.clownfish.variant_" + clownfishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(clownfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.CRAB.get()) {
-//            String name = "entity.rainbowreef.crab.variant_" + Crab.getVariantName(variant);
-//            tooltip.add((Component.translatable(name)).withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.DWARF_ANGELFISH.get()) {
-//            DwarfAngelfish.DwarfAngelfishVariant dwarfAngelfishVariant = DwarfAngelfish.DwarfAngelfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.dwarf_angelfish.variant_" + dwarfAngelfishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(dwarfAngelfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.GOBY.get()) {
-//            Goby.GobyVariant gobyVariant = Goby.GobyVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.goby.variant_" + gobyVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(gobyVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.HOGFISH.get()) {
-//            Hogfish.HogfishVariant hogfishVariant = Hogfish.HogfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.hogfish.variant_" + hogfishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(hogfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.JELLYFISH.get()) {
-//            Jellyfish.JellyfishVariant jellyfishVariant = Jellyfish.JellyfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.jellyfish.variant_" + jellyfishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(jellyfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.MOORISH_IDOL.get()) {
-//            MoorishIdol.MoorishIdolVariant moorishIdolVariant = MoorishIdol.MoorishIdolVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.moorish_idol.variant_" + moorishIdolVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(moorishIdolVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.PARROTFISH.get()) {
-//            Parrotfish.ParrotfishVariant parrotfishVariant = Parrotfish.ParrotfishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.parrotfish.variant_" + parrotfishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(parrotfishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.PIPEFISH.get()) {
-//            Pipefish.PipefishVariant pipefishVariant = Pipefish.PipefishVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.pipefish.variant_" + pipefishVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(pipefishVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.RAY.get()) {
-//            Ray.RayVariant rayVariant = Ray.RayVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.ray.variant_" + rayVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(rayVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.SEAHORSE.get()) {
-//            Seahorse.SeahorseVariant seahorseVariant = Seahorse.SeahorseVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.seahorse.variant_" + seahorseVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(seahorseVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.SMALL_SHARK.get()) {
-//            SmallShark.SmallSharkVariant smallSharkVariant = SmallShark.SmallSharkVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.small_shark.variant_" + smallSharkVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(smallSharkVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
-//
-//        if (fishType == ReefEntities.TANG.get()) {
-//            Tang.TangVariant tangVariant = Tang.TangVariant.getVariantId(variant);
-//            String name = "entity.rainbowreef.tang.variant_" + tangVariant.getSerializedName();
-//            tooltip.add((Component.translatable(name)).withStyle(tangVariant.getRarity().getStyle()).withStyle(ChatFormatting.ITALIC));
-//        }
+        Optional<Holder.Reference<ReefMobVariant>> variant = ReefMobVariantUtils.byId(context.registries(), ReefMobVariants.registryFor(fishType), variantId);
+        UnaryOperator<Style> style = variant.map(holder -> holder.value().rarity().getStyle()).orElse(style1 -> style1.withColor(ChatFormatting.GRAY));
+
+        String name = "entity." + fishId.getNamespace() + "." + fishId.getPath() + ".variant_" + variantId.getPath().toLowerCase(Locale.ROOT);
+        tooltip.add((Component.translatable(name)).withStyle(style).withStyle(ChatFormatting.ITALIC));
     }
 }

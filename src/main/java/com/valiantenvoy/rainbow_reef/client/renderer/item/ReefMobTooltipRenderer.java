@@ -17,6 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.component.CustomData;
 
+// Copied from Teal Lib https://github.com/N1nn1/TealLib/blob/main/src/main/java/com/ninni/teallib/api/client/renderer/item/CapturedMobsTooltipRenderer.java
 public class ReefMobTooltipRenderer implements ClientTooltipComponent {
 
     private static final int CELL_SIZE = 16;
@@ -39,8 +40,8 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
 
     @Override
     public void renderImage(Font font, int x, int y, GuiGraphics graphics) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.level == null) {
+        Minecraft instance = Minecraft.getInstance();
+        if (instance.level == null) {
             return;
         }
 
@@ -49,7 +50,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
             return;
         }
 
-        Entity entity = type.create(mc.level);
+        Entity entity = type.create(instance.level);
         if (!(entity instanceof LivingEntity living)) {
             return;
         }
@@ -57,7 +58,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         CompoundTag fishTag = this.entityTag.copy();
         fishTag.remove("id");
         if (!fishTag.isEmpty()) {
-            EntityType.updateCustomEntityTag(mc.level, null, entity, CustomData.of(fishTag));
+            EntityType.updateCustomEntityTag(instance.level, null, entity, CustomData.of(fishTag));
         }
         if (entity instanceof Bucketable bucketable) {
             bucketable.loadFromBucketTag(fishTag);
@@ -71,42 +72,105 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         float maxSize = Math.max(entity.getDimensions(entity.getPose()).width(), entity.getDimensions(entity.getPose()).height());
         float scale = Math.min((CELL_SIZE * 0.8F) / maxSize, 32.0F);
 
-        float renderX = x + (this.getWidth(font) / 2F);
-        float renderY = y + (this.getHeight() / 2F);
+        float renderX = x + (this.getWidth(font) / 2.0F);
+        float renderY = y + (this.getHeight() / 2.0F);
         boolean shouldBob = true;
 
+        if (type == ReefEntities.ANGELFISH.get()) {
+            renderY += 2;
+        }
         if (type == ReefEntities.ARROW_CRAB.get()) {
             renderX += 10;
             renderY += 3;
             shouldBob = false;
         }
+        if (type == ReefEntities.BASSLET.get()) {
+            renderY += 2;
+        }
+        if (type == ReefEntities.BILLFISH.get()) {
+            renderX += 5;
+            renderY += 0.2F;
+        }
+        if (type == ReefEntities.BUTTERFLYFISH.get()) {
+            renderY += 2;
+        }
         if (type == ReefEntities.CRAB.get()) {
-            renderX += 10;
+            renderX += 2;
             renderY += 3;
             shouldBob = false;
         }
-        if (type == ReefEntities.PIPEFISH.get()) {
+        if (type == EntityType.DOLPHIN) {
             renderX += 10;
-            renderY += 0;
         }
-        if (type == ReefEntities.JELLYFISH.get()) {
-            renderX += 3;
-            renderY -= 3;
+        if (type == ReefEntities.FROGFISH.get()) {
+            renderY += 5.5f;
+        }
+        if (type == ReefEntities.GOBY.get()) {
+            renderY += 2;
         }
         if (type == ReefEntities.HOGFISH.get()) {
+            renderY += 2;
             renderX += 3;
-            renderY += 0;
         }
-        if (type == ReefEntities.SEAHORSE.get()) {
-            renderX -= 1;
-            renderY += 8;
+        if (type == ReefEntities.JELLYFISH.get()) {
+            renderY -= 4;
+            renderX += 5;
+        }
+        if (type == ReefEntities.LARGE_SHARK.get()) {
+            renderX += 3;
+            renderY += 4;
+        }
+        if (type == ReefEntities.LIONFISH.get()) {
+            renderY += 3;
+        }
+        if (type == ReefEntities.MAHI_MAHI.get()) {
+            renderX += 1;
+            renderY += 3;
+        }
+        if (type == ReefEntities.MAORI_WRASSE.get()) {
+            renderY += 2.2F;
+        }
+        if (type == ReefEntities.MOORISH_IDOL.get()) {
+            renderX += 1;
+            renderY += 2;
         }
         if (type == ReefEntities.PARROTFISH.get()) {
             renderX += 2;
             renderY += 2;
         }
+        if (type == ReefEntities.PIPEFISH.get()) {
+            renderX += 7;
+            renderY += 0.5F;
+        }
+        if (type == ReefEntities.RAY.get()) {
+            renderX += 17;
+            renderY += 0.25F;
+        }
+        if (type == ReefEntities.SEAHORSE.get()) {
+            renderX -= 4;
+            renderY += 7;
+        }
+        if (type == ReefEntities.SHARK.get()) {
+            renderX += 3;
+            renderY += 2;
+        }
+        if (type == ReefEntities.SMALL_SHARK.get()) {
+            renderX += 9;
+            renderY += 2;
+        }
+        if (type == ReefEntities.TANG.get()) {
+            renderX += 3;
+            renderY += 3;
+        }
+        if (type == ReefEntities.TRIGGERFISH.get()) {
+            renderY += 2.25F;
+        }
+        if (type == ReefEntities.WRASSE.get()) {
+            renderX += 1.5F;
+            renderY += 3.5F;
+        }
 
-        float time = (mc.level.getGameTime() + mc.getTimer().getGameTimeDeltaPartialTick(false)) / 20.0F;
+        float time = (instance.level.getGameTime() + instance.getTimer().getGameTimeDeltaPartialTick(false)) / 20.0F;
         float bob = shouldBob ? (float) Math.sin(time * Math.PI * 0.5F) * 0.05F : 0.0F;
 
         PoseStack stack = graphics.pose();
@@ -117,11 +181,24 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         if (type == ReefEntities.JELLYFISH.get()) {
             stack.mulPose(Axis.XP.rotationDegrees(90.0F));
         }
+        if (type == ReefEntities.RAY.get()) {
+            stack.mulPose(Axis.XP.rotationDegrees(20.0F));
+            stack.mulPose(Axis.ZP.rotationDegrees(20.0F));
+        }
+        if (type == ReefEntities.BILLFISH.get()) {
+            stack.scale(0.75F, 0.75F, 0.75F);
+        }
+        if (type == ReefEntities.SHARK.get()) {
+            stack.scale(1.25F, 1.25F, 1.25F);
+        }
+        if (type == ReefEntities.TRIGGERFISH.get()) {
+            stack.scale(0.8F, 0.8F, 0.8F);
+        }
         stack.mulPose(Axis.XP.rotationDegrees(-7.5F));
 
-        mc.getEntityRenderDispatcher().setRenderShadow(false);
-        mc.getEntityRenderDispatcher().render(living, 0.0, 0.0, 0.0, 0.0F, 1.0F, stack, graphics.bufferSource(), LightTexture.pack(15, 15));
-        mc.getEntityRenderDispatcher().setRenderShadow(true);
+        instance.getEntityRenderDispatcher().setRenderShadow(false);
+        instance.getEntityRenderDispatcher().render(living, 0.0, 0.0, 0.0, 0.0F, 1.0F, stack, graphics.bufferSource(), LightTexture.pack(15, 15));
+        instance.getEntityRenderDispatcher().setRenderShadow(true);
 
         stack.popPose();
     }

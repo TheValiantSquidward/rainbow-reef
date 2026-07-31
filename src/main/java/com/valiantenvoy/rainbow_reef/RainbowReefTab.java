@@ -16,8 +16,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -32,13 +32,45 @@ public class RainbowReefTab {
                     .title(Component.translatable("creativetab.rainbow_reef_tab"))
                     .displayItems((parameters, output) -> {
 
-                        // Spawn eggs
-                        ReefItems.ITEMS.getEntries().forEach(spawnEgg -> {
-                            if ((spawnEgg.get() instanceof DeferredSpawnEggItem)) {
-                                output.accept(spawnEgg.get());
-                            }
-                        });
+                        // region spawn eggs
+                        output.accept(ReefItems.ANGELFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.ARROW_CRAB_SPAWN_EGG.get());
+                        output.accept(ReefItems.BASSLET_SPAWN_EGG.get());
+                        output.accept(ReefItems.BILLFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.BOXFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.BUTTERFLYFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.CLOWNFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.CRAB_SPAWN_EGG.get());
+                        output.accept(ReefItems.DAMSELFISH_SPAWN_EGG.get());
+                        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+                            output.accept(Items.DOLPHIN_SPAWN_EGG);
+                        }
+                        output.accept(ReefItems.DWARF_ANGELFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.FROGFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.FUSILIER_SPAWN_EGG.get());
+                        output.accept(ReefItems.GOBY_SPAWN_EGG.get());
+                        output.accept(ReefItems.HOGFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.JELLYFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.LARGE_SHARK_SPAWN_EGG.get());
+                        output.accept(ReefItems.LIONFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.MAORI_WRASSE_SPAWN_EGG.get());
+                        output.accept(ReefItems.MOORISH_IDOL_SPAWN_EGG.get());
+                        output.accept(ReefItems.PARROTFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.PIPEFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.RABBITFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.RAY_SPAWN_EGG.get());
+                        output.accept(ReefItems.SEAHORSE_SPAWN_EGG.get());
+                        output.accept(ReefItems.SHARK_SPAWN_EGG.get());
+                        output.accept(ReefItems.SMALL_SHARK_SPAWN_EGG.get());
+                        output.accept(ReefItems.TANG_SPAWN_EGG.get());
+                        output.accept(ReefItems.TRIGGERFISH_SPAWN_EGG.get());
+                        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+                            output.accept(Items.TURTLE_SPAWN_EGG);
+                        }
+                        output.accept(ReefItems.WRASSE_SPAWN_EGG.get());
+                        // endregion
 
+                        // region buckets
                         output.accept(ReefItems.ANGELFISH_BUCKET.get());
                         output.accept(ReefItems.ARROW_CRAB_BUCKET.get());
                         output.accept(ReefItems.BASSLET_BUCKET.get());
@@ -70,7 +102,9 @@ public class RainbowReefTab {
                         output.accept(ReefItems.TANG_BUCKET.get());
                         output.accept(ReefItems.TRIGGERFISH_BUCKET.get());
                         output.accept(ReefItems.WRASSE_BUCKET.get());
+                        // endregion
 
+                        // region food drops
                         output.accept(ReefItems.RAW_ANGELFISH.get());
                         output.accept(ReefItems.RAW_ARROW_CRAB.get());
                         output.accept(ReefItems.RAW_BASSLET.get());
@@ -97,7 +131,9 @@ public class RainbowReefTab {
                         output.accept(ReefItems.RAW_TANG.get());
                         output.accept(ReefItems.RAW_TRIGGERFISH.get());
                         output.accept(ReefItems.RAW_WRASSE.get());
+                        // endregion
 
+                        // region mob meals
                         output.accept(ReefBlocks.ANGELFISH_CAKE.get());
                         output.accept(ReefItems.BASSLET_COOKIE.get());
                         output.accept(ReefItems.BOXFISH_BREAD.get());
@@ -120,7 +156,9 @@ public class RainbowReefTab {
                         output.accept(ReefItems.DRIED_SEAHORSE.get());
                         output.accept(ReefItems.SHARKBITE_SALAD.get());
                         output.accept(ReefItems.TANGY_SOUP.get());
+                        // endregion
 
+                        // region combo meals
                         output.accept(ReefItems.SEASUGAR_SORBET.get());
                         output.accept(ReefItems.ROCKFISH_CANDY.get());
                         output.accept(ReefItems.FORBIDDEN_SOUP.get());
@@ -128,9 +166,9 @@ public class RainbowReefTab {
                         output.accept(ReefItems.HAWAIIAN_BARBEQUE.get());
                         output.accept(ReefItems.TROPICAL_FISHSTICKS.get());
                         output.accept(ReefItems.SURF_N_TURF.get());
+                        // endregion
 
                         output.accept(ReefItems.CLAW_DISC.get());
-
 
                         output.accept(ReefBlocks.BROWN_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.RED_SEA_ANEMONE.get());

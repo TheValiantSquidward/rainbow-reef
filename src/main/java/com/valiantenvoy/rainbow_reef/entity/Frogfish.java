@@ -48,10 +48,10 @@ public class Frogfish extends ReefMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.3D));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
     }
 
     @Override

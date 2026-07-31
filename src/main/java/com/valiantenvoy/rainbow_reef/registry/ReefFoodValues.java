@@ -25,4 +25,9 @@ public class ReefFoodValues {
             .effect(() -> new MobEffectInstance(MobEffects.CONFUSION, 300, 0), 1F)
             .build();
 
+    public static final FoodProperties PIPEFISH_SUSHI = (new FoodProperties.Builder())
+            .nutrition(4).saturationModifier(0.5F)
+            .effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 1), 1.0F)
+            .build();
+
 }

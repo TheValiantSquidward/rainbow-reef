@@ -58,7 +58,7 @@ public class Jellyfish extends ReefMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new SwimWanderGoal(this, 1.0D, 120));
+        this.goalSelector.addGoal(0, new SwimWanderGoal(this, 1.0D, 120, 150));
     }
 
     @SuppressWarnings("deprecation")

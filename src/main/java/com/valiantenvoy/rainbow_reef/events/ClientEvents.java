@@ -43,7 +43,6 @@ public class ClientEvents {
     public static void registerParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ReefParticleTypes.BURROW_BUBBLE.get(), BurrowBubbleParticle.Provider::new);
         event.registerSpriteSet(ReefParticleTypes.EEPY.get(), EepyParticle.Provider::new);
-
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)

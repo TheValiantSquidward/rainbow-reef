@@ -1,9 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishNibbleBlockGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.*;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.registry.ReefParticleTypes;
@@ -12,16 +10,13 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -63,11 +58,11 @@ public class Parrotfish extends VariantSchoolingFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(1, new ParrotfishSleepGoal(this));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 10, BlockTags.CORAL_BLOCKS));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1.0D, 50) {
+        this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new ParrotfishSleepGoal(this));
+        this.goalSelector.addGoal(3, new FishAvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D));
+        this.goalSelector.addGoal(4, new FishNibbleBlockGoal(this, 10, BlockTags.CORAL_BLOCKS));
+        this.goalSelector.addGoal(5, new SwimWanderGoal(this, 1.0D, 50, 80) {
             @Override
             public boolean canUse() {
                 return !Parrotfish.this.isEepy() && super.canUse();
@@ -78,7 +73,7 @@ public class Parrotfish extends VariantSchoolingFish {
                 return !Parrotfish.this.isEepy() && super.canContinueToUse();
             }
         });
-        this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this) {
+        this.goalSelector.addGoal(6, new FollowVariantLeaderGoal(this) {
             @Override
             public boolean canUse() {
                 return !Parrotfish.this.isEepy() && super.canUse();

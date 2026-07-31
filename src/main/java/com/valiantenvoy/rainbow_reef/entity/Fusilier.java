@@ -1,20 +1,19 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishAvoidEntityGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishPanicGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.JoinShoalGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.ShoalSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantShoalingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -36,8 +35,8 @@ public class Fusilier extends VariantShoalingFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new FishAvoidEntityGoal<>(this, Player.class, 8.0F, 1.5D));
         this.goalSelector.addGoal(3, new ShoalSwimGoal(this));
         this.goalSelector.addGoal(4, new JoinShoalGoal(this));
     }

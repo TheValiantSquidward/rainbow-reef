@@ -12,55 +12,45 @@ public class SwimWanderGoal extends RandomStrollGoal {
     private final int radius;
     private final int height;
     private final int proximity;
-    protected int recalculateTime;
+    private final int timeoutThreshold;
+    protected int timeout;
     protected Vec3 wantedPos;
 
-    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height) {
-        this(entity, speedMultiplier, interval, radius, height, 3);
+    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int timeoutThreshold) {
+        this(entity, speedMultiplier, interval, radius, height, 3, timeoutThreshold);
     }
 
-    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval) {
-        this(entity, speedMultiplier, interval, 10, 7, 3);
+    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int timeoutThreshold) {
+        this(entity, speedMultiplier, interval, 10, 7, 3, timeoutThreshold);
     }
 
-    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int proximity) {
-        this(entity, speedMultiplier, interval, 10, 7, proximity);
+    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int proximity, int timeoutThreshold) {
+        this(entity, speedMultiplier, interval, 10, 7, proximity, timeoutThreshold);
     }
 
-    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity) {
+    public SwimWanderGoal(PathfinderMob entity, double speedMultiplier, int interval, int radius, int height, int proximity, int timeoutThreshold) {
         super(entity, speedMultiplier, interval);
         this.radius = radius;
         this.height = height;
         this.proximity = proximity;
+        this.timeoutThreshold = timeoutThreshold;
     }
 
     @Override
     public void start() {
         super.start();
-        this.recalculateTime = 0;
+        this.timeout = 0;
     }
 
-    // should fix mobs circling forever
     @Override
     public void tick() {
-        this.recalculateTime++;
-        final int recalculateThreshold = this.interval * 3;
-        if (this.recalculateTime > recalculateThreshold) {
-            this.recalculateTime = 0;
-            Vec3 vec3 = this.getPosition();
-            if (vec3 != null) {
-                this.wantedX = vec3.x;
-                this.wantedY = vec3.y;
-                this.wantedZ = vec3.z;
-                this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
-            }
-        }
+        this.timeout++;
     }
 
     @Override
     public boolean canContinueToUse() {
         this.wantedPos = new Vec3(this.wantedX, this.wantedY, this.wantedZ);
-        return super.canContinueToUse() && !(this.wantedPos.distanceTo(this.mob.position()) <= this.mob.getBbWidth() * this.proximity);
+        return super.canContinueToUse() && this.timeout < this.timeoutThreshold && !(this.wantedPos.distanceTo(this.mob.position()) <= this.mob.getBbWidth() * this.proximity);
     }
 
     @Nullable

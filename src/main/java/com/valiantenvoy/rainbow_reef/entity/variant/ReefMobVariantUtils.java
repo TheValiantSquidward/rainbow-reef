@@ -16,10 +16,16 @@ import java.util.Optional;
 public class ReefMobVariantUtils {
 
     public static Optional<Holder.Reference<ReefMobVariant>> byId(HolderLookup.Provider provider, ResourceKey<Registry<ReefMobVariant>> registryKey, ResourceLocation id) {
+        if (provider == null) {
+            return Optional.empty();
+        }
         return provider.lookup(registryKey).flatMap(lookup -> lookup.get(ResourceKey.create(registryKey, id)));
     }
 
     public static Optional<Holder.Reference<ReefMobVariant>> byKey(HolderLookup.Provider provider, ResourceKey<Registry<ReefMobVariant>> registryKey, ResourceKey<ReefMobVariant> key) {
+        if (provider == null) {
+            return Optional.empty();
+        }
         return provider.lookup(registryKey).flatMap(lookup -> lookup.get(key));
     }
 

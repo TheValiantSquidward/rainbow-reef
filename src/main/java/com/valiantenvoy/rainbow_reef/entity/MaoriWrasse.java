@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishPanicGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -11,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -34,8 +34,8 @@ public class MaoriWrasse extends ReefMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1, 100));
+        this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.4D));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1, 100, 120));
     }
 
     @Override

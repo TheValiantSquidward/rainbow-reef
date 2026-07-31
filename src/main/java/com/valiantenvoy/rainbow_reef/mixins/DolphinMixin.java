@@ -146,7 +146,7 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
             Dolphin dolphin = (Dolphin) (Object) this;
             List<Goal> goalOverrides = dolphin.goalSelector.getAvailableGoals().stream().map(WrappedGoal::getGoal).filter(goal -> goal instanceof RandomSwimmingGoal || goal instanceof DolphinJumpGoal).toList();
             goalOverrides.forEach(dolphin.goalSelector::removeGoal);
-            dolphin.goalSelector.addGoal(4, new SwimWanderGoal(dolphin, 1.0D, 10, 20, 7, 3));
+            dolphin.goalSelector.addGoal(4, new SwimWanderGoal(dolphin, 1.0D, 10, 20, 7, 3, 50));
             dolphin.goalSelector.addGoal(5, new DolphinLeapGoal(dolphin, 10));
             dolphin.goalSelector.addGoal(5, new DolphinFollowVariantLeaderGoal(dolphin));
         }

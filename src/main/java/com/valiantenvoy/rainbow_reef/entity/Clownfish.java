@@ -14,15 +14,12 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.player.Player;
@@ -78,13 +75,13 @@ public class Clownfish extends VariantSchoolingFish {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.5D));
+        this.goalSelector.addGoal(2, new FishAvoidEntityGoal<>(this, Player.class, 8.0F, 1.5D));
         this.goalSelector.addGoal(3, new RestInAnemoneGoal(this, 1.1D, 300, 200));
         this.goalSelector.addGoal(4, new MoveToAnemoneGoal(this, 1.2D, 16.0D));
         this.goalSelector.addGoal(5, new LocateAnemoneGoal(this, 200));
         this.goalSelector.addGoal(6, new FishNibbleBlockGoal(this, 10, ReefTags.CLOWNFISH_DIET));
-        this.goalSelector.addGoal(6, new SwimWanderGoal(this, 1.0D, 60));
+        this.goalSelector.addGoal(6, new SwimWanderGoal(this, 1.0D, 60, 80));
         this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
     }
 

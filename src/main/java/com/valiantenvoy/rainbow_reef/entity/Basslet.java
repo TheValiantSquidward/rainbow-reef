@@ -2,20 +2,19 @@ package com.valiantenvoy.rainbow_reef.entity;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.EnterBurrowGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishAvoidEntityGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -39,10 +38,10 @@ public class Basslet extends ReefMob {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.25D));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
+        this.goalSelector.addGoal(2, new FishAvoidEntityGoal<>(this, Player.class, 8.0F, 1.4D));
         this.goalSelector.addGoal(3, new EnterBurrowGoal(this, 1.2D, ReefBlockTags.WALL_BURROWS));
-        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 10));
+        this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1, 20, 40));
     }
 
     @Override

@@ -41,7 +41,7 @@ public class LargeShark extends Shark {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new SharkRotateGoal(this));
         this.goalSelector.addGoal(1, new SharkAttackGoal(this, 0.75F));
-        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 10, 20, 7, 4));
+        this.goalSelector.addGoal(2, new SwimWanderGoal(this, 1.0D, 10, 20, 7, 4, 30));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this) {
             @Override
             public boolean canUse() {
