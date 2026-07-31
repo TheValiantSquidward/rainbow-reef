@@ -1,0 +1,5 @@
+{
+  "texture": "rainbow_reef:entity/crab/crab_sally_lightfoot",
+  "biomes": "minecraft:beach",
+  "priority": 100
+}

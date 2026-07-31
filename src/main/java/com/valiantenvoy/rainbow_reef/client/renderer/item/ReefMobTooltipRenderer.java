@@ -17,7 +17,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.item.component.CustomData;
 
-// Copied from Teal Lib https://github.com/N1nn1/TealLib/blob/main/src/main/java/com/ninni/teallib/api/client/renderer/item/CapturedMobsTooltipRenderer.java
+// Based on Teal Lib's captured tooltip renderer https://github.com/N1nn1/TealLib/blob/main/src/main/java/com/ninni/teallib/api/client/renderer/item/CapturedMobsTooltipRenderer.java
 public class ReefMobTooltipRenderer implements ClientTooltipComponent {
 
     private static final int CELL_SIZE = 16;

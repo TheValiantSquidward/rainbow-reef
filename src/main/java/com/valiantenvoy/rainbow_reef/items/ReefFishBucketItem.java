@@ -53,7 +53,7 @@ public class ReefFishBucketItem extends MobBucketItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         EntityType<?> fishType = this.getFishType();
         ResourceLocation fishId = EntityType.getKey(fishType);
         CompoundTag compoundTag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
