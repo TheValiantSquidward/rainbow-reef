@@ -179,17 +179,8 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         return SoundEvents.BUCKET_FILL_FISH;
     }
 
-    private boolean renderedInTooltip;
-
     public void setTooltipWaterState() {
         this.wasTouchingWater = true;
-    }
-    public void setRenderedInTooltip(boolean renderedInTooltip) {
-        this.renderedInTooltip = renderedInTooltip;
-    }
-
-    public boolean isRenderedInTooltip() {
-        return this.renderedInTooltip;
     }
 
     @Override

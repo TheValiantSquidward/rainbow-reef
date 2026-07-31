@@ -65,7 +65,6 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         }
         if (entity instanceof ReefMob reefMob) {
             reefMob.setTooltipWaterState();
-            reefMob.setRenderedInTooltip(true);
         }
         entity.setYHeadRot(0);
 
@@ -197,7 +196,7 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         stack.mulPose(Axis.XP.rotationDegrees(-7.5F));
 
         instance.getEntityRenderDispatcher().setRenderShadow(false);
-        instance.getEntityRenderDispatcher().render(living, 0.0, 0.0, 0.0, 0.0F, 1.0F, stack, graphics.bufferSource(), LightTexture.pack(15, 15));
+        instance.getEntityRenderDispatcher().render(living, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, stack, graphics.bufferSource(), LightTexture.pack(15, 15));
         instance.getEntityRenderDispatcher().setRenderShadow(true);
 
         stack.popPose();

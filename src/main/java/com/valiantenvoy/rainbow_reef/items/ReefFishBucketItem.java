@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.items;
 
+import com.ninni.teallib.core.TealLib;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefMobVariant;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefMobVariantUtils;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
@@ -44,7 +45,7 @@ public class ReefFishBucketItem extends MobBucketItem {
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack stack) {
-        if (ModList.get().isLoaded("teallib")) {
+        if (ModList.get().isLoaded("teallib") && TealLib.CLIENT_CONFIG.bucketTooltip.get()) {
             CompoundTag compoundTag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
             compoundTag.putString("id", EntityType.getKey(this.getFishType()).toString());
             return Optional.of(new ReefMobTooltipData(compoundTag));
@@ -54,15 +55,14 @@ public class ReefFishBucketItem extends MobBucketItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        EntityType<?> fishType = this.getFishType();
-        ResourceLocation fishId = EntityType.getKey(fishType);
+        ResourceLocation fishId = EntityType.getKey(this.getFishType());
         CompoundTag compoundTag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
         if (!compoundTag.contains(ReefVariantMob.VARIANT_TAG, 8)) {
             return;
         }
         ResourceLocation variantId = ResourceLocation.parse(compoundTag.getString(ReefVariantMob.VARIANT_TAG));
 
-        Optional<Holder.Reference<ReefMobVariant>> variant = ReefMobVariantUtils.byId(context.registries(), ReefMobVariants.registryFor(fishType), variantId);
+        Optional<Holder.Reference<ReefMobVariant>> variant = ReefMobVariantUtils.byId(context.registries(), ReefMobVariants.registryFor(this.getFishType()), variantId);
         UnaryOperator<Style> style = variant.map(holder -> holder.value().rarity().getStyle()).orElse(style1 -> style1.withColor(ChatFormatting.GRAY));
 
         String name = "entity." + fishId.getNamespace() + "." + fishId.getPath() + ".variant_" + variantId.getPath().toLowerCase(Locale.ROOT);
