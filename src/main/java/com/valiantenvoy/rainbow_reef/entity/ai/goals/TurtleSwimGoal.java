@@ -23,7 +23,7 @@ public class TurtleSwimGoal extends Goal {
         if (this.turtle.isGoingHome() || this.turtle.hasEgg() || !this.turtle.isInWater()) {
             return false;
         }
-        if (this.turtle.getRandom().nextInt(reducedTickDelay(100)) != 0) {
+        if (this.turtle.getRandom().nextInt(reducedTickDelay(70)) != 0) {
             return false;
         }
         return !this.turtle.isGoingHome() && !this.turtle.hasEgg() && this.turtle.isInWater();

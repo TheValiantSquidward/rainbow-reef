@@ -2,9 +2,6 @@ package com.valiantenvoy.rainbow_reef.mixins;
 
 import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefTurtleMoveControl;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinFollowVariantLeaderGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinLeapGoal;
-import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.TurtleSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.utils.TurtleAccess;
@@ -12,11 +9,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
-import net.minecraft.world.entity.ai.goal.DolphinJumpGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
-import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,7 +32,7 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
     private static final @Unique float PITCH_LERP = 0.2F;
     private static final @Unique float PITCH_CLAMP = 60.0F;
 
-    private static final @Unique float ROLL_DECAY = 0.85F;
+    private static final @Unique float ROLL_DECAY = 0.9F;
     private static final @Unique float ROLL_CLAMP = 30.0F;
 
     private @Unique float prevSwimRoll;
