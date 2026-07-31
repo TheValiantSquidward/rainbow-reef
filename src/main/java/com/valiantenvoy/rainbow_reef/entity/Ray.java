@@ -3,7 +3,9 @@ package com.valiantenvoy.rainbow_reef.entity;
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
+import com.valiantenvoy.rainbow_reef.entity.animation.BodyChain;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
+import com.valiantenvoy.rainbow_reef.entity.utils.BodyChainMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -16,10 +18,12 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class Ray extends VariantSchoolingFish {
+public class Ray extends VariantSchoolingFish implements BodyChainMob {
 
     private static final float PITCH_CLAMP = 45.0F;
     private static final float ROLL_CLAMP = 30.0F;
+
+    private final BodyChain chain = new BodyChain(new float[]{0.22F, 0.2F, 0.18F, 0.17F, 0.16F}, new float[]{0.22F, 0.2F, 0.18F, 0.17F, 0.16F});
 
     public Ray(EntityType<? extends VariantSchoolingFish> entityType, Level level) {
         super(entityType, level);
@@ -57,11 +61,23 @@ public class Ray extends VariantSchoolingFish {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.level().isClientSide) {
-            this.updateTailYawAndPitch();
-        }
+    public BodyChain getBodyChain() {
+        return this.chain;
+    }
+
+    @Override
+    public float getRenderYaw(float partialTicks) {
+        return this.chain.getRenderYaw(partialTicks);
+    }
+
+    @Override
+    public float getSegmentYawOffset(int index, float partialTicks) {
+        return this.chain.getSegmentYawOffset(index, partialTicks);
+    }
+
+    @Override
+    public float getSegmentPitchOffset(int index, float partialTicks) {
+        return this.chain.getSegmentPitchOffset(index, partialTicks, this.getSwimPitch(partialTicks));
     }
 
     @Override

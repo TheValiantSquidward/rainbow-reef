@@ -2,6 +2,7 @@ package com.valiantenvoy.rainbow_reef.client.models.entity.base;
 
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.entity.utils.BodyChainMob;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.KeyframeAnimations;
 import net.minecraft.client.model.HierarchicalModel;
@@ -76,5 +77,15 @@ public abstract class ReefModel<E extends Entity> extends HierarchicalModel<E> {
     protected void applyPitchAndRoll(ReefMob entity, ModelPart modelPart, float partialTicks) {
         modelPart.xRot += entity.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD;
         modelPart.zRot += -entity.getSwimRoll(partialTicks) * Mth.DEG_TO_RAD;
+    }
+
+    protected void rotatePart(ModelPart part, float xRot, float yRot, float zRot) {
+        part.xRot += xRot;
+        part.yRot += yRot;
+        part.zRot += zRot;
+    }
+
+    protected void bendPart(ModelPart part, BodyChainMob entity, int segment, float partialTicks) {
+        this.rotatePart(part, entity.getSegmentPitchOffset(segment, partialTicks) * Mth.DEG_TO_RAD, entity.getSegmentYawOffset(segment, partialTicks) * Mth.DEG_TO_RAD, 0.0F);
     }
 }

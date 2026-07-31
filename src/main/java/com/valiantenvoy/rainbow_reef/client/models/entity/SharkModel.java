@@ -6,19 +6,22 @@ import com.valiantenvoy.rainbow_reef.entity.Shark;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 
 public class SharkModel extends ReefModel<Shark> {
 
 	private final ModelPart root;
 	private final ModelPart swim_control;
-    private final ModelPart tail1;
+	private final ModelPart head;
+	private final ModelPart tail1;
+	private final ModelPart tail2;
 
 	public SharkModel(ModelPart root) {
 		this.root = root.getChild("root");
 		this.swim_control = this.root.getChild("swim_control");
-        ModelPart body_main = this.swim_control.getChild("body_main");
+		ModelPart body_main = this.swim_control.getChild("body_main");
+		this.head = body_main.getChild("head");
 		this.tail1 = body_main.getChild("tail1");
+		this.tail2 = this.tail1.getChild("tail2");
 	}
 
 	@Override
@@ -39,15 +42,9 @@ public class SharkModel extends ReefModel<Shark> {
 		this.animateSmooth(entity.attackAnimationState, SharkAnimations.BITE_BLEND, ageInTicks, partialTicks);
 		this.animateSmooth(entity.rotatedAnimationState, SharkAnimations.FLIPPED_OVERLAY, ageInTicks, partialTicks);
 		this.applyPitchAndRoll(entity, this.swim_control, partialTicks);
-
-		float swimPitch = entity.getSwimPitch(partialTicks);
-		float tailPitch = (swimPitch - entity.getTailPitch(partialTicks)) * Mth.DEG_TO_RAD * 1.5F;
-
-		float bodyYaw = entity.getBodyYaw(partialTicks);
-		float yawLag = (bodyYaw - entity.getTailYaw(partialTicks)) * Mth.DEG_TO_RAD * 1.5F;
-
-		this.tail1.xRot -= tailPitch * 0.2F;
-		this.tail1.yRot -= yawLag * 0.2F;
+		this.bendPart(this.head, entity, 0, partialTicks);
+		this.bendPart(this.tail1, entity, 1, partialTicks);
+		this.bendPart(this.tail2, entity, 2, partialTicks);
 	}
 
 	public static LayerDefinition createBodyLayer() {

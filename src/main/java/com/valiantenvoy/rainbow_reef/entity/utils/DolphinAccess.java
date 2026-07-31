@@ -11,6 +11,12 @@ public interface DolphinAccess {
 
     float getSwimPitch(float partialTicks);
 
+    float getRenderYaw(float partialTicks);
+
+    float getSegmentYawOffset(int index, float partialTicks);
+
+    float getSegmentPitchOffset(int index, float partialTicks);
+
     void setLeaping(boolean leaping);
 
     boolean isLeaping();

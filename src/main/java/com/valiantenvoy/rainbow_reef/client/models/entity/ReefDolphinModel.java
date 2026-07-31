@@ -13,10 +13,15 @@ public class ReefDolphinModel extends ReefModel<Dolphin> {
 
     private final ModelPart root;
     private final ModelPart swim_control;
+    private final ModelPart tail1;
+    private final ModelPart tail2;
 
     public ReefDolphinModel(ModelPart root) {
         this.root = root.getChild("root");
         this.swim_control = this.root.getChild("swim_control");
+        ModelPart body = this.swim_control.getChild("body");
+        this.tail1 = body.getChild("tail1");
+        this.tail2 = this.tail1.getChild("tail2");
     }
 
     @Override
@@ -33,7 +38,13 @@ public class ReefDolphinModel extends ReefModel<Dolphin> {
             this.animateSmooth(dolphinAccess.getJumpAnimationState(), DolphinAnimations.AIRBORNE, ageInTicks, partialTicks);
             this.swim_control.xRot += dolphinAccess.getSwimPitch(partialTicks) * Mth.DEG_TO_RAD;
             this.swim_control.zRot += -dolphinAccess.getSwimRoll(partialTicks) * Mth.DEG_TO_RAD;
+            this.bend(this.tail1, dolphinAccess, 0, partialTicks);
+            this.bend(this.tail2, dolphinAccess, 1, partialTicks);
         }
+    }
+
+    private void bend(ModelPart part, DolphinAccess entity, int segment, float partialTicks) {
+        this.rotatePart(part, entity.getSegmentPitchOffset(segment, partialTicks) * Mth.DEG_TO_RAD, entity.getSegmentYawOffset(segment, partialTicks) * Mth.DEG_TO_RAD, 0.0F);
     }
 
     public static LayerDefinition createBodyLayer() {

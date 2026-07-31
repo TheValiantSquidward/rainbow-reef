@@ -54,14 +54,6 @@ public class SmallShark extends ReefMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.level().isClientSide) {
-            this.updateTailYawAndPitch();
-        }
-    }
-
-    @Override
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.SMALL_SHARK_BUCKET.get());
     }

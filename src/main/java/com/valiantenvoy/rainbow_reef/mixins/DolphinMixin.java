@@ -5,6 +5,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinFollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinLeapGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
+import com.valiantenvoy.rainbow_reef.entity.animation.BodyChain;
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.utils.DolphinAccess;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
@@ -77,6 +78,8 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     private @Unique float prevSwimPitch;
     private @Unique float swimPitch;
+
+    private final @Unique BodyChain chain = new BodyChain(new float[]{0.16F, 0.35F}, new float[]{0.12F, 0.25F});
 
     public final @Unique SmoothAnimationState swimAnimationState = new SmoothAnimationState();
     public final @Unique SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
@@ -269,6 +272,7 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
             }
         }
         this.swimPitch += (target - this.swimPitch) * PITCH_LERP;
+        this.chain.tick(this.yBodyRot, this.swimPitch, target);
     }
 
     @Override
@@ -279,6 +283,21 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
     @Override
     public float getSwimPitch(float partialTicks) {
         return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
+    }
+
+    @Override
+    public float getRenderYaw(float partialTicks) {
+        return this.chain.getRenderYaw(partialTicks);
+    }
+
+    @Override
+    public float getSegmentYawOffset(int index, float partialTicks) {
+        return this.chain.getSegmentYawOffset(index, partialTicks);
+    }
+
+    @Override
+    public float getSegmentPitchOffset(int index, float partialTicks) {
+        return this.chain.getSegmentPitchOffset(index, partialTicks, this.getSwimPitch(partialTicks));
     }
 
     @Override

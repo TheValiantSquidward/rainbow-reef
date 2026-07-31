@@ -1,6 +1,8 @@
 package com.valiantenvoy.rainbow_reef.client.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
+import com.valiantenvoy.rainbow_reef.entity.utils.BodyChainMob;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -39,6 +41,16 @@ public class ReefMobRenderer<T extends ReefMob, M extends EntityModel<T>> extend
         }
         else {
             return super.getRenderType(entity, false, false, glowing);
+        }
+    }
+
+    @Override
+    protected void setupRotations(T entity, PoseStack poseStack, float bob, float yBodyRot, float partialTicks, float scale) {
+        if (entity instanceof BodyChainMob bodyChainMob) {
+            super.setupRotations(entity, poseStack, bob, bodyChainMob.getRenderYaw(partialTicks), partialTicks, scale);
+        }
+        else {
+            super.setupRotations(entity, poseStack, bob, yBodyRot, partialTicks, scale);
         }
     }
 }

@@ -6,7 +6,6 @@ import com.valiantenvoy.rainbow_reef.entity.Ray;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
 
 public class RayModel extends ReefModel<Ray> {
 
@@ -40,24 +39,11 @@ public class RayModel extends ReefModel<Ray> {
 		this.animateIdleSmooth(entity.swimIdleAnimationState, RayAnimations.IDLE, ageInTicks, partialTicks, limbSwingAmount);
 		this.animateSmooth(entity.flopAnimationState, RayAnimations.FLOP, ageInTicks, partialTicks);
 		this.applyPitchAndRoll(entity, this.swim_control, partialTicks);
-
-		float swimPitch = entity.getSwimPitch(partialTicks);
-		float tailPitch = (swimPitch - entity.getTailPitch(partialTicks)) * Mth.DEG_TO_RAD;
-
-		float bodyYaw = entity.getBodyYaw(partialTicks);
-		float yawLag = (bodyYaw - entity.getTailYaw(partialTicks)) * Mth.DEG_TO_RAD;
-
-		this.tail1.xRot -= tailPitch * 0.2F;
-		this.tail2.xRot -= tailPitch * 0.75F;
-		this.tail3.xRot -= tailPitch * 0.8F;
-		this.tail4.xRot -= tailPitch * 0.85F;
-		this.tail5.xRot -= tailPitch * 0.9F;
-
-		this.tail1.yRot -= yawLag * 0.2F;
-		this.tail2.yRot -= yawLag * 0.3F;
-		this.tail3.yRot -= yawLag * 0.4F;
-		this.tail4.yRot -= yawLag * 0.5F;
-		this.tail5.yRot -= yawLag * 0.6F;
+		this.bendPart(this.tail1, entity, 0, partialTicks);
+		this.bendPart(this.tail2, entity, 1, partialTicks);
+		this.bendPart(this.tail3, entity, 2, partialTicks);
+		this.bendPart(this.tail4, entity, 3, partialTicks);
+		this.bendPart(this.tail5, entity, 4, partialTicks);
 	}
 
 	public static LayerDefinition createBodyLayer() {

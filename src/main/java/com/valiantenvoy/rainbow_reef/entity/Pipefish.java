@@ -51,14 +51,6 @@ public class Pipefish extends ReefMob {
     }
 
     @Override
-    public void tick() {
-        super.tick();
-        if (this.level().isClientSide) {
-            this.updateTailYawAndPitch();
-        }
-    }
-
-    @Override
     public ItemStack getBucketItemStack() {
         return new ItemStack(ReefItems.PIPEFISH_BUCKET.get());
     }
