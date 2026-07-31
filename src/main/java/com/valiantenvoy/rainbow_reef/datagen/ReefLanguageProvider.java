@@ -219,6 +219,194 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.entityVariant(() -> EntityType.DOLPHIN, "hourglass");
         this.entityVariant(() -> EntityType.DOLPHIN, "spinner");
         this.entityVariant(() -> EntityType.DOLPHIN, "spotted");
+
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "bicolor");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "black_nox");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "cherub");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "coral_beauty");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "flame");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "keyhole");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "lamarck");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "lemonpeel");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "masked");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "pearlscale");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "resplendent");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "yellow");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "japanese");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "multibar");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "yellowtail");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "blackspot");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "joculator");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "peppermint");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "orangepeel");
+        this.entityVariant(ReefEntities.DWARF_ANGELFISH, "white_bicolor");
+
+        this.entityVariant(ReefEntities.FROGFISH, "clown");
+        this.entityVariant(ReefEntities.FROGFISH, "orange_ocellated");
+        this.entityVariant(ReefEntities.FROGFISH, "pink_ocellated");
+        this.entityVariant(ReefEntities.FROGFISH, "psychedelic");
+        this.entityVariant(ReefEntities.FROGFISH, "red_longlure");
+        this.entityVariant(ReefEntities.FROGFISH, "sargassum");
+        this.entityVariant(ReefEntities.FROGFISH, "warty");
+        this.entityVariant(ReefEntities.FROGFISH, "yellow_longlure");
+
+        this.entityVariant(ReefEntities.FUSILIER, "dark_banded");
+        this.entityVariant(ReefEntities.FUSILIER, "lunar");
+        this.entityVariant(ReefEntities.FUSILIER, "redbelly_yellowtail");
+        this.entityVariant(ReefEntities.FUSILIER, "striped");
+        this.entityVariant(ReefEntities.FUSILIER, "yellow_and_blue_back", "Yellow and Blue Back");
+        this.entityVariant(ReefEntities.FUSILIER, "yellowback");
+
+        this.entityVariant(ReefEntities.GOBY, "black_ray");
+        this.entityVariant(ReefEntities.GOBY, "blackfin");
+        this.entityVariant(ReefEntities.GOBY, "bluestreak");
+        this.entityVariant(ReefEntities.GOBY, "catalina");
+        this.entityVariant(ReefEntities.GOBY, "fire");
+        this.entityVariant(ReefEntities.GOBY, "helfrichi");
+        this.entityVariant(ReefEntities.GOBY, "leopard_spotted");
+        this.entityVariant(ReefEntities.GOBY, "mandarin");
+        this.entityVariant(ReefEntities.GOBY, "yellow_clown");
+        this.entityVariant(ReefEntities.GOBY, "yellow_watchman");
+        this.entityVariant(ReefEntities.GOBY, "candycane");
+        this.entityVariant(ReefEntities.GOBY, "neon_blue");
+        this.entityVariant(ReefEntities.GOBY, "neon_yellow");
+        this.entityVariant(ReefEntities.GOBY, "purple_fire");
+        this.entityVariant(ReefEntities.GOBY, "dracula");
+        this.entityVariant(ReefEntities.GOBY, "neon_hybrid");
+
+        this.entityVariant(ReefEntities.HOGFISH, "cuban");
+        this.entityVariant(ReefEntities.HOGFISH, "spanish");
+        this.entityVariant(ReefEntities.HOGFISH, "coral");
+        this.entityVariant(ReefEntities.HOGFISH, "lyretail");
+        this.entityVariant(ReefEntities.HOGFISH, "peppermint");
+        this.entityVariant(ReefEntities.HOGFISH, "blue_spanish");
+
+        this.entityVariant(ReefEntities.JELLYFISH, "orange");
+        this.entityVariant(ReefEntities.JELLYFISH, "pink");
+        this.entityVariant(ReefEntities.JELLYFISH, "white");
+        this.entityVariant(ReefEntities.JELLYFISH, "yellow");
+        this.entityVariant(ReefEntities.JELLYFISH, "minty");
+        this.entityVariant(ReefEntities.JELLYFISH, "muddy");
+        this.entityVariant(ReefEntities.JELLYFISH, "azure");
+        this.entityVariant(ReefEntities.JELLYFISH, "red");
+        this.entityVariant(ReefEntities.JELLYFISH, "abyssal");
+
+        this.entityVariant(ReefEntities.LARGE_SHARK, "bull");
+        this.entityVariant(ReefEntities.LARGE_SHARK, "tiger");
+
+        this.entityVariant(ReefEntities.LIONFISH, "red");
+        this.entityVariant(ReefEntities.LIONFISH, "clearfin");
+
+        this.entityVariant(ReefEntities.MAHI_MAHI, "mahi_mahi", "Mahi-mahi");
+
+        this.entityVariant(ReefEntities.MAORI_WRASSE, "maori_wrasse");
+
+        this.entityVariant(ReefEntities.MOORISH_IDOL, "zanclus");
+        this.entityVariant(ReefEntities.MOORISH_IDOL, "silver");
+
+        this.entityVariant(ReefEntities.PARROTFISH, "blue");
+        this.entityVariant(ReefEntities.PARROTFISH, "humphead");
+        this.entityVariant(ReefEntities.PARROTFISH, "midnight");
+        this.entityVariant(ReefEntities.PARROTFISH, "rainbow");
+        this.entityVariant(ReefEntities.PARROTFISH, "stoplight");
+        this.entityVariant(ReefEntities.PARROTFISH, "yellowtail");
+        this.entityVariant(ReefEntities.PARROTFISH, "mediterranean");
+        this.entityVariant(ReefEntities.PARROTFISH, "princess");
+        this.entityVariant(ReefEntities.PARROTFISH, "red");
+        this.entityVariant(ReefEntities.PARROTFISH, "yellowband");
+        this.entityVariant(ReefEntities.PARROTFISH, "blue_bumphead");
+        this.entityVariant(ReefEntities.PARROTFISH, "obishime");
+
+        this.entityVariant(ReefEntities.PIPEFISH, "blue_striped");
+        this.entityVariant(ReefEntities.PIPEFISH, "green");
+        this.entityVariant(ReefEntities.PIPEFISH, "orange_striped");
+        this.entityVariant(ReefEntities.PIPEFISH, "multibanded");
+        this.entityVariant(ReefEntities.PIPEFISH, "pink");
+        this.entityVariant(ReefEntities.PIPEFISH, "janss", "Janss'");
+
+        this.entityVariant(ReefEntities.RABBITFISH, "bicolor_foxface");
+        this.entityVariant(ReefEntities.RABBITFISH, "black_foxface");
+        this.entityVariant(ReefEntities.RABBITFISH, "foxface");
+        this.entityVariant(ReefEntities.RABBITFISH, "magnificent_foxface");
+
+        this.entityVariant(ReefEntities.RAY, "cownose");
+        this.entityVariant(ReefEntities.RAY, "spotted");
+        this.entityVariant(ReefEntities.RAY, "ornate");
+
+        this.entityVariant(ReefEntities.SEAHORSE, "barbours", "Barbour's");
+        this.entityVariant(ReefEntities.SEAHORSE, "common");
+        this.entityVariant(ReefEntities.SEAHORSE, "west_african");
+        this.entityVariant(ReefEntities.SEAHORSE, "big_belly", "Big-belly");
+        this.entityVariant(ReefEntities.SEAHORSE, "tiger_tail");
+        this.entityVariant(ReefEntities.SEAHORSE, "western_spiny");
+
+        this.entityVariant(ReefEntities.SHARK, "blacktip_reef");
+        this.entityVariant(ReefEntities.SHARK, "whitetip_reef");
+        this.entityVariant(ReefEntities.SHARK, "lemon");
+
+        this.entityVariant(ReefEntities.SMALL_SHARK, "epaulette");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "horned");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "nurse");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "zebra");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "pajama");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "port_jackson");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "albino");
+        this.entityVariant(ReefEntities.SMALL_SHARK, "piebald_horned");
+
+        this.entityVariant(ReefEntities.TANG, "achilles");
+        this.entityVariant(ReefEntities.TANG, "atlantic_blue");
+        this.entityVariant(ReefEntities.TANG, "blue");
+        this.entityVariant(ReefEntities.TANG, "clown");
+        this.entityVariant(ReefEntities.TANG, "convict");
+        this.entityVariant(ReefEntities.TANG, "eyestripe");
+        this.entityVariant(ReefEntities.TANG, "powder_blue");
+        this.entityVariant(ReefEntities.TANG, "sailfin");
+        this.entityVariant(ReefEntities.TANG, "scopas");
+        this.entityVariant(ReefEntities.TANG, "yellow");
+        this.entityVariant(ReefEntities.TANG, "chocolate");
+        this.entityVariant(ReefEntities.TANG, "orangeband");
+        this.entityVariant(ReefEntities.TANG, "purple");
+        this.entityVariant(ReefEntities.TANG, "unicorn");
+        this.entityVariant(ReefEntities.TANG, "white_cheek");
+        this.entityVariant(ReefEntities.TANG, "bristletooth");
+        this.entityVariant(ReefEntities.TANG, "black");
+        this.entityVariant(ReefEntities.TANG, "black_surgeon");
+        this.entityVariant(ReefEntities.TANG, "blonde_lipstick");
+        this.entityVariant(ReefEntities.TANG, "zebra");
+        this.entityVariant(ReefEntities.TANG, "gem");
+        this.entityVariant(ReefEntities.TANG, "regal_blue");
+        this.entityVariant(ReefEntities.TANG, "goth");
+        this.entityVariant(ReefEntities.TANG, "green_spot");
+        this.entityVariant(ReefEntities.TANG, "muddy");
+        this.entityVariant(ReefEntities.TANG, "pastel_blue");
+        this.entityVariant(ReefEntities.TANG, "pearly");
+        this.entityVariant(ReefEntities.TANG, "penguin");
+        this.entityVariant(ReefEntities.TANG, "powder_blue_hybrid");
+        this.entityVariant(ReefEntities.TANG, "rusty");
+        this.entityVariant(ReefEntities.TANG, "yellowbelly_blue");
+        this.entityVariant(ReefEntities.TANG, "yellowstrike");
+
+        this.entityVariant(ReefEntities.TRIGGERFISH, "black");
+        this.entityVariant(ReefEntities.TRIGGERFISH, "blue");
+        this.entityVariant(ReefEntities.TRIGGERFISH, "clown");
+        this.entityVariant(ReefEntities.TRIGGERFISH, "picasso");
+        this.entityVariant(ReefEntities.TRIGGERFISH, "queen");
+        this.entityVariant(ReefEntities.TRIGGERFISH, "rough");
+
+        this.entityVariant(ReefEntities.WRASSE, "blackear");
+        this.entityVariant(ReefEntities.WRASSE, "bluehead");
+        this.entityVariant(ReefEntities.WRASSE, "bluestreak_cleaner");
+        this.entityVariant(ReefEntities.WRASSE, "cortez_rainbow");
+        this.entityVariant(ReefEntities.WRASSE, "creole");
+        this.entityVariant(ReefEntities.WRASSE, "greenbird");
+        this.entityVariant(ReefEntities.WRASSE, "jansens", "Jansen's");
+        this.entityVariant(ReefEntities.WRASSE, "orange_dotted");
+        this.entityVariant(ReefEntities.WRASSE, "peacock");
+        this.entityVariant(ReefEntities.WRASSE, "rainbow_mediterranean");
+        this.entityVariant(ReefEntities.WRASSE, "sixbar");
+        this.entityVariant(ReefEntities.WRASSE, "surge");
+        this.entityVariant(ReefEntities.WRASSE, "yellowhead");
+        this.entityVariant(ReefEntities.WRASSE, "yellowtail");
     }
 
     @Override
