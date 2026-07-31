@@ -2,11 +2,21 @@ package com.valiantenvoy.rainbow_reef.mixins;
 
 import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefTurtleMoveControl;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinFollowVariantLeaderGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.DolphinLeapGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
+import com.valiantenvoy.rainbow_reef.entity.ai.goals.TurtleSwimGoal;
+import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.utils.TurtleAccess;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.goal.DolphinJumpGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.animal.Dolphin;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +26,8 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
 
 @SuppressWarnings({"AddedMixinMembersNamePattern"})
 @Mixin(Turtle.class)
@@ -35,6 +47,11 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
     private @Unique float prevSwimPitch;
     private @Unique float swimPitch;
 
+    public final @Unique SmoothAnimationState swimAnimationState = new SmoothAnimationState();
+    public final @Unique SmoothAnimationState swimIdleAnimationState = new SmoothAnimationState();
+    public final @Unique SmoothAnimationState idleAnimationState = new SmoothAnimationState();
+    public final @Unique SmoothAnimationState walkAnimationState = new SmoothAnimationState();
+
     protected TurtleMixin(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -45,6 +62,17 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
             Turtle turtle = (Turtle) (Object) this;
             this.moveControl = new ReefTurtleMoveControl(turtle);
             this.lookControl = new SmoothSwimmingLookControl(this, 7);
+        }
+    }
+
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    protected void registerGoals(CallbackInfo ci) {
+        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+            Turtle turtle = (Turtle) (Object) this;
+            List<Goal> goalOverrides = turtle.goalSelector.getAvailableGoals().stream().map(WrappedGoal::getGoal).filter(goal -> goal instanceof Turtle.TurtleTravelGoal).toList();
+            goalOverrides.forEach(turtle.goalSelector::removeGoal);
+            turtle.goalSelector.addGoal(7, new TurtleSwimGoal(turtle, 1.0D));
         }
     }
 
@@ -60,9 +88,50 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
     public void tick() {
         super.tick();
         if (this.level().isClientSide) {
+            this.setupAnimationStates();
             this.updateSwimRoll();
             this.updateSwimPitch();
         }
+    }
+
+    @Unique
+    private void setupAnimationStates() {
+        boolean inWater = this.isInWaterOrBubble();
+        this.swimAnimationState.animateWhen(inWater, this.tickCount);
+        this.swimIdleAnimationState.animateWhen(inWater, this.tickCount);
+        this.idleAnimationState.animateWhen(!inWater, this.tickCount);
+        this.walkAnimationState.animateWhen(!inWater, this.tickCount);
+    }
+
+    @Override
+    public void calculateEntityAnimation(boolean flying) {
+        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+            float f1 = (float) Mth.length(this.getX() - this.xo, this.isInWater() ? this.getY() - this.yo : 0.0D, this.getZ() - this.zo);
+            float f2 = Math.min(f1 * (this.isInWater() ? 10.0F : 50.0F), 1.0F);
+            this.walkAnimation.update(f2, 0.4F);
+        } else {
+            super.calculateEntityAnimation(flying);
+        }
+    }
+
+    @Override
+    public SmoothAnimationState getSwimAnimationState() {
+        return this.swimAnimationState;
+    }
+
+    @Override
+    public SmoothAnimationState getSwimIdleAnimationState() {
+        return this.swimIdleAnimationState;
+    }
+
+    @Override
+    public SmoothAnimationState getIdleAnimationState() {
+        return this.idleAnimationState;
+    }
+
+    @Override
+    public SmoothAnimationState getWalkAnimationState() {
+        return this.walkAnimationState;
     }
 
     @Unique

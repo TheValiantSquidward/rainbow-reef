@@ -23,8 +23,8 @@ public class SquidMixin extends WaterAnimal {
     @Inject(method = "registerGoals", at = @At("HEAD"), cancellable = true)
     protected void registerGoals(CallbackInfo ci) {
         Squid squid = (Squid) (Object) this;
-        this.goalSelector.addGoal(0, new SquidPanicGoal(squid));
-        this.goalSelector.addGoal(1, new SquidWanderGoal(squid));
+        this.goalSelector.addGoal(0, new SquidWanderGoal(squid));
+        this.goalSelector.addGoal(1, new SquidPanicGoal(squid));
         ci.cancel();
     }
 
