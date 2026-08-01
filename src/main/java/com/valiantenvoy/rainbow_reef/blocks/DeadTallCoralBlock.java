@@ -3,7 +3,6 @@ package com.valiantenvoy.rainbow_reef.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DeadTallCoralBlock extends BaseCoralPlantBlock {
@@ -34,9 +32,8 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
-    @NotNull
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, @NotNull BlockState blockState, @NotNull LevelAccessor level, @NotNull BlockPos pos, @NotNull BlockPos blockPos) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState blockState, LevelAccessor level, BlockPos pos, BlockPos blockPos) {
         DoubleBlockHalf doubleblockhalf = state.getValue(HALF);
         if (direction.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (direction == Direction.UP) || blockState.is(this) && blockState.getValue(HALF) != doubleblockhalf) {
             return doubleblockhalf == DoubleBlockHalf.LOWER && direction == Direction.DOWN && !state.canSurvive(level, pos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, blockState, level, pos, blockPos);
@@ -52,17 +49,21 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8);
     }
 
-    public void setPlacedBy(Level level, BlockPos pos, @NotNull BlockState state, LivingEntity entity, @NotNull ItemStack stack) {
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
         BlockPos blockpos = pos.above();
         level.setBlock(blockpos, copyWaterloggedFrom(level, blockpos, this.defaultBlockState().setValue(HALF, DoubleBlockHalf.UPPER)), 3);
     }
 
-    public boolean canSurvive(BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+    @Override
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         if (state.getValue(HALF) != DoubleBlockHalf.UPPER) {
             return super.canSurvive(state, level, pos);
         } else {
             BlockState blockstate = level.getBlockState(pos.below());
-            if (state.getBlock() != this) return super.canSurvive(state, level, pos);
+            if (state.getBlock() != this) {
+                return super.canSurvive(state, level, pos);
+            }
             return blockstate.is(this) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER;
         }
     }
@@ -71,7 +72,8 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
         return state.hasProperty(BlockStateProperties.WATERLOGGED) ? state.setValue(BlockStateProperties.WATERLOGGED, level.isWaterAt(pos)) : state;
     }
 
-    public @NotNull BlockState playerWillDestroy(Level level, @NotNull BlockPos pos, @NotNull BlockState state, @NotNull Player player) {
+    @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide) {
             if (player.isCreative()) {
                 preventCreativeDropFromBottomPart(level, pos, state, player);
@@ -79,11 +81,11 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
                 dropResources(state, level, pos, null, player, player.getMainHandItem());
             }
         }
-
         return super.playerWillDestroy(level, pos, state, player);
     }
 
-    public void playerDestroy(@NotNull Level level, @NotNull Player player, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable BlockEntity blockEntity, @NotNull ItemStack stack) {
+    @Override
+    public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
         super.playerDestroy(level, player, pos, Blocks.AIR.defaultBlockState(), blockEntity, stack);
     }
 
@@ -93,22 +95,20 @@ public class DeadTallCoralBlock extends BaseCoralPlantBlock {
             BlockPos blockpos = pos.below();
             BlockState blockstate = level.getBlockState(blockpos);
             if (blockstate.is(state.getBlock()) && blockstate.getValue(HALF) == DoubleBlockHalf.LOWER) {
-                BlockState blockstate1 = blockstate.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
-                level.setBlock(blockpos, blockstate1, 35);
+                BlockState state1 = blockstate.getFluidState().is(Fluids.WATER) ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState();
+                level.setBlock(blockpos, state1, 35);
                 level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
             }
         }
     }
 
-    public @NotNull FluidState getFluidState(BlockState state) {
+    @Override
+    public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HALF).add(WATERLOGGED);
-    }
-
-    public long getSeed(BlockState state, BlockPos pos) {
-        return Mth.getSeed(pos.getX(), pos.below(state.getValue(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
     }
 }

@@ -2,6 +2,8 @@ package com.valiantenvoy.rainbow_reef.datagen;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.blocks.BurrowBlock;
+import com.valiantenvoy.rainbow_reef.blocks.StarfishBlock;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -171,6 +173,13 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.cubeAllBlock(PURPLE_STAINED_FINE_SAND);
         this.cubeAllBlock(MAGENTA_STAINED_FINE_SAND);
         this.cubeAllBlock(PINK_STAINED_FINE_SAND);
+
+        this.starfish(CORAL_STARFISH);
+        this.starfish(LAGOON_STARFISH);
+        this.starfish(PLUMERIA_STARFISH);
+        this.starfish(SKY_BLUE_STARFISH);
+        this.starfish(SUNNY_STARFISH);
+        this.starfish(SUNSET_STARFISH);
     }
 
     // item
@@ -181,6 +190,11 @@ public class ReefBlockstateProvider extends BlockStateProvider {
     private void generatedItem(ItemLike item) {
         String name = getItemName(item);
         this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc(TextureFolder.BLOCK.format(name)));
+    }
+
+    private void generatedItem(ItemLike item, TextureFolder folder) {
+        String name = getItemName(item);
+        this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc(folder.format(name)));
     }
 
     private void cubeAllBlock(DeferredHolder<Block, Block> block) {
@@ -258,6 +272,17 @@ public class ReefBlockstateProvider extends BlockStateProvider {
 
         this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc("block/" + name + "_top"));
         this.getVariantBuilder(flower.get()).partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER).addModels(new ConfiguredModel(model.apply("top"))).partialState().with(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER).addModels(new ConfiguredModel(model.apply("bottom")));
+    }
+
+    private void starfish(DeferredHolder<Block, Block> block) {
+        ResourceLocation texture = this.blockTexture(block.get());
+        String name = getItemName(block.get());
+        this.generatedItem(block.get(), TextureFolder.ITEM);
+        for (int starfishAmount = 1; starfishAmount < 4; starfishAmount++) {
+            ModelFile starfish = this.models().withExistingParent(name + "_" + (starfishAmount - 1), "rainbow_reef:block/template_starfish").texture("starfish", texture + "_" + (starfishAmount - 1));
+            ModelFile starfish_alt = this.models().withExistingParent(name + "_alt_" + (starfishAmount - 1), "rainbow_reef:block/template_starfish_alt").texture("starfish", texture + "_" + (starfishAmount - 1));
+            this.getVariantBuilder(block.get()).partialState().with(StarfishBlock.FACING, Direction.UP).with(StarfishBlock.STARFISH_AMOUNT, starfishAmount).addModels(new ConfiguredModel(starfish), new ConfiguredModel(starfish, 0, 90, false), new ConfiguredModel(starfish, 0, 180, false), new ConfiguredModel(starfish, 0, 270, false)).partialState().with(StarfishBlock.FACING, Direction.DOWN).with(StarfishBlock.STARFISH_AMOUNT, starfishAmount).addModels(new ConfiguredModel(starfish, 180, 0, false), new ConfiguredModel(starfish, 180, 90, false), new ConfiguredModel(starfish, 180, 180, false), new ConfiguredModel(starfish, 180, 270, false)).partialState().with(StarfishBlock.FACING, Direction.NORTH).with(StarfishBlock.STARFISH_AMOUNT, starfishAmount).addModels(new ConfiguredModel(starfish, 90, 0, false), new ConfiguredModel(starfish, 270, 180, false), new ConfiguredModel(starfish_alt, 90, 0, false), new ConfiguredModel(starfish_alt, 270, 180, false)).partialState().with(StarfishBlock.FACING, Direction.SOUTH).with(StarfishBlock.STARFISH_AMOUNT, starfishAmount).addModels(new ConfiguredModel(starfish, 90, 180, false), new ConfiguredModel(starfish, 270, 0, false), new ConfiguredModel(starfish_alt, 90, 180, false), new ConfiguredModel(starfish_alt, 270, 0, false)).partialState().with(StarfishBlock.FACING, Direction.EAST).with(StarfishBlock.STARFISH_AMOUNT, starfishAmount).addModels(new ConfiguredModel(starfish, 90, 90, false), new ConfiguredModel(starfish, 270, 270, false), new ConfiguredModel(starfish_alt, 90, 90, false), new ConfiguredModel(starfish_alt, 270, 270, false)).partialState().with(StarfishBlock.FACING, Direction.WEST).with(StarfishBlock.STARFISH_AMOUNT, starfishAmount).addModels(new ConfiguredModel(starfish, 90, 270, false), new ConfiguredModel(starfish, 270, 90, false), new ConfiguredModel(starfish_alt, 90, 270, false), new ConfiguredModel(starfish_alt, 270, 90, false));
+        }
     }
 
     // utils

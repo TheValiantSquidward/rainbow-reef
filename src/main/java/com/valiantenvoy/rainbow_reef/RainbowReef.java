@@ -84,9 +84,9 @@ public class RainbowReef {
         generator.addProvider(server, blockTags);
         generator.addProvider(server, new ReefItemTagProvider(output, provider, blockTags.contentsGetter(), helper));
         generator.addProvider(server, new ReefBiomeTagProvider(output, provider, helper));
+        generator.addProvider(server, new ReefDamageTypeTagProvider(output, provider, helper));
         generator.addProvider(server, new ReefRecipeProvider(output, provider));
-        generator.addProvider(server, new LootTableProvider(output, Set.of(),
-                List.of(new LootTableProvider.SubProviderEntry(ReefBlockLootProvider::new, LootContextParamSets.BLOCK)), provider));
+        generator.addProvider(server, new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(ReefBlockLootProvider::new, LootContextParamSets.BLOCK)), provider));
 
         boolean client = data.includeClient();
         generator.addProvider(client, new ReefBlockstateProvider(data));

@@ -53,6 +53,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.JELLYFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.LARGE_SHARK_SPAWN_EGG.get());
                         output.accept(ReefItems.LIONFISH_SPAWN_EGG.get());
+                        output.accept(ReefItems.MAHI_MAHI_SPAWN_EGG.get());
                         output.accept(ReefItems.MAORI_WRASSE_SPAWN_EGG.get());
                         output.accept(ReefItems.MOORISH_IDOL_SPAWN_EGG.get());
                         output.accept(ReefItems.PARROTFISH_SPAWN_EGG.get());
@@ -104,7 +105,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.WRASSE_BUCKET.get());
                         // endregion
 
-                        // region food drops
+                        // region drops
                         output.accept(ReefItems.RAW_ANGELFISH.get());
                         output.accept(ReefItems.RAW_ARROW_CRAB.get());
                         output.accept(ReefItems.RAW_BASSLET.get());
@@ -133,7 +134,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.RAW_WRASSE.get());
                         // endregion
 
-                        // region mob meals
+                        // region meals
                         output.accept(ReefBlocks.ANGELFISH_CAKE.get());
                         output.accept(ReefItems.BASSLET_COOKIE.get());
                         output.accept(ReefItems.BOXFISH_BREAD.get());
@@ -168,102 +169,19 @@ public class RainbowReefTab {
                         output.accept(ReefItems.SURF_N_TURF.get());
                         // endregion
 
-                        output.accept(ReefItems.CLAW_DISC.get());
-
+                        // region sea plants
                         output.accept(ReefBlocks.BROWN_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.RED_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.PURPLE_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.MAGENTA_SEA_ANEMONE.get());
                         output.accept(ReefBlocks.PINK_SEA_ANEMONE.get());
 
-                        output.accept(ReefBlocks.CARMINE_STARFISH.get());
-                        output.accept(ReefBlocks.CERULEAN_STARFISH.get());
-                        output.accept(ReefBlocks.CHARTREUSE_STARFISH.get());
-                        output.accept(ReefBlocks.FUCHSIA_STARFISH.get());
-                        output.accept(ReefBlocks.SAFFRON_STARFISH.get());
-                        output.accept(ReefBlocks.TANGERINE_STARFISH.get());
-                        output.accept(ReefBlocks.UMBER_STARFISH.get());
-                        output.accept(ReefBlocks.VIOLET_STARFISH.get());
-
-                        output.accept(ReefBlocks.JELLY_BLOCK.get());
-
-                        output.accept(ReefBlocks.BUBBLER.get());
-
-                        output.accept(ReefBlocks.PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.WHITE_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.LIGHT_GRAY_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.GRAY_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.BLACK_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.BROWN_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.RED_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.ORANGE_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.YELLOW_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.LIME_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.GREEN_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.CYAN_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.LIGHT_BLUE_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.BLUE_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.PURPLE_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.MAGENTA_PUFFER_LANTERN.get());
-                        output.accept(ReefBlocks.PINK_PUFFER_LANTERN.get());
-
-                        output.accept(ReefBlocks.WHITE_STAINED_SAND.get());
-                        output.accept(ReefBlocks.LIGHT_GRAY_STAINED_SAND.get());
-                        output.accept(ReefBlocks.GRAY_STAINED_SAND.get());
-                        output.accept(ReefBlocks.BLACK_STAINED_SAND.get());
-                        output.accept(ReefBlocks.BROWN_STAINED_SAND.get());
-                        output.accept(ReefBlocks.RED_STAINED_SAND.get());
-                        output.accept(ReefBlocks.ORANGE_STAINED_SAND.get());
-                        output.accept(ReefBlocks.YELLOW_STAINED_SAND.get());
-                        output.accept(ReefBlocks.LIME_STAINED_SAND.get());
-                        output.accept(ReefBlocks.GREEN_STAINED_SAND.get());
-                        output.accept(ReefBlocks.CYAN_STAINED_SAND.get());
-                        output.accept(ReefBlocks.LIGHT_BLUE_STAINED_SAND.get());
-                        output.accept(ReefBlocks.BLUE_STAINED_SAND.get());
-                        output.accept(ReefBlocks.PURPLE_STAINED_SAND.get());
-                        output.accept(ReefBlocks.MAGENTA_STAINED_SAND.get());
-                        output.accept(ReefBlocks.PINK_STAINED_SAND.get());
-
-                        output.accept(ReefBlocks.FINE_SAND.get());
-                        output.accept(ReefBlocks.WHITE_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.LIGHT_GRAY_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.GRAY_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.BLACK_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.BROWN_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.RED_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.ORANGE_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.YELLOW_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.LIME_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.GREEN_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.CYAN_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.LIGHT_BLUE_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.BLUE_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.PURPLE_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.MAGENTA_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.PINK_STAINED_FINE_SAND.get());
-                        output.accept(ReefBlocks.FINE_GLASS.get());
-
-                        output.accept(ReefBlocks.CORALSTONE.get());
-                        output.accept(ReefBlocks.CORALSTONE_BRICKS.get());
-                        output.accept(ReefBlocks.POLISHED_CORALSTONE.get());
-                        output.accept(ReefBlocks.CHISELED_CORALSTONE.get());
-
-                        output.accept(ReefBlocks.MUD_BURROW.get());
-                        output.accept(ReefBlocks.SAND_BURROW.get());
-                        output.accept(ReefBlocks.STONE_BURROW.get());
-                        output.accept(ReefBlocks.CORALSTONE_BURROW.get());
-
-                        output.accept(ReefBlocks.TALL_TUBE_CORAL.get());
-                        output.accept(ReefBlocks.TALL_BRAIN_CORAL.get());
-                        output.accept(ReefBlocks.TALL_BUBBLE_CORAL.get());
-                        output.accept(ReefBlocks.TALL_FIRE_CORAL.get());
-                        output.accept(ReefBlocks.TALL_HORN_CORAL.get());
-
-                        output.accept(ReefBlocks.DEAD_TALL_TUBE_CORAL.get());
-                        output.accept(ReefBlocks.DEAD_TALL_BRAIN_CORAL.get());
-                        output.accept(ReefBlocks.DEAD_TALL_BUBBLE_CORAL.get());
-                        output.accept(ReefBlocks.DEAD_TALL_FIRE_CORAL.get());
-                        output.accept(ReefBlocks.DEAD_TALL_HORN_CORAL.get());
+                        output.accept(ReefBlocks.CORAL_STARFISH.get());
+                        output.accept(ReefBlocks.LAGOON_STARFISH.get());
+                        output.accept(ReefBlocks.PLUMERIA_STARFISH.get());
+                        output.accept(ReefBlocks.SKY_BLUE_STARFISH.get());
+                        output.accept(ReefBlocks.SUNNY_STARFISH.get());
+                        output.accept(ReefBlocks.SUNSET_STARFISH.get());
 
                         output.accept(ReefBlocks.BARREL_CORAL_BLOCK.get());
                         output.accept(ReefBlocks.BUSH_CORAL_BLOCK.get());
@@ -315,6 +233,12 @@ public class RainbowReefTab {
                         output.accept(ReefBlocks.TALL_SHELF_CORAL.get());
                         output.accept(ReefBlocks.TALL_TOWER_CORAL.get());
 
+                        output.accept(ReefBlocks.TALL_TUBE_CORAL.get());
+                        output.accept(ReefBlocks.TALL_BRAIN_CORAL.get());
+                        output.accept(ReefBlocks.TALL_BUBBLE_CORAL.get());
+                        output.accept(ReefBlocks.TALL_FIRE_CORAL.get());
+                        output.accept(ReefBlocks.TALL_HORN_CORAL.get());
+
                         output.accept(ReefBlocks.DEAD_TALL_BARREL_CORAL.get());
                         output.accept(ReefBlocks.DEAD_TALL_BUSH_CORAL.get());
                         output.accept(ReefBlocks.DEAD_TALL_CHIMNEY_CORAL.get());
@@ -324,6 +248,12 @@ public class RainbowReefTab {
                         output.accept(ReefBlocks.DEAD_TALL_ROSE_CORAL.get());
                         output.accept(ReefBlocks.DEAD_TALL_SHELF_CORAL.get());
                         output.accept(ReefBlocks.DEAD_TALL_TOWER_CORAL.get());
+
+                        output.accept(ReefBlocks.DEAD_TALL_TUBE_CORAL.get());
+                        output.accept(ReefBlocks.DEAD_TALL_BRAIN_CORAL.get());
+                        output.accept(ReefBlocks.DEAD_TALL_BUBBLE_CORAL.get());
+                        output.accept(ReefBlocks.DEAD_TALL_FIRE_CORAL.get());
+                        output.accept(ReefBlocks.DEAD_TALL_HORN_CORAL.get());
 
                         output.accept(ReefBlocks.BARREL_CORAL_FAN.get());
                         output.accept(ReefBlocks.BUSH_CORAL_FAN.get());
@@ -344,6 +274,84 @@ public class RainbowReefTab {
                         output.accept(ReefBlocks.DEAD_ROSE_CORAL_FAN.get());
                         output.accept(ReefBlocks.DEAD_SHELF_CORAL_FAN.get());
                         output.accept(ReefBlocks.DEAD_TOWER_CORAL_FAN.get());
+                        // endregion
+
+                        // region natural blocks
+                        output.accept(ReefBlocks.MUD_BURROW.get());
+                        output.accept(ReefBlocks.SAND_BURROW.get());
+                        output.accept(ReefBlocks.STONE_BURROW.get());
+                        output.accept(ReefBlocks.CORALSTONE_BURROW.get());
+                        output.accept(ReefBlocks.BUBBLER.get());
+                        output.accept(ReefBlocks.FINE_SAND.get());
+                        // endregion
+
+                        // region building blocks
+                        output.accept(ReefBlocks.FINE_GLASS.get());
+
+                        output.accept(ReefBlocks.CORALSTONE.get());
+                        output.accept(ReefBlocks.CORALSTONE_BRICKS.get());
+                        output.accept(ReefBlocks.POLISHED_CORALSTONE.get());
+                        output.accept(ReefBlocks.CHISELED_CORALSTONE.get());
+
+
+                        output.accept(ReefBlocks.WHITE_STAINED_SAND.get());
+                        output.accept(ReefBlocks.LIGHT_GRAY_STAINED_SAND.get());
+                        output.accept(ReefBlocks.GRAY_STAINED_SAND.get());
+                        output.accept(ReefBlocks.BLACK_STAINED_SAND.get());
+                        output.accept(ReefBlocks.BROWN_STAINED_SAND.get());
+                        output.accept(ReefBlocks.RED_STAINED_SAND.get());
+                        output.accept(ReefBlocks.ORANGE_STAINED_SAND.get());
+                        output.accept(ReefBlocks.YELLOW_STAINED_SAND.get());
+                        output.accept(ReefBlocks.LIME_STAINED_SAND.get());
+                        output.accept(ReefBlocks.GREEN_STAINED_SAND.get());
+                        output.accept(ReefBlocks.CYAN_STAINED_SAND.get());
+                        output.accept(ReefBlocks.LIGHT_BLUE_STAINED_SAND.get());
+                        output.accept(ReefBlocks.BLUE_STAINED_SAND.get());
+                        output.accept(ReefBlocks.PURPLE_STAINED_SAND.get());
+                        output.accept(ReefBlocks.MAGENTA_STAINED_SAND.get());
+                        output.accept(ReefBlocks.PINK_STAINED_SAND.get());
+
+                        output.accept(ReefBlocks.WHITE_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.LIGHT_GRAY_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.GRAY_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.BLACK_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.BROWN_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.RED_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.ORANGE_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.YELLOW_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.LIME_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.GREEN_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.CYAN_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.LIGHT_BLUE_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.BLUE_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.PURPLE_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.MAGENTA_STAINED_FINE_SAND.get());
+                        output.accept(ReefBlocks.PINK_STAINED_FINE_SAND.get());
+
+                        output.accept(ReefBlocks.PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.WHITE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.LIGHT_GRAY_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.GRAY_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.BLACK_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.BROWN_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.RED_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.ORANGE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.YELLOW_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.LIME_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.GREEN_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.CYAN_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.LIGHT_BLUE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.BLUE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.PURPLE_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.MAGENTA_PUFFER_LANTERN.get());
+                        output.accept(ReefBlocks.PINK_PUFFER_LANTERN.get());
+
+                        output.accept(ReefBlocks.JELLY_BLOCK.get());
+                        // endregion
+
+                        // region misc items
+                        output.accept(ReefItems.CLAW_DISC.get());
+                        // endregion
                     })
                     .build());
 

@@ -18,4 +18,8 @@ public class ReefBlockProperties {
     public static BlockBehaviour.Properties coralBlock(MapColor color) {
         return BlockBehaviour.Properties.of().mapColor(color).requiresCorrectToolForDrops().strength(1.5F, 6.0F).sound(SoundType.CORAL_BLOCK);
     }
+
+    public static BlockBehaviour.Properties starfish(MapColor color) {
+        return BlockBehaviour.Properties.of().mapColor(color).strength(0.2F).sound(SoundType.CORAL_BLOCK).instabreak().noOcclusion().noCollission().pushReaction(PushReaction.DESTROY);
+    }
 }

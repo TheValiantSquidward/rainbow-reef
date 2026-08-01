@@ -60,7 +60,7 @@ public class BurrowBlockItem extends BlockItem {
         UnaryOperator<Style> style = variant.map(holder -> holder.value().rarity().getStyle()).orElse(style1 -> style1.withColor(ChatFormatting.GRAY));
 
         String name = "entity." + fishId.getNamespace() + "." + fishId.getPath() + ".variant_" + variantId.getPath().toLowerCase(Locale.ROOT);
-        MutableComponent line = Component.translatable("tooltip.rainbowreef.burrow_occupant", Component.translatable(name), fishType.getDescription());
+        MutableComponent line = Component.translatable("tooltip.rainbow_reef.burrow_occupant", Component.translatable(name), fishType.getDescription());
         return line.withStyle(style).withStyle(ChatFormatting.ITALIC);
     }
 }

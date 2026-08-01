@@ -55,6 +55,9 @@ public class ReefFishBucketItem extends MobBucketItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        if (ReefMobVariantUtils.variantCount(context.registries(), ReefMobVariants.registryFor(this.getFishType())) <= 1) {
+            return;
+        }
         ResourceLocation fishId = EntityType.getKey(this.getFishType());
         CompoundTag compoundTag = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY).copyTag();
         if (!compoundTag.contains(ReefVariantMob.VARIANT_TAG, 8)) {

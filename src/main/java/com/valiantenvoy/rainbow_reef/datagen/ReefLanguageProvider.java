@@ -31,9 +31,15 @@ public class ReefLanguageProvider extends LanguageProvider {
 
         ReefBlocks.BLOCK_TRANSLATIONS.forEach(this::forBlocks);
         ReefItems.ITEM_TRANSLATIONS.forEach(this::forItems);
-        ReefEntities.ENTITY_TYPE.getEntries().forEach(this::forEntity);
+        ReefEntities.ENTITY_TYPE.getEntries().stream().filter(
+                entityType -> entityType != ReefEntities.MAHI_MAHI
+        ).forEach(this::forEntity);
 
-        this.add("tooltip.rainbowreef.burrow_occupant", "%s %s");
+        this.addEntityType(ReefEntities.MAHI_MAHI, "Mahi-mahi");
+
+        this.add("tooltip.rainbow_reef.burrow_occupant", "%s %s");
+
+        this.add("death.attack.rainbow_reef.boxfish_bread", "%s digested a lethal dose of toxins");
 
         this.addItem(ReefItems.ANGELFISH_BUCKET, "Bucket of Angelfish");
         this.addItem(ReefItems.ARROW_CRAB_BUCKET, "Bucket of Arrow Crab");
@@ -435,7 +441,7 @@ public class ReefLanguageProvider extends LanguageProvider {
     }
 
     public void sound(Supplier<? extends SoundEvent> key, String subtitle){
-        this.add("subtitles.rainbowreef." + key.get().getLocation().getPath(), subtitle);
+        this.add("subtitles.rainbow_reef." + key.get().getLocation().getPath(), subtitle);
     }
 
     public void addTab(CreativeModeTab key, String name){
@@ -453,7 +459,7 @@ public class ReefLanguageProvider extends LanguageProvider {
     protected void musicDisc() {
         String disc = ((Supplier<? extends Item>) ReefItems.CLAW_DISC).get().getDescriptionId();
         this.add(disc, "Music Disc");
-        this.add("jukebox_song.rainbowreef." + BuiltInRegistries.ITEM.getKey(((Supplier<? extends Item>) ReefItems.CLAW_DISC).get()).getPath(), "ValiantEnvoy - Claw");
+        this.add("jukebox_song.rainbow_reef." + BuiltInRegistries.ITEM.getKey(((Supplier<? extends Item>) ReefItems.CLAW_DISC).get()).getPath(), "ValiantEnvoy - Claw");
     }
 
     public static String createTranslation(String path) {

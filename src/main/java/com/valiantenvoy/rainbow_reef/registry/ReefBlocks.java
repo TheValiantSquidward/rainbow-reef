@@ -25,33 +25,23 @@ public class ReefBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(RainbowReef.MOD_ID);
     public static final List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
-    public static final DeferredBlock<Block> CORALSTONE = registerBlock("coralstone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> CORALSTONE = registerBlock("coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredBlock<Block> JELLY_BLOCK = registerBlock("jelly_block",
-            () -> new JellyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK).friction(0.5F).noOcclusion()));
+    public static final DeferredBlock<Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredBlock<Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> POLISHED_CORALSTONE = registerBlock("polished_coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredBlock<Block> POLISHED_CORALSTONE = registerBlock("polished_coralstone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> CHISELED_CORALSTONE = registerBlock("chiseled_coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
-    public static final DeferredBlock<Block> CHISELED_CORALSTONE = registerBlock("chiseled_coralstone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> BUBBLER = registerBlock("bubbler", () -> new BubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
-    public static final DeferredBlock<Block> BUBBLER = registerBlock("bubbler",
-            () -> new BubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
+    public static final DeferredBlock<Block> JELLY_BLOCK = registerBlock("jelly_block", () -> new JellyBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SLIME_BLOCK).friction(0.5F).noOcclusion()));
 
     // burrows
-    public static final DeferredBlock<Block> MUD_BURROW = registerBurrow("mud_burrow",
-            () -> new BurrowBlock(true, ReefBlockTags.BURROWABLE_MUD, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
-    public static final DeferredBlock<Block> SAND_BURROW = registerBurrow("sand_burrow",
-            () -> new BurrowBlock(true, BlockTags.SAND, BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
-    public static final DeferredBlock<Block> STONE_BURROW = registerBurrow("stone_burrow",
-            () -> new BurrowBlock(false, BlockTags.BASE_STONE_OVERWORLD, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
-    public static final DeferredBlock<Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow",
-            () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> MUD_BURROW = registerBurrow("mud_burrow", () -> new BurrowBlock(true, ReefBlockTags.BURROWABLE_MUD, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
+    public static final DeferredBlock<Block> SAND_BURROW = registerBurrow("sand_burrow", () -> new BurrowBlock(true, BlockTags.SAND, BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+    public static final DeferredBlock<Block> STONE_BURROW = registerBurrow("stone_burrow", () -> new BurrowBlock(false, BlockTags.BASE_STONE_OVERWORLD, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredBlock<Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow", () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
 
     public static final DeferredBlock<Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
     public static final DeferredBlock<Block> DEAD_SHELF_CORAL = registerBlock("dead_shelf_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));
@@ -182,8 +172,7 @@ public class ReefBlocks {
     public static final DeferredBlock<Block> TALL_FIRE_CORAL = registerBlock("tall_fire_coral", () -> new TallCoralBlock(DEAD_TALL_FIRE_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.FIRE_CORAL)));
     public static final DeferredBlock<Block> TALL_BRAIN_CORAL = registerBlock("tall_brain_coral", () -> new TallCoralBlock(DEAD_TALL_BRAIN_CORAL.get(), BlockBehaviour.Properties.ofFullCopy(Blocks.BRAIN_CORAL)));
 
-    public static final DeferredBlock<Block> FAKE_BUBBLES = registerBlockWithoutItem("fake_bubbles",
-            () -> new FakeBubbleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
+    public static final DeferredBlock<Block> FAKE_BUBBLES = registerBlockWithoutItem("fake_bubbles", () -> new FakeBubbleBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BUBBLE_COLUMN).mapColor(MapColor.WATER).replaceable().noCollission().noLootTable().pushReaction(PushReaction.DESTROY).liquid().sound(SoundType.EMPTY)));
 
     public static final DeferredBlock<Block> ANGELFISH_CAKE = registerBlock("angelfish_cake", () -> new AngelfishCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE)));
 
@@ -193,36 +182,12 @@ public class ReefBlocks {
     public static final DeferredBlock<Block> MAGENTA_SEA_ANEMONE = registerBlock("magenta_sea_anemone", () -> new SeaAnemoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_MAGENTA).strength(0.5F).sound(SoundType.CORAL_BLOCK).noOcclusion()));
     public static final DeferredBlock<Block> RED_SEA_ANEMONE = registerBlock("red_sea_anemone", () -> new SeaAnemoneBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(0.5F).sound(SoundType.CORAL_BLOCK).noOcclusion()));
 
-    public static final DeferredBlock<Block> CERULEAN_STARFISH = registerBlock("cerulean_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-
-    public static final DeferredBlock<Block> UMBER_STARFISH = registerBlock("umber_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-
-    public static final DeferredBlock<Block> TANGERINE_STARFISH = registerBlock("tangerine_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-
-    public static final DeferredBlock<Block> CARMINE_STARFISH = registerBlock("carmine_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-
-    public static final DeferredBlock<Block> FUCHSIA_STARFISH = registerBlock("fuchsia_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-
-    public static final DeferredBlock<Block> SAFFRON_STARFISH = registerBlock("saffron_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-
-    public static final DeferredBlock<Block> CHARTREUSE_STARFISH = registerBlock("chartreuse_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
-    public static final DeferredBlock<Block> VIOLET_STARFISH = registerBlock("violet_starfish", () ->
-            new StarfishBlock(BlockBehaviour.Properties.of().instabreak().noCollission().sound(SoundType.CORAL_BLOCK)) {
-            });
+    public static final DeferredBlock<Block> CORAL_STARFISH = registerBlock("coral_starfish", () -> new StarfishBlock(ReefBlockProperties.starfish(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> LAGOON_STARFISH = registerBlock("lagoon_starfish", () -> new StarfishBlock(ReefBlockProperties.starfish(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> PLUMERIA_STARFISH = registerBlock("plumeria_starfish", () -> new StarfishBlock(ReefBlockProperties.starfish(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> SKY_BLUE_STARFISH = registerBlock("sky_blue_starfish", () -> new StarfishBlock(ReefBlockProperties.starfish(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> SUNNY_STARFISH = registerBlock("sunny_starfish", () -> new StarfishBlock(ReefBlockProperties.starfish(MapColor.COLOR_RED)));
+    public static final DeferredBlock<Block> SUNSET_STARFISH = registerBlock("sunset_starfish", () -> new StarfishBlock(ReefBlockProperties.starfish(MapColor.COLOR_RED)));
 
     public static final DeferredBlock<Block> FINE_GLASS = registerBlock("fine_glass", ()-> new ConnectedGlassBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)));
 

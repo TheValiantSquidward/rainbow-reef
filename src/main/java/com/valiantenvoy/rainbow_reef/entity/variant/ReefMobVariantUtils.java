@@ -29,6 +29,13 @@ public class ReefMobVariantUtils {
         return provider.lookup(registryKey).flatMap(lookup -> lookup.get(key));
     }
 
+    public static int variantCount(HolderLookup.Provider provider, ResourceKey<Registry<ReefMobVariant>> registryKey) {
+        if (provider == null) {
+            return 0;
+        }
+        return provider.lookup(registryKey).map(lookup -> (int) lookup.listElements().count()).orElse(0);
+    }
+
     public static Optional<Holder.Reference<ReefMobVariant>> selectVariantForSpawn(ServerLevelAccessor level, BlockPos pos, ResourceKey<Registry<ReefMobVariant>> registryKey) {
         Optional<Registry<ReefMobVariant>> maybeRegistry = level.registryAccess().registry(registryKey);
         if (maybeRegistry.isEmpty()) {

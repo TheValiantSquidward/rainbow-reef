@@ -1,0 +1,6 @@
+{
+  "parent": "rainbow_reef:block/template_starfish_alt",
+  "textures": {
+    "starfish": "rainbow_reef:block/sunset_starfish_1"
+  }
+}

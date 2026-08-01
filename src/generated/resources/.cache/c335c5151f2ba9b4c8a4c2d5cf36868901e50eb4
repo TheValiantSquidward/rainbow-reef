@@ -1,0 +1,8 @@
+// 1.21.1	2026-07-31T20:41:03.8279979	Tags for minecraft:damage_type mod id rainbow_reef
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/bypasses_armor.json
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/bypasses_cooldown.json
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/bypasses_effects.json
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/bypasses_enchantments.json
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/bypasses_resistance.json
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/bypasses_shield.json
+babfe8651a97e239ff887b6605832400410c1882 data/minecraft/tags/damage_type/no_knockback.json

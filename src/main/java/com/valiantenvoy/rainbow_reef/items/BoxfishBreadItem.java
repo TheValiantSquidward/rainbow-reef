@@ -9,14 +9,14 @@ import net.minecraft.world.level.Level;
 
 public class BoxfishBreadItem extends Item {
 
-    public BoxfishBreadItem(Item.Properties properties) {
+    public BoxfishBreadItem(Properties properties) {
         super(properties);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-        if (livingEntity instanceof Player player && level.getRandom().nextInt(100) == 0 && !level.isClientSide) {
-            player.hurt(ReefDamageTypes.getDamageSource(level, ReefDamageTypes.ATE_BOXFISH), 1000);
+        if (livingEntity instanceof Player player && !player.isCreative() && level.getRandom().nextInt(100) == 0 && !level.isClientSide) {
+            player.hurt(ReefDamageTypes.boxfishBread(level, player, null), 20);
         }
         return super.finishUsingItem(stack, level, livingEntity);
     }
