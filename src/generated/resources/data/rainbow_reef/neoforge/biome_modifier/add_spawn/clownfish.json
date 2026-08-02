@@ -1,10 +1,10 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/clownfish",
+  "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:clownfish",
-    "maxCount": 2,
-    "minCount": 2,
+    "maxCount": 4,
+    "minCount": 4,
     "weight": 20
   }
 }

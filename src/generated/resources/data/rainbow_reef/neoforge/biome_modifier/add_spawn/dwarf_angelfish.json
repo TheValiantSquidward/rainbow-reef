@@ -1,10 +1,10 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/dwarf_angelfish",
+  "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:dwarf_angelfish",
-    "maxCount": 4,
-    "minCount": 4,
+    "maxCount": 6,
+    "minCount": 6,
     "weight": 30
   }
 }

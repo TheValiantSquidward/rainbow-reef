@@ -1,10 +1,10 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/parrotfish",
+  "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:parrotfish",
-    "maxCount": 1,
-    "minCount": 1,
-    "weight": 12
+    "maxCount": 5,
+    "minCount": 5,
+    "weight": 15
   }
 }

@@ -2,9 +2,9 @@
   "type": "neoforge:add_spawns",
   "biomes": "#rainbow_reef:warm_and_lukewarm_oceans",
   "spawners": {
-    "type": "rainbow_reef:boxfish",
+    "type": "rainbow_reef:shark",
     "maxCount": 3,
     "minCount": 3,
-    "weight": 20
+    "weight": 5
   }
 }

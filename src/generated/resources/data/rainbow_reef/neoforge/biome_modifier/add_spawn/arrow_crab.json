@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/arrow_crab",
+  "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:arrow_crab",
     "maxCount": 2,

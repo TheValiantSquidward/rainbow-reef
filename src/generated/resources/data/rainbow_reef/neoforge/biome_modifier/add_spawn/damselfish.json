@@ -2,9 +2,9 @@
   "type": "neoforge:add_spawns",
   "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
-    "type": "rainbow_reef:small_shark",
-    "maxCount": 3,
-    "minCount": 3,
-    "weight": 10
+    "type": "rainbow_reef:damselfish",
+    "maxCount": 24,
+    "minCount": 24,
+    "weight": 30
   }
 }

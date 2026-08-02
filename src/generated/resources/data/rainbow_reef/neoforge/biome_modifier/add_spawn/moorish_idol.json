@@ -1,10 +1,10 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/moorish_idol",
+  "biomes": "#rainbow_reef:warm_and_lukewarm_oceans",
   "spawners": {
     "type": "rainbow_reef:moorish_idol",
-    "maxCount": 1,
-    "minCount": 1,
-    "weight": 8
+    "maxCount": 10,
+    "minCount": 10,
+    "weight": 10
   }
 }

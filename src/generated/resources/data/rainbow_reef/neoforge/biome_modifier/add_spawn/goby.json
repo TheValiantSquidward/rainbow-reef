@@ -1,10 +1,10 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/goby",
+  "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:goby",
     "maxCount": 5,
     "minCount": 5,
-    "weight": 35
+    "weight": 30
   }
 }
