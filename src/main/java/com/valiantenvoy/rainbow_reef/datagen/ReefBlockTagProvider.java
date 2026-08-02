@@ -3,14 +3,13 @@ package com.valiantenvoy.rainbow_reef.datagen;
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.blocks.BurrowBlock;
 import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -20,12 +19,13 @@ import static com.valiantenvoy.rainbow_reef.registry.ReefBlocks.*;
 
 public class ReefBlockTagProvider extends BlockTagsProvider {
 
-    public ReefBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+    public ReefBlockTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, RainbowReef.MOD_ID, existingFileHelper);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    protected void addTags(HolderLookup.@NotNull Provider provider) {
+    protected void addTags(Provider provider) {
 
         this.tag(BlockTags.CORAL_PLANTS).add(
                 SHELF_CORAL.get(),
@@ -95,6 +95,11 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 SUNSET_STARFISH.get()
         );
 
+        this.tag(ReefBlockTags.REEF_ROCK_CANNOT_REPLACE).addTags(
+                BlockTags.SAND,
+                BlockTags.STONE_ORE_REPLACEABLES
+        );
+
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(MUD_BURROW.get(), SAND_BURROW.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(STONE_BURROW.get(), CORALSTONE_BURROW.get());
 
@@ -117,7 +122,6 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
 
 
     @Override
-    @NotNull
     public String getName() {
         return RainbowReef.MOD_ID + " Block Tags";
     }

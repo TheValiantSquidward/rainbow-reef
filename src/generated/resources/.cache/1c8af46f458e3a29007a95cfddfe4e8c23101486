@@ -1,4 +1,6 @@
-// 1.21.1	2026-08-01T23:14:18.6602043	Tags for minecraft:worldgen/biome mod id rainbow_reef
+// 1.21.1	2026-08-02T10:49:38.7574906	Tags for minecraft:worldgen/biome mod id rainbow_reef
+73f5e897538b380822605ca137e9b71fe09e3aa0 data/rainbow_reef/tags/worldgen/biome/cold_oceans.json
+7ab168754d6e78ecef39a6d1baa046622304b683 data/rainbow_reef/tags/worldgen/biome/frozen_oceans.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbow_reef/tags/worldgen/biome/has_spawn/butterflyfish_mangrove.json
 5e403f8774006aed8a66a6bd4bd1acee352bec7d data/rainbow_reef/tags/worldgen/biome/has_spawn/crab.json
 a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbow_reef/tags/worldgen/biome/has_spawn/goby_mangrove.json
@@ -6,6 +8,7 @@ a8da2438bebdb3e6080fe1d0eccb1c3de5e5a129 data/rainbow_reef/tags/worldgen/biome/h
 f22c409c9cdb332e39b816db265935dd66b022a2 data/rainbow_reef/tags/worldgen/biome/has_spawn/seahorse.json
 c376d00ed2d3c2adffa401f3774a9288d5bb708e data/rainbow_reef/tags/worldgen/biome/lukewarm_and_temperate_oceans.json
 e2e1677b4fcae4afcf03328c1a9c235328d0c516 data/rainbow_reef/tags/worldgen/biome/lukewarm_oceans.json
+f8877cef2ad44145023847b0944f482827b01c8c data/rainbow_reef/tags/worldgen/biome/temperate_and_cold_oceans.json
 6cdfdcfccfb03c1d2ba445ef9f1b72f874237f6c data/rainbow_reef/tags/worldgen/biome/temperate_oceans.json
 6f3c1edd860680e38f83dd9ddb277e5a4615414d data/rainbow_reef/tags/worldgen/biome/warm_and_lukewarm_oceans.json
 6410267e4c6c6e433ffa5df5cb5f1fefed919409 data/rainbow_reef/tags/worldgen/biome/warm_oceans.json

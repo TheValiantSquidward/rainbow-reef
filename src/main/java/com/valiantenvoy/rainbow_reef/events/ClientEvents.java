@@ -47,13 +47,13 @@ public class ClientEvents {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void registerVanillaEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        if (RainbowReefConfig.DYEABLE_FISHING_RODS.getAsBoolean()) {
+        if (RainbowReefConfig.DYEABLE_FISHING_RODS.get()) {
             event.registerEntityRenderer(EntityType.FISHING_BOBBER, ReefFishingHookRenderer::new);
         }
-        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
             event.registerEntityRenderer(EntityType.DOLPHIN, ReefDolphinRenderer::new);
         }
-        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.TURTLE_OVERHAUL.get()) {
             event.registerEntityRenderer(EntityType.TURTLE, ReefTurtleRenderer::new);
         }
     }

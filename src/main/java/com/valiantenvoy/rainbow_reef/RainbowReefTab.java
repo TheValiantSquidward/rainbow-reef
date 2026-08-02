@@ -42,7 +42,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.CLOWNFISH_SPAWN_EGG.get());
                         output.accept(ReefItems.CRAB_SPAWN_EGG.get());
                         output.accept(ReefItems.DAMSELFISH_SPAWN_EGG.get());
-                        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+                        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
                             output.accept(Items.DOLPHIN_SPAWN_EGG);
                         }
                         output.accept(ReefItems.DWARF_ANGELFISH_SPAWN_EGG.get());
@@ -65,7 +65,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.SMALL_SHARK_SPAWN_EGG.get());
                         output.accept(ReefItems.TANG_SPAWN_EGG.get());
                         output.accept(ReefItems.TRIGGERFISH_SPAWN_EGG.get());
-                        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+                        if (RainbowReefConfig.TURTLE_OVERHAUL.get()) {
                             output.accept(Items.TURTLE_SPAWN_EGG);
                         }
                         output.accept(ReefItems.WRASSE_SPAWN_EGG.get());
@@ -81,7 +81,9 @@ public class RainbowReefTab {
                         output.accept(ReefItems.CLOWNFISH_BUCKET.get());
                         output.accept(ReefItems.CRAB_BUCKET.get());
                         output.accept(ReefItems.DAMSELFISH_BUCKET.get());
-                        output.accept(ReefItems.DOLPHIN_BUCKET.get());
+                        if (RainbowReefConfig.BUCKETABLE_DOLPHINS.get()) {
+                            output.accept(ReefItems.DOLPHIN_BUCKET.get());
+                        }
                         output.accept(ReefItems.DWARF_ANGELFISH_BUCKET.get());
                         output.accept(ReefItems.FROGFISH_BUCKET.get());
                         output.accept(ReefItems.FUSILIER_BUCKET.get());
@@ -102,7 +104,9 @@ public class RainbowReefTab {
                         output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
                         output.accept(ReefItems.TANG_BUCKET.get());
                         output.accept(ReefItems.TRIGGERFISH_BUCKET.get());
-                        output.accept(ReefItems.TURTLE_BUCKET.get());
+                        if (RainbowReefConfig.BUCKETABLE_TURTLES.get()) {
+                            output.accept(ReefItems.TURTLE_BUCKET.get());
+                        }
                         output.accept(ReefItems.WRASSE_BUCKET.get());
                         // endregion
 
@@ -370,7 +374,9 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.CLOWNFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.CLOWNFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.CRAB_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.CRAB.get()));
                         variantsByRarity(parameters, output, ReefItems.DAMSELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DAMSELFISH.get()));
-                        variantsByRarity(parameters, output, ReefItems.DOLPHIN_BUCKET.get(), ReefMobVariants.registryFor(EntityType.DOLPHIN));
+                        if (RainbowReefConfig.BUCKETABLE_DOLPHINS.get()) {
+                            variantsByRarity(parameters, output, ReefItems.DOLPHIN_BUCKET.get(), ReefMobVariants.registryFor(EntityType.DOLPHIN));
+                        }
                         variantsByRarity(parameters, output, ReefItems.DWARF_ANGELFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.DWARF_ANGELFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.FROGFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FROGFISH.get()));
                         variantsByRarity(parameters, output, ReefItems.FUSILIER_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.FUSILIER.get()));
@@ -391,7 +397,9 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.SMALL_SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SMALL_SHARK.get()));
                         variantsByRarity(parameters, output, ReefItems.TANG_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TANG.get()));
                         variantsByRarity(parameters, output, ReefItems.TRIGGERFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TRIGGERFISH.get()));
-                        variantsByRarity(parameters, output, ReefItems.TURTLE_BUCKET.get(), ReefMobVariants.registryFor(EntityType.TURTLE));
+                        if (RainbowReefConfig.BUCKETABLE_TURTLES.get()) {
+                            variantsByRarity(parameters, output, ReefItems.TURTLE_BUCKET.get(), ReefMobVariants.registryFor(EntityType.TURTLE));
+                        }
                         variantsByRarity(parameters, output, ReefItems.WRASSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.WRASSE.get()));
                     })
                     .build());

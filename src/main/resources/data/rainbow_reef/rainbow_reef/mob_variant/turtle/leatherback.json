@@ -1,8 +1,4 @@
 {
   "texture": "rainbow_reef:entity/turtle/turtle_leatherback",
-  "biomes": [
-    "minecraft:cold_ocean",
-    "minecraft:deep_cold_ocean"
-  ],
-  "priority": 100
+  "rarity": "uncommon"
 }

@@ -15,14 +15,14 @@ public class BiomeColorsMixin {
 
     @Inject(method = "getAverageWaterColor", at=@At("RETURN"), cancellable = true)
     private static void rainbowReef$addWaterColorNoise(BlockAndTintGetter world, BlockPos pos, CallbackInfoReturnable<Integer> info) {
-        if (RainbowReefConfig.WATER_COLOR_NOISE.getAsBoolean()) {
+        if (RainbowReefConfig.WATER_COLOR_NOISE.get()) {
             info.setReturnValue(ColorNoise.INSTANCE.applyNoise(pos, info.getReturnValue(), (float) RainbowReefConfig.BIOME_COLOR_NOISE_SCALE.getAsDouble(), (float) RainbowReefConfig.BIOME_COLOR_NOISE_INTENSITY.getAsDouble()));
         }
     }
 
     @Inject(method = "getAverageGrassColor", at=@At("RETURN"), cancellable = true)
     private static void rainbowReef$addGrassColorNoise(BlockAndTintGetter world, BlockPos pos, CallbackInfoReturnable<Integer> info) {
-        if (RainbowReefConfig.GRASS_COLOR_NOISE.getAsBoolean()) {
+        if (RainbowReefConfig.GRASS_COLOR_NOISE.get()) {
             info.setReturnValue(ColorNoise.INSTANCE.applyNoise(pos, info.getReturnValue(), (float) RainbowReefConfig.BIOME_COLOR_NOISE_SCALE.getAsDouble(), (float) RainbowReefConfig.BIOME_COLOR_NOISE_INTENSITY.getAsDouble()));
         }
     }

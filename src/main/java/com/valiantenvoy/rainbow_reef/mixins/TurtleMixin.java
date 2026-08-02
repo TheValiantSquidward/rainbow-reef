@@ -18,18 +18,15 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
@@ -47,7 +44,7 @@ import java.util.List;
 
 @SuppressWarnings({"AddedMixinMembersNamePattern", "WrongEntityDataParameterClass"})
 @Mixin(Turtle.class)
-public class TurtleMixin extends PathfinderMob implements TurtleAccess, ReefVariantMob, Bucketable {
+public abstract class TurtleMixin extends Animal implements TurtleAccess, ReefVariantMob, Bucketable {
 
     private static final @Unique EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Turtle.class, EntityDataSerializers.STRING);
     private static final @Unique EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Turtle.class, EntityDataSerializers.BOOLEAN);
@@ -71,16 +68,16 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess, ReefVari
     public final @Unique SmoothAnimationState idleAnimationState = new SmoothAnimationState();
     public final @Unique SmoothAnimationState walkAnimationState = new SmoothAnimationState();
 
-    protected TurtleMixin(EntityType<? extends PathfinderMob> entityType, Level level) {
+    protected TurtleMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(EntityType<? extends Turtle> entityType, Level level, CallbackInfo ci) {
-        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.TURTLE_OVERHAUL.get()) {
             Turtle turtle = (Turtle) (Object) this;
             this.moveControl = new ReefTurtleMoveControl(turtle);
-            this.lookControl = new SmoothSwimmingLookControl(this, 7);
+            this.lookControl = new SmoothSwimmingLookControl(turtle, 7);
         }
     }
 
@@ -119,7 +116,7 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess, ReefVari
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     protected void registerGoals(CallbackInfo ci) {
-        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.TURTLE_OVERHAUL.get()) {
             Turtle turtle = (Turtle) (Object) this;
             List<Goal> goalOverrides = turtle.goalSelector.getAvailableGoals().stream().map(WrappedGoal::getGoal).filter(goal -> goal instanceof Turtle.TurtleTravelGoal).toList();
             goalOverrides.forEach(turtle.goalSelector::removeGoal);
@@ -129,22 +126,17 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess, ReefVari
 
     @ModifyConstant(method = "travel", constant = @Constant(floatValue = 0.1F, ordinal = 0))
     private float travel(float oldSpeed) {
-        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.TURTLE_OVERHAUL.get()) {
             return this.getSpeed();
         }
         return oldSpeed;
     }
 
     @Inject(method = "finalizeSpawn", at = @At("HEAD"))
-    public void rainbowReef$finalizeSpawnDolphin(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
+    public void rainbowReef$finalizeSpawnTurtle(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
         if (!this.fromBucket()) {
             this.pickVariantForSpawn(level);
         }
-    }
-
-    @Override
-    public InteractionResult mobInteract(Player player, InteractionHand hand) {
-        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -168,7 +160,7 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess, ReefVari
 
     @Override
     public void calculateEntityAnimation(boolean flying) {
-        if (RainbowReefConfig.SEA_TURTLE_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.TURTLE_OVERHAUL.get()) {
             float f1 = (float) Mth.length(this.getX() - this.xo, this.isInWater() ? this.getY() - this.yo : 0.0D, this.getZ() - this.zo);
             float f2 = Math.min(f1 * (this.isInWater() ? 10.0F : 50.0F), 1.0F);
             this.walkAnimation.update(f2, 0.4F);

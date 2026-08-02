@@ -17,7 +17,9 @@ public class RainbowReefConfig {
 
     // common
     public static ModConfigSpec.BooleanValue DOLPHIN_OVERHAUL;
-    public static ModConfigSpec.BooleanValue SEA_TURTLE_OVERHAUL;
+    public static ModConfigSpec.BooleanValue TURTLE_OVERHAUL;
+    public static ModConfigSpec.BooleanValue BUCKETABLE_DOLPHINS;
+    public static ModConfigSpec.BooleanValue BUCKETABLE_TURTLES;
 
     static {
         ModConfigSpec.Builder CLIENT_BUILDER = new ModConfigSpec.Builder();
@@ -31,7 +33,9 @@ public class RainbowReefConfig {
 
         ModConfigSpec.Builder COMMON_BUILDER = new ModConfigSpec.Builder();
         DOLPHIN_OVERHAUL = COMMON_BUILDER.comment("Whether dolphin changes should be enabled").define("dolphinOverhaul", true);
-        SEA_TURTLE_OVERHAUL = COMMON_BUILDER.comment("Whether sea turtle changes should be enabled").define("seaTurtleOverhaul", true);
+        TURTLE_OVERHAUL = COMMON_BUILDER.comment("Whether turtle changes should be enabled").define("turtleOverhaul", true);
+        BUCKETABLE_DOLPHINS = COMMON_BUILDER.comment("Whether dolphins can be bucketed").define("bucketableDolphins", true);
+        BUCKETABLE_TURTLES = COMMON_BUILDER.comment("Whether turtles can be bucketed").define("bucketableTurtles", true);
         COMMON_CONFIG = COMMON_BUILDER.build();
     }
 }

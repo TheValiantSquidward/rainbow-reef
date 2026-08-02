@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:frozen_oceans",
+  "spawners": {
+    "type": "minecraft:dolphin",
+    "maxCount": 5,
+    "minCount": 5,
+    "weight": 2
+  }
+}

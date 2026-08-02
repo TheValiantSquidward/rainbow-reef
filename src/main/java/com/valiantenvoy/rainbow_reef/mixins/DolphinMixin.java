@@ -92,7 +92,7 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(EntityType<? extends Dolphin> entityType, Level level, CallbackInfo ci) {
-        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
             this.moveControl = new SmoothSwimmingMoveControl(this, 85, 6, 0.02F, 0.1F, true);
             this.lookControl = new SmoothSwimmingLookControl(this, 6);
         }
@@ -142,7 +142,7 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     protected void registerGoals(CallbackInfo ci) {
-        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
             Dolphin dolphin = (Dolphin) (Object) this;
             List<Goal> goalOverrides = dolphin.goalSelector.getAvailableGoals().stream().map(WrappedGoal::getGoal).filter(goal -> goal instanceof RandomSwimmingGoal || goal instanceof DolphinJumpGoal).toList();
             goalOverrides.forEach(dolphin.goalSelector::removeGoal);
@@ -161,7 +161,7 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
         }
 
         // fix death by drowning by simply not drowning!
-        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
             if (this.getAirSupply() <= 10) {
                 this.setAirSupply(this.getMaxAirSupply());
             }
@@ -170,7 +170,9 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Inject(method = "mobInteract", at = @At("RETURN"), cancellable = true)
     public void rainbowReef$bucketDolphin(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        cir.setReturnValue(Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand)));
+        if (RainbowReefConfig.BUCKETABLE_DOLPHINS.get()) {
+            cir.setReturnValue(Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand)));
+        }
     }
 
     @Inject(method = "finalizeSpawn", at = @At("HEAD"))
@@ -180,9 +182,25 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
         }
     }
 
+    @Inject(method = "finalizeSpawn", at = @At("RETURN"), cancellable = true)
+    public void rainbowReef$finalizeSpawnDolphinReturn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
+        Dolphin dolphin = (Dolphin) (Object) this;
+        if (spawnGroupData == null) {
+            spawnGroupData = new PodSpawnGroupData(dolphin, this.getVariantRawId());
+        } else {
+            PodSpawnGroupData data = (PodSpawnGroupData) spawnGroupData;
+            this.setVariantRawId(data.variant());
+            this.startFollowing(data.leader());
+        }
+        cir.setReturnValue(spawnGroupData);
+    }
+
+    public record PodSpawnGroupData(Dolphin leader, String variant) implements SpawnGroupData {
+    }
+
     @Override
     public int getMaxSpawnClusterSize() {
-        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
             return this.getMaxSchoolSize();
         }
         return super.getMaxSpawnClusterSize();
@@ -194,7 +212,7 @@ public abstract class DolphinMixin extends PathfinderMob implements DolphinAcces
 
     @Override
     public float getWalkTargetValue(BlockPos pos, LevelReader level) {
-        if (RainbowReefConfig.DOLPHIN_OVERHAUL.getAsBoolean()) {
+        if (RainbowReefConfig.DOLPHIN_OVERHAUL.get()) {
             if (this.getRandom().nextBoolean()) {
                 return super.getWalkTargetValue(pos, level);
             }

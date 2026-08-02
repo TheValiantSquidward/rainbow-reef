@@ -1,4 +1,45 @@
 {
   "type": "rainbow_reef:reef_rock",
-  "config": {}
+  "config": {
+    "blocks": {
+      "cannot_replace": "#minecraft:features_cannot_replace",
+      "layer_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "rainbow_reef:coralstone"
+        }
+      },
+      "invalid_blocks": "#minecraft:geode_invalid_blocks"
+    },
+    "crack": {
+      "base_crack_size": 2,
+      "crack_point_offset": 2,
+      "generate_crack_chance": 0.75
+    },
+    "distribution_points": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 3,
+      "min_inclusive": 2
+    },
+    "invalid_blocks_threshold": 1,
+    "layers": {
+      "filling": 0.85,
+      "inner_layer": 1.1,
+      "middle_layer": 1.6,
+      "outer_layer": 2.1
+    },
+    "max_gen_offset": 16,
+    "min_gen_offset": -16,
+    "noise_multiplier": 0.08,
+    "outer_wall_distance": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 2,
+      "min_inclusive": 1
+    },
+    "point_offset": {
+      "type": "minecraft:uniform",
+      "max_inclusive": 1,
+      "min_inclusive": 0
+    }
+  }
 }

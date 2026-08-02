@@ -11,9 +11,12 @@ public class ReefBiomeTags {
     public static final TagKey<Biome> WARM_OCEANS = modBiomeTag("warm_oceans");
     public static final TagKey<Biome> LUKEWARM_OCEANS = modBiomeTag("lukewarm_oceans");
     public static final TagKey<Biome> TEMPERATE_OCEANS = modBiomeTag("temperate_oceans");
+    public static final TagKey<Biome> COLD_OCEANS = modBiomeTag("cold_oceans");
+    public static final TagKey<Biome> FROZEN_OCEANS = modBiomeTag("frozen_oceans");
 
     public static final TagKey<Biome> WARM_AND_LUKEWARM_OCEANS = modBiomeTag("warm_and_lukewarm_oceans");
     public static final TagKey<Biome> LUKEWARM_AND_TEMPERATE_OCEANS = modBiomeTag("lukewarm_and_temperate_oceans");
+    public static final TagKey<Biome> TEMPERATE_AND_COLD_OCEANS = modBiomeTag("temperate_and_cold_oceans");
 
     public static final TagKey<Biome> HAS_BUTTERFLYFISH_MANGROVE = modBiomeTag("has_spawn/butterflyfish_mangrove");
     public static final TagKey<Biome> HAS_CRAB = modBiomeTag("has_spawn/crab");

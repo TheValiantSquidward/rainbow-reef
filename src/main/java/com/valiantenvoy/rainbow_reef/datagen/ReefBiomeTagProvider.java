@@ -6,7 +6,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.world.level.biome.Biomes;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -27,9 +26,12 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
         this.tag(WARM_OCEANS).add(Biomes.WARM_OCEAN);
         this.tag(LUKEWARM_OCEANS).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
         this.tag(TEMPERATE_OCEANS).add(Biomes.OCEAN, Biomes.DEEP_OCEAN);
+        this.tag(COLD_OCEANS).add(Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN);
+        this.tag(FROZEN_OCEANS).add(Biomes.FROZEN_OCEAN, Biomes.DEEP_FROZEN_OCEAN);
 
         this.tag(WARM_AND_LUKEWARM_OCEANS).addTags(WARM_OCEANS, LUKEWARM_OCEANS);
         this.tag(LUKEWARM_AND_TEMPERATE_OCEANS).addTags(LUKEWARM_OCEANS, TEMPERATE_OCEANS);
+        this.tag(TEMPERATE_AND_COLD_OCEANS).addTags(TEMPERATE_OCEANS, COLD_OCEANS);
 
         this.tag(HAS_BUTTERFLYFISH_MANGROVE).add(Biomes.MANGROVE_SWAMP);
 

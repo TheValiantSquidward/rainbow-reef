@@ -18,6 +18,8 @@ public class ReefBlockTags {
 
     public static final TagKey<Block> STARFISHES = modBlockTag("starfishes");
 
+    public static final TagKey<Block> REEF_ROCK_CANNOT_REPLACE = modBlockTag("reef_rock_cannot_replace");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(RainbowReef.MOD_ID, name);
     }

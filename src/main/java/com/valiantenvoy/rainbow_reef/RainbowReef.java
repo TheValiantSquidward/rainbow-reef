@@ -3,7 +3,6 @@ package com.valiantenvoy.rainbow_reef;
 import com.valiantenvoy.rainbow_reef.datagen.*;
 import com.valiantenvoy.rainbow_reef.network.ParticlePacket;
 import com.valiantenvoy.rainbow_reef.registry.*;
-import com.valiantenvoy.rainbow_reef.registry.ReefBiomeModifierTypes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
