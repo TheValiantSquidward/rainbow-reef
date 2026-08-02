@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:lukewarm_and_temperate_oceans",
+  "spawners": {
+    "type": "rainbow_reef:billfish",
+    "maxCount": 2,
+    "minCount": 2,
+    "weight": 5
+  }
+}

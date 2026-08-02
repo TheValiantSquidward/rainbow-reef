@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -193,9 +194,9 @@ public class Crab extends ReefMob {
         return ReefSoundEvents.CRAB_HURT.get();
     }
 
-    @SuppressWarnings("deprecation")
-    public static boolean canSpawn(EntityType<? extends ReefMob> entityType, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return !level.getBlockState(pos).isSolid();
+    @SuppressWarnings("unused")
+    public static boolean checkSpawnRules(EntityType<? extends Crab> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return level.getBlockState(pos.below()).isSolidRender(level, pos.below()) || (level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(pos.below()).isSolidRender(level, pos.below()));
     }
 
     @Override

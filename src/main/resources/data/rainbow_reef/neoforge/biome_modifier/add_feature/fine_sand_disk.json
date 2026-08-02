@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#rainbow_reef:warm_and_lukewarm_oceans",
+  "features": [
+    "rainbow_reef:fine_sand_disk"
+  ],
+  "step": "underground_ores"
+}

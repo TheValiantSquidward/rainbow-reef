@@ -16,6 +16,8 @@ public class ReefBlockTags {
     public static final TagKey<Block> BURROWABLE_MUD = modBlockTag("burrowable/mud");
     public static final TagKey<Block> BURROWABLE_CORALSTONE = modBlockTag("burrowable/coralstone");
 
+    public static final TagKey<Block> STARFISHES = modBlockTag("starfishes");
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(RainbowReef.MOD_ID, name);
     }

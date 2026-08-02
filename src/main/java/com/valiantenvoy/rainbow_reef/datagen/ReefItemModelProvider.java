@@ -126,6 +126,8 @@ public class ReefItemModelProvider extends ItemModelProvider {
         this.item(TRIGGERFISH_BUCKET);
         this.item(RAW_TRIGGERFISH);
 
+        this.item(TURTLE_BUCKET);
+
         this.item(WRASSE_BUCKET);
         this.item(RAW_WRASSE);
 

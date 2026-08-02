@@ -88,6 +88,7 @@ public class ReefItems {
     public static final DeferredItem<Item> SMALL_SHARK_BUCKET = registerMobBucketItem("small_shark", ReefEntities.SMALL_SHARK);
     public static final DeferredItem<Item> TANG_BUCKET = registerMobBucketItem("tang", ReefEntities.TANG);
     public static final DeferredItem<Item> TRIGGERFISH_BUCKET = registerMobBucketItem("triggerfish", ReefEntities.TRIGGERFISH);
+    public static final DeferredItem<Item> TURTLE_BUCKET = registerMobBucketItem("turtle", () -> EntityType.TURTLE);
     public static final DeferredItem<Item> WRASSE_BUCKET = registerMobBucketItem("wrasse", ReefEntities.WRASSE);
     // endregion
 

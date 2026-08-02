@@ -3,8 +3,8 @@
   "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:clownfish",
-    "maxCount": 4,
-    "minCount": 4,
+    "maxCount": 6,
+    "minCount": 6,
     "weight": 20
   }
 }

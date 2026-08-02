@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:warm_and_lukewarm_oceans",
+  "spawners": {
+    "type": "rainbow_reef:lionfish",
+    "maxCount": 2,
+    "minCount": 2,
+    "weight": 5
+  }
+}

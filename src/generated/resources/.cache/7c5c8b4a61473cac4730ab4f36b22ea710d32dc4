@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-30T21:05:30.1092639	Item Models: rainbow_reef
+// 1.21.1	2026-08-02T10:32:19.1219513	Item Models: rainbow_reef
 cac21ee7d3e11dc0b1acce971d0ea2cac2c49387 assets/rainbow_reef/models/item/angelfish.json
 ddb5c95a4603fca61a00316d34547923ae7fb8be assets/rainbow_reef/models/item/angelfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/angelfish_spawn_egg.json
@@ -111,6 +111,7 @@ b7ac99d767775a02bd828df536ca57e8a3401583 assets/rainbow_reef/models/item/trigger
 e0896b4d2e2535c477db0ad3550519dab6b942ea assets/rainbow_reef/models/item/triggerfish_bucket.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/rainbow_reef/models/item/triggerfish_spawn_egg.json
 46b08949e68427c6566efcbd7ab15599f33ef430 assets/rainbow_reef/models/item/tropical_fishsticks.json
+d142572d34f0a304f6b74f600d84a50c43bc8ee7 assets/rainbow_reef/models/item/turtle_bucket.json
 5322fb9916ba93266bf5ded554bf41abba67d80c assets/rainbow_reef/models/item/ultra_bacon_sandwich.json
 e1b4b2aa6360454ca222887b17ef93f38b0d722d assets/rainbow_reef/models/item/wrasse.json
 0e19073396a7cfb14a410523890b99480ae5e55f assets/rainbow_reef/models/item/wrasse_bucket.json

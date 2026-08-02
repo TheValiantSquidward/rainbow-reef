@@ -1,9 +1,14 @@
 package com.valiantenvoy.rainbow_reef.entity.base;
 
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
+import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
 public abstract class VariantShoalingFish extends ReefMob {
@@ -95,5 +100,22 @@ public abstract class VariantShoalingFish extends ReefMob {
                 .filter(fish -> fish != this)
                 .filter(fish -> this.getVariantRawId().equals(fish.getVariantRawId()))
                 .forEach(fish -> fish.createAndSetLeader(this));
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+        if (spawnGroupData == null) {
+            spawnGroupData = new ShoalSpawnGroupData(this, this.getVariantRawId());
+        } else {
+            ShoalSpawnGroupData data = (ShoalSpawnGroupData) spawnGroupData;
+            this.setVariantRawId(data.variant());
+            this.createAndSetLeader(data.leader());
+        }
+        return spawnGroupData;
+    }
+
+    public record ShoalSpawnGroupData(VariantShoalingFish leader, String variant) implements SpawnGroupData {
     }
 }

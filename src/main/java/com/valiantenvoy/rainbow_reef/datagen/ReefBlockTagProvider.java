@@ -86,6 +86,15 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
         this.tag(ReefBlockTags.BURROWABLE_MUD).add(Blocks.MUD);
         this.tag(ReefBlockTags.BURROWABLE_CORALSTONE).add(CORALSTONE.get());
 
+        this.tag(ReefBlockTags.STARFISHES).add(
+                CORAL_STARFISH.get(),
+                LAGOON_STARFISH.get(),
+                PLUMERIA_STARFISH.get(),
+                SKY_BLUE_STARFISH.get(),
+                SUNNY_STARFISH.get(),
+                SUNSET_STARFISH.get()
+        );
+
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(MUD_BURROW.get(), SAND_BURROW.get());
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(STONE_BURROW.get(), CORALSTONE_BURROW.get());
 

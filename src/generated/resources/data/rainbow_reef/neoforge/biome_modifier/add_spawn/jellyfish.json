@@ -1,6 +1,6 @@
 {
   "type": "neoforge:add_spawns",
-  "biomes": "#rainbow_reef:has_spawn/jellyfish",
+  "biomes": "#rainbow_reef:lukewarm_oceans",
   "spawners": {
     "type": "rainbow_reef:jellyfish",
     "maxCount": 3,

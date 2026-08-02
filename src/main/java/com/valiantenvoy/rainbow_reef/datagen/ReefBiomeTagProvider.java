@@ -19,10 +19,17 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
         super(output, provider, RainbowReef.MOD_ID, helper);
     }
 
+
+    @SuppressWarnings("unchecked")
     @Override
-    public void addTags(@NotNull Provider provider) {
+    public void addTags(Provider provider) {
+
         this.tag(WARM_OCEANS).add(Biomes.WARM_OCEAN);
-        this.tag(WARM_AND_LUKEWARM_OCEANS).add(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+        this.tag(LUKEWARM_OCEANS).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
+        this.tag(TEMPERATE_OCEANS).add(Biomes.OCEAN, Biomes.DEEP_OCEAN);
+
+        this.tag(WARM_AND_LUKEWARM_OCEANS).addTags(WARM_OCEANS, LUKEWARM_OCEANS);
+        this.tag(LUKEWARM_AND_TEMPERATE_OCEANS).addTags(LUKEWARM_OCEANS, TEMPERATE_OCEANS);
 
         this.tag(HAS_BUTTERFLYFISH_MANGROVE).add(Biomes.MANGROVE_SWAMP);
 
@@ -41,10 +48,6 @@ public class ReefBiomeTagProvider extends BiomeTagsProvider {
         );
 
         this.tag(HAS_GOBY_MANGROVE).add(Biomes.MANGROVE_SWAMP);
-
-        this.tag(HAS_JELLYFISH).add(Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN);
-
-        this.tag(HAS_JELLYFISH_RARE).add(Biomes.OCEAN, Biomes.DEEP_OCEAN);
 
         this.tag(HAS_PIPEFISH).addTag(WARM_AND_LUKEWARM_OCEANS).add(Biomes.MANGROVE_SWAMP);
 

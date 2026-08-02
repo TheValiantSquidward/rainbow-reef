@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:lukewarm_and_temperate_oceans",
+  "spawners": {
+    "type": "rainbow_reef:mahi_mahi",
+    "maxCount": 8,
+    "minCount": 8,
+    "weight": 10
+  }
+}

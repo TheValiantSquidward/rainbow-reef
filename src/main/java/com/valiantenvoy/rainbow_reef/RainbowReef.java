@@ -3,7 +3,7 @@ package com.valiantenvoy.rainbow_reef;
 import com.valiantenvoy.rainbow_reef.datagen.*;
 import com.valiantenvoy.rainbow_reef.network.ParticlePacket;
 import com.valiantenvoy.rainbow_reef.registry.*;
-import com.valiantenvoy.rainbow_reef.registry.ReefBiomeModifiers;
+import com.valiantenvoy.rainbow_reef.registry.ReefBiomeModifierTypes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -49,7 +49,7 @@ public class RainbowReef {
         ReefPoiTypes.POI_TYPES.register(modEventBus);
         ReefSoundEvents.SOUND_EVENTS.register(modEventBus);
         ReefParticleTypes.PARTICLE_TYPES.register(modEventBus);
-        ReefBiomeModifiers.BIOME_MODIFIERS.register(modEventBus);
+        ReefBiomeModifierTypes.BIOME_MODIFIERS.register(modEventBus);
         RainbowReefTab.CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
@@ -77,7 +77,7 @@ public class RainbowReef {
         ExistingFileHelper helper = data.getExistingFileHelper();
 
         boolean server = data.includeServer();
-        ReefDatapackBuiltinEntriesProvider datapackEntries = new ReefDatapackBuiltinEntriesProvider(output, provider);
+        ReefDatapackProvider datapackEntries = new ReefDatapackProvider(output, provider);
         generator.addProvider(server, datapackEntries);
         provider = datapackEntries.getRegistryProvider();
         ReefBlockTagProvider blockTags = new ReefBlockTagProvider(output, provider, helper);
@@ -91,7 +91,7 @@ public class RainbowReef {
         boolean client = data.includeClient();
         generator.addProvider(client, new ReefBlockstateProvider(data));
         generator.addProvider(client, new ReefItemModelProvider(data));
-        generator.addProvider(client, new ReefSoundDefinitionsProvider(output, helper));
+        generator.addProvider(client, new ReefSoundDefinitionProvider(output, helper));
         generator.addProvider(client, new ReefLanguageProvider(data));
     }
 

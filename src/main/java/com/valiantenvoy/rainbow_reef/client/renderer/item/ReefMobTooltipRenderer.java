@@ -164,6 +164,10 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
         if (type == ReefEntities.TRIGGERFISH.get()) {
             renderY += 2.25F;
         }
+        if (type == EntityType.TURTLE) {
+            renderX += 5;
+            renderY += 2;
+        }
         if (type == ReefEntities.WRASSE.get()) {
             renderX += 1.5F;
             renderY += 3.5F;
@@ -181,6 +185,11 @@ public class ReefMobTooltipRenderer implements ClientTooltipComponent {
             stack.mulPose(Axis.XP.rotationDegrees(90.0F));
         }
         if (type == ReefEntities.RAY.get()) {
+            stack.mulPose(Axis.XP.rotationDegrees(20.0F));
+            stack.mulPose(Axis.ZP.rotationDegrees(20.0F));
+        }
+        if (type == EntityType.TURTLE) {
+            stack.scale(1.25F, 1.25F, 1.25F);
             stack.mulPose(Axis.XP.rotationDegrees(20.0F));
             stack.mulPose(Axis.ZP.rotationDegrees(20.0F));
         }

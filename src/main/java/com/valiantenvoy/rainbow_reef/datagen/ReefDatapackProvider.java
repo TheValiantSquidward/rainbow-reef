@@ -10,12 +10,12 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-public class ReefDatapackBuiltinEntriesProvider extends DatapackBuiltinEntriesProvider {
+public class ReefDatapackProvider extends DatapackBuiltinEntriesProvider {
 
     public static final RegistrySetBuilder BUILDER = new RegistrySetBuilder()
-            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ReefBiomeModifiers::bootstrap);
+            .add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, ReefBiomeModifierProvider::bootstrap);
 
-    public ReefDatapackBuiltinEntriesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+    public ReefDatapackProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries,BUILDER, Set.of(RainbowReef.MOD_ID));
     }
 }

@@ -3,6 +3,7 @@ package com.valiantenvoy.rainbow_reef.registry;
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.worldgen.features.BurrowFeature;
 import com.valiantenvoy.rainbow_reef.worldgen.features.ReefRockFeature;
+import com.valiantenvoy.rainbow_reef.worldgen.features.StarfishFeature;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
@@ -17,5 +18,7 @@ public class ReefFeatures {
     public static final DeferredHolder<Feature<?>, Feature<BlockStateConfiguration>> BURROW = FEATURES.register("burrow", () -> new BurrowFeature(BlockStateConfiguration.CODEC));
 
     public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> REEF_ROCK = FEATURES.register("reef_rock", () -> new ReefRockFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> STARFISH = FEATURES.register("starfish", () -> new StarfishFeature(NoneFeatureConfiguration.CODEC));
 
 }

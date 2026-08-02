@@ -58,19 +58,19 @@ public class ReefTurtleModel extends ReefModel<Turtle> {
         body.addOrReplaceChild("body_rotation", CubeListBuilder.create().texOffs(7, 37).addBox(-9.5F, -9.0F, -2.0F, 19.0F, 20.0F, 6.0F, new CubeDeformation(0.0F))
                 .texOffs(31, 1).addBox(-5.5F, -9.0F, -5.0F, 11.0F, 18.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -1.0F, -1.0F, 1.5708F, 0.0F, 0.0F));
 
-        PartDefinition pregnant = body.addOrReplaceChild("pregnant", CubeListBuilder.create(), PartPose.offset(0.0F, 3.0F, -1.0F));
-
-        pregnant.addOrReplaceChild("body2_rotation", CubeListBuilder.create().texOffs(70, 33).addBox(-4.5F, 3.0F, -14.0F, 9.0F, 18.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -12.0F, -12.0F, 1.5708F, 0.0F, 0.0F));
+        body.addOrReplaceChild("pregnant", CubeListBuilder.create().texOffs(70, 33).addBox(-4.5F, 3.0F, -14.0F, 9.0F, 18.0F, 1.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -9.0F, -13.0F, 1.5708F, 0.0F, 0.0F));
 
         body.addOrReplaceChild("head", CubeListBuilder.create().texOffs(3, 0).addBox(-3.0F, -3.0F, -6.0F, 6.0F, 5.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 1.0F, -10.0F));
 
-        body.addOrReplaceChild("fin_back_right", CubeListBuilder.create().texOffs(1, 23).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 1.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.5F, 2.0F, 8.0F));
+        body.addOrReplaceChild("fin_back_right", CubeListBuilder.create().texOffs(1, 14).addBox(-4.0F, 0.0F, 0.0F, 6.0F, 1.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(-3.5F, 2.0F, 8.0F));
 
-        body.addOrReplaceChild("fin_back_left", CubeListBuilder.create().texOffs(1, 12).addBox(-2.0F, 0.0F, 0.0F, 4.0F, 1.0F, 10.0F, new CubeDeformation(0.0F)), PartPose.offset(3.5F, 2.0F, 8.0F));
+        body.addOrReplaceChild("fin_back_left", CubeListBuilder.create().texOffs(1, 14).mirror().addBox(-2.0F, 0.0F, 0.0F, 6.0F, 1.0F, 10.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(3.5F, 2.0F, 8.0F));
 
-        body.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(27, 30).addBox(-13.0F, 0.0F, -2.0F, 13.0F, 1.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(-5.0F, 1.0F, -7.0F));
+        body.addOrReplaceChild("fin_right", CubeListBuilder.create().texOffs(27, 23).mirror().addBox(-14.0F, 0.0F, -2.0F, 12.0F, 1.0F, 7.0F, new CubeDeformation(0.0F)).mirror(false)
+                .texOffs(59, 22).mirror().addBox(-2.0F, 0.0F, -1.0F, 2.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-5.0F, 1.0F, -7.0F));
 
-        body.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(27, 24).addBox(0.0F, 0.0F, -2.0F, 13.0F, 1.0F, 5.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 1.0F, -7.0F));
+        body.addOrReplaceChild("fin_left", CubeListBuilder.create().texOffs(27, 23).addBox(2.0F, 0.0F, -2.0F, 12.0F, 1.0F, 7.0F, new CubeDeformation(0.0F))
+                .texOffs(59, 22).addBox(0.0F, 0.0F, -1.0F, 2.0F, 1.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(5.0F, 1.0F, -7.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 64);
     }

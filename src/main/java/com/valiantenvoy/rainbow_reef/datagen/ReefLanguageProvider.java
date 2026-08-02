@@ -68,6 +68,7 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.addItem(ReefItems.SMALL_SHARK_BUCKET, "Bucket of Small Shark");
         this.addItem(ReefItems.TANG_BUCKET, "Bucket of Tang");
         this.addItem(ReefItems.TRIGGERFISH_BUCKET, "Bucket of Triggerfish");
+        this.addItem(ReefItems.TURTLE_BUCKET, "Bucket of Turtle");
         this.addItem(ReefItems.LIONFISH_BUCKET, "Bucket of Lionfish");
         this.addItem(ReefItems.LARGE_SHARK_BUCKET, "Bucket of Large Shark");
         this.addItem(ReefItems.WRASSE_BUCKET, "Bucket of Wrasse");
@@ -398,6 +399,12 @@ public class ReefLanguageProvider extends LanguageProvider {
         this.entityVariant(ReefEntities.TRIGGERFISH, "picasso");
         this.entityVariant(ReefEntities.TRIGGERFISH, "queen");
         this.entityVariant(ReefEntities.TRIGGERFISH, "rough");
+
+        this.entityVariant(() -> EntityType.TURTLE, "flatback");
+        this.entityVariant(() -> EntityType.TURTLE, "green");
+        this.entityVariant(() -> EntityType.TURTLE, "hawksbill");
+        this.entityVariant(() -> EntityType.TURTLE, "olive_ridley");
+        this.entityVariant(() -> EntityType.TURTLE, "leatherback");
 
         this.entityVariant(ReefEntities.WRASSE, "blackear");
         this.entityVariant(ReefEntities.WRASSE, "bluehead");

@@ -1,7 +1,6 @@
 {
   "values": [
-    "minecraft:warm_ocean",
-    "minecraft:lukewarm_ocean",
-    "minecraft:deep_lukewarm_ocean"
+    "#rainbow_reef:warm_oceans",
+    "#rainbow_reef:lukewarm_oceans"
   ]
 }

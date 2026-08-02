@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:warm_oceans",
+  "spawners": {
+    "type": "rainbow_reef:maori_wrasse",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 5
+  }
+}

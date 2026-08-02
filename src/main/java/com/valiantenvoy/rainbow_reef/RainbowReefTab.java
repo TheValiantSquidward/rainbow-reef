@@ -102,6 +102,7 @@ public class RainbowReefTab {
                         output.accept(ReefItems.SMALL_SHARK_BUCKET.get());
                         output.accept(ReefItems.TANG_BUCKET.get());
                         output.accept(ReefItems.TRIGGERFISH_BUCKET.get());
+                        output.accept(ReefItems.TURTLE_BUCKET.get());
                         output.accept(ReefItems.WRASSE_BUCKET.get());
                         // endregion
 
@@ -390,6 +391,7 @@ public class RainbowReefTab {
                         variantsByRarity(parameters, output, ReefItems.SMALL_SHARK_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.SMALL_SHARK.get()));
                         variantsByRarity(parameters, output, ReefItems.TANG_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TANG.get()));
                         variantsByRarity(parameters, output, ReefItems.TRIGGERFISH_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.TRIGGERFISH.get()));
+                        variantsByRarity(parameters, output, ReefItems.TURTLE_BUCKET.get(), ReefMobVariants.registryFor(EntityType.TURTLE));
                         variantsByRarity(parameters, output, ReefItems.WRASSE_BUCKET.get(), ReefMobVariants.registryFor(ReefEntities.WRASSE.get()));
                     })
                     .build());

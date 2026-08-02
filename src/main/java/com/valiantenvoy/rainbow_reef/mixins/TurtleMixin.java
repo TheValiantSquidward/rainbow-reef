@@ -1,18 +1,39 @@
 package com.valiantenvoy.rainbow_reef.mixins;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.entity.ai.control.ReefTurtleMoveControl;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.TurtleSwimGoal;
 import com.valiantenvoy.rainbow_reef.entity.animation.SmoothAnimationState;
 import com.valiantenvoy.rainbow_reef.entity.utils.TurtleAccess;
+import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,12 +41,16 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-@SuppressWarnings({"AddedMixinMembersNamePattern"})
+@SuppressWarnings({"AddedMixinMembersNamePattern", "WrongEntityDataParameterClass"})
 @Mixin(Turtle.class)
-public class TurtleMixin extends PathfinderMob implements TurtleAccess {
+public class TurtleMixin extends PathfinderMob implements TurtleAccess, ReefVariantMob, Bucketable {
+
+    private static final @Unique EntityDataAccessor<String> VARIANT = SynchedEntityData.defineId(Turtle.class, EntityDataSerializers.STRING);
+    private static final @Unique EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(Turtle.class, EntityDataSerializers.BOOLEAN);
 
     private static final @Unique double PITCH_MIN = 0.01D;
     private static final @Unique double PITCH_MAX = 0.05D;
@@ -59,6 +84,38 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
         }
     }
 
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    public void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(VARIANT, this.defaultVariant().location().toString());
+        builder.define(FROM_BUCKET, false);
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    public void addAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
+        this.saveVariant(compoundTag);
+        compoundTag.putBoolean("FromBucket", this.fromBucket());
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    public void readAdditionalSaveData(CompoundTag compoundTag, CallbackInfo ci) {
+        this.loadVariant(compoundTag);
+        this.setFromBucket(compoundTag.getBoolean("FromBucket"));
+    }
+
+    @Override
+    public String getVariantRawId() {
+        return this.entityData.get(VARIANT);
+    }
+
+    @Override
+    public void setVariantRawId(String id) {
+        this.entityData.set(VARIANT, id);
+    }
+
+    @Override
+    public ResourceLocation fallbackVariantTexture() {
+        return RainbowReef.location("textures/entity/turtle/turtle_flatback.png");
+    }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     protected void registerGoals(CallbackInfo ci) {
@@ -76,6 +133,18 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
             return this.getSpeed();
         }
         return oldSpeed;
+    }
+
+    @Inject(method = "finalizeSpawn", at = @At("HEAD"))
+    public void rainbowReef$finalizeSpawnDolphin(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
+        if (!this.fromBucket()) {
+            this.pickVariantForSpawn(level);
+        }
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        return Bucketable.bucketMobPickup(player, hand, this).orElse(super.mobInteract(player, hand));
     }
 
     @Override
@@ -176,5 +245,42 @@ public class TurtleMixin extends PathfinderMob implements TurtleAccess {
     @Override
     public float getSwimPitch(float partialTicks) {
         return Mth.lerp(partialTicks, this.prevSwimPitch, this.swimPitch);
+    }
+
+    @Override
+    public boolean fromBucket() {
+        return this.entityData.get(FROM_BUCKET);
+    }
+
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void saveToBucketTag(ItemStack stack) {
+        Bucketable.saveDefaultDataToBucketTag(this, stack);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, this::saveVariant);
+        CompoundTag custom = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        this.saveVariant(custom);
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(custom));
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void loadFromBucketTag(CompoundTag compoundTag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
+        this.loadVariant(compoundTag);
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(ReefItems.TURTLE_BUCKET.get());
+    }
+
+    @Override
+    public SoundEvent getPickupSound() {
+        return SoundEvents.BUCKET_FILL_FISH;
     }
 }

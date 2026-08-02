@@ -12,11 +12,13 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class ReefMobVariants {
 
     public static final Set<ResourceKey<Registry<ReefMobVariant>>> REGISTRIES = new HashSet<>();
 
     public static final ResourceKey<Registry<ReefMobVariant>> DOLPHIN_VARIANT = register("dolphin");
+    public static final ResourceKey<Registry<ReefMobVariant>> TURTLE_VARIANT = register("turtle");
 
     public static ResourceKey<Registry<ReefMobVariant>> register(String name) {
         ResourceKey<Registry<ReefMobVariant>> key = registryFor(name);

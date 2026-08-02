@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:warm_oceans",
+  "spawners": {
+    "type": "rainbow_reef:triggerfish",
+    "maxCount": 4,
+    "minCount": 4,
+    "weight": 15
+  }
+}

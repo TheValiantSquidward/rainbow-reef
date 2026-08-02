@@ -2,6 +2,7 @@ package com.valiantenvoy.rainbow_reef.events;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.*;
+import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
 import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
@@ -19,6 +20,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 
 import java.util.List;
@@ -67,36 +69,36 @@ public class ModEvents {
 
     @SubscribeEvent
     public static void registerSpawnPlacements(RegisterSpawnPlacementsEvent entity) {
-        entity.register(ReefEntities.ANGELFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Angelfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.ARROW_CRAB.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ArrowCrab::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.BASSLET.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Basslet::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.BILLFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Billfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.BOXFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Boxfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.BUTTERFLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Butterflyfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.CLOWNFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Clownfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.CRAB.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Crab::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.DAMSELFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Damselfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.DWARF_ANGELFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DwarfAngelfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.FROGFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Frogfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.FUSILIER.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Fusilier::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.GOBY.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Goby::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.HOGFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Hogfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.JELLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Jellyfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.LARGE_SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LargeShark::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.LIONFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Lionfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.MAHI_MAHI.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MahiMahi::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.MAORI_WRASSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MaoriWrasse::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.MOORISH_IDOL.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MoorishIdol::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.PARROTFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Parrotfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.PIPEFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Pipefish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.RABBITFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Rabbitfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.RAY.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Ray::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.SEAHORSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Seahorse::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Shark::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.SMALL_SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SmallShark::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.TANG.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Tang::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.TRIGGERFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Triggerfish::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
-        entity.register(ReefEntities.WRASSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Wrasse::canSpawn, RegisterSpawnPlacementsEvent.Operation.OR);
+        entity.register(ReefEntities.ANGELFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.ARROW_CRAB.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, Crab::checkSpawnRules, Operation.AND);
+        entity.register(ReefEntities.BASSLET.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.BILLFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.BOXFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.BUTTERFLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.CLOWNFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.CRAB.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, Crab::checkSpawnRules, Operation.AND);
+        entity.register(ReefEntities.DAMSELFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.DWARF_ANGELFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.FROGFISH.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.OCEAN_FLOOR, Frogfish::checkSpawnRules, Operation.AND);
+        entity.register(ReefEntities.FUSILIER.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.GOBY.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.HOGFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.JELLYFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.LARGE_SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.LIONFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.MAHI_MAHI.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.MAORI_WRASSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.MOORISH_IDOL.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.PARROTFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.PIPEFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.RABBITFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.RAY.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.SEAHORSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.SMALL_SHARK.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.TANG.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.TRIGGERFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
+        entity.register(ReefEntities.WRASSE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ReefMob::canSpawn, Operation.AND);
     }
 
     @SubscribeEvent

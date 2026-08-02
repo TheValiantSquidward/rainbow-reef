@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#rainbow_reef:warm_oceans",
+  "spawners": {
+    "type": "rainbow_reef:frogfish",
+    "maxCount": 3,
+    "minCount": 3,
+    "weight": 20
+  }
+}

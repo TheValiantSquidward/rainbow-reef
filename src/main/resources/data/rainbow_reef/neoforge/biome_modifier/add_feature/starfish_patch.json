@@ -1,8 +1,8 @@
 {
   "type": "neoforge:add_features",
-  "biomes": "minecraft:warm_ocean",
+  "biomes": "#rainbow_reef:warm_and_lukewarm_oceans",
   "features": [
-    "rainbow_reef:warm_ocean_vegetation"
+    "rainbow_reef:starfish_patch"
   ],
   "step": "vegetal_decoration"
 }

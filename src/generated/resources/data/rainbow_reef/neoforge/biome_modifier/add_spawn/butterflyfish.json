@@ -3,8 +3,8 @@
   "biomes": "#rainbow_reef:warm_oceans",
   "spawners": {
     "type": "rainbow_reef:butterflyfish",
-    "maxCount": 2,
-    "minCount": 2,
-    "weight": 40
+    "maxCount": 12,
+    "minCount": 12,
+    "weight": 25
   }
 }

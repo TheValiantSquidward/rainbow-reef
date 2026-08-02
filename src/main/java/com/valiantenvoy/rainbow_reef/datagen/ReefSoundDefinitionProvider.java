@@ -11,9 +11,9 @@ import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import java.util.function.Supplier;
 
 @SuppressWarnings("SameParameterValue")
-public class ReefSoundDefinitionsProvider extends SoundDefinitionsProvider {
+public class ReefSoundDefinitionProvider extends SoundDefinitionsProvider {
 
-    public ReefSoundDefinitionsProvider(PackOutput packOutput, ExistingFileHelper helper) {
+    public ReefSoundDefinitionProvider(PackOutput packOutput, ExistingFileHelper helper) {
         super(packOutput, RainbowReef.MOD_ID, helper);
     }
 

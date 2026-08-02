@@ -1,5 +1,6 @@
 package com.valiantenvoy.rainbow_reef.client.renderer;
 
+import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.client.models.entity.ReefTurtleModel;
 import com.valiantenvoy.rainbow_reef.entity.variant.ReefVariantMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefModelLayers;
@@ -10,7 +11,7 @@ import net.minecraft.world.entity.animal.Turtle;
 
 public class ReefTurtleRenderer extends MobRenderer<Turtle, ReefTurtleModel> {
 
-    private static final ResourceLocation TURTLE_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/turtle/big_sea_turtle.png");
+    private static final ResourceLocation TURTLE_LOCATION = RainbowReef.location("textures/entity/turtle/turtle_flatback.png");
 
     public ReefTurtleRenderer(EntityRendererProvider.Context context) {
         super(context, new ReefTurtleModel(context.bakeLayer(ReefModelLayers.TURTLE)), 0.7F);

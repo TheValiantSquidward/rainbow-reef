@@ -5,6 +5,6 @@
     "type": "rainbow_reef:goby",
     "maxCount": 5,
     "minCount": 5,
-    "weight": 30
+    "weight": 20
   }
 }
