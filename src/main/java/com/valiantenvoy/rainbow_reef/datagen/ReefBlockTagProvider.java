@@ -45,12 +45,7 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 RING_CORAL.get(),
                 RING_CORAL_FAN.get(),
                 BUSH_CORAL.get(),
-                BUSH_CORAL_FAN.get(),
-                PURPLE_SEA_ANEMONE.get(),
-                BROWN_SEA_ANEMONE.get(),
-                PINK_SEA_ANEMONE.get(),
-                RED_SEA_ANEMONE.get(),
-                MAGENTA_SEA_ANEMONE.get()
+                BUSH_CORAL_FAN.get()
         );
 
         this.tag(BlockTags.CORAL_BLOCKS).add(
@@ -81,6 +76,7 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
             BurrowBlock burrow = (BurrowBlock) block;
             this.tag(burrow.isGround() ? ReefBlockTags.GROUND_BURROWS : ReefBlockTags.WALL_BURROWS).add(burrow);
         }
+
         this.tag(ReefBlockTags.BURROWS).addTag(ReefBlockTags.GROUND_BURROWS).addTag(ReefBlockTags.WALL_BURROWS);
 
         this.tag(ReefBlockTags.BURROWABLE_MUD).add(Blocks.MUD);
@@ -95,13 +91,51 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 SUNSET_STARFISH.get()
         );
 
+        this.tag(ReefBlockTags.SEA_ANEMONES).add(
+                PURPLE_SEA_ANEMONE.get(),
+                BROWN_SEA_ANEMONE.get(),
+                PINK_SEA_ANEMONE.get(),
+                RED_SEA_ANEMONE.get(),
+                MAGENTA_SEA_ANEMONE.get()
+        );
+
         this.tag(ReefBlockTags.REEF_ROCK_CANNOT_REPLACE).addTags(
                 BlockTags.SAND,
                 BlockTags.STONE_ORE_REPLACEABLES
         );
 
-        this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(MUD_BURROW.get(), SAND_BURROW.get());
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(STONE_BURROW.get(), CORALSTONE_BURROW.get());
+        this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
+                MUD_BURROW.get(), SAND_BURROW.get()
+        );
+
+        this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                STONE_BURROW.get(),
+                CORALSTONE_BURROW.get(),
+
+                CORALSTONE.get(),
+                CORALSTONE_BRICKS.get(),
+                POLISHED_CORALSTONE.get(),
+                CHISELED_CORALSTONE.get(),
+
+                SHELF_CORAL_BLOCK.get(),
+                BARREL_CORAL_BLOCK.get(),
+                HAND_CORAL_BLOCK.get(),
+                CHIMNEY_CORAL_BLOCK.get(),
+                TOWER_CORAL_BLOCK.get(),
+                ROSE_CORAL_BLOCK.get(),
+                FLOWER_CORAL_BLOCK.get(),
+                RING_CORAL_BLOCK.get(),
+                BUSH_CORAL_BLOCK.get(),
+                DEAD_SHELF_CORAL_BLOCK.get(),
+                DEAD_BARREL_CORAL_BLOCK.get(),
+                DEAD_HAND_CORAL_BLOCK.get(),
+                DEAD_CHIMNEY_CORAL_BLOCK.get(),
+                DEAD_TOWER_CORAL_BLOCK.get(),
+                DEAD_ROSE_CORAL_BLOCK.get(),
+                DEAD_FLOWER_CORAL_BLOCK.get(),
+                DEAD_RING_CORAL_BLOCK.get(),
+                DEAD_BUSH_CORAL_BLOCK.get()
+        );
 
         this.tag(ReefBlockTags.TALL_CORALS).add(
                 TALL_TUBE_CORAL.get(),

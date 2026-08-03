@@ -1,6 +1,28 @@
 {
   "values": [
     "rainbow_reef:stone_burrow",
-    "rainbow_reef:coralstone_burrow"
+    "rainbow_reef:coralstone_burrow",
+    "rainbow_reef:coralstone",
+    "rainbow_reef:coralstone_bricks",
+    "rainbow_reef:polished_coralstone",
+    "rainbow_reef:chiseled_coralstone",
+    "rainbow_reef:shelf_coral_block",
+    "rainbow_reef:barrel_coral_block",
+    "rainbow_reef:hand_coral_block",
+    "rainbow_reef:chimney_coral_block",
+    "rainbow_reef:tower_coral_block",
+    "rainbow_reef:rose_coral_block",
+    "rainbow_reef:flower_coral_block",
+    "rainbow_reef:ring_coral_block",
+    "rainbow_reef:bush_coral_block",
+    "rainbow_reef:dead_shelf_coral_block",
+    "rainbow_reef:dead_barrel_coral_block",
+    "rainbow_reef:dead_hand_coral_block",
+    "rainbow_reef:dead_chimney_coral_block",
+    "rainbow_reef:dead_tower_coral_block",
+    "rainbow_reef:dead_rose_coral_block",
+    "rainbow_reef:dead_flower_coral_block",
+    "rainbow_reef:dead_ring_coral_block",
+    "rainbow_reef:dead_bush_coral_block"
   ]
 }

@@ -1,7 +1,7 @@
-// 1.21.1	2026-08-02T13:28:15.2363571	rainbow_reef Block Tags
+// 1.21.1	2026-08-02T18:31:52.3557309	rainbow_reef Block Tags
 22f68ce605109a06a42c9181ff22eb2c636858a8 data/minecraft/tags/block/coral_blocks.json
-8cff3b513c335ea93b7ed6d8d440e3c75f13b2bc data/minecraft/tags/block/coral_plants.json
-d3c5e6a9576e0f3aa97ebc0db1af126e94eb30cb data/minecraft/tags/block/mineable/pickaxe.json
+f86d24129102f34c79e644b79e9c460f3495d525 data/minecraft/tags/block/coral_plants.json
+9b79097ecff3fc1781b81233e092000880a1bf5f data/minecraft/tags/block/mineable/pickaxe.json
 d1352c58f8dfaeac200ecc5769d6799334fb92c3 data/minecraft/tags/block/mineable/shovel.json
 2717c0b3c561fb9541665b58f8a77294c140d721 data/minecraft/tags/block/wall_corals.json
 ec7412732f475df0f72e24a129f36ea8b1f959a1 data/rainbow_reef/tags/block/burrowable/coralstone.json
@@ -9,6 +9,7 @@ ec7412732f475df0f72e24a129f36ea8b1f959a1 data/rainbow_reef/tags/block/burrowable
 a1f176f89bc276ca2fd405f48ba478627f667e27 data/rainbow_reef/tags/block/burrows.json
 d1352c58f8dfaeac200ecc5769d6799334fb92c3 data/rainbow_reef/tags/block/ground_burrows.json
 5cb535f23b0ee87593955f8a5fff92f4371493c5 data/rainbow_reef/tags/block/reef_rock_cannot_replace.json
+cb9b05c3a2ba77df8fcdd3ab5fc93d36d7cb28ec data/rainbow_reef/tags/block/sea_anemones.json
 1966d9b4a84eb4fddad76b2e8154fc5507ac9eea data/rainbow_reef/tags/block/starfishes.json
 0d4010c71d5b52f84ab8f21d2ae3de468085374d data/rainbow_reef/tags/block/tall_corals.json
 d3c5e6a9576e0f3aa97ebc0db1af126e94eb30cb data/rainbow_reef/tags/block/wall_burrows.json

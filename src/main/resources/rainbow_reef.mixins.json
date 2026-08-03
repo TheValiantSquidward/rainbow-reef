@@ -6,6 +6,7 @@
   "mixins": [
     "AnimalMixin",
     "ChestBlockEntityMixin",
+    "CoralFeatureMixin",
     "DolphinMixin",
     "EnderChestBlockEntityMixin",
     "FishingHookMixin",
