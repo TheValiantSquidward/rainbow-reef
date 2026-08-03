@@ -196,7 +196,13 @@ public class Crab extends ReefMob {
 
     @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<? extends Crab> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).isSolidRender(level, pos.below()) || (level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(pos.below()).isSolidRender(level, pos.below()));
+        boolean waterSolid = level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(pos.below()).isSolidRender(level, pos.below());
+        if (level.canSeeSky(pos)) {
+            return level.getBlockState(pos.below()).isSolidRender(level, pos.below()) || waterSolid;
+        }
+        else {
+            return waterSolid;
+        }
     }
 
     @Override

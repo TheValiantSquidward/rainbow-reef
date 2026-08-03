@@ -113,6 +113,6 @@ public class Frogfish extends ReefMob {
 
     @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<Frogfish> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getBlockState(pos.below()).isSolidRender(level, pos.below()) && level.getFluidState(pos).is(FluidTags.WATER);
+        return level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(pos.below()).isSolidRender(level, pos.below());
     }
 }
