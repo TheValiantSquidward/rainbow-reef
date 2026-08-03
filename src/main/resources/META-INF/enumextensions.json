@@ -2,11 +2,11 @@
   "entries": [
     {
       "enum": "net/minecraft/world/entity/MobCategory",
-      "name": "RAINBOW_REEF_SEAFLOOR_CREATURE",
+      "name": "RAINBOW_REEF_SEAFLOOR_AMBIENT",
       "constructor": "(Ljava/lang/String;IZZI)V",
       "parameters": {
         "class": "com/valiantenvoy/rainbow_reef/registry/ReefMobCategoryEnumParams",
-        "method": "getSeafloorCreatureParameter"
+        "method": "getSeafloorAmbientParameters"
       }
     }
   ]

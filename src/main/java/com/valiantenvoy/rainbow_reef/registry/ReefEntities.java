@@ -14,19 +14,19 @@ import java.util.function.Consumer;
 public class ReefEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, RainbowReef.MOD_ID);
-    public static final MobCategory SEAFLOOR_CREATURE = MobCategory.valueOf("RAINBOW_REEF_SEAFLOOR_CREATURE");
+    public static final MobCategory SEAFLOOR_AMBIENT = MobCategory.valueOf("RAINBOW_REEF_SEAFLOOR_AMBIENT");
 
     public static final DeferredHolder<EntityType<?>, EntityType<Angelfish>> ANGELFISH = registerEntity("angelfish", Angelfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.6F, 0.6F).eyeHeight(0.3F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<ArrowCrab>> ARROW_CRAB = registerEntity("arrow_crab", ArrowCrab::new, SEAFLOOR_CREATURE, builder -> builder.sized(0.6F, 0.6F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<ArrowCrab>> ARROW_CRAB = registerEntity("arrow_crab", ArrowCrab::new, SEAFLOOR_AMBIENT, builder -> builder.sized(0.6F, 0.6F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Basslet>> BASSLET = registerEntity("basslet", Basslet::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.3F).eyeHeight(0.15F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Billfish>> BILLFISH = registerEntity("billfish", Billfish::new, MobCategory.WATER_CREATURE, builder -> builder.sized(0.9F, 0.9F).eyeHeight(0.45F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Boxfish>> BOXFISH = registerEntity("boxfish", Boxfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Butterflyfish>> BUTTERFLYFISH = registerEntity("butterflyfish", Butterflyfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Clownfish>> CLOWNFISH = registerEntity("clownfish", Clownfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.35F, 0.35F).eyeHeight(0.175F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<Crab>> CRAB = registerEntity("crab", Crab::new, SEAFLOOR_CREATURE, builder -> builder.sized(0.6F, 0.35F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Crab>> CRAB = registerEntity("crab", Crab::new, SEAFLOOR_AMBIENT, builder -> builder.sized(0.6F, 0.35F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Damselfish>> DAMSELFISH = registerEntity("damselfish", Damselfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.3F, 0.3F).eyeHeight(0.15F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<DwarfAngelfish>> DWARF_ANGELFISH = registerEntity("dwarf_angelfish", DwarfAngelfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
-    public static final DeferredHolder<EntityType<?>, EntityType<Frogfish>> FROGFISH = registerEntity("frogfish", Frogfish::new, SEAFLOOR_CREATURE, builder -> builder.sized(0.5F, 0.5F).clientTrackingRange(10));
+    public static final DeferredHolder<EntityType<?>, EntityType<Frogfish>> FROGFISH = registerEntity("frogfish", Frogfish::new, SEAFLOOR_AMBIENT, builder -> builder.sized(0.5F, 0.5F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Fusilier>> FUSILIER = registerEntity("fusilier", Fusilier::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.45F, 0.35F).eyeHeight(0.175F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Goby>> GOBY = registerEntity("goby", Goby::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.4F, 0.3F).eyeHeight(0.15F).clientTrackingRange(10));
     public static final DeferredHolder<EntityType<?>, EntityType<Hogfish>> HOGFISH = registerEntity("hogfish", Hogfish::new, MobCategory.WATER_AMBIENT, builder -> builder.sized(0.5F, 0.5F).eyeHeight(0.25F).clientTrackingRange(10));
