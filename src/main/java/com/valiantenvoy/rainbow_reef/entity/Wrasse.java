@@ -7,7 +7,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishPanicGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -40,7 +40,7 @@ public class Wrasse extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new FishAvoidEntityGoal<>(this, Player.class, 8.0F, 1.5D));
-        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 15, ReefTags.HOG_DIGGABLE));
+        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 15, ReefBlockTags.OCEAN_SEDIMENTS_AND_CORALS));
         this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1.0D, 40, 70));
     }
 

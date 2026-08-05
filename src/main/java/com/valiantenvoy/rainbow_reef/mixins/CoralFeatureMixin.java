@@ -43,7 +43,7 @@ public class CoralFeatureMixin {
                     }
                 });
             }
-            else if (random.nextFloat() < 0.1F) {
+            else if (random.nextFloat() < 0.08F) {
                 BuiltInRegistries.BLOCK.getRandomElementOf(ReefBlockTags.SEA_ANEMONES, random).map(Holder::value).ifPresent(block -> level.setBlock(blockPos, block.defaultBlockState(), 2));
             }
             else if (random.nextFloat() < 0.05F) {

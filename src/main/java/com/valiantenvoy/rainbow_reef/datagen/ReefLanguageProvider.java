@@ -37,6 +37,10 @@ public class ReefLanguageProvider extends LanguageProvider {
 
         this.addEntityType(ReefEntities.MAHI_MAHI, "Mahi-mahi");
 
+        this.add("config.jade.plugin_rainbow_reef.reef_mob", "Rainbow Reef Mob Info");
+        this.add("config.jade.plugin_rainbow_reef.dolphin", "Rainbow Reef Dolphin Info");
+        this.add("config.jade.plugin_rainbow_reef.turtle", "Rainbow Reef Turtle Info");
+
         this.add("tooltip.rainbow_reef.burrow_occupant", "%s %s");
 
         this.add("death.attack.rainbow_reef.boxfish_bread", "%s digested a lethal dose of toxins");

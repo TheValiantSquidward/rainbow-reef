@@ -7,7 +7,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.FollowVariantLeaderGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
@@ -40,7 +40,7 @@ public class Butterflyfish extends VariantSchoolingFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FishPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Player.class, 8.0F, 1.6D, 1.4D, EntitySelector.NO_SPECTATORS::test));
-        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 15, 600, ReefTags.BUTTERFLY_DIET));
+        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 15, ReefBlockTags.CORAL_BLOCKS_AND_PLANTS));
         this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 40, 60));
         this.goalSelector.addGoal(4, new FollowVariantLeaderGoal(this));
     }

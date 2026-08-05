@@ -6,7 +6,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.*;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.registry.ReefPoiTypes;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -80,7 +80,7 @@ public class Clownfish extends VariantSchoolingFish {
         this.goalSelector.addGoal(3, new RestInAnemoneGoal(this, 1.1D, 300, 200));
         this.goalSelector.addGoal(4, new MoveToAnemoneGoal(this, 1.2D, 16.0D));
         this.goalSelector.addGoal(5, new LocateAnemoneGoal(this, 200));
-        this.goalSelector.addGoal(6, new FishNibbleBlockGoal(this, 10, ReefTags.CLOWNFISH_DIET));
+        this.goalSelector.addGoal(6, new FishNibbleBlockGoal(this, 10, ReefBlockTags.SEAGRASS));
         this.goalSelector.addGoal(6, new SwimWanderGoal(this, 1.0D, 60, 80));
         this.goalSelector.addGoal(7, new FollowVariantLeaderGoal(this));
     }

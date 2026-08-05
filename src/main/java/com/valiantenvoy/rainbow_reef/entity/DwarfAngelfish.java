@@ -7,7 +7,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishPanicGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -38,7 +38,7 @@ public class DwarfAngelfish extends ReefMob {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FishPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(1, new FishAvoidEntityGoal<>(this, Player.class, 8.0F, 1.5D));
-        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 30, 200, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 30, ReefBlockTags.SPONGES));
         this.goalSelector.addGoal(3, new SwimWanderGoal(this, 1.0D, 10, 30));
     }
 

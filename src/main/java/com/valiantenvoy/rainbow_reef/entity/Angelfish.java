@@ -4,7 +4,7 @@ import com.valiantenvoy.rainbow_reef.RainbowReef;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.*;
 import com.valiantenvoy.rainbow_reef.entity.base.VariantSchoolingFish;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -35,7 +35,7 @@ public class Angelfish extends VariantSchoolingFish {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FishPanicGoal(this, 1.5D));
         this.goalSelector.addGoal(2, new FishAvoidEntityGoal<>(this, Player.class, 6.0F, 1.5D));
-        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 20, 300, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(3, new FishNibbleBlockGoal(this, 20, ReefBlockTags.SPONGES));
         this.goalSelector.addGoal(4, new SwimWanderGoal(this, 1.0D, 50, 70));
         this.goalSelector.addGoal(5, new FollowVariantLeaderGoal(this));
     }

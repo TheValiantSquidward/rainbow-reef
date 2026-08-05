@@ -253,9 +253,15 @@ public abstract class TurtleMixin extends Animal implements TurtleAccess, ReefVa
     @Override
     public void saveToBucketTag(ItemStack stack) {
         Bucketable.saveDefaultDataToBucketTag(this, stack);
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, this::saveVariant);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, (compoundTag) -> {
+            this.saveVariant(compoundTag);
+            compoundTag.putInt("Age", this.getAge());
+            compoundTag.putInt("InLove", this.inLove);
+            if (this.loveCause != null) {
+                compoundTag.putUUID("LoveCause", this.loveCause);
+            }
+        });
         CompoundTag custom = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        this.saveVariant(custom);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(custom));
     }
 
@@ -264,6 +270,13 @@ public abstract class TurtleMixin extends Animal implements TurtleAccess, ReefVa
     public void loadFromBucketTag(CompoundTag compoundTag) {
         Bucketable.loadDefaultDataFromBucketTag(this, compoundTag);
         this.loadVariant(compoundTag);
+        if (compoundTag.contains("Age")) {
+            this.setAge(compoundTag.getInt("Age"));
+        }
+        if (compoundTag.contains("InLove")) {
+            this.inLove = compoundTag.getInt("InLove");
+        }
+        this.loveCause = compoundTag.hasUUID("LoveCause") ? compoundTag.getUUID("LoveCause") : null;
     }
 
     @Override

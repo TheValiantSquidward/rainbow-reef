@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -29,23 +30,14 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
 
         this.tag(BlockTags.CORAL_PLANTS).add(
                 SHELF_CORAL.get(),
-                SHELF_CORAL_FAN.get(),
                 BARREL_CORAL.get(),
-                BARREL_CORAL_FAN.get(),
                 HAND_CORAL.get(),
-                HAND_CORAL_FAN.get(),
                 CHIMNEY_CORAL.get(),
-                CHIMNEY_CORAL_FAN.get(),
                 TOWER_CORAL.get(),
-                TOWER_CORAL_FAN.get(),
                 ROSE_CORAL.get(),
-                ROSE_CORAL_FAN.get(),
                 FLOWER_CORAL.get(),
-                FLOWER_CORAL_FAN.get(),
                 RING_CORAL.get(),
-                RING_CORAL_FAN.get(),
-                BUSH_CORAL.get(),
-                BUSH_CORAL_FAN.get()
+                BUSH_CORAL.get()
         );
 
         this.tag(BlockTags.CORAL_BLOCKS).add(
@@ -58,6 +50,18 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 FLOWER_CORAL_BLOCK.get(),
                 RING_CORAL_BLOCK.get(),
                 BUSH_CORAL_BLOCK.get()
+        );
+
+        this.tag(BlockTags.CORALS).add(
+                SHELF_CORAL_FAN.get(),
+                BARREL_CORAL_FAN.get(),
+                HAND_CORAL_FAN.get(),
+                CHIMNEY_CORAL_FAN.get(),
+                TOWER_CORAL_FAN.get(),
+                ROSE_CORAL_FAN.get(),
+                FLOWER_CORAL_FAN.get(),
+                RING_CORAL_FAN.get(),
+                BUSH_CORAL_FAN.get()
         );
 
         this.tag(BlockTags.WALL_CORALS).add(
@@ -151,6 +155,43 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 TALL_FLOWER_CORAL.get(),
                 TALL_ROSE_CORAL.get(),
                 TALL_SHELF_CORAL.get()
+        );
+
+        this.tag(ReefBlockTags.SEAGRASS).add(
+                Blocks.SEAGRASS,
+                Blocks.TALL_SEAGRASS
+        );
+
+        this.tag(ReefBlockTags.CORAL_BLOCKS_AND_PLANTS).addTags(
+                BlockTags.CORAL_BLOCKS,
+                BlockTags.CORAL_PLANTS,
+                ReefBlockTags.TALL_CORALS
+        );
+
+        this.tag(ReefBlockTags.SPONGES).add(
+                Blocks.SPONGE,
+                Blocks.WET_SPONGE
+        );
+
+        this.tag(ReefBlockTags.OCEAN_SEDIMENTS).addTags(
+                BlockTags.SAND,
+                BlockTags.DIRT,
+                Tags.Blocks.GRAVELS
+        ).add(Blocks.CLAY);
+
+        this.tag(ReefBlockTags.SEAGRASS_AND_SPONGES).addTags(
+                ReefBlockTags.SPONGES,
+                ReefBlockTags.SEAGRASS
+        );
+
+        this.tag(ReefBlockTags.SEAGRASS_AND_CORALS).addTags(
+                ReefBlockTags.CORAL_BLOCKS_AND_PLANTS,
+                ReefBlockTags.SEAGRASS
+        );
+
+        this.tag(ReefBlockTags.OCEAN_SEDIMENTS_AND_CORALS).addTags(
+                ReefBlockTags.CORAL_BLOCKS_AND_PLANTS,
+                ReefBlockTags.OCEAN_SEDIMENTS
         );
     }
 

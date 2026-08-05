@@ -1,69 +1,52 @@
 package com.valiantenvoy.rainbow_reef.events;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.RainbowReefConfig;
 import com.valiantenvoy.rainbow_reef.entity.*;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
-import com.valiantenvoy.rainbow_reef.registry.ReefBlocks;
 import com.valiantenvoy.rainbow_reef.registry.ReefEntities;
-import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.animal.Bucketable;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.BasicItemListing;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation;
-import net.neoforged.neoforge.event.village.VillagerTradesEvent;
-
-import java.util.List;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 @EventBusSubscriber(modid = RainbowReef.MOD_ID)
 public class ModEvents {
 
     @SubscribeEvent
-    public static void addCustomTrades(VillagerTradesEvent event) {
-        if(event.getType() == VillagerProfession.FISHERMAN) {
-            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
+    public static void onInteractEntity(PlayerInteractEvent.EntityInteract event) {
+        Player player = event.getEntity();
+        Entity target = event.getTarget();
+        ItemStack stack = event.getItemStack();
+        InteractionHand hand = event.getHand();
 
-            ItemStack emeraldsExpensive = new ItemStack(Items.EMERALD, 64);
-            ItemStack fishBucket = new ItemStack(ReefItems.TANG_BUCKET.get());
-
-            CustomData.update(DataComponents.BUCKET_ENTITY_DATA, fishBucket, tag -> tag.putInt("BucketVariantTag", 10));
-
-            trades.get(3).add(new BasicItemListing(
-                    emeraldsExpensive,
-                    fishBucket,
-                    1,
-                    30,
-                    0.2f
-            ));
-
-
-        }
-
-        if(event.getType() == VillagerProfession.MASON) {
-            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-
-            ItemStack emeralds = new ItemStack(Items.EMERALD);
-            ItemStack coralStone = new ItemStack(ReefBlocks.POLISHED_CORALSTONE.get(), 4);
-
-            trades.get(2).add(new BasicItemListing(
-                    emeralds,
-                    coralStone,
-                    16,
-                    10,
-                    0.05f
-            ));
-
-
+        if (stack.is(Items.WATER_BUCKET) && target.isAlive() && target.getType() == EntityType.TURTLE && RainbowReefConfig.BUCKETABLE_TURTLES.get()) {
+            target.playSound(((Bucketable) target).getPickupSound(), 1.0F, 1.0F);
+            ItemStack bucketStack = ((Bucketable) target).getBucketItemStack();
+            ((Bucketable) target).saveToBucketTag(bucketStack);
+            ItemStack filledResult = ItemUtils.createFilledResult(stack, player, bucketStack, false);
+            player.setItemInHand(hand, filledResult);
+            if (!target.level().isClientSide) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) player, bucketStack);
+            }
+            target.discard();
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.sidedSuccess(event.getLevel().isClientSide()));
         }
     }
 

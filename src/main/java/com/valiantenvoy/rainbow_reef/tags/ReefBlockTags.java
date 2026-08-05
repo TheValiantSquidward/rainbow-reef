@@ -22,6 +22,15 @@ public class ReefBlockTags {
 
     public static final TagKey<Block> REEF_ROCK_CANNOT_REPLACE = modBlockTag("reef_rock_cannot_replace");
 
+    public static final TagKey<Block> SEAGRASS = modBlockTag("seagrass");
+    public static final TagKey<Block> CORAL_BLOCKS_AND_PLANTS = modBlockTag("coral_blocks_and_plants");
+    public static final TagKey<Block> SPONGES = modBlockTag("sponges");
+    public static final TagKey<Block> OCEAN_SEDIMENTS = modBlockTag("ocean_sediments");
+    public static final TagKey<Block> SEAGRASS_AND_SPONGES = modBlockTag("seagrass_and_sponges");
+    public static final TagKey<Block> SEAGRASS_AND_CORALS = modBlockTag("seagrass_and_corals");
+    public static final TagKey<Block> OCEAN_SEDIMENTS_AND_CORALS = modBlockTag("ocean_sediments_and_corals");
+
+
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(RainbowReef.MOD_ID, name);
     }

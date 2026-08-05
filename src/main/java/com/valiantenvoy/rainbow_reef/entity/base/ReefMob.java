@@ -99,7 +99,7 @@ public abstract class ReefMob extends WaterAnimal implements Bucketable, ReefVar
         super.defineSynchedData(builder);
         builder.define(VARIANT, this.defaultVariant().location().toString());
         builder.define(FROM_BUCKET, false);
-        builder.define(FEED_COOLDOWN, 600 + (4 * this.getRandom().nextInt(600)));
+        builder.define(FEED_COOLDOWN, 800 + this.getRandom().nextInt(800));
         builder.define(LEAPING, false);
     }
 

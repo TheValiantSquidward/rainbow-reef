@@ -21,36 +21,26 @@ public class FishNibbleBlockGoal extends Goal {
     protected int digTime;
     private final int digTimeLimit;
     private int timeOut = 400;
-    private final int cooldown;
     protected BlockPos digPos = null;
     protected TagKey<Block> foodBlocks;
     protected final double speedModifier;
 
-    public FishNibbleBlockGoal(ReefMob mob, TagKey<Block> foodBlocks) {
-        this(mob, 20, 600, foodBlocks, 1.1D);
-    }
-
     public FishNibbleBlockGoal(ReefMob mob, int digTime, TagKey<Block> foodBlocks) {
-        this(mob, digTime, 600, foodBlocks, 1.1D);
+        this(mob, digTime, foodBlocks, 1.1D);
     }
 
-    public FishNibbleBlockGoal(ReefMob mob, int digTime, int cooldown, TagKey<Block> foodBlocks) {
-        this(mob, digTime, cooldown, foodBlocks, 1.1D);
-    }
-
-    public FishNibbleBlockGoal(ReefMob mob, int digTime, int cooldown, TagKey<Block> foodBlocks, double speedModifier) {
+    public FishNibbleBlockGoal(ReefMob mob, int digTime, TagKey<Block> foodBlocks, double speedModifier) {
         this.foodBlocks = foodBlocks;
         this.mob = mob;
         this.digTime = digTime;
         this.digTimeLimit = digTime;
-        this.cooldown = cooldown;
         this.speedModifier = speedModifier;
     }
 
     @Override
     public boolean canUse() {
         if (this.mob.getFeedCooldown() <= 0 && this.mob.isInWater()) {
-            this.mob.setFeedCooldown(600 + this.mob.getRandom().nextInt(600 * 4));
+            this.mob.setFeedCooldown(800 + this.mob.getRandom().nextInt(800));
             this.digPos = this.getDigPos();
             this.timeOut = 800;
             return this.digPos != null;
@@ -81,7 +71,7 @@ public class FishNibbleBlockGoal extends Goal {
 
         this.timeOut--;
 
-        if (dist < mob.getBoundingBox().getXsize() + 1) {
+        if (dist < this.mob.getBoundingBox().getXsize() + 1) {
             this.mob.setYRot(yaw);
             this.mob.setXRot(pitch);
             this.digTime--;
@@ -89,17 +79,17 @@ public class FishNibbleBlockGoal extends Goal {
                 this.mob.getNavigation().stop();
             }
 
-            if (digTime % 5 == 0) {
+            if (this.digTime % 5 == 0) {
                 this.spawnEffectsAtBlock(this.digPos);
-                this.mob.playSound(this.mob.level().getBlockState(this.digPos).getSoundType().getHitSound(), 0.2F, 0.8F + mob.getRandom().nextFloat() * 0.25F);
+                this.mob.playSound(this.mob.level().getBlockState(this.digPos).getSoundType().getHitSound(), 0.1F, 0.8F + this.mob.getRandom().nextFloat() * 0.25F);
             }
 
-            if (digTime <= 0) {
+            if (this.digTime <= 0) {
                 this.digPos = null;
             }
         } else {
-            this.mob.getNavigation().moveTo(((float) digPos.getX()) + 0.5D, digPos.getY(), ((float) digPos.getZ()) + 0.5D, speedModifier);
-            if (timeOut <= 0) {
+            this.mob.getNavigation().moveTo(((float) digPos.getX()) + 0.5D, this.digPos.getY(), ((float) this.digPos.getZ()) + 0.5D, this.speedModifier);
+            if (this.timeOut <= 0) {
                 this.digPos = null;
             }
         }
@@ -107,7 +97,7 @@ public class FishNibbleBlockGoal extends Goal {
 
     @Override
     public void stop() {
-        this.mob.setFeedCooldown(this.cooldown + (this.mob.getRandom().nextInt(this.cooldown * 4)));
+        this.mob.setFeedCooldown(800 + this.mob.getRandom().nextInt(800));
         this.digPos = null;
         this.digTime = this.digTimeLimit;
         this.timeOut = 400;

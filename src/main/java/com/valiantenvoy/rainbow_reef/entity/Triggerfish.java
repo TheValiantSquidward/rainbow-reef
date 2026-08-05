@@ -6,7 +6,7 @@ import com.valiantenvoy.rainbow_reef.entity.ai.goals.FishPanicGoal;
 import com.valiantenvoy.rainbow_reef.entity.ai.goals.SwimWanderGoal;
 import com.valiantenvoy.rainbow_reef.entity.base.ReefMob;
 import com.valiantenvoy.rainbow_reef.registry.ReefItems;
-import com.valiantenvoy.rainbow_reef.tags.ReefTags;
+import com.valiantenvoy.rainbow_reef.tags.ReefBlockTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -47,7 +47,7 @@ public class Triggerfish extends ReefMob {
         this.swimWanderGoal = new SwimWanderGoal(this, 1.0D, 80, 120);
         this.goalSelector.addGoal(0, new FishPanicGoal(this, 1.4D));
         this.goalSelector.addGoal(1, new TriggerfishBitePlayerGoal(this));
-        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 15, 600, ReefTags.ANGELFISH_DIET));
+        this.goalSelector.addGoal(2, new FishNibbleBlockGoal(this, 15, ReefBlockTags.OCEAN_SEDIMENTS));
         this.goalSelector.addGoal(3, this.swimWanderGoal);
     }
 

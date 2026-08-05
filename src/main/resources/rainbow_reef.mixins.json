@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "rainbow_reef.refmap.json",
   "mixins": [
-    "AnimalMixin",
     "ChestBlockEntityMixin",
     "CoralFeatureMixin",
     "DolphinMixin",

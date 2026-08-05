@@ -1,6 +1,7 @@
 package com.valiantenvoy.rainbow_reef.datagen;
 
 import com.valiantenvoy.rainbow_reef.RainbowReef;
+import com.valiantenvoy.rainbow_reef.registry.ReefItems;
 import com.valiantenvoy.rainbow_reef.tags.ReefItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -34,6 +35,8 @@ public class ReefItemTagProvider extends ItemTagsProvider {
         this.tag(ReefItemTags.CRABS).addTag(ReefItemTags.RAINBOW_REEF_CRABS).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "shore_crab")).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "horseshoe_crab"));
 
         this.tag(ItemTags.DYEABLE).add(Items.FISHING_ROD);
+
+        this.tag(ItemTags.TURTLE_FOOD).add(ReefItems.GLOB_OF_JELLY.get());
     }
 
     @Override
