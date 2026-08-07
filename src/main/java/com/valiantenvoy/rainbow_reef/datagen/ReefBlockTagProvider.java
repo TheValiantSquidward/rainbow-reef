@@ -20,8 +20,8 @@ import static com.valiantenvoy.rainbow_reef.registry.ReefBlocks.*;
 
 public class ReefBlockTagProvider extends BlockTagsProvider {
 
-    public ReefBlockTagProvider(PackOutput output, CompletableFuture<Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, RainbowReef.MOD_ID, existingFileHelper);
+    public ReefBlockTagProvider(PackOutput output, CompletableFuture<Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, provider, RainbowReef.MOD_ID, existingFileHelper);
     }
 
     @SuppressWarnings("unchecked")
@@ -116,9 +116,9 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 STONE_BURROW.get(),
                 CORALSTONE_BURROW.get(),
 
-                CORALSTONE.get(),
-                CORALSTONE_BRICKS.get(),
-                POLISHED_CORALSTONE.get(),
+                CORALSTONE.get(), CORALSTONE_STAIRS.get(), CORALSTONE_SLAB.get(), CORALSTONE_WALL.get(),
+                CORALSTONE_BRICKS.get(), CORALSTONE_BRICK_STAIRS.get(), CORALSTONE_BRICK_SLAB.get(), CORALSTONE_BRICK_WALL.get(),
+                POLISHED_CORALSTONE.get(), POLISHED_CORALSTONE_STAIRS.get(), POLISHED_CORALSTONE_SLAB.get(), POLISHED_CORALSTONE_WALL.get(),
                 CHISELED_CORALSTONE.get(),
 
                 SHELF_CORAL_BLOCK.get(),
@@ -192,6 +192,24 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
         this.tag(ReefBlockTags.OCEAN_SEDIMENTS_AND_CORALS).addTags(
                 ReefBlockTags.CORAL_BLOCKS_AND_PLANTS,
                 ReefBlockTags.OCEAN_SEDIMENTS
+        );
+
+        this.tag(BlockTags.SLABS).add(
+                CORALSTONE_SLAB.get(),
+                CORALSTONE_BRICK_SLAB.get(),
+                POLISHED_CORALSTONE_SLAB.get()
+        );
+
+        this.tag(BlockTags.STAIRS).add(
+                CORALSTONE_STAIRS.get(),
+                CORALSTONE_BRICK_STAIRS.get(),
+                POLISHED_CORALSTONE_STAIRS.get()
+        );
+
+        this.tag(BlockTags.WALLS).add(
+                CORALSTONE_WALL.get(),
+                CORALSTONE_BRICK_WALL.get(),
+                POLISHED_CORALSTONE_WALL.get()
         );
     }
 

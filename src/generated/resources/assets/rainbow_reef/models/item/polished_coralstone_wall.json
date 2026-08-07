@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "rainbow_reef:block/polished_coralstone"
+  }
+}

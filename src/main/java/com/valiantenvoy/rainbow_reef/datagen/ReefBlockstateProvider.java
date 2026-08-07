@@ -130,9 +130,19 @@ public class ReefBlockstateProvider extends BlockStateProvider {
         this.tallCoral(TALL_HORN_CORAL);
 
         this.cubeAllBlock(CORALSTONE);
+        this.stairs(CORALSTONE_STAIRS, CORALSTONE);
+        this.slab(CORALSTONE_SLAB, CORALSTONE);
+        this.wall(CORALSTONE_WALL, CORALSTONE);
         this.cubeAllBlock(CORALSTONE_BRICKS);
-        this.cubeAllBlock(CHISELED_CORALSTONE);
+        this.stairs(CORALSTONE_BRICK_STAIRS, CORALSTONE_BRICKS);
+        this.slab(CORALSTONE_BRICK_SLAB, CORALSTONE_BRICKS);
+        this.wall(CORALSTONE_BRICK_WALL, CORALSTONE_BRICKS);
         this.cubeAllBlock(POLISHED_CORALSTONE);
+        this.stairs(POLISHED_CORALSTONE_STAIRS, POLISHED_CORALSTONE);
+        this.slab(POLISHED_CORALSTONE_SLAB, POLISHED_CORALSTONE);
+        this.wall(POLISHED_CORALSTONE_WALL, POLISHED_CORALSTONE);
+        this.cubeAllBlock(CHISELED_CORALSTONE);
+
 
         this.groundBurrow(MUD_BURROW, this.mcLoc("block/mud"));
         this.groundBurrow(SAND_BURROW, this.mcLoc("block/sand"));
@@ -230,19 +240,19 @@ public class ReefBlockstateProvider extends BlockStateProvider {
     }
 
     // block
-    private void stairs(DeferredHolder<Block, Block> stairs, ResourceLocation texture) {
-        this.stairsBlock((StairBlock) stairs.get(), texture);
+    private void stairs(DeferredHolder<Block, Block> stairs, DeferredHolder<Block, Block> block) {
+        this.stairsBlock((StairBlock) stairs.get(), this.blockTexture(block.get()));
         this.itemModel(stairs);
     }
 
-    private void slab(DeferredHolder<Block, Block> slab, ResourceLocation texture) {
-        this.slabBlock((SlabBlock) slab.get(), texture, texture);
+    private void slab(DeferredHolder<Block, Block> slab, DeferredHolder<Block, Block> block) {
+        this.slabBlock((SlabBlock) slab.get(), this.blockTexture(block.get()), this.blockTexture(block.get()));
         this.itemModel(slab);
     }
 
-    private void wall(DeferredHolder<Block, Block> wall, ResourceLocation texture) {
-        this.wallBlock((WallBlock) wall.get(), texture);
-        this.itemModels().wallInventory(getItemName(wall.get()), texture);
+    private void wall(DeferredHolder<Block, Block> wall, DeferredHolder<Block, Block> block) {
+        this.wallBlock((WallBlock) wall.get(), this.blockTexture(block.get()));
+        this.itemModels().wallInventory(getItemName(wall.get()), this.blockTexture(block.get()));
     }
 
     private void simpleCross(DeferredHolder<Block, Block> block) {

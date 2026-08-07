@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_raw_crab": {
+    "has_crab": {
       "conditions": {
         "items": [
           {
-            "items": "#rainbow_reef:rainbow_reef_crabs"
+            "items": "rainbow_reef:crab"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_raw_crab"
+      "has_crab"
     ]
   ],
   "rewards": {

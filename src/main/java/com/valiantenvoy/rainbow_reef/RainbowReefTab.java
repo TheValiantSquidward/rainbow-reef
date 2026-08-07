@@ -294,10 +294,18 @@ public class RainbowReefTab {
                         output.accept(ReefBlocks.FINE_GLASS.get());
 
                         output.accept(ReefBlocks.CORALSTONE.get());
+                        output.accept(ReefBlocks.CORALSTONE_STAIRS.get());
+                        output.accept(ReefBlocks.CORALSTONE_SLAB.get());
+                        output.accept(ReefBlocks.CORALSTONE_WALL.get());
                         output.accept(ReefBlocks.CORALSTONE_BRICKS.get());
+                        output.accept(ReefBlocks.CORALSTONE_BRICK_STAIRS.get());
+                        output.accept(ReefBlocks.CORALSTONE_BRICK_SLAB.get());
+                        output.accept(ReefBlocks.CORALSTONE_BRICK_WALL.get());
                         output.accept(ReefBlocks.POLISHED_CORALSTONE.get());
+                        output.accept(ReefBlocks.POLISHED_CORALSTONE_STAIRS.get());
+                        output.accept(ReefBlocks.POLISHED_CORALSTONE_SLAB.get());
+                        output.accept(ReefBlocks.POLISHED_CORALSTONE_WALL.get());
                         output.accept(ReefBlocks.CHISELED_CORALSTONE.get());
-
 
                         output.accept(ReefBlocks.WHITE_STAINED_SAND.get());
                         output.accept(ReefBlocks.LIGHT_GRAY_STAINED_SAND.get());

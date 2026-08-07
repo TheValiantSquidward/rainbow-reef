@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "item": "rainbow_reef:coralstone_slab"
+    }
+  },
+  "pattern": [
+    "C",
+    "C"
+  ],
+  "result": {
+    "count": 1,
+    "id": "rainbow_reef:chiseled_coralstone"
+  }
+}

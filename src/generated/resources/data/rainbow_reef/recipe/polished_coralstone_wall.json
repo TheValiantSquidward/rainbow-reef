@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": {
+      "item": "rainbow_reef:polished_coralstone"
+    }
+  },
+  "pattern": [
+    "CCC",
+    "CCC"
+  ],
+  "result": {
+    "count": 6,
+    "id": "rainbow_reef:polished_coralstone_wall"
+  }
+}

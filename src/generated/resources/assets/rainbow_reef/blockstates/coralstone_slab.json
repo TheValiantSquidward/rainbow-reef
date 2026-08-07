@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "rainbow_reef:block/coralstone_slab"
+    },
+    "type=double": {
+      "model": "rainbow_reef:block/coralstone"
+    },
+    "type=top": {
+      "model": "rainbow_reef:block/coralstone_slab_top"
+    }
+  }
+}

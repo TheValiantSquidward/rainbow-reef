@@ -6,7 +6,6 @@ import com.valiantenvoy.rainbow_reef.tags.ReefItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -32,7 +31,7 @@ public class ReefItemTagProvider extends ItemTagsProvider {
                 RAW_ARROW_CRAB.get()
         );
 
-        this.tag(ReefItemTags.CRABS).addTag(ReefItemTags.RAINBOW_REEF_CRABS).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "shore_crab")).addOptional(ResourceLocation.fromNamespaceAndPath("seafarer", "horseshoe_crab"));
+        this.tag(ReefItemTags.CRABS).addTag(ReefItemTags.RAINBOW_REEF_CRABS);
 
         this.tag(ItemTags.DYEABLE).add(Items.FISHING_ROD);
 

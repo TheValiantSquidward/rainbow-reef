@@ -25,13 +25,22 @@ public class ReefBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(RainbowReef.MOD_ID);
     public static final List<DeferredBlock<? extends Block>> BLOCK_TRANSLATIONS = new ArrayList<>();
 
-    public static final DeferredBlock<Block> CORALSTONE = registerBlock("coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> CORALSTONE = registerBlock("coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK)));
+    public static final DeferredBlock<Block> CORALSTONE_STAIRS = registerBlock("coralstone_stairs", () -> new StairBlock(CORALSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
+    public static final DeferredBlock<Block> CORALSTONE_SLAB = registerBlock("coralstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
+    public static final DeferredBlock<Block> CORALSTONE_WALL = registerBlock("coralstone_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
 
-    public static final DeferredBlock<Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> CORALSTONE_BRICKS = registerBlock("coralstone_bricks", () -> new Block(BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
+    public static final DeferredBlock<Block> CORALSTONE_BRICK_STAIRS = registerBlock("coralstone_brick_stairs", () -> new StairBlock(CORALSTONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(CORALSTONE_BRICKS.get())));
+    public static final DeferredBlock<Block> CORALSTONE_BRICK_SLAB = registerBlock("coralstone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(CORALSTONE_BRICKS.get())));
+    public static final DeferredBlock<Block> CORALSTONE_BRICK_WALL = registerBlock("coralstone_brick_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(CORALSTONE_BRICKS.get())));
 
-    public static final DeferredBlock<Block> POLISHED_CORALSTONE = registerBlock("polished_coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> POLISHED_CORALSTONE = registerBlock("polished_coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
+    public static final DeferredBlock<Block> POLISHED_CORALSTONE_STAIRS = registerBlock("polished_coralstone_stairs", () -> new StairBlock(POLISHED_CORALSTONE.get().defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(POLISHED_CORALSTONE.get())));
+    public static final DeferredBlock<Block> POLISHED_CORALSTONE_SLAB = registerBlock("polished_coralstone_slab", () -> new SlabBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CORALSTONE.get())));
+    public static final DeferredBlock<Block> POLISHED_CORALSTONE_WALL = registerBlock("polished_coralstone_wall", () -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CORALSTONE.get())));
 
-    public static final DeferredBlock<Block> CHISELED_CORALSTONE = registerBlock("chiseled_coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> CHISELED_CORALSTONE = registerBlock("chiseled_coralstone", () -> new Block(BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
 
     public static final DeferredBlock<Block> BUBBLER = registerBlock("bubbler", () -> new BubblerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND).mapColor(MapColor.SAND).instrument(NoteBlockInstrument.SNARE).strength(0.5F).sound(SoundType.SAND)));
 
@@ -41,7 +50,7 @@ public class ReefBlocks {
     public static final DeferredBlock<Block> MUD_BURROW = registerBurrow("mud_burrow", () -> new BurrowBlock(true, ReefBlockTags.BURROWABLE_MUD, BlockBehaviour.Properties.ofFullCopy(Blocks.MUD)));
     public static final DeferredBlock<Block> SAND_BURROW = registerBurrow("sand_burrow", () -> new BurrowBlock(true, BlockTags.SAND, BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
     public static final DeferredBlock<Block> STONE_BURROW = registerBurrow("stone_burrow", () -> new BurrowBlock(false, BlockTags.BASE_STONE_OVERWORLD, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
-    public static final DeferredBlock<Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow", () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUBBLE_CORAL_BLOCK).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final DeferredBlock<Block> CORALSTONE_BURROW = registerBurrow("coralstone_burrow", () -> new BurrowBlock(false, ReefBlockTags.BURROWABLE_CORALSTONE, BlockBehaviour.Properties.ofFullCopy(CORALSTONE.get())));
 
     public static final DeferredBlock<Block> DEAD_SHELF_CORAL_BLOCK = registerBlock("dead_shelf_coral_block", () -> new Block(ReefBlockProperties.DEAD_CORAL_BLOCK));
     public static final DeferredBlock<Block> DEAD_SHELF_CORAL = registerBlock("dead_shelf_coral", () -> new BaseCoralPlantBlock(ReefBlockProperties.DEAD_CORAL));

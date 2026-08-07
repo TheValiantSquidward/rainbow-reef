@@ -4,7 +4,7 @@
   "cookingtime": 100,
   "experience": 0.35,
   "ingredient": {
-    "tag": "rainbow_reef:rainbow_reef_crabs"
+    "item": "rainbow_reef:crab"
   },
   "result": {
     "count": 1,

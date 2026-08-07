@@ -1,9 +1,12 @@
-// 1.21.1	2026-08-04T19:20:33.9325967	rainbow_reef Block Tags
+// 1.21.1	2026-08-07T13:49:20.753847	rainbow_reef Block Tags
 a152f52e2cd37f5e5a7818dde61ac231beabf841 data/minecraft/tags/block/corals.json
 22f68ce605109a06a42c9181ff22eb2c636858a8 data/minecraft/tags/block/coral_blocks.json
 e82c720842a2eab789d22f5214427bc51c5f60d1 data/minecraft/tags/block/coral_plants.json
-9b79097ecff3fc1781b81233e092000880a1bf5f data/minecraft/tags/block/mineable/pickaxe.json
+ab8b3a69c09555369a1b47c661b1371fad46928e data/minecraft/tags/block/mineable/pickaxe.json
 d1352c58f8dfaeac200ecc5769d6799334fb92c3 data/minecraft/tags/block/mineable/shovel.json
+eb72ac290ccf700de61f50ee96c5ae1bdad4075c data/minecraft/tags/block/slabs.json
+7ae744cfb217e4460960bdb61ad2596fa9a8ca9d data/minecraft/tags/block/stairs.json
+91da048c75485cad4c524595ab62c49654486a44 data/minecraft/tags/block/walls.json
 2717c0b3c561fb9541665b58f8a77294c140d721 data/minecraft/tags/block/wall_corals.json
 ec7412732f475df0f72e24a129f36ea8b1f959a1 data/rainbow_reef/tags/block/burrowable/coralstone.json
 33742694a14bb2697530757a24d4fd44291813bf data/rainbow_reef/tags/block/burrowable/mud.json
