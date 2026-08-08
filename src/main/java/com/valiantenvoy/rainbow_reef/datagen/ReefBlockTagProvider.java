@@ -86,6 +86,62 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
         this.tag(ReefBlockTags.BURROWABLE_MUD).add(Blocks.MUD);
         this.tag(ReefBlockTags.BURROWABLE_CORALSTONE).add(CORALSTONE.get());
 
+        this.tag(ReefBlockTags.STAINED_SAND).add(
+                WHITE_STAINED_SAND.get(),
+                LIGHT_GRAY_STAINED_SAND.get(),
+                GRAY_STAINED_SAND.get(),
+                BLACK_STAINED_SAND.get(),
+                BROWN_STAINED_SAND.get(),
+                RED_STAINED_SAND.get(),
+                ORANGE_STAINED_SAND.get(),
+                YELLOW_STAINED_SAND.get(),
+                LIME_STAINED_SAND.get(),
+                GREEN_STAINED_SAND.get(),
+                CYAN_STAINED_SAND.get(),
+                LIGHT_GRAY_STAINED_SAND.get(),
+                BLUE_STAINED_SAND.get(),
+                PURPLE_STAINED_SAND.get(),
+                MAGENTA_STAINED_SAND.get(),
+                PINK_STAINED_SAND.get(),
+
+                WHITE_STAINED_FINE_SAND.get(),
+                LIGHT_GRAY_STAINED_FINE_SAND.get(),
+                GRAY_STAINED_FINE_SAND.get(),
+                BLACK_STAINED_FINE_SAND.get(),
+                BROWN_STAINED_FINE_SAND.get(),
+                RED_STAINED_FINE_SAND.get(),
+                ORANGE_STAINED_FINE_SAND.get(),
+                YELLOW_STAINED_FINE_SAND.get(),
+                LIME_STAINED_FINE_SAND.get(),
+                GREEN_STAINED_FINE_SAND.get(),
+                CYAN_STAINED_FINE_SAND.get(),
+                LIGHT_GRAY_STAINED_FINE_SAND.get(),
+                BLUE_STAINED_FINE_SAND.get(),
+                PURPLE_STAINED_FINE_SAND.get(),
+                MAGENTA_STAINED_FINE_SAND.get(),
+                PINK_STAINED_FINE_SAND.get()
+        );
+
+        this.tag(ReefBlockTags.PUFFER_LANTERNS).add(
+                PUFFER_LANTERN.get(),
+                WHITE_PUFFER_LANTERN.get(),
+                LIGHT_GRAY_PUFFER_LANTERN.get(),
+                GRAY_PUFFER_LANTERN.get(),
+                BLACK_PUFFER_LANTERN.get(),
+                BROWN_PUFFER_LANTERN.get(),
+                RED_PUFFER_LANTERN.get(),
+                ORANGE_PUFFER_LANTERN.get(),
+                YELLOW_PUFFER_LANTERN.get(),
+                LIME_PUFFER_LANTERN.get(),
+                GREEN_PUFFER_LANTERN.get(),
+                CYAN_PUFFER_LANTERN.get(),
+                LIGHT_GRAY_PUFFER_LANTERN.get(),
+                BLUE_PUFFER_LANTERN.get(),
+                PURPLE_PUFFER_LANTERN.get(),
+                MAGENTA_PUFFER_LANTERN.get(),
+                PINK_PUFFER_LANTERN.get()
+        );
+
         this.tag(ReefBlockTags.STARFISHES).add(
                 CORAL_STARFISH.get(),
                 LAGOON_STARFISH.get(),
@@ -109,7 +165,9 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
         );
 
         this.tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-                MUD_BURROW.get(), SAND_BURROW.get()
+                MUD_BURROW.get(), SAND_BURROW.get(), FINE_SAND.get()
+        ).addTags(
+                ReefBlockTags.STAINED_SAND
         );
 
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
@@ -139,6 +197,8 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
                 DEAD_FLOWER_CORAL_BLOCK.get(),
                 DEAD_RING_CORAL_BLOCK.get(),
                 DEAD_BUSH_CORAL_BLOCK.get()
+        ).addTags(
+                ReefBlockTags.PUFFER_LANTERNS
         );
 
         this.tag(ReefBlockTags.TALL_CORALS).add(
@@ -171,6 +231,10 @@ public class ReefBlockTagProvider extends BlockTagsProvider {
         this.tag(ReefBlockTags.SPONGES).add(
                 Blocks.SPONGE,
                 Blocks.WET_SPONGE
+        );
+
+        this.tag(BlockTags.SAND).add(FINE_SAND.get()).addTags(
+                ReefBlockTags.STAINED_SAND
         );
 
         this.tag(ReefBlockTags.OCEAN_SEDIMENTS).addTags(

@@ -32,6 +32,7 @@
     "rainbow_reef:dead_rose_coral_block",
     "rainbow_reef:dead_flower_coral_block",
     "rainbow_reef:dead_ring_coral_block",
-    "rainbow_reef:dead_bush_coral_block"
+    "rainbow_reef:dead_bush_coral_block",
+    "#rainbow_reef:puffer_lanterns"
   ]
 }

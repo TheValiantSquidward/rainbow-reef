@@ -30,6 +30,9 @@ public class ReefBlockTags {
     public static final TagKey<Block> SEAGRASS_AND_CORALS = modBlockTag("seagrass_and_corals");
     public static final TagKey<Block> OCEAN_SEDIMENTS_AND_CORALS = modBlockTag("ocean_sediments_and_corals");
 
+    public static final TagKey<Block> STAINED_SAND = modBlockTag("stained_sand");
+
+    public static final TagKey<Block> PUFFER_LANTERNS = modBlockTag("puffer_lanterns");
 
     private static TagKey<Block> modBlockTag(String name) {
         return blockTag(RainbowReef.MOD_ID, name);

@@ -54,6 +54,60 @@ public class ReefBlockLootProvider extends BlockLootSubProvider {
         this.dropSelf(POLISHED_CORALSTONE_WALL.get());
 
         this.dropSelf(CHISELED_CORALSTONE.get());
+
+        this.dropSelf(FINE_SAND.get());
+        this.dropSelf(PUFFER_LANTERN.get());
+
+        this.dropSelf(WHITE_STAINED_SAND.get());
+        this.dropSelf(LIGHT_GRAY_STAINED_SAND.get());
+        this.dropSelf(GRAY_STAINED_SAND.get());
+        this.dropSelf(BLACK_STAINED_SAND.get());
+        this.dropSelf(BROWN_STAINED_SAND.get());
+        this.dropSelf(RED_STAINED_SAND.get());
+        this.dropSelf(ORANGE_STAINED_SAND.get());
+        this.dropSelf(YELLOW_STAINED_SAND.get());
+        this.dropSelf(LIME_STAINED_SAND.get());
+        this.dropSelf(GREEN_STAINED_SAND.get());
+        this.dropSelf(CYAN_STAINED_SAND.get());
+        this.dropSelf(LIGHT_BLUE_STAINED_SAND.get());
+        this.dropSelf(BLUE_STAINED_SAND.get());
+        this.dropSelf(PURPLE_STAINED_SAND.get());
+        this.dropSelf(MAGENTA_STAINED_SAND.get());
+        this.dropSelf(PINK_STAINED_SAND.get());
+
+        this.dropSelf(WHITE_STAINED_FINE_SAND.get());
+        this.dropSelf(LIGHT_GRAY_STAINED_FINE_SAND.get());
+        this.dropSelf(GRAY_STAINED_FINE_SAND.get());
+        this.dropSelf(BLACK_STAINED_FINE_SAND.get());
+        this.dropSelf(BROWN_STAINED_FINE_SAND.get());
+        this.dropSelf(RED_STAINED_FINE_SAND.get());
+        this.dropSelf(ORANGE_STAINED_FINE_SAND.get());
+        this.dropSelf(YELLOW_STAINED_FINE_SAND.get());
+        this.dropSelf(LIME_STAINED_FINE_SAND.get());
+        this.dropSelf(GREEN_STAINED_FINE_SAND.get());
+        this.dropSelf(CYAN_STAINED_FINE_SAND.get());
+        this.dropSelf(LIGHT_BLUE_STAINED_FINE_SAND.get());
+        this.dropSelf(BLUE_STAINED_FINE_SAND.get());
+        this.dropSelf(PURPLE_STAINED_FINE_SAND.get());
+        this.dropSelf(MAGENTA_STAINED_FINE_SAND.get());
+        this.dropSelf(PINK_STAINED_FINE_SAND.get());
+
+        this.dropSelf(WHITE_PUFFER_LANTERN.get());
+        this.dropSelf(LIGHT_GRAY_PUFFER_LANTERN.get());
+        this.dropSelf(GRAY_PUFFER_LANTERN.get());
+        this.dropSelf(BLACK_PUFFER_LANTERN.get());
+        this.dropSelf(BROWN_PUFFER_LANTERN.get());
+        this.dropSelf(RED_PUFFER_LANTERN.get());
+        this.dropSelf(ORANGE_PUFFER_LANTERN.get());
+        this.dropSelf(YELLOW_PUFFER_LANTERN.get());
+        this.dropSelf(LIME_PUFFER_LANTERN.get());
+        this.dropSelf(GREEN_PUFFER_LANTERN.get());
+        this.dropSelf(CYAN_PUFFER_LANTERN.get());
+        this.dropSelf(LIGHT_BLUE_PUFFER_LANTERN.get());
+        this.dropSelf(BLUE_PUFFER_LANTERN.get());
+        this.dropSelf(PURPLE_PUFFER_LANTERN.get());
+        this.dropSelf(MAGENTA_PUFFER_LANTERN.get());
+        this.dropSelf(PINK_PUFFER_LANTERN.get());
     }
 
     private Builder burrowDrop(Block burrow, Block base) {

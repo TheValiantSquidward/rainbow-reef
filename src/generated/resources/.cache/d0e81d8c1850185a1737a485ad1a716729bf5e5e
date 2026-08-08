@@ -1,9 +1,10 @@
-// 1.21.1	2026-08-07T13:49:20.753847	rainbow_reef Block Tags
+// 1.21.1	2026-08-08T15:11:28.2800127	rainbow_reef Block Tags
 a152f52e2cd37f5e5a7818dde61ac231beabf841 data/minecraft/tags/block/corals.json
 22f68ce605109a06a42c9181ff22eb2c636858a8 data/minecraft/tags/block/coral_blocks.json
 e82c720842a2eab789d22f5214427bc51c5f60d1 data/minecraft/tags/block/coral_plants.json
-ab8b3a69c09555369a1b47c661b1371fad46928e data/minecraft/tags/block/mineable/pickaxe.json
-d1352c58f8dfaeac200ecc5769d6799334fb92c3 data/minecraft/tags/block/mineable/shovel.json
+1756e090a952c55beca28b073866420a5e8a79a5 data/minecraft/tags/block/mineable/pickaxe.json
+c3ca32a9980082f9045f38f853e96b1361459259 data/minecraft/tags/block/mineable/shovel.json
+d24c1cb6a3568673cb887aceb53e069da6474513 data/minecraft/tags/block/sand.json
 eb72ac290ccf700de61f50ee96c5ae1bdad4075c data/minecraft/tags/block/slabs.json
 7ae744cfb217e4460960bdb61ad2596fa9a8ca9d data/minecraft/tags/block/stairs.json
 91da048c75485cad4c524595ab62c49654486a44 data/minecraft/tags/block/walls.json
@@ -15,12 +16,14 @@ f6e0a8fbc109e0a9df0455c2fb50879498939d36 data/rainbow_reef/tags/block/coral_bloc
 d1352c58f8dfaeac200ecc5769d6799334fb92c3 data/rainbow_reef/tags/block/ground_burrows.json
 daafcd7ff04b6e83cfc99908fdefaf68f37dbbae data/rainbow_reef/tags/block/ocean_sediments.json
 047077a0b92deedd9b8e05ee8111a5b59e30ff59 data/rainbow_reef/tags/block/ocean_sediments_and_corals.json
+2b9077ede3710910110bc940aaa5095538518aef data/rainbow_reef/tags/block/puffer_lanterns.json
 5cb535f23b0ee87593955f8a5fff92f4371493c5 data/rainbow_reef/tags/block/reef_rock_cannot_replace.json
 96607d0db1697a21f07568b58c4f2d3a5e0a9ec5 data/rainbow_reef/tags/block/seagrass.json
 ae84450f00d30ed27963254950696e64dc8d7e93 data/rainbow_reef/tags/block/seagrass_and_corals.json
 6fd502464dc1a5d06bb2c9e3fb886968b7dbe2dd data/rainbow_reef/tags/block/seagrass_and_sponges.json
 cb9b05c3a2ba77df8fcdd3ab5fc93d36d7cb28ec data/rainbow_reef/tags/block/sea_anemones.json
 dae88780f3bd6fec112fd2564e42c4e0d81ccba6 data/rainbow_reef/tags/block/sponges.json
+6f581ab1e0f328ece65d0da345e3fd40c58bdbd5 data/rainbow_reef/tags/block/stained_sand.json
 1966d9b4a84eb4fddad76b2e8154fc5507ac9eea data/rainbow_reef/tags/block/starfishes.json
 0d4010c71d5b52f84ab8f21d2ae3de468085374d data/rainbow_reef/tags/block/tall_corals.json
 d3c5e6a9576e0f3aa97ebc0db1af126e94eb30cb data/rainbow_reef/tags/block/wall_burrows.json

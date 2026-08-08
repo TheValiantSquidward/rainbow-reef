@@ -1,6 +1,8 @@
 {
   "values": [
     "rainbow_reef:mud_burrow",
-    "rainbow_reef:sand_burrow"
+    "rainbow_reef:sand_burrow",
+    "rainbow_reef:fine_sand",
+    "#rainbow_reef:stained_sand"
   ]
 }

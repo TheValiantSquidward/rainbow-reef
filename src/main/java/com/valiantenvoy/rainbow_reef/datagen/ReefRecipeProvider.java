@@ -83,10 +83,6 @@ public class ReefRecipeProvider extends RecipeProvider implements IConditionBuil
         return BuiltInRegistries.ITEM.getKey(object.asItem()).getPath();
     }
 
-    private static ResourceLocation getSaveLocation(ItemLike item) {
-        return BuiltInRegistries.ITEM.getKey(item.asItem());
-    }
-
     private static ResourceLocation getSaveLocation(String name) {
         return RainbowReef.location(name);
     }
