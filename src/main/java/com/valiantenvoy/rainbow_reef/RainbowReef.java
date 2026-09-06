@@ -48,7 +48,6 @@ public class RainbowReef {
         ReefPoiTypes.POI_TYPES.register(modEventBus);
         ReefSoundEvents.SOUND_EVENTS.register(modEventBus);
         ReefParticleTypes.PARTICLE_TYPES.register(modEventBus);
-        ReefBiomeModifierTypes.BIOME_MODIFIERS.register(modEventBus);
         RainbowReefTab.CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
@@ -97,9 +96,6 @@ public class RainbowReef {
     public void addPackFinders(AddPackFindersEvent event) {
         if (event.getPackType() == PackType.CLIENT_RESOURCES) {
             event.addPackFinders(location("resourcepacks/water_tweaks"), PackType.CLIENT_RESOURCES, Component.literal("Rainbow Reef Water Tweaks"), PackSource.BUILT_IN, true, Pack.Position.TOP);
-        }
-        if (event.getPackType() == PackType.SERVER_DATA) {
-            event.addPackFinders(location("datapacks/water_colors"), PackType.SERVER_DATA, Component.literal("Rainbow Reef Water Color Overrides"), PackSource.BUILT_IN, true, Pack.Position.TOP);
         }
     }
 }
