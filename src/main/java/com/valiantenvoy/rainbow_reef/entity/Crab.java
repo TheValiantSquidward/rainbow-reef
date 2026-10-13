@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -196,12 +198,13 @@ public class Crab extends ReefMob {
 
     @SuppressWarnings("unused")
     public static boolean checkSpawnRules(EntityType<? extends Crab> animal, LevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        boolean waterSolid = level.getFluidState(pos).is(FluidTags.WATER) && level.getBlockState(pos.below()).isSolidRender(level, pos.below());
+        boolean solid = level.getBlockState(pos.below()).isSolidRender(level, pos.below());
+        boolean waterSolid = level.getFluidState(pos).is(FluidTags.WATER) && solid;
         if (level.canSeeSky(pos)) {
-            return level.getBlockState(pos.below()).isSolidRender(level, pos.below()) || waterSolid;
+            return solid && level.getBrightness(LightLayer.BLOCK, pos) <= 0;
         }
         else {
-            return waterSolid;
+            return waterSolid && level.getBlockState(pos.below()).is(BlockTags.SAND) && level.getBrightness(LightLayer.BLOCK, pos) <= 0;
         }
     }
 

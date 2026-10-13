@@ -108,6 +108,63 @@ public class ReefBlockLootProvider extends BlockLootSubProvider {
         this.dropSelf(PURPLE_PUFFER_LANTERN.get());
         this.dropSelf(MAGENTA_PUFFER_LANTERN.get());
         this.dropSelf(PINK_PUFFER_LANTERN.get());
+
+        this.dropSelf(PINK_SEA_ANEMONE.get());
+        this.dropSelf(BROWN_SEA_ANEMONE.get());
+        this.dropSelf(PURPLE_SEA_ANEMONE.get());
+        this.dropSelf(MAGENTA_SEA_ANEMONE.get());
+        this.dropSelf(RED_SEA_ANEMONE.get());
+
+        this.add(SHELF_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_SHELF_CORAL_BLOCK));
+        this.add(BARREL_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_BARREL_CORAL_BLOCK));
+        this.add(HAND_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_HAND_CORAL_BLOCK));
+        this.add(CHIMNEY_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_CHIMNEY_CORAL_BLOCK));
+        this.add(TOWER_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_TOWER_CORAL_BLOCK));
+        this.add(ROSE_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_ROSE_CORAL_BLOCK));
+        this.add(FLOWER_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_FLOWER_CORAL_BLOCK));
+        this.add(BUSH_CORAL_BLOCK.get(), block -> this.createSingleItemTableWithSilkTouch(block, DEAD_BUSH_CORAL_BLOCK));
+
+        this.dropWhenSilkTouch(SHELF_CORAL.get());
+        this.dropWhenSilkTouch(BARREL_CORAL.get());
+        this.dropWhenSilkTouch(HAND_CORAL.get());
+        this.dropWhenSilkTouch(CHIMNEY_CORAL.get());
+        this.dropWhenSilkTouch(TOWER_CORAL.get());
+        this.dropWhenSilkTouch(ROSE_CORAL.get());
+        this.dropWhenSilkTouch(FLOWER_CORAL.get());
+        this.dropWhenSilkTouch(BUSH_CORAL.get());
+
+        this.dropWhenSilkTouch(DEAD_SHELF_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_BARREL_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_HAND_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_CHIMNEY_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_TOWER_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_ROSE_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_FLOWER_CORAL.get());
+        this.dropWhenSilkTouch(DEAD_BUSH_CORAL.get());
+
+        this.dropWhenSilkTouch(SHELF_CORAL_FAN.get());
+        this.dropWhenSilkTouch(BARREL_CORAL_FAN.get());
+        this.dropWhenSilkTouch(HAND_CORAL_FAN.get());
+        this.dropWhenSilkTouch(CHIMNEY_CORAL_FAN.get());
+        this.dropWhenSilkTouch(TOWER_CORAL_FAN.get());
+        this.dropWhenSilkTouch(ROSE_CORAL_FAN.get());
+        this.dropWhenSilkTouch(FLOWER_CORAL_FAN.get());
+        this.dropWhenSilkTouch(BUSH_CORAL_FAN.get());
+
+        this.dropWhenSilkTouch(DEAD_SHELF_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_BARREL_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_HAND_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_CHIMNEY_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_TOWER_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_ROSE_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_FLOWER_CORAL_FAN.get());
+        this.dropWhenSilkTouch(DEAD_BUSH_CORAL_FAN.get());
+
+        this.dropWhenSilkTouch(FINE_GLASS.get());
+
+        this.dropSelf(BUBBLER.get());
+
+        this.dropSelf(JELLY_BLOCK.get());
     }
 
     private Builder burrowDrop(Block burrow, Block base) {
